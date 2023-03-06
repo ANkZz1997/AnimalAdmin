@@ -22,6 +22,11 @@ export const userLoginAction = (data, callback) => ({
     data,
   });
 
+  export const adminUserNameAction =(data)=>({
+    type: userLogin.USER_NAME,
+    data,
+  });
+
   export const dashboardAction = (callBack) => ({
     type: userData.GET_DASHBOARD,
     callBack,

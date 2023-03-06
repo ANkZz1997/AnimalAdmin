@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { BiMenu } from 'react-icons/bi'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
 
@@ -8,7 +9,8 @@ export default function Topbar() {
 
   const [toggle,setToggle] = useState(false)
 
-  console.log("toggle",toggle)
+  const userCheck = useSelector((state)=>state?.persistReducer?.username)
+
   return (
     <Root>
       <div className="admin_profile">
@@ -23,7 +25,7 @@ export default function Topbar() {
         />
         &#160;&#160;
         <div className="notify_parent">
-          Welcome Back Ankit
+          Welcome Back {userCheck}
           <p>@Admin121</p>
           <div className="notify_child"> 21</div>
         </div>
@@ -67,6 +69,7 @@ z-index:5;
         font-weight: 600;
         font-size: 18px;
         position: relative;
+        text-transform: capitalize;
         .notify_child {
           position: absolute;
           top: 0;

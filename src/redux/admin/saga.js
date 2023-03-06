@@ -1,5 +1,5 @@
 
-import { adminAction, checkUserAction } from "./action";
+import { adminAction, adminUserNameAction, checkUserAction } from "./action";
 import {
     all,
     call,
@@ -31,6 +31,7 @@ function* loginUser({ data, callback }) {
             yield put(checkUserAction(true));
             localStorage.setItem('token', response?.data?.data?.token);
             callback(response?.data);
+            yield put(adminUserNameAction(response?.data?.data?.username));
             // yield put(adminAction(response));
             cogoToast.success('Login Successfull');
             // window.location.replace("/dashboard")

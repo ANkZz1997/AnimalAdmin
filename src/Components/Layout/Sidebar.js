@@ -19,6 +19,7 @@ export default function Sidebar() {
 
   const [activeTab,setActiveTab] = useState("dashboard")
   const dispatch = useDispatch()
+  const userCheck = useSelector((state)=>state?.persistReducer?.username)
 
   const userLogoutAction = ()=>{
     dispatch(checkUserAction(false))
@@ -69,8 +70,8 @@ export default function Sidebar() {
           />
           &#160;&#160;
           <div className='admin_details'>
-            Dummy Name
-            <p>Admin</p>
+            {userCheck}
+            <p>@Admin121</p>
         </div>
         </div>
         <Link to ='/' className={activeTab=="help"?"link_2 active":"link_2"} onClick={()=>setActiveTab("help")}><FiHelpCircle/><h3>Help</h3></Link>
@@ -141,6 +142,7 @@ height: 100%;
       font-weight: 600;
       font-size: 18px;
       color: black;
+      text-transform: capitalize;
 
       p{
         font-size: 12px;

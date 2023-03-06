@@ -8,7 +8,7 @@ import Topbar from './Topbar'
 
 export default function Layout({children}) {
     const userCheck = useSelector((state)=>state?.persistReducer?.isUser)
-    console.log('Auth',userCheck)
+    // console.log('Auth',userCheck)
   
   return (
     <Root>
