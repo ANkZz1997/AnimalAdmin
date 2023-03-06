@@ -146,6 +146,7 @@ const Root = styled.section`
         height: 25px;
         width: 25px;
         border-radius: 50%;
+        object-fit: cover;
       }
     }
   }

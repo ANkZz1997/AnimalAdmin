@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import axios from 'axios';
 import URLS from '../../utils/urls';
 import { Link } from 'react-router-dom';
+import Goerli from '../../Assets/Goerli.png';
+import polygon from '../../Assets/polygon.svg';
+import bnb from '../../Assets/bnb.svg'
 
 
 export default function MarketplaceCard(data) {
@@ -40,6 +43,8 @@ export default function MarketplaceCard(data) {
   return (
     <Root>
       <div className="card_section">
+      <span className='chain_id'>{items?.nft?.chainId=="5"?<img src={Goerli}/>:(items?.nft?.chainId=="97"?<img src={bnb}/>:
+      (items?.nft?.chainId=="80001"?<img src={polygon}/>:""))}</span>
         {items?.status == 'PORTFOLIO' ? (
           ''
         ) : (
@@ -169,6 +174,15 @@ const Root = styled.section`
       color: white;
       right: 0;
       padding: 2px;
+    }
+    span.chain_id{
+      position: absolute;
+      border-radius: 50%;
+      img{
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+      }
     }
   }
 `;
