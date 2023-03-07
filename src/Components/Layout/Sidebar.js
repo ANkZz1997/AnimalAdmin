@@ -75,7 +75,7 @@ export default function Sidebar() {
         </div>
         </div>
         <Link to ='/' className={activeParam=="help"?"link_2 active":"link_2"} onClick={()=>setActiveTab("help")}><FiHelpCircle/><h3>Help</h3></Link>
-        <Link to ='/'className={activeParam=="settings"?"link_2 active":"link_2"} onClick={()=>setActiveTab("settings")}><FiSettings/><h3>Settings</h3></Link>
+        <Link to ='/appsettings'className={activeParam=="appsettings"?"link_2 active":"link_2"} onClick={()=>setActiveTab("appsettings")}><FiSettings/><h3>App Settings</h3></Link>
         <button onClick={()=>{dispatch(userLogoutAction())}} className='link_2'><FiLogOut/><h3>Logout</h3></button>
 
       </div>
