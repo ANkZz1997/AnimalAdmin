@@ -27,6 +27,7 @@ function AuctionsData() {
   };
 
   useEffect(() => {
+    const data = {"populate": ["user","nft"]}
     const nftObj = [
       { endTime: { contains: searchText } },
       { id: { contains: searchText } },
@@ -42,11 +43,14 @@ function AuctionsData() {
           sorting: sort,
           order: order,
         },
+        data,
         nftObj,
         callBack,
       ),
     );
   }, [activePage, sort, order, searchText]);
+
+  console.log("auctiondata",auctionData)
 
   return (
     <Root>

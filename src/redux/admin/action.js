@@ -62,16 +62,18 @@ export const userLoginAction = (data, callback) => ({
     callback,
   });
 
-  export const marketPlaceAction = (params, obj, callback) => ({
+  export const marketPlaceAction = (params,data, obj, callback) => ({
     type: userData.GET_MARKETPLACE_ITEM_LIST,
     params,
+    data,
     obj,
     callback,
   });
   
-  export const auctionsAction = (params, obj, callback) => ({
+  export const auctionsAction = (params,data, obj, callback) => ({
     type: userData.GET_AUCTIONS_LIST,
     params,
+    data,
     obj,
     callback,
   });

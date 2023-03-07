@@ -111,7 +111,7 @@ function KycDetails() {
               <tbody>
                 {kycData?.records.map((i, ix) => {
                   return (
-                    <tr>
+                    <tr key={ix}>
                       <KycUsers items={i} indx={ix} />
                       <td className="select_cell">
                         <select
@@ -252,7 +252,7 @@ const Root = styled.section`
       width: 100%;
       height: 100%;
       backdrop-filter: blur(8px);
-      z-index: 9;
+      z-index: 999;
       display: flex;
       justify-content: center;
       align-items: center;

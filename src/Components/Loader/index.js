@@ -5,7 +5,7 @@ function LoaderCSS() {
   return (
     <Root>
       {/* <div className="loader"></div> */}
-      <div class="dots-bars-4"></div>
+      <div className="dots-bars-4"></div>
     </Root>
   );
 }

@@ -29,6 +29,7 @@ export default function MarketPlaceData() {
   };
 
   useEffect(() => {
+    const data = {"populate": ["user","nft"]}
     const nftObj = [
       // { user: { contains: searchText } },
       // { nft.category: { contains: searchText } },
@@ -43,6 +44,7 @@ export default function MarketPlaceData() {
           sorting: sort,
           order: order,
         },
+        data,
         nftObj,
         callBack,
       ),

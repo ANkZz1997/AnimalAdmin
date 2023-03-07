@@ -136,7 +136,7 @@ function* userActivities({ params, callback, obj }) {
 }
 
 function* getNftData({ params,data, obj, callback }) {
-    console.log("datadata",data)
+    // console.log("datadata",data)
 
     try {
         const response = yield httpPost(
@@ -156,11 +156,11 @@ function* getNftData({ params,data, obj, callback }) {
     }
 }
 
-function* getMarketplaceData({ params, obj, callback }) {
+function* getMarketplaceData({ params,data, obj, callback }) {
 
     try {
         const response = yield httpPost(
-            `${URLS.EXCHANGE.ADMIN.GET_MARKETPLACE_ITEM_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,
+            `${URLS.EXCHANGE.ADMIN.GET_MARKETPLACE_ITEM_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,data,
             { or: obj },
         );
         if (response?.status === 200) {
@@ -176,11 +176,11 @@ function* getMarketplaceData({ params, obj, callback }) {
     }
 }
 
-function* getAuctionData({ params, obj, callback }) {
+function* getAuctionData({ params,data, obj, callback }) {
 
     try {
         const response = yield httpPost(
-            `${URLS.EXCHANGE.ADMIN.GET_AUCTIONS_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,
+            `${URLS.EXCHANGE.ADMIN.GET_AUCTIONS_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,data,
             { or: obj },
         );
         if (response?.status === 200) {

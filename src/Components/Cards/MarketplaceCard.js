@@ -15,28 +15,10 @@ export default function MarketplaceCard(data) {
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
-  const getUserDetails = async (id) => {
-    try {
-      let axiosConfig = {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      };
-
-      await axios
-        .get(`${URLS.EXCHANGE.ADMIN.GET_USER_DETAILS}${id}`, axiosConfig)
-        .then((res) => {
-          setUser(res.data.data);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
     if (data.data) {
-      setItems(data.data);
-      getUserDetails(data.data.user);
+      setItems(data?.data);
+      setUser(data?.data?.user)
     }
   }, [data]);
 

@@ -26,8 +26,9 @@ export default function UserListCard({ data }) {
           {data?.map((i, ix) => {
             return (
               <tr className="table_data" key={ix}>
-                <Link to={`/user/userdetails/${i?.id}`}>
                   <td className="user_details">
+                <Link to={`/user/userdetails/${i?.id}`}>
+
                     <div className="user_img">
                       <img
                         src={
@@ -45,8 +46,9 @@ export default function UserListCard({ data }) {
                       </h2>
                       <h3>{i?.email ? i.email : 'N/A'}</h3>
                     </div>
-                  </td>
                 </Link>
+
+                  </td>
 
                 <td data-label="Created On" className="date">{`${moment(
                   i?.createdAt,
@@ -80,7 +82,8 @@ const Root = styled.section`
     }
 
     .user_details {
-      display: flex;
+      a{
+        display: flex;
       align-items: center;
       gap: 20px;
       width: 100%;
@@ -121,6 +124,9 @@ const Root = styled.section`
         }
       }
     }
+
+      }
+    
     @media (max-width: 575px) {
       td,
       th {

@@ -29,7 +29,7 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
               : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
           }
           size="medium"
-          centered
+          // centered
           className="image_style"
         />
 

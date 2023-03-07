@@ -40,8 +40,6 @@ function KycUsers({ items, indx }) {
     getUserDetails(items?.user);
   }, [items]);
 
-  console.log('docs', docs.length);
-
   return (
     <>
       <td scope="row" className="s_no" data-label="S.No">
