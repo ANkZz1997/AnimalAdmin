@@ -24,6 +24,7 @@ import JoinTodayId from "./Pages/JoinedToday";
 import UserChatDetailsId from "./Pages/ChatDetails";
 import MarketplaceDetailsId from "./Pages/MarketplaceDetails";
 import AppSettings from "./Pages/AppSettings";
+import BannerSettings from "./Pages/BannerSettings";
 
 
 
@@ -48,6 +49,8 @@ function App() {
             <Route path="/chatsupport" element={ <Protected > <Chatsupport/> </Protected> } />
             <Route path="/help" element={ <Protected > <Help /> </Protected> } />
             <Route path="/appsettings" element={ <Protected > <AppSettings /> </Protected> } />
+            <Route path="/appsettings/bannersettings" element={ <Protected > <BannerSettings/> </Protected> } />
+
 
             <Route path="/user/userdetails/:id" element={ <Protected > <UserDetails /> </Protected> } />
             <Route path="/nfts/nftdetails/:id" element={ <Protected > <NftDetailsId/> </Protected> } />

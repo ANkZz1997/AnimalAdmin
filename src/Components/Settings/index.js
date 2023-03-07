@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export default function index() {
@@ -8,7 +9,11 @@ export default function index() {
     <table>
         <tbody>
             <tr>
-                <td><h4>Banner Settings in Mobile Application {">"}</h4></td>
+                <td>
+                <Link to={"/appsettings/bannersettings"}>
+                    <h4>Banner Settings in Mobile Application {">"}</h4>
+                </Link>
+                </td>
             </tr>
             <tr>
                 <td><h4>Settings 2 {">"}</h4></td>
@@ -41,6 +46,10 @@ table{
         border-radius: 5px;
         :hover{
             background-color: grey;
+        }
+        a{
+            width: 100%;
+            color: whitesmoke;
         }
     }
 
