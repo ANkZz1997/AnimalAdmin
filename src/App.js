@@ -49,12 +49,12 @@ function App() {
             <Route path="/settings" element={ <Protected > <Settings /> </Protected> } />
 
             <Route path="/user/userdetails/:id" element={ <Protected > <UserDetails /> </Protected> } />
-            <Route path="/user/nftdetails/:id" element={ <Protected > <NftDetailsId/> </Protected> } />
-            <Route path="/user/auctiondetails/:id" element={ <Protected > <AuctionDetailsId/> </Protected> } />
-            <Route path="/user/dashboarddetails/:id" element={ <Protected > <DashboardDetailsId/> </Protected> } />
-            <Route path="/user/joinedtoday" element={ <Protected > <JoinTodayId/> </Protected> } />
-            <Route path="user/marketplacedetails/:id" element={<Protected > <MarketplaceDetailsId/> </Protected> }/>
-            <Route path="/user/userchatdetails/:id" element={ <Protected > <UserChatDetailsId/> </Protected> } />
+            <Route path="/nfts/nftdetails/:id" element={ <Protected > <NftDetailsId/> </Protected> } />
+            <Route path="/auction/auctiondetails/:id" element={ <Protected > <AuctionDetailsId/> </Protected> } />
+            <Route path="/dashboard/dashboarddetails/:id" element={ <Protected > <DashboardDetailsId/> </Protected> } />
+            <Route path="/dashboard/joinedtoday" element={ <Protected > <JoinTodayId/> </Protected> } />
+            <Route path="marketplace/marketplacedetails/:id" element={<Protected > <MarketplaceDetailsId/> </Protected> }/>
+            <Route path="/chatsupport/userchatdetails/:id" element={ <Protected > <UserChatDetailsId/> </Protected> } />
             <Route path='*' element={ <Protected > <Dashboard /> </Protected> }/> 
           </Routes>
     </Layout>

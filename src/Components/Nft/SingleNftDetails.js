@@ -287,6 +287,8 @@ const Root = styled.section`
       }
       span.chain_id{
       position: absolute;
+      top: 12px;
+      left: 12px;
       /* border-radius: 50%; */
       .chain_img{
         height: 35px;

@@ -54,9 +54,10 @@ export const userLoginAction = (data, callback) => ({
   });
   
 
-  export const nftDataAction = (params, obj, callback) => ({
+  export const nftDataAction = (params,data, obj, callback) => ({
     type: userData.GET_NFTS_LIST,
     params,
+    data,
     obj,
     callback,
   });

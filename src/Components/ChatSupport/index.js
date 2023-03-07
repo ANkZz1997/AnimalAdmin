@@ -142,7 +142,7 @@ function ChatSupport() {
                             as={`/userchatdetails/${i.id}`}
                           > */}
                                 <td className="chat_link">
-                            <Link to={`/user/userchatdetails/${i?.id}`}>
+                            <Link to={`/chatsupport/userchatdetails/${i?.id}`}>
 
                                     Click To Chat
                             </Link>

@@ -50,7 +50,7 @@ export default function AuctionCard(data) {
             href="/auctiondetails/[auctiondetails]"
             as={`/auctiondetails/${items?.id}`}
           > */}
-          <Link to={`/user/auctiondetails/${items?.id}`}>
+          <Link to={`/auction/auctiondetails/${items?.id}`}>
             <img src={`${IMAGE_END_POINT}${items?.nft?.media}`} />
           </Link>
         </div>

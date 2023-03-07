@@ -15,28 +15,10 @@ export default function NftCard(data) {
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
-  const getUserDetails = async (id) => {
-    try {
-      let axiosConfig = {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      };
-
-      await axios
-        .get(`${URLS.EXCHANGE.ADMIN.GET_USER_DETAILS}${id}`, axiosConfig)
-        .then((res) => {
-          setUser(res?.data?.data);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
     if (data.data) {
       setItems(data.data);
-      getUserDetails(data.data.user);
+      setUser(data.data.user);
     }
   }, [data]);
 
@@ -52,7 +34,7 @@ export default function NftCard(data) {
         ) : (
           <span className="status">{items?.status}</span>
         )}
-        <Link to={`/user/nftdetails/${items?.id}`}>
+        <Link to={`/nfts/nftdetails/${items?.id}`}>
 
           <div className="image_style">
             <img src={`${IMAGE_END_POINT}${items?.media}`} />
@@ -60,7 +42,7 @@ export default function NftCard(data) {
         </Link>
         <div className="card_details">
           <div className="content_user">
-          <Link to={`/user/userdetails/${items?.user}`}>
+          <Link to={`/user/userdetails/${items?.user?.id}`}>
               <img
                 src={
                   user?.avatar

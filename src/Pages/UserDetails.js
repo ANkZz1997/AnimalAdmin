@@ -45,6 +45,7 @@ function UserDetailsId() {
     }
   };
   const getNftDetails = () => {
+    const data ={}
     const nftObj = [{ user: ids }];
     dispatch(
       nftDataAction(
@@ -54,6 +55,7 @@ function UserDetailsId() {
           sorting: 'createdAt',
           order: 'DESC',
         },
+        data,
         nftObj,
         callBack,
       ),

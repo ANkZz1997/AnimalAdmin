@@ -54,7 +54,7 @@ export default function MarketplaceCard(data) {
           href="/marketplacedetails/[marketplacedetails]"
           as={`/marketplacedetails/${items?.id}`}
         > */}
-        <Link to={`/user/marketplacedetails/${items?.id}`}>
+        <Link to={`/marketplace/marketplacedetails/${items?.id}`}>
           <div className="image_style">
             <img src={`${IMAGE_END_POINT}${items?.nft?.media}`} />
           </div>

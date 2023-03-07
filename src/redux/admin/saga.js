@@ -135,11 +135,12 @@ function* userActivities({ params, callback, obj }) {
     }
 }
 
-function* getNftData({ params, obj, callback }) {
+function* getNftData({ params,data, obj, callback }) {
+    console.log("datadata",data)
 
     try {
         const response = yield httpPost(
-            `${URLS.EXCHANGE.ADMIN.GET_NFTS_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,
+            `${URLS.EXCHANGE.ADMIN.GET_NFTS_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,data,
             { or: obj },
         );
         if (response?.status === 200) {

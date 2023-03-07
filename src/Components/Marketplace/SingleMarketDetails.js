@@ -8,6 +8,9 @@ import LoaderCSS from '../Loader';
 import URLS from '../../utils/urls';
 import cogoToast from 'cogo-toast';
 import { Link } from 'react-router-dom';
+import Goerli from '../../Assets/Goerli.png';
+import polygon from '../../Assets/polygon.svg';
+import bnb from '../../Assets/bnb.svg'
 
 
 function MarketplaceDetails({ details }) {
@@ -114,6 +117,8 @@ function MarketplaceDetails({ details }) {
               </div>
             </div>
             <div className="image_box">
+            <span className='chain_id'>{marketplaceData?.nft?.chainId=="5"?<img src={Goerli} className="chain_img"/>:(marketplaceData?.nft?.chainId=="97"?<img src={bnb}  className="chain_img"/>:
+      (marketplaceData?.nft?.chainId=="80001"?<img src={polygon}  className="chain_img"/>:""))}</span>
               <img src={`${IMAGE_END_POINT}${marketplaceData?.nft?.media}`} />
 
               {/* <div className="nft_highlights">
@@ -149,6 +154,10 @@ function MarketplaceDetails({ details }) {
                       <Table.Cell collapsing>Category</Table.Cell>
                       <Table.Cell>{marketplaceData?.nft?.category}</Table.Cell>
                     </Table.Row>
+                    <Table.Row>
+                    <Table.Cell collapsing>Chain</Table.Cell>
+                    <Table.Cell>{marketplaceData?.nft?.chainId=="5"?"Goerli":(marketplaceData?.nft?.chainId=="97"?"BNB":(marketplaceData?.nft?.chainId=="80001"?"Polygon":"None"))}</Table.Cell>
+                  </Table.Row>
                     <Table.Row>
                       <Table.Cell collapsing>Collection</Table.Cell>
                       <Table.Cell>
@@ -289,6 +298,7 @@ const Root = styled.section`
     .image_box {
       width: 100%;
       flex: 1;
+      position: relative;
       img {
         width: 100%;
         border-radius: 10px;
@@ -296,6 +306,21 @@ const Root = styled.section`
         border: 1px solid rgba(34, 36, 38, 0.15);
         padding: 10px;
       }
+
+      span.chain_id{
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      /* border-radius: 50%; */
+      .chain_img{
+        height: 35px;
+        width: 35px;
+        border: none !important;
+        padding: 0px;
+        margin: 0px;
+        /* border-radius: 50%; */
+      }
+    }
 
       .nft_highlights {
         display: flex;

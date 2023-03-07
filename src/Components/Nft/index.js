@@ -31,6 +31,9 @@ export default function NftsData() {
   };
 
   useEffect(() => {
+    const userData =  {
+      "populate": ["user"]
+  }
     setSearchLoader(true);
     const nftObj = [
       { name: { contains: searchText } },
@@ -38,6 +41,7 @@ export default function NftsData() {
       { id: { contains: searchText } },
       // { contact: { contains: searchText} },
     ];
+    
     setNfts('');
     dispatch(
         nftDataAction(
@@ -46,7 +50,9 @@ export default function NftsData() {
           limit: dataLimit,
           sorting: sort,
           order: order,
+          populate: ["user"]
         },
+        userData,
         nftObj,
         callBack,
       ),

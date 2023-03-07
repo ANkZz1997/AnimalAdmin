@@ -70,6 +70,9 @@ justify-content: center;
 align-items: center;
 /* background-color: green; */
 background-image: url("https://img.freepik.com/premium-vector/bitcoin-concept_34629-80.jpg?w=740");
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
 
 h1,b{
     color: white;

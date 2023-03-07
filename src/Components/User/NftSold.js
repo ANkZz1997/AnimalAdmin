@@ -33,7 +33,7 @@ function NftSold({ data }) {
                         href="/nftdetails/[nftdetails]"
                         as={`/nftdetails/${i?.nft.id}`}
                       > */}
-                      <Link to={`/user/nftdetails/${i?.nft.id}`}>
+                      <Link to={`/nfts/nftdetails/${i?.nft.id}`}>
                         <td data-label="NFT Details" className="nft_cell">
                           <div>
                             <img src={`${IMAGE_END_POINT}${i.nft.media}`} />{' '}
