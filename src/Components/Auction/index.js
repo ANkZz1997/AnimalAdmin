@@ -16,6 +16,9 @@ function AuctionsData() {
   const [sort, setSort] = useState('createdAt');
   const [order, setOrder] = useState('DESC');
   const [searchText, setSearchText] = useState('');
+  const [chainNumber,setChainNumber] = useState("");
+
+
   const dataLimit = 20;
 
   const dispatch = useDispatch();
@@ -27,7 +30,17 @@ function AuctionsData() {
   };
 
   useEffect(() => {
-    const data = {"populate": ["user","nft"]}
+    if(chainNumber){
+      var data =  {
+        "populate": ["user","nft"],
+        "chainId": chainNumber
+      }
+     }else{
+      var data =  {
+        "populate": ["user","nft"],
+      }
+     }
+     setLoader(true);
     const nftObj = [
       { endTime: { contains: searchText } },
       { id: { contains: searchText } },
@@ -48,7 +61,7 @@ function AuctionsData() {
         callBack,
       ),
     );
-  }, [activePage, sort, order, searchText]);
+  }, [activePage, sort, order, searchText, chainNumber]);
 
   console.log("auctiondata",auctionData)
 
@@ -68,13 +81,17 @@ function AuctionsData() {
             searchText={(e) => {
               setSearchText(e);
             }}
+            chainNumber = {(e)=>{
+              setChainNumber(e);
+            }}
           />
 
           {loader ? (
             <LoaderCSS />
           ) : (
             <div className="card_box">
-              {auctionData?.records?.map((i, ix) => {
+              {
+              auctionData?.records?.map((i, ix) => {
                 return (
                   <div key={ix}>
                     <AuctionCard data={i} />
@@ -109,6 +126,17 @@ const Root = styled.section`
     min-width: 100%;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 20px;
+
+    .search_loader {
+      position: absolute;
+      height: dis;
+      height: 50vh;
+      width: 80%;
+      .ui.dimmer {
+        background-color: transparent;
+      }
+    }
+
     @media (max-width: 1536px) {
       grid-template-columns: 1fr 1fr 1fr 1fr;
     }

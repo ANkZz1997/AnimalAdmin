@@ -24,7 +24,7 @@ export default function NftDetails({ details, activity }) {
       setNftData(details);
     }
   }, [details]);
-
+console.log('nftdata cc' ,  )
   return (
     <div>
       <Root>
@@ -114,14 +114,16 @@ export default function NftDetails({ details, activity }) {
                     <Table.Cell collapsing>Chain</Table.Cell>
                     <Table.Cell>{nftdata?.chainId=="5"?"Goerli":(nftdata?.chainId=="97"?"BNB":(nftdata?.chainId=="80001"?"Polygon":"None"))}</Table.Cell>
                   </Table.Row>
-                  {nftdata?.attributes?.map((i) => {
+                  {/* {nftdata?.attributes?.map((i) => {
                     return (
                       <Table.Row>
                         <Table.Cell collapsing>{i.propertyType? i.propertyType:"No Attributes"}</Table.Cell>
                         <Table.Cell>{i.propertyName}</Table.Cell>
                       </Table.Row>
                     );
-                  })}
+                  })} */}
+
+
                 </Table.Body>
               </Table>
             </div>

@@ -136,7 +136,7 @@ function* userActivities({ params, callback, obj }) {
 }
 
 function* getNftData({ params,data, obj, callback }) {
-    // console.log("datadata",data)
+    console.log("datadata",params)
 
     try {
         const response = yield httpPost(

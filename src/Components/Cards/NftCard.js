@@ -22,7 +22,7 @@ export default function NftCard(data) {
     }
   }, [data]);
 
-  console.log("ITem",items)
+  // console.log("ITem",items)
 
   return (
     <Root>

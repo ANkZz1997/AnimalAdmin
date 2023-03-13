@@ -12,12 +12,11 @@ export default function NftsData() {
   const [nfts, setNfts] = useState('');
   const [activePage, setActivePage] = useState(1);
   const [loader, setLoader] = useState(true);
-  const [searchLoader, setSearchLoader] = useState(true);
-
   const [totalPage, setTotalPage] = useState(1);
   const [sort, setSort] = useState('createdAt');
   const [order, setOrder] = useState('DESC');
   const [searchText, setSearchText] = useState('');
+  const [chainNumber,setChainNumber] = useState("");
 
   const dataLimit = 20;
 
@@ -27,14 +26,21 @@ export default function NftsData() {
     setNfts(data);
     setTotalPage(data.totalCount);
     setLoader(false);
-    setSearchLoader(false);
   };
 
   useEffect(() => {
-    const userData =  {
-      "populate": ["user"]
-  }
-    setSearchLoader(true);
+     if(chainNumber){
+      var userData =  {
+        "populate": ["user"],
+        "chainId": chainNumber
+      }
+     }else{
+      var userData =  {
+        "populate": ["user"],
+      }
+     }
+  
+     setLoader(true);
     const nftObj = [
       { name: { contains: searchText } },
       { category: { contains: searchText } },
@@ -50,14 +56,15 @@ export default function NftsData() {
           limit: dataLimit,
           sorting: sort,
           order: order,
-          populate: ["user"]
         },
         userData,
         nftObj,
         callBack,
       ),
     );
-  }, [activePage, sort, order, searchText]);
+  }, [activePage, sort, order, searchText,chainNumber]);
+
+  // console.log("Number",chainNumber)
 
   return (
         <Root>
@@ -72,17 +79,16 @@ export default function NftsData() {
             searchText={(e) => {
               setSearchText(e);
             }}
+            chainNumber = {(e)=>{
+              setChainNumber(e);
+            }}
           />
 
           {loader ? (
             <LoaderCSS />
           ) : (
             <div className="grid_tiles">
-              {searchLoader ? (
-                <div className="search_loader">
-                  <LoaderCSS/>
-                </div>
-              ) : (
+              {
                 nfts?.records?.map((i, ix) => {
                   return (
                     <div key={ix}>
@@ -90,7 +96,7 @@ export default function NftsData() {
                     </div>
                   );
                 })
-              )}
+              }
             </div>
           )}
 

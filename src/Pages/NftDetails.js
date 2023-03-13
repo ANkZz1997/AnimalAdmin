@@ -55,7 +55,7 @@ function NftDetailsId() {
     userActivities();
   }, [id]);
 
-  console.log('userActivities', userActivity);
+  // console.log('nftdata pp ', nftdata , userActivity);
 
   return (
    <>
