@@ -41,12 +41,14 @@ export default function NftsData() {
      }
   
      setLoader(true);
-    const nftObj = [
+    const Obj = [
       { name: { contains: searchText } },
       { category: { contains: searchText } },
       { id: { contains: searchText } },
       // { contact: { contains: searchText} },
     ];
+
+    const nftObj = {or:Obj}
     
     setNfts('');
     dispatch(

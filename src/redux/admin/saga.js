@@ -141,7 +141,7 @@ function* getNftData({ params,data, obj, callback }) {
     try {
         const response = yield httpPost(
             `${URLS.EXCHANGE.ADMIN.GET_NFTS_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,data,
-            { or: obj },
+            obj,
         );
         if (response?.status === 200) {
             callback(response?.data?.data)

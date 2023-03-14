@@ -15,6 +15,7 @@ function NftCreated({ items, nftList }) {
     setDataLoader(false);
   }, [nftList]);
 
+  console.log("createdcreated",nftList)
   return (
     <Root>
       <div className="overview">

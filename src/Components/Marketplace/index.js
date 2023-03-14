@@ -17,6 +17,8 @@ export default function MarketPlaceData() {
   const [sort, setSort] = useState('createdAt');
   const [order, setOrder] = useState('DESC');
   const [searchText, setSearchText] = useState('');
+  const [chainNumber,setChainNumber] = useState("");
+
   const dataLimit = 20;
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
@@ -29,13 +31,23 @@ export default function MarketPlaceData() {
   };
 
   useEffect(() => {
-    const data = {"populate": ["user","nft"]}
+    if(chainNumber){
+      var data =  {
+        "populate": ["user","nft"],
+        "chainId": chainNumber
+      }
+     }else{
+      var data =  {
+        "populate": ["user","nft"],
+      }
+     }
     const nftObj = [
       // { user: { contains: searchText } },
       // { nft.category: { contains: searchText } },
       { status: { contains: searchText } },
       { price: { contains: searchText } },
     ];
+    setLoader(true);
     dispatch(
       marketPlaceAction(
         {
@@ -49,7 +61,7 @@ export default function MarketPlaceData() {
         callBack,
       ),
     );
-  }, [activePage, sort, order, searchText]);
+  }, [activePage, sort, order, searchText, chainNumber]);
 
   return (
     <Root>
@@ -65,6 +77,9 @@ export default function MarketPlaceData() {
             }}
             searchText={(e) => {
               setSearchText(e);
+            }}
+            chainNumber = {(e)=>{
+              setChainNumber(e);
             }}
           />
           {loader ? (

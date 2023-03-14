@@ -213,7 +213,7 @@ const Root = styled.section`
     margin-top: 20px;
     color: whitesmoke;
 
-    > div:last-child {
+    > a:last-child {
       border-right: none;
     }
 

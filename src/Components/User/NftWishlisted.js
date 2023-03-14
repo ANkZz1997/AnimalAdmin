@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Dimmer, Loader, Table, TableBody, TableCell } from 'semantic-ui-react';
 import styled from 'styled-components';
 import URLS from '../../utils/urls';
 import LoaderCSS from '../Loader';
+import { Link } from 'react-router-dom';
 
 function NftWishlisted(data) {
   const [userDetails, setUserDetails] = useState();
@@ -25,32 +25,43 @@ function NftWishlisted(data) {
                <LoaderCSS/>
               ) : (
                 <>
-                  <Table celled>
-                    <TableBody>
-                      <Table.Row>
+                  <table>
+                  <thead>
+                    <tr>
+                      <th>NFT Details</th>
+                      <th>Category</th>
+                      <th>Royality</th>
+                      <th>Status</th>
+                    </tr>
+                </thead>
+                    <tbody>
                         {userDetails?.map((i, ix) => {
                           return (
-                            // <Link
-                            //   href="/nftdetails/[nftdetails]"
-                            //   as={`/nftdetails/${i.id}`}
-                            // >
-                              <TableCell className="table_cell">
-                                <h3 className="img_section">
-                                  <img src={`${IMAGE_END_POINT}${i.media}`} />
-                                </h3>
-                                <div className="tabel_content">
-                                  <h3>{i.name}</h3>
-                                  <h3>{i?.category}</h3>
-                                  <h3>Royalty {i.royalty}%</h3>
-                                  <h3>{i.status}</h3>
-                                </div>
-                              </TableCell>
-                            // </Link>
+                      <tr>
+                        <Link to={`/nfts/nftdetails/${i?.id}`}>
+                          <td data-label="NFT Details" className="nft_cell">
+                            <div>
+                              {' '}
+                              <img src={`${IMAGE_END_POINT}${i?.media}`} />{' '}
+                              <h5>{i?.name}</h5>
+                            </div>
+                          </td>
+                          </Link>
+                          <td data-label="Category" className="cate_cell">
+                            <h4>{i?.category}</h4>
+                          </td>
+                          <td data-label="Royality">
+                            <h4>{i.royalty}%</h4>
+                          </td>
+                          <td data-label="Status">
+                            <h4>{i.status}</h4>
+                          </td>
+                      </tr>
+
                           );
                         })}
-                      </Table.Row>
-                    </TableBody>
-                  </Table>
+                    </tbody>
+                  </table>
                 </>
               )
             ) : (
@@ -66,6 +77,7 @@ function NftWishlisted(data) {
 export default NftWishlisted;
 
 const Root = styled.section`
+color: whitesmoke;
   * {
     margin: 0;
     padding: 0;
@@ -91,104 +103,81 @@ const Root = styled.section`
     .overview_section {
       background-color: rgb(17 22 50);
       padding: 10px;
-
       h2 {
         text-align: center;
-        color: whitesmoke;
       }
 
       table {
-        border: transparent !important;
-        @media (max-width: 767px) {
-          display: block;
-        }
-      }
-
-      .table_cell {
-        cursor: pointer;
-        background-color: rgb(17 22 50);
-        display: grid;
-        grid-template-columns: 130px auto;
-        align-items: center;
-        :hover {
-          background-color: rgb(42 49 92);
-        }
-        @media (max-width: 767px) {
-          display: grid !important;
-          grid-template-columns: 200px auto;
-          gap: 15px;
-        }
-
-        @media (max-width: 510px) {
-          grid-template-columns: 150px auto;
-          gap: 5px;
-        }
-        @media (max-width: 415px) {
-          grid-template-columns: 100px auto;
-          gap: 5px;
-        }
-
-        .tabel_content {
-          display: flex;
-          gap: 10px;
-
-          @media (max-width: 767px) {
-            flex-direction: column;
-          }
-        }
-        h3 {
-          color: whitesmoke;
+        padding: 10px;
+        width: 100%;
+        text-align: left;
+        h4,
+        h5 {
           text-transform: capitalize;
-          text-overflow: ellipsis;
-          overflow: hidden;
-          white-space: nowrap;
-          width: 90%;
-
-          @media (max-width: 550px) {
-            flex-direction: column;
-          }
-
-          @media (max-width: 510px) {
-            width: 70%;
-          }
         }
-        .img_section {
+        .nft_cell {
           display: flex;
-          justify-content: center;
           align-items: center;
+          gap: 5px;
+          width: fit-content;
+          cursor: pointer;
           width: 100%;
-          img {
-            height: 70px;
-            width: 60px;
-            object-fit: cover;
-            object-position: top;
+        }
 
-            @media (max-width: 767px) {
-              height: 100%;
-              width: 100%;
-              object-fit: cover;
-              aspect-ratio: 16/15;
-              border-radius: 16px;
-              padding: 5px;
-              object-position: top center;
-            }
-            @media (max-width: 510px) {
-              height: 100%;
-              width: 100%;
-              object-fit: cover;
-              aspect-ratio: 16/15;
-              border-radius: 16px;
-            }
-            @media (max-width: 450px) {
-              height: 100%;
-              width: 100%;
-              object-fit: cover;
-              aspect-ratio: 16/15;
-              border-radius: 16px;
-            }
+        img {
+          height: 30px;
+          width: 30px;
+        }
+
+        th {
+          font-size: 18px;
+          padding: 5px;
+        }
+
+        td {
+          padding: 5px;
+        }
+
+        @media (max-width: 575px) {
+          td,
+          th {
+            border: 1px solid #ccc;
+            padding: 0.625em;
+            text-align: right;
+          }
+          thead {
+            border: none;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+            text-align: right;
+          }
+          tr {
+            border-bottom: 2px solid #ddd;
+            display: block;
+            margin-bottom: 0.8em;
+          }
+          td {
+            border-bottom: 1px solid #ddd;
+            display: block;
+          }
+          td::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: 400;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            text-align: left;
+          }
+          .nft_cell {
+            justify-content: space-between;
           }
         }
       }
     }
-  }
-`;
+  }`;
