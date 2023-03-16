@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import styled from 'styled-components';
 import {FaHome,FaUserAlt,FaRegAddressCard} from 'react-icons/fa'
 import {RiAuctionFill} from 'react-icons/ri'
@@ -19,13 +19,16 @@ export default function Sidebar() {
   const activeParam = window.location.href.split('/')[3];
   const [activeTab,setActiveTab] = useState(activeParam)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const userCheck = useSelector((state)=>state?.persistReducer?.username)
 
   const userLogoutAction = ()=>{
     dispatch(checkUserAction(false))
     localStorage.setItem("token","")
     cogoToast.success("Logout Successfully")
-    window.location.replace("/")
+    navigate('/')
+    // window.location.replace("/")
   }
 
   console.log('ActiveTab',activeParam)

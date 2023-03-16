@@ -3,14 +3,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userLoginAction } from '../../redux/admin/action';
 import {AiFillEye, AiFillEyeInvisible} from 'react-icons/ai'
 import { Loader } from 'semantic-ui-react';
-import { Navigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const [eyeOn,setEyeOn] = useState(true)
     const [inputEmail,setInputEmail] = useState('')
     const [inputPass,setInputPass] = useState('')
     const loading = useSelector((state) => state?.commonReducer?.isLoading);
+    const nagivate = useNavigate()
+
    
 
     const dispatch = useDispatch()
@@ -20,7 +22,8 @@ export default function Login() {
             password : inputPass,
         }
         const userCallback=(e)=>{
-            console.log('userCallback',e)
+            // console.log('userCallback',e)
+             nagivate("/dashboard")
         }
         dispatch(userLoginAction(data , userCallback))
     }
