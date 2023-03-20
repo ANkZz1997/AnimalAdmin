@@ -16,7 +16,11 @@ export default function index() {
                 </td>
             </tr>
             <tr>
-                <td><h4>Settings 2 {">"}</h4></td>
+                <td>
+                <Link to={"/appsettings/platformcharge"}>
+                    <h4>Set the Platform fees per transaction {">"}</h4>
+                </Link>
+                </td>
             </tr> <tr>
                 <td><h4>Settings 3 {">"}</h4></td>
             </tr> <tr>

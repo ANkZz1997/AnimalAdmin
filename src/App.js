@@ -25,6 +25,7 @@ import UserChatDetailsId from "./Pages/ChatDetails";
 import MarketplaceDetailsId from "./Pages/MarketplaceDetails";
 import AppSettings from "./Pages/AppSettings";
 import BannerSettings from "./Pages/BannerSettings";
+import PlatformFees from "./Pages/PlatformFees";
 
 
 
@@ -50,6 +51,8 @@ function App() {
             <Route path="/help" element={ <Protected > <Help /> </Protected> } />
             <Route path="/appsettings" element={ <Protected > <AppSettings /> </Protected> } />
             <Route path="/appsettings/bannersettings" element={ <Protected > <BannerSettings/> </Protected> } />
+            <Route path="/appsettings/platformcharge" element={ <Protected > <PlatformFees/> </Protected> } />
+
 
 
             <Route path="/user/userdetails/:id" element={ <Protected > <UserDetails /> </Protected> } />

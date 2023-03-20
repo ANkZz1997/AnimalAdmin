@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import {ImCross} from 'react-icons/im'
+import ConfirmDialogue from '../Model/ConfirmDialogue';
 
 
 function Banners() {
     const [inputFile,setInputFile] = useState([]);
+    const [toggle, setToggle] = useState(false)
+    const [deleteBanner , setDeleteBanner] = useState(false)
+    const [btnState , setBtnState] = useState(true)
+    const [saveBanner,setSaveBanner] = useState(false);
 
-    const [warnActive,setWarnActive] = useState(false)
+    const handleApi =()=>{
+       console.log('handle api code ---------- ')
+    }
 
     useEffect(() => {
       if(inputFile[0]){
@@ -14,11 +21,28 @@ function Banners() {
       }
     }, [inputFile])
     
-   
-
   return (
     <Root>
         {/* <div> <h1>Add Banners</h1></div> */}
+        <ConfirmDialogue  show={saveBanner} handleClick={(e)=>{setSaveBanner(e)}}>
+             <h1>Confirm To Save This Banner</h1>
+             <button className='btns2' onClick={()=>{handleApi();setSaveBanner(!saveBanner) } }>Yes</button> 
+             <button className='btns2' onClick={()=>{setSaveBanner(!saveBanner)}}>No</button>
+        </ConfirmDialogue>
+        
+        <ConfirmDialogue  show={deleteBanner} handleClick={(e)=>{setDeleteBanner(e)}}>
+             <h1>Confirm To Delete Banner</h1>
+             <p>Do you really want to Delete this banner?</p>
+             <button className='btns2' onClick={()=>{handleApi();setDeleteBanner(!deleteBanner) } }>Yes</button> 
+             <button className='btns2' onClick={()=>{setDeleteBanner(!deleteBanner)}}>No</button>
+        </ConfirmDialogue>
+
+        <ConfirmDialogue show={toggle} handleClick={(e)=>{setToggle(e)}}>
+             <h1>Confirm To {btnState ? 'Enable' : 'Disable'} Banner</h1>
+             <p>Do you really want to {btnState ? 'Enable' : 'Disable'} this banner?</p>
+             <button className='btns2' onClick={()=>{handleApi();setBtnState(!btnState);setToggle(!toggle) } }>Yes</button> 
+             <button className='btns2' onClick={()=>{handleApi();setToggle(!toggle)}}>No</button>
+        </ConfirmDialogue>
 
         <div className='banner_body'>
 
@@ -37,7 +61,7 @@ function Banners() {
                     <h3>Add Description</h3>
                     <textarea maxLength="200" className='input_description' type="text"/>
 
-                    <button>Confirm</button>
+                    <button onClick={()=>{setSaveBanner(true)}}>Confirm</button>
                 </div>
                 <div className='img_preview'>
                     <h5>Preview Image Here</h5>
@@ -46,17 +70,19 @@ function Banners() {
                     {inputFile[0] ? <img className='img' src={URL.createObjectURL(inputFile[0])}/> : <img className='img' src = 'https://cdn1.vectorstock.com/i/1000x1000/50/20/no-photo-or-blank-image-icon-loading-images-vector-37375020.jpg'/> }
                     
                     </div>
-
                 </div>
             
             </div>
 
             <div className='banners_list_div'>
                 <h1>Active Banners</h1>
-
                 <div className='banners_list'>
                     <div className='banner_img'>
-                        <button onClick={()=>{setWarnActive(true)}}><ImCross/></button>
+                        <button onClick={()=>{setDeleteBanner(!deleteBanner)}}><ImCross/></button>
+                        <div className={btnState?"toggle":"toggle off"} onClick={()=>{setToggle(true) }}>
+                            <div className='toggle_child'>
+                            </div>
+                        </div>
                         <img className='img2' src = 'https://cdn1.vectorstock.com/i/1000x1000/50/20/no-photo-or-blank-image-icon-loading-images-vector-37375020.jpg'/>
                     </div>
                     <div className='banner_img'>
@@ -79,21 +105,7 @@ function Banners() {
 
                         <img className='img2' src = 'https://cdn1.vectorstock.com/i/1000x1000/50/20/no-photo-or-blank-image-icon-loading-images-vector-37375020.jpg'/>
                     </div>
-
                 </div>
-
-
-            </div>
-
-            <div className={warnActive?"warning_popup":"warning_popup_cls"}>
-
-                <div className='warning_div'>
-                    <h1>Confirm To Remove Banner</h1>
-                    <h5>Do you really want to remove this banner?</h5>
-                    <button onClick={()=>{setWarnActive(false)}}>Yes</button> 
-                    <button onClick={()=>{setWarnActive(false)}}>No</button>
-                </div>
-
             </div>
 
         </div>
@@ -115,48 +127,6 @@ color: whitesmoke;
     flex-direction: column;
     gap: 10px;
     /* position: relative; */
-
-    .warning_popup{
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: flex;
-        width: 100%;
-        height: 100%;
-        z-index: 9999;
-        backdrop-filter: blur(3px);
-        justify-content: center;
-        align-items: center;
-
-        .warning_div{
-            background-color: white;
-            padding: 20px;
-            border-radius: 20px;
-            color: black;
-
-
-            button{
-                padding: 8px;
-                border-radius: 5px;
-                margin: 5px;
-                border: none;
-                background-color: #865b5b;
-                width: 50px;
-                :hover{
-                    background-color: darkgray;
-                }
-            }
-            h5{
-                padding: 2px;
-                margin: 5px;
-            }
-        }
-    }
-    .warning_popup_cls{
-        display: none;
-    }
-
     .add_banner_section{
         /* border: 2px solid white; */
         /* padding: 10px; */
@@ -187,8 +157,6 @@ color: whitesmoke;
                 position: relative;
                 cursor: pointer;
             }
-
-          
 
             p{
                 position: absolute;
@@ -273,8 +241,37 @@ color: whitesmoke;
                 position: absolute;
                 right: 0;
                 margin-right: 8px;
-                margin-top: -4px;
+                margin-top: -6px;
+                border-radius: 50%;
+                border: none;
+                padding: 5px;
             }
+
+            .toggle{
+                background-color: gray;
+                height: 25px;
+                width: 40px;
+                display: flex;
+                justify-content: left;
+                border-radius: 15px;
+                overflow: hidden;
+                position: absolute;
+                left: 0;
+                margin-left: 7px;
+                margin-top: -6px;
+            }
+            .toggle.off{
+                background-color: #2196F3;
+                justify-content: right
+            }
+            .toggle_child{
+                    background: white;
+                    width: 55%;
+                    height: 100%;
+                    border-radius: 50%;
+                }
+            
+
         }
 
        }
