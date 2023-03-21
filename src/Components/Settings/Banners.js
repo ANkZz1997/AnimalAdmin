@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import {ImCross} from 'react-icons/im'
 import ConfirmDialogue from '../Model/ConfirmDialogue';
+import {Formik, Form, Field} from 'formik';
+import * as Yup from 'yup';
 
 
 function Banners() {
@@ -10,16 +12,39 @@ function Banners() {
     const [deleteBanner , setDeleteBanner] = useState(false)
     const [btnState , setBtnState] = useState(true)
     const [saveBanner,setSaveBanner] = useState(false);
+    const [imgError, setImgError] = useState("")
 
-    const handleApi =()=>{
-       console.log('handle api code ---------- ')
+    const BannerSchema = Yup.object().shape({
+        title: Yup.string()
+            .min(2,'Too Short!')
+            .max(31, "Too Long!")
+            .required('Required'),
+        description : Yup.string()
+            .min(2,"Too Short!")
+            .max(100,"Too Long!")
+            .required('Required')
+    })
+
+    const handleApi =(values)=>{
+        if(values){
+            if(inputFile[0]){
+                console.log('handle api code ---------- ',values)
+                setSaveBanner(true)
+              }else{
+                setImgError('Please Select Image ')
+              }
+        }
+     
     }
 
     useEffect(() => {
       if(inputFile[0]){
+        setImgError('')
         console.log("input file", inputFile ,  URL.createObjectURL(inputFile[0]))
       }
     }, [inputFile])
+
+
     
   return (
     <Root>
@@ -48,28 +73,53 @@ function Banners() {
 
             <div className='add_banner_section'>
                 <div className='fill_details'>
-                <h1>Add New Banner</h1>
-                    <h3>Upload Banner</h3>
-                    <div className='input_file_div'>
-                        <input className='input_file' type="file" onChange={(e)=>{setInputFile(e.target.files)}}/>
-                        
-                        <p>Click To Select Banner</p>
-                    </div>
+                    <h1>Add New Banner</h1>
+                        <h3>Upload Banner *</h3>
+                        <div className='input_file_div'>
+                            <input className='input_file' type="file" onChange={(e)=>{setInputFile(e.target.files)}}/>
+                            <p>Click To Select Banner</p>
+                        </div>
                  
-                    <h3>Add Title</h3>
-                    <input className='input_title' type="text"/>
-                    <h3>Add Description</h3>
-                    <textarea maxLength="200" className='input_description' type="text"/>
+                    <Formik 
+                        initialValues={{
+                            title: "",
+                            description: ""
+                        }}
+                        validationSchema={BannerSchema}
+                        onSubmit={values=>{
+                            console.log(values);
+                            handleApi(values)
+                        }}
+                        > 
+                        {({errors, touched})=> (
+                            <Form >
+                                <h3>Add Title *</h3>
+                                <Field name="title" className='input_title' type="text"/>
+                                    {errors.title && touched.title?(
+                                        <div className='error'>{errors.title}</div>
+                                    ): null}
 
-                    <button onClick={()=>{setSaveBanner(true)}}>Confirm</button>
+                                <h3>Add Description *</h3>
+
+                                <Field name="description" className='input_description' component="textarea" type="text"/>
+                                    {errors.description && touched.description?(
+                                        <div className='error'>{errors.description}</div>
+                                    ): null}        
+                    
+                                <button type="submit">Confirm</button>
+
+                            </Form>
+                        )}
+
+                    </Formik>
                 </div>
                 <div className='img_preview'>
                     <h5>Preview Image Here</h5>
                     <div className='img_div'>
                     {/* <img className='img' src='https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg'/> */}
-                    {inputFile[0] ? <img className='img' src={URL.createObjectURL(inputFile[0])}/> : <img className='img' src = 'https://cdn1.vectorstock.com/i/1000x1000/50/20/no-photo-or-blank-image-icon-loading-images-vector-37375020.jpg'/> }
-                    
+                    {inputFile[0] ? <img className='img' src={URL.createObjectURL(inputFile[0])}/> : <h2 className='noimg'>No Image</h2> }
                     </div>
+                    <div className='error'>{imgError}</div>
                 </div>
             
             </div>
@@ -119,6 +169,9 @@ export default Banners
 const Root = styled.section `
 color: whitesmoke;
 
+.error{
+    color: red;
+}
 .banner_body{
     /* border: 2px solid white; */
     padding: 10px;
@@ -213,6 +266,15 @@ color: whitesmoke;
                     width: 250px;
                     object-fit: cover;
                 }
+                .noimg{
+                    height: 250px;
+                    width: 250px;
+                    /* text-align: center; */
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+              
             }
 
 

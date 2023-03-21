@@ -22,7 +22,7 @@ function PlatformCharge() {
 
           
         </div>
-        <ConfirmDialogue show={feesPopup} handleClick={()=>{setFeesPopup(!feesPopup)}}>
+        <ConfirmDialogue show={feesPopup} handleClick={()=>{setFeesPopup(!feesPopup);setSureActive(false)}}>
                 <h1>The Curren Platform Fees is {platformAmount}%</h1>
                 <h3>Please fill your desired amount</h3>
                 <div className='fees_section'>
@@ -88,6 +88,10 @@ color: whitesmoke;
         border-radius: 20px;
         box-shadow: 0px 0px 10px -2px #fff;
         overflow: hidden;
+
+        h3{
+            padding-bottom: 10px;
+        }
         .cls_btn{
                 position: absolute;
                 right: 0;
@@ -95,14 +99,15 @@ color: whitesmoke;
         }
         .confirmation.on{
               display: unset;
+              h2{
+                margin:0 0 0 0 ;
+                padding:5px 0 10px 0;
+              }
             }
             .confirmation{
                 display : none;
             }
-
-          
             .fees_section{
-
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -125,8 +130,6 @@ color: whitesmoke;
         }
         .child_section{
             top:30px;
-
-          
         }
     }      
 }
