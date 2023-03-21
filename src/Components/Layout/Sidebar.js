@@ -65,7 +65,7 @@ export default function Sidebar() {
       <div  className='menu_button nav_link'>
         <div className='admin_profile2'>
           <img
-            src="https://kalasalingam.ac.in/wp-content/uploads/2021/08/Achievements-dummy-profile.png"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Tom_Cruise_%2834450932580%29.jpg/1200px-Tom_Cruise_%2834450932580%29.jpg"
             style={{ borderRadius: '60px' }}
             height="40"
             width="40"
@@ -141,6 +141,9 @@ height: 100%;
     background-color: whitesmoke;
     border-radius: 10px;
     padding: 5px;
+    img{
+      object-fit: cover;
+    }
     .admin_details{
       font-weight: 600;
       font-size: 18px;

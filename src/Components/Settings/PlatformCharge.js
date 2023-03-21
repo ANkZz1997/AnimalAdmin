@@ -12,9 +12,9 @@ function PlatformCharge() {
   return (
     <Root>
         <div className='parent_div'>
-            <h1>Set the platform charges</h1>
+            <h1>Set the platform charge</h1>
             <div>
-                <h4>Current Platform Charge Per Transaction is {platformAmount}%</h4>
+                <h4>Current Platform Charge Per Transaction is {platformAmount}%, Kindly click the below button to make changes.</h4>
             </div>
             <div>
                 <button className='change_btn' onClick={()=>{setFeesPopup(!feesPopup)}}>Change Amount</button>
@@ -53,6 +53,8 @@ color: whitesmoke;
 
 .parent_div{
     position: relative;
+    padding: 20px;
+
 
 .change_btn{
     padding: 3px;

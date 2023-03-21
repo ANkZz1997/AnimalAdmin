@@ -25,20 +25,20 @@ function Banners() {
     <Root>
         {/* <div> <h1>Add Banners</h1></div> */}
         <ConfirmDialogue  show={saveBanner} handleClick={(e)=>{setSaveBanner(e)}}>
-             <h1>Confirm To Save This Banner</h1>
+             <h1>Confirm To Save This Banner?</h1>
              <button className='btns2' onClick={()=>{handleApi();setSaveBanner(!saveBanner) } }>Yes</button> 
              <button className='btns2' onClick={()=>{setSaveBanner(!saveBanner)}}>No</button>
         </ConfirmDialogue>
         
         <ConfirmDialogue  show={deleteBanner} handleClick={(e)=>{setDeleteBanner(e)}}>
-             <h1>Confirm To Delete Banner</h1>
+             <h1>Confirm To Delete Banner?</h1>
              <p>Do you really want to Delete this banner?</p>
              <button className='btns2' onClick={()=>{handleApi();setDeleteBanner(!deleteBanner) } }>Yes</button> 
              <button className='btns2' onClick={()=>{setDeleteBanner(!deleteBanner)}}>No</button>
         </ConfirmDialogue>
 
         <ConfirmDialogue show={toggle} handleClick={(e)=>{setToggle(e)}}>
-             <h1>Confirm To {btnState ? 'Enable' : 'Disable'} Banner</h1>
+             <h1>Confirm To {btnState ? 'Enable' : 'Disable'} Banner?</h1>
              <p>Do you really want to {btnState ? 'Enable' : 'Disable'} this banner?</p>
              <button className='btns2' onClick={()=>{handleApi();setBtnState(!btnState);setToggle(!toggle) } }>Yes</button> 
              <button className='btns2' onClick={()=>{handleApi();setToggle(!toggle)}}>No</button>

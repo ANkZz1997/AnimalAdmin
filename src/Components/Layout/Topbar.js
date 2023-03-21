@@ -17,7 +17,7 @@ export default function Topbar() {
       <div className='click_menu' onClick={()=>setToggle(!toggle)}><BiMenu/></div>
       <div className="admin_details">
         <img
-          src="https://kalasalingam.ac.in/wp-content/uploads/2021/08/Achievements-dummy-profile.png"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Tom_Cruise_%2834450932580%29.jpg/1200px-Tom_Cruise_%2834450932580%29.jpg"
           style={{ borderRadius: '60px' }}
           height="40"
           width="40"
@@ -65,6 +65,9 @@ z-index:5;
         padding: 5px;
         margin: 15px 15px 5px 15px;
         border-radius: 10px;
+        img{
+          object-fit: cover;
+        }
         .notify_parent {
         font-weight: 600;
         font-size: 18px;
