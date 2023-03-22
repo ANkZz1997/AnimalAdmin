@@ -70,10 +70,9 @@ function Banners() {
         </ConfirmDialogue>
 
         <div className='banner_body'>
-
+            <h1 className='banner_body_header'>Add New Banner</h1>
             <div className='add_banner_section'>
                 <div className='fill_details'>
-                    <h1>Add New Banner</h1>
                         <h3>Upload Banner *</h3>
                         <div className='input_file_div'>
                             <input className='input_file' type="file" onChange={(e)=>{setInputFile(e.target.files)}}/>
@@ -180,6 +179,9 @@ color: whitesmoke;
     flex-direction: column;
     gap: 10px;
     /* position: relative; */
+    .banner_body_header{
+        padding: 10px 10px 0px 10px;
+    }
     .add_banner_section{
         /* border: 2px solid white; */
         /* padding: 10px; */
@@ -279,7 +281,10 @@ color: whitesmoke;
 
 
         }
-
+        
+        @media(max-width:762px){
+            flex-direction: column-reverse;
+        }
     }
     .banners_list_div{
        /* background-color: wheat; */
@@ -291,13 +296,18 @@ color: whitesmoke;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
+        width: fit-content;
 
         .banner_img{
             padding: 10px;
             position: relative;
             .img2{
-                height : 300px;
-                width: 300px;
+                height : 250px;
+                width: 250px;
+                @media(max-width:762px){
+                    height: 200px;
+                    width: 200px;
+        }
             }
             button{
                 position: absolute;

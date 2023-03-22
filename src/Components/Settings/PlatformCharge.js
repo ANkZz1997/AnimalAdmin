@@ -23,7 +23,7 @@ function PlatformCharge() {
           
         </div>
         <ConfirmDialogue show={feesPopup} handleClick={()=>{setFeesPopup(!feesPopup);setSureActive(false)}}>
-                <h1>The Curren Platform Fees is {platformAmount}%</h1>
+                <h1>The Current Platform Fees is {platformAmount}%</h1>
                 <h3>Please fill your desired amount</h3>
                 <div className='fees_section'>
                 <input className='input_fees' type={"number"} placeholder= {`${platformAmount}%`} min={1} max={50}/>

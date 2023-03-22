@@ -21,6 +21,7 @@ import BidDetails from '../Bids/BidDetails';
 import Goerli from '../../Assets/Goerli.png';
 import polygon from '../../Assets/polygon.svg';
 import bnb from '../../Assets/bnb.svg'
+import BackButton from '../Model/BackButton';
 
 function AuctionDetails({ details }) {
   const [auctionData, setAuctionData] = useState('');
@@ -72,6 +73,9 @@ function AuctionDetails({ details }) {
       ) : (
         <Root>
           <div className="action_bar">
+          <Link to={"/auction"}>
+            <div><BackButton/></div>
+          </Link>
             <Menu compact>
               <Dropdown text="Action" options={options} simple item />
             </Menu>
@@ -301,7 +305,9 @@ const Root = styled.section`
   margin-top: 20px;
   color: whitesmoke;
   .action_bar {
-    text-align: right;
+    /* text-align: right; */
+    display: flex;
+    justify-content: space-between;
 
     .ui.item.simple.dropdown {
       border-radius: 6px;

@@ -13,7 +13,11 @@ export default function Login() {
     const loading = useSelector((state) => state?.commonReducer?.isLoading);
     const nagivate = useNavigate()
 
-   
+    const keyPressed = (e) => {
+        if (e.key === 'Enter') {
+            handelLogin()
+        }
+      };
 
     const dispatch = useDispatch()
     const handelLogin =()=>{
@@ -38,17 +42,19 @@ export default function Login() {
             <h1>Welcome Back</h1>
             <b> Enter your credentials to access your account </b>
 
-            <input type="email" value={inputEmail} onChange={(e)=>{setInputEmail(e.target.value)}} placeholder="UserName" className='input1'/>
+            <input type="email" value={inputEmail} onChange={(e)=>{setInputEmail(e.target.value)}} placeholder="UserName" className='input1'
+                onKeyPress={keyPressed}
+            />
 
             <div className='pass_div'>
             <input type={eyeOn ?"password" : 'text' } value={inputPass} onChange={(e)=>{setInputPass(e.target.value)}} placeholder="Password"
-            className='input2' 
+            className='input2'  onKeyPress={keyPressed}
             />
             <button onClick={()=>{setEyeOn(!eyeOn)}} className="eye_btn">{!eyeOn?<AiFillEye/>:<AiFillEyeInvisible/>}</button>
             </div>
             
             <br/>
-            <button onClick={()=>{handelLogin()}} className="login_btn">{loading ? (
+            <button onClick={()=>{handelLogin()}} className="login_btn"  >{loading ? (
                 <Loader size="small" active inline="loading" />
               ) : (
                 'Login'

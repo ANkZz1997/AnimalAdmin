@@ -135,7 +135,7 @@ export default function NftsData() {
 
 const Root = styled.section`
   h1 {
-    color: #ffffffcc;
+    color: white;
   }
   .grid_tiles {
     gap: 20px;

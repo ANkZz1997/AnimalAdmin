@@ -14,6 +14,7 @@ export const FilterBarStyle = styled.section`
     .filter_bar_child {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       i {
         font-size: 28px;
         height: 100%;

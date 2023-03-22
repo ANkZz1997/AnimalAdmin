@@ -82,6 +82,7 @@ padding: 20px 0px;
     }
     .filter_bar_child {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       i {
         font-size: 28px;
