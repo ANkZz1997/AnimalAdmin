@@ -45,7 +45,8 @@ function UserDetailsId() {
     }
   };
   const getNftDetails = () => {
-    const nftObj = [{ user: ids }];
+    const data ={}
+    const nftObj = { minter: ids };
     dispatch(
       nftDataAction(
         {
@@ -55,6 +56,7 @@ function UserDetailsId() {
           order: 'DESC',
         },
         nftObj,
+        data,
         callBack,
       ),
     );
@@ -81,7 +83,7 @@ function UserDetailsId() {
     userActivities();
   }, [ids]);
 
-  console.log('userActivity', ids);
+  console.log('userActivity', nfts,ids);
 
   return (
    <>

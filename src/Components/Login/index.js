@@ -3,15 +3,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userLoginAction } from '../../redux/admin/action';
 import {AiFillEye, AiFillEyeInvisible} from 'react-icons/ai'
 import { Loader } from 'semantic-ui-react';
-import { Navigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const [eyeOn,setEyeOn] = useState(true)
     const [inputEmail,setInputEmail] = useState('')
     const [inputPass,setInputPass] = useState('')
     const loading = useSelector((state) => state?.commonReducer?.isLoading);
-   
+    const nagivate = useNavigate()
+
+    const keyPressed = (e) => {
+        if (e.key === 'Enter') {
+            handelLogin()
+        }
+      };
 
     const dispatch = useDispatch()
     const handelLogin =()=>{
@@ -20,7 +26,8 @@ export default function Login() {
             password : inputPass,
         }
         const userCallback=(e)=>{
-            console.log('userCallback',e)
+            // console.log('userCallback',e)
+             nagivate("/dashboard")
         }
         dispatch(userLoginAction(data , userCallback))
     }
@@ -35,17 +42,19 @@ export default function Login() {
             <h1>Welcome Back</h1>
             <b> Enter your credentials to access your account </b>
 
-            <input type="email" value={inputEmail} onChange={(e)=>{setInputEmail(e.target.value)}} placeholder="UserName" className='input1'/>
+            <input type="email" value={inputEmail} onChange={(e)=>{setInputEmail(e.target.value)}} placeholder="UserName" className='input1'
+                onKeyPress={keyPressed}
+            />
 
             <div className='pass_div'>
             <input type={eyeOn ?"password" : 'text' } value={inputPass} onChange={(e)=>{setInputPass(e.target.value)}} placeholder="Password"
-            className='input2' 
+            className='input2'  onKeyPress={keyPressed}
             />
             <button onClick={()=>{setEyeOn(!eyeOn)}} className="eye_btn">{!eyeOn?<AiFillEye/>:<AiFillEyeInvisible/>}</button>
             </div>
             
             <br/>
-            <button onClick={()=>{handelLogin()}} className="login_btn">{loading ? (
+            <button onClick={()=>{handelLogin()}} className="login_btn"  >{loading ? (
                 <Loader size="small" active inline="loading" />
               ) : (
                 'Login'
@@ -70,6 +79,9 @@ justify-content: center;
 align-items: center;
 /* background-color: green; */
 background-image: url("https://img.freepik.com/premium-vector/bitcoin-concept_34629-80.jpg?w=740");
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
 
 h1,b{
     color: white;

@@ -90,7 +90,7 @@ export default function BidsData() {
                           > */}
 
                             <td className="nft_img">
-                            <Link to={`/user/auctiondetails/${i?.auction?.id}`}>
+                            <Link to={`/auction/auctiondetails/${i?.auction?.id}`}>
                               <div className="nft_div">
                                 <img
                                   src={`${IMAGE_END_POINT}${i?.auction?.nft?.media}`}
@@ -146,6 +146,7 @@ const Root = styled.section`
         height: 25px;
         width: 25px;
         border-radius: 50%;
+        object-fit: cover;
       }
     }
   }

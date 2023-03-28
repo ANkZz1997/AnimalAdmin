@@ -12,12 +12,11 @@ export default function NftsData() {
   const [nfts, setNfts] = useState('');
   const [activePage, setActivePage] = useState(1);
   const [loader, setLoader] = useState(true);
-  const [searchLoader, setSearchLoader] = useState(true);
-
   const [totalPage, setTotalPage] = useState(1);
   const [sort, setSort] = useState('createdAt');
   const [order, setOrder] = useState('DESC');
   const [searchText, setSearchText] = useState('');
+  const [chainNumber,setChainNumber] = useState("");
 
   const dataLimit = 20;
 
@@ -27,17 +26,30 @@ export default function NftsData() {
     setNfts(data);
     setTotalPage(data.totalCount);
     setLoader(false);
-    setSearchLoader(false);
   };
 
   useEffect(() => {
-    setSearchLoader(true);
-    const nftObj = [
+     if(chainNumber){
+      var userData =  {
+        "populate": ["user"],
+        "chainId": chainNumber
+      }
+     }else{
+      var userData =  {
+        "populate": ["user"],
+      }
+     }
+  
+     setLoader(true);
+    const Obj = [
       { name: { contains: searchText } },
       { category: { contains: searchText } },
       { id: { contains: searchText } },
       // { contact: { contains: searchText} },
     ];
+
+    const nftObj = {or:Obj}
+    
     setNfts('');
     dispatch(
         nftDataAction(
@@ -47,11 +59,14 @@ export default function NftsData() {
           sorting: sort,
           order: order,
         },
+        userData,
         nftObj,
         callBack,
       ),
     );
-  }, [activePage, sort, order, searchText]);
+  }, [activePage, sort, order, searchText,chainNumber]);
+
+  // console.log("Number",chainNumber)
 
   return (
         <Root>
@@ -66,17 +81,16 @@ export default function NftsData() {
             searchText={(e) => {
               setSearchText(e);
             }}
+            chainNumber = {(e)=>{
+              setChainNumber(e);
+            }}
           />
 
           {loader ? (
             <LoaderCSS />
           ) : (
             <div className="grid_tiles">
-              {searchLoader ? (
-                <div className="search_loader">
-                  <LoaderCSS/>
-                </div>
-              ) : (
+              {
                 nfts?.records?.map((i, ix) => {
                   return (
                     <div key={ix}>
@@ -84,7 +98,7 @@ export default function NftsData() {
                     </div>
                   );
                 })
-              )}
+              }
             </div>
           )}
 
@@ -121,7 +135,7 @@ export default function NftsData() {
 
 const Root = styled.section`
   h1 {
-    color: #ffffffcc;
+    color: white;
   }
   .grid_tiles {
     gap: 20px;

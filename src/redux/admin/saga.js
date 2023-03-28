@@ -1,5 +1,5 @@
 
-import { adminAction, checkUserAction } from "./action";
+import { adminAction, adminUserNameAction, checkUserAction } from "./action";
 import {
     all,
     call,
@@ -31,6 +31,7 @@ function* loginUser({ data, callback }) {
             yield put(checkUserAction(true));
             localStorage.setItem('token', response?.data?.data?.token);
             callback(response?.data);
+            yield put(adminUserNameAction(response?.data?.data?.username));
             // yield put(adminAction(response));
             cogoToast.success('Login Successfull');
             // window.location.replace("/dashboard")
@@ -134,11 +135,32 @@ function* userActivities({ params, callback, obj }) {
     }
 }
 
-function* getNftData({ params, obj, callback }) {
+function* getNftData({ params,data, obj, callback }) {
+    console.log("datadata",params)
 
     try {
         const response = yield httpPost(
-            `${URLS.EXCHANGE.ADMIN.GET_NFTS_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,
+            `${URLS.EXCHANGE.ADMIN.GET_NFTS_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,data,
+            obj,
+        );
+        if (response?.status === 200) {
+            callback(response?.data?.data)
+        } else if(response?.status===500){
+            yield put(checkUserAction(false));
+            localStorage.setItem('token',"");
+            cogoToast.warn('Session Expired');} else {
+            cogoToast.error(response?.data?.message);
+        }
+    } catch (error) {
+        cogoToast.error(error?.response?.statusText);
+    }
+}
+
+function* getMarketplaceData({ params,data, obj, callback }) {
+
+    try {
+        const response = yield httpPost(
+            `${URLS.EXCHANGE.ADMIN.GET_MARKETPLACE_ITEM_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,data,
             { or: obj },
         );
         if (response?.status === 200) {
@@ -154,31 +176,11 @@ function* getNftData({ params, obj, callback }) {
     }
 }
 
-function* getMarketplaceData({ params, obj, callback }) {
+function* getAuctionData({ params,data, obj, callback }) {
 
     try {
         const response = yield httpPost(
-            `${URLS.EXCHANGE.ADMIN.GET_MARKETPLACE_ITEM_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,
-            { or: obj },
-        );
-        if (response?.status === 200) {
-            callback(response?.data?.data)
-        } else if(response?.status===500){
-            yield put(checkUserAction(false));
-            localStorage.setItem('token',"");
-            cogoToast.warn('Session Expired');} else {
-            cogoToast.error(response?.data?.message);
-        }
-    } catch (error) {
-        cogoToast.error(error?.response?.statusText);
-    }
-}
-
-function* getAuctionData({ params, obj, callback }) {
-
-    try {
-        const response = yield httpPost(
-            `${URLS.EXCHANGE.ADMIN.GET_AUCTIONS_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,
+            `${URLS.EXCHANGE.ADMIN.GET_AUCTIONS_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,data,
             { or: obj },
         );
         if (response?.status === 200) {

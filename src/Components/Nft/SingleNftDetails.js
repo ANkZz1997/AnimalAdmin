@@ -6,6 +6,11 @@ import URLS from '../../utils/urls';
 import { toast } from 'react-toastify';
 import cogoToast from 'cogo-toast';
 import { Link } from 'react-router-dom';
+import Goerli from '../../Assets/Goerli.png';
+import polygon from '../../Assets/polygon.svg';
+import bnb from '../../Assets/bnb.svg'
+import BackButton from '../Model/BackButton';
+
 
 export default function NftDetails({ details, activity }) {
   const [nftdata, setNftData] = useState({});
@@ -21,11 +26,14 @@ export default function NftDetails({ details, activity }) {
       setNftData(details);
     }
   }, [details]);
-
+console.log('nftdata cc' ,  )
   return (
     <div>
       <Root>
         <div className="action_bar">
+          <Link to={"/nfts"}>
+            <div><BackButton/></div>
+          </Link>
           <Menu compact>
             <Dropdown text="Action" options={options} simple item />
           </Menu>
@@ -83,6 +91,8 @@ export default function NftDetails({ details, activity }) {
             </div>
           </div>
           <div className="image_box">
+          <span className='chain_id'>{nftdata?.chainId=="5"?<img src={Goerli} className="chain_img"/>:(nftdata?.chainId=="97"?<img src={bnb}  className="chain_img"/>:
+      (nftdata?.chainId=="80001"?<img src={polygon}  className="chain_img"/>:""))}</span>
             <img src={`${IMAGE_END_POINT}${nftdata?.media?.id}`} />
           </div>
           <div className="content_box">
@@ -105,14 +115,20 @@ export default function NftDetails({ details, activity }) {
                     <Table.Cell collapsing>Category</Table.Cell>
                     <Table.Cell>{nftdata?.category}</Table.Cell>
                   </Table.Row>
-                  {nftdata?.attributes?.map((i) => {
+                  <Table.Row>
+                    <Table.Cell collapsing>Chain</Table.Cell>
+                    <Table.Cell>{nftdata?.chainId=="5"?"Goerli":(nftdata?.chainId=="97"?"BNB":(nftdata?.chainId=="80001"?"Polygon":"None"))}</Table.Cell>
+                  </Table.Row>
+                  {/* {nftdata?.attributes?.map((i) => {
                     return (
                       <Table.Row>
-                        <Table.Cell collapsing>{i.propertyType}</Table.Cell>
+                        <Table.Cell collapsing>{i.propertyType? i.propertyType:"No Attributes"}</Table.Cell>
                         <Table.Cell>{i.propertyName}</Table.Cell>
                       </Table.Row>
                     );
-                  })}
+                  })} */}
+
+
                 </Table.Body>
               </Table>
             </div>
@@ -235,8 +251,11 @@ export default function NftDetails({ details, activity }) {
 const Root = styled.section`
   margin-top: 20px;
   color: whitesmoke;
+
   .action_bar {
-    text-align: right;
+    /* text-align: right; */
+    display: flex;
+    justify-content: space-between;
     .ui.item.simple.dropdown {
       border-radius: 6px;
       color: #fff;
@@ -267,6 +286,7 @@ const Root = styled.section`
     }
     .image_box {
       flex: 1;
+      position: relative;
       img {
         width: 100%;
         border-radius: 10px;
@@ -274,6 +294,21 @@ const Root = styled.section`
         border: 1px solid rgba(34, 36, 38, 0.15);
         padding: 10px;
       }
+      span.chain_id{
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      /* border-radius: 50%; */
+      .chain_img{
+        height: 35px;
+        width: 35px;
+        padding: 0px;
+        margin: 0px;
+        border: none !important;
+        /* border-radius: 50%; */
+      }
+    }
+   
     }
     .content_box {
       flex: 1;

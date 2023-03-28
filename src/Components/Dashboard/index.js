@@ -73,7 +73,7 @@ export default function DashboardData() {
                 href="/dashboarddetails/[dashboarddetails]"
                 passHref
               > */}
-                <Link to={`/user/dashboarddetails/NEW`} className="card_1">
+                <Link to={`/dashboard/dashboarddetails/NEW`} className="card_1">
 
                   <div>
                     New NFT Users
@@ -88,7 +88,7 @@ export default function DashboardData() {
                   </div>
               </Link>
 
-              <Link to={`/user/joinedtoday`} className="card_1">
+              <Link to={`/dashboard/joinedtoday`} className="card_1">
                   <div>
                     Joined Today
                     {loader ? (
@@ -101,7 +101,7 @@ export default function DashboardData() {
                     <FaUserClock/>
                   </div>
               </Link>
-              <Link to={`/user/dashboarddetails/BLOCKED`} className="card_1">
+              <Link to={`/dashboard/dashboarddetails/BLOCKED`} className="card_1">
                   <div>
                     Blocked Users
                     {loader ? (
@@ -114,7 +114,7 @@ export default function DashboardData() {
                     <FaUserSlash/>
                   </div>
               </Link>
-              <Link to={`/user/dashboarddetails/INACTIVE`} className="card_1" >
+              <Link to={`/dashboard/dashboarddetails/INACTIVE`} className="card_1" >
                   <div>
                     Inactive Users
                     {loader ? (
@@ -213,7 +213,7 @@ const Root = styled.section`
     margin-top: 20px;
     color: whitesmoke;
 
-    > div:last-child {
+    > a:last-child {
       border-right: none;
     }
 

@@ -83,7 +83,7 @@ function UserActivities({ ids }) {
                           {i.type == 'LOGIN' ? (
                             '---'
                           ) : (i.type == "INTENT"?<h5>Payment Initiated</h5>:(i.type == "VERIFIED"?<h5>Payment Successfull</h5>:
-                            <Link to={`/user/nftdetails/${i?.nft?.id}`}>
+                            <Link to={`/nfts/nftdetails/${i?.nft?.id}`}>
                               <div>
                                 <img
                                   src={`${IMAGE_END_POINT}${i.nft?.media}`}

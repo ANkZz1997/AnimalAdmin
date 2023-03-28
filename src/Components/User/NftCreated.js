@@ -15,6 +15,7 @@ function NftCreated({ items, nftList }) {
     setDataLoader(false);
   }, [nftList]);
 
+  console.log("createdcreated",nftList)
   return (
     <Root>
       <div className="overview">
@@ -39,7 +40,7 @@ function NftCreated({ items, nftList }) {
                       {nfts?.records?.map((i) => {
                         return (
                           <tr>
-                           <Link to={`/user/nftdetails/${i?.id}`}>
+                           <Link to={`/nfts/nftdetails/${i?.id}`}>
                               <td data-label="NFT Details" className="nft_cell">
                                 <div>
                                   <img src={`${IMAGE_END_POINT}${i.media}`} />

@@ -10,19 +10,17 @@ import Help from "./Pages/Help";
 import Kyc from "./Pages/Kyc";
 import Marketplace from "./Pages/Marketplace";
 import Nfts from "./Pages/Nfts";
-import PageNotFound from "./Pages/PageNotFound";
-import Settings from "./Pages/Settings";
 import User from "./Pages/User";
 import Protected from "./Protected";
-import Login from "./Components/Login";
 import UserDetails from "./Pages/UserDetails";
 import NftDetailsId from "./Pages/NftDetails";
-import AuctionDetails from "./Components/Auction/SingleAuctionDetails";
 import AuctionDetailsId from "./Pages/AuctionDetails";
 import DashboardDetailsId from "./Components/Dashboard/DashboardDetails/DashboardDetails";
 import JoinTodayId from "./Pages/JoinedToday";
 import UserChatDetailsId from "./Pages/ChatDetails";
 import MarketplaceDetailsId from "./Pages/MarketplaceDetails";
+import AppSettings from "./Pages/AppSettings";
+import PlatformFees from "./Pages/PlatformFees";
 
 
 
@@ -46,15 +44,20 @@ function App() {
             <Route path="/kyc" element={ <Protected > <Kyc /> </Protected> } />
             <Route path="/chatsupport" element={ <Protected > <Chatsupport/> </Protected> } />
             <Route path="/help" element={ <Protected > <Help /> </Protected> } />
-            <Route path="/settings" element={ <Protected > <Settings /> </Protected> } />
+            <Route path="/appsettings" element={ <Protected > <AppSettings /> </Protected> } />
+            <Route path="/appsettings/platformcharge" element={ <Protected > <PlatformFees/> </Protected> } />
+            {/* <Route path="/appsettings/accesscodes" element={}/> */}
+
+
 
             <Route path="/user/userdetails/:id" element={ <Protected > <UserDetails /> </Protected> } />
-            <Route path="/user/nftdetails/:id" element={ <Protected > <NftDetailsId/> </Protected> } />
-            <Route path="/user/auctiondetails/:id" element={ <Protected > <AuctionDetailsId/> </Protected> } />
-            <Route path="/user/dashboarddetails/:id" element={ <Protected > <DashboardDetailsId/> </Protected> } />
-            <Route path="/user/joinedtoday" element={ <Protected > <JoinTodayId/> </Protected> } />
-            <Route path="user/marketplacedetails/:id" element={<Protected > <MarketplaceDetailsId/> </Protected> }/>
-            <Route path="/user/userchatdetails/:id" element={ <Protected > <UserChatDetailsId/> </Protected> } />
+            <Route path="/nfts/nftdetails/:id" element={ <Protected > <NftDetailsId/> </Protected> } />
+            <Route path="/auction/auctiondetails/:id" element={ <Protected > <AuctionDetailsId/> </Protected> } />
+            <Route path="/dashboard/dashboarddetails/:id" element={ <Protected > <DashboardDetailsId/> </Protected> } />
+            <Route path="/dashboard/joinedtoday" element={ <Protected > <JoinTodayId/> </Protected> } />
+            <Route path="marketplace/marketplacedetails/:id" element={<Protected > <MarketplaceDetailsId/> </Protected> }/>
+            <Route path="/chatsupport/userchatdetails/:id" element={ <Protected > <UserChatDetailsId/> </Protected> } />
+            
             <Route path='*' element={ <Protected > <Dashboard /> </Protected> }/> 
           </Routes>
     </Layout>

@@ -8,7 +8,7 @@ import Topbar from './Topbar'
 
 export default function Layout({children}) {
     const userCheck = useSelector((state)=>state?.persistReducer?.isUser)
-    console.log('Auth',userCheck)
+    // console.log('Auth',userCheck)
   
   return (
     <Root>
@@ -66,6 +66,7 @@ height: 100%;
         justify-content: center;
         margin: 0px auto;
         position: relative;
+        margin-top: 15px;
         .top_bar{
             width: auto;
         }
@@ -75,7 +76,7 @@ height: 100%;
             overflow-y: scroll;
             overflow-x: hidden;
             padding: 10px;
-            /* margin-top: 65px; */
+            /* margin-top: 10px; */
             padding-top: 75px;
         }
         @media(max-width: 1000px){

@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import axios from 'axios';
 import URLS from '../../utils/urls';
 import { Link } from 'react-router-dom';
+import Goerli from '../../Assets/Goerli.png';
+import polygon from '../../Assets/polygon.svg';
+import bnb from '../../Assets/bnb.svg'
+
 
 export default function NftCard(data) {
   const [items, setItems] = useState({});
@@ -11,42 +15,26 @@ export default function NftCard(data) {
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
-  const getUserDetails = async (id) => {
-    try {
-      let axiosConfig = {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      };
-
-      await axios
-        .get(`${URLS.EXCHANGE.ADMIN.GET_USER_DETAILS}${id}`, axiosConfig)
-        .then((res) => {
-          setUser(res?.data?.data);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
     if (data.data) {
       setItems(data.data);
-      getUserDetails(data.data.user);
+      setUser(data.data.user);
     }
   }, [data]);
 
-  console.log("ITem",items)
+  // console.log("ITem",items)
 
   return (
     <Root>
       <div className="card_section">
+      <span className='chain_id'>{items?.chainId=="5"?<img src={Goerli}/>:(items?.chainId=="97"?<img src={bnb}/>:(items?.chainId=="80001"?
+      <img src={polygon}/>:""))}</span>
         {items?.status == 'PORTFOLIO' ? (
           ''
         ) : (
           <span className="status">{items?.status}</span>
         )}
-        <Link to={`/user/nftdetails/${items?.id}`}>
+        <Link to={`/nfts/nftdetails/${items?.id}`}>
 
           <div className="image_style">
             <img src={`${IMAGE_END_POINT}${items?.media}`} />
@@ -54,7 +42,7 @@ export default function NftCard(data) {
         </Link>
         <div className="card_details">
           <div className="content_user">
-          <Link to={`/user/userdetails/${items?.user}`}>
+          <Link to={`/user/userdetails/${items?.user?.id}`}>
               <img
                 src={
                   user?.avatar
@@ -185,6 +173,16 @@ const Root = styled.section`
       color: white;
       right: 0;
       padding: 2px;
+    }
+
+    span.chain_id{
+      position: absolute;
+      border-radius: 50%;
+      img{
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+      }
     }
   }
 `;

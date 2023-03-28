@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import axios from 'axios';
 import URLS from '../../utils/urls';
 import { Link } from 'react-router-dom';
+import Goerli from '../../Assets/Goerli.png';
+import polygon from '../../Assets/polygon.svg';
+import bnb from '../../Assets/bnb.svg'
 
 
 export default function MarketplaceCard(data) {
@@ -12,34 +15,18 @@ export default function MarketplaceCard(data) {
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
-  const getUserDetails = async (id) => {
-    try {
-      let axiosConfig = {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      };
-
-      await axios
-        .get(`${URLS.EXCHANGE.ADMIN.GET_USER_DETAILS}${id}`, axiosConfig)
-        .then((res) => {
-          setUser(res.data.data);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
     if (data.data) {
-      setItems(data.data);
-      getUserDetails(data.data.user);
+      setItems(data?.data);
+      setUser(data?.data?.user)
     }
   }, [data]);
 
   return (
     <Root>
       <div className="card_section">
+      <span className='chain_id'>{items?.nft?.chainId=="5"?<img src={Goerli}/>:(items?.nft?.chainId=="97"?<img src={bnb}/>:
+      (items?.nft?.chainId=="80001"?<img src={polygon}/>:""))}</span>
         {items?.status == 'PORTFOLIO' ? (
           ''
         ) : (
@@ -49,7 +36,7 @@ export default function MarketplaceCard(data) {
           href="/marketplacedetails/[marketplacedetails]"
           as={`/marketplacedetails/${items?.id}`}
         > */}
-        <Link to={`/user/marketplacedetails/${items?.id}`}>
+        <Link to={`/marketplace/marketplacedetails/${items?.id}`}>
           <div className="image_style">
             <img src={`${IMAGE_END_POINT}${items?.nft?.media}`} />
           </div>
@@ -169,6 +156,15 @@ const Root = styled.section`
       color: white;
       right: 0;
       padding: 2px;
+    }
+    span.chain_id{
+      position: absolute;
+      border-radius: 50%;
+      img{
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+      }
     }
   }
 `;

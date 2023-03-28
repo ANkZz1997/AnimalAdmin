@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Icon } from 'semantic-ui-react';
 import { FilterBarStyle } from '../Style/filterbar.style';
-export default function FilterBarM({ sort, order, searchText }) {
+export default function FilterBarM({ sort, order, searchText,chainNumber }) {
   const [search, setSearch] = useState('');
 
   return (
@@ -47,6 +47,12 @@ export default function FilterBarM({ sort, order, searchText }) {
           >
             <option value="DESC">Decending</option>
             <option value="ASC">Ascending</option>
+          </select>
+          <select onChange={(e)=>{chainNumber(e.target.value)}}>
+            <option value={""}>All Chains</option>
+            <option value={5}>Goerli</option>
+            <option value={97}>BNB</option>
+            <option value={80001}>Polygon</option>
           </select>
         </div>
       </div>

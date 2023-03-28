@@ -4,6 +4,9 @@ import axios from 'axios';
 import URLS from '../../utils/urls';
 import Clock from './Counter';
 import { Link } from 'react-router-dom';
+import Goerli from '../../Assets/Goerli.png';
+import polygon from '../../Assets/polygon.svg';
+import bnb from '../../Assets/bnb.svg'
 
 export default function AuctionCard(data) {
   const [items, setItems] = useState();
@@ -12,40 +15,24 @@ export default function AuctionCard(data) {
 
   const deadline = data?.data?.endTime;
 
-  const getUserDetails = async (id) => {
-    try {
-      let axiosConfig = {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      };
-
-      await axios
-        .get(`${URLS.EXCHANGE.ADMIN.GET_USER_DETAILS}${id}`, axiosConfig)
-        .then((res) => {
-          setUser(res.data.data);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
     if (data.data) {
-      setItems(data.data);
-      getUserDetails(data.data.user);
+      setItems(data?.data);
+      setUser(data?.data?.user)
     }
   }, [data]);
 
   return (
     <Root>
       <div className="user_section">
+      <span className='chain_id'>{items?.nft?.chainId=="5"?<img src={Goerli}/>:(items?.nft?.chainId=="97"?<img src={bnb}/>:
+      (items?.nft?.chainId=="80001"?<img src={polygon}/>:""))}</span>
         <div className="img_section">
           {/* <Link
             href="/auctiondetails/[auctiondetails]"
             as={`/auctiondetails/${items?.id}`}
           > */}
-          <Link to={`/user/auctiondetails/${items?.id}`}>
+          <Link to={`/auction/auctiondetails/${items?.id}`}>
             <img src={`${IMAGE_END_POINT}${items?.nft?.media}`} />
           </Link>
         </div>
@@ -96,6 +83,15 @@ const Root = styled.section`
     /* height: 360px; */
     position: relative;
     overflow: hidden;
+    span.chain_id{
+      position: absolute;
+      border-radius: 50%;
+      img{
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+      }
+    }
     .img_section {
       cursor: pointer;
       width: 100%;

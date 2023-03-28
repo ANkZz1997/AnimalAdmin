@@ -142,9 +142,8 @@ function ChatSupport() {
                             as={`/userchatdetails/${i.id}`}
                           > */}
                                 <td className="chat_link">
-                            <Link to={`/user/userchatdetails/${i?.id}`}>
-
-                                    Click To Chat
+                            <Link to={`/chatsupport/userchatdetails/${i?.id}`}>
+                                    <div>Click To Chat</div>
                             </Link>
 
                                 </td>
@@ -200,10 +199,25 @@ color: whitesmoke;
   }
   .chat_link {
     cursor: pointer;
+    padding: 0;
     :hover {
       background: rgb(17 22 50) !important;
       color: #fff !important;
     }
+    a{
+      >div{
+        height: 42px;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        padding-left: 5px;
+
+        @media(max-width: 700px){
+          justify-content: center;
+        }
+    }
+    }
+  
   }
 
   table {

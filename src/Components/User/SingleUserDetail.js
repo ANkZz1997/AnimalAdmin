@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import URLS from '../../utils/urls';
+import BackButton from '../Model/BackButton';
 import NftCreated from './NftCreated';
 import NftPurchased from './NftPurchased';
 import NftSold from './NftSold';
@@ -19,6 +21,9 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
   return (
     <Root>
       <div className="main_title">
+        <Link to={`/user`}>
+          <BackButton/>
+        </Link>
         <h1>View User Profile</h1>
       </div>
       <div className="image_section">
@@ -29,7 +34,7 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
               : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
           }
           size="medium"
-          centered
+          // centered
           className="image_style"
         />
 

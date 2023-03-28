@@ -19,7 +19,7 @@ function Overview(data) {
             <tbody>
               <tr className="row_1">
                 <td>
-                  <p2>Full Name</p2>{' '}
+                  <p>Full Name</p>{' '}
                 </td>
                 <td>
                   <h3>{`${
@@ -31,7 +31,7 @@ function Overview(data) {
               </tr>
               <tr>
                 <td>
-                  <p2>Username</p2>
+                  <p>Username</p>
                 </td>
                 <td>
                   {' '}
@@ -42,7 +42,7 @@ function Overview(data) {
               </tr>
               <tr>
                 <td>
-                  <p2>Contact</p2>
+                  <p>Contact</p>
                 </td>
                 <td>
                   <h3>{`${
@@ -52,7 +52,7 @@ function Overview(data) {
               </tr>
               <tr>
                 <td>
-                  <p2>Email</p2>
+                  <p>Email</p>
                 </td>
                 <td>
                   <h3>{`${userDetails?.email ? userDetails.email : 'N/A'}`}</h3>
@@ -60,7 +60,7 @@ function Overview(data) {
               </tr>
               <tr>
                 <td>
-                  <p2>Created On</p2>
+                  <p>Created On</p>
                 </td>
                 <td>
                   <h3>
@@ -76,7 +76,7 @@ function Overview(data) {
               </tr>
               <tr>
                 <td>
-                  <p2>User Id</p2>
+                  <p>User Id</p>
                 </td>
                 <td>
                   <h3>{`${userDetails?.id ? userDetails.id : 'N/A'}`}</h3>
@@ -84,7 +84,7 @@ function Overview(data) {
               </tr>
               <tr>
                 <td>
-                  <p2>User Status</p2>
+                  <p>User Status</p>
                 </td>
                 <td>
                   <h3>{`${
@@ -94,7 +94,7 @@ function Overview(data) {
               </tr>
               <tr>
                 <td>
-                  <p2>Social Account Type</p2>
+                  <p>Social Account Type</p>
                 </td>
                 <td>
                   <h3>{`${
@@ -106,7 +106,7 @@ function Overview(data) {
               </tr>
               <tr>
                 <td>
-                  <p2>Social Id</p2>
+                  <p>Social Id</p>
                 </td>
                 <td>
                   <h3>{`${
@@ -116,7 +116,7 @@ function Overview(data) {
               </tr>
               <tr>
                 <td>
-                  <p2>Wallet Address</p2>
+                  <p>Wallet Address</p>
                 </td>
                 <td>
                   <h3>{`${
@@ -126,7 +126,7 @@ function Overview(data) {
               </tr>
               <tr>
                 <td>
-                  <p2>Wallet Id</p2>
+                  <p>Wallet Id</p>
                 </td>
                 <td>
                   <h3>{`${
@@ -136,7 +136,7 @@ function Overview(data) {
               </tr>
               <tr>
                 <td>
-                  <p2>Wallet Created On</p2>
+                  <p>Wallet Created On</p>
                 </td>
                 <td>
                   <h3>{`${
@@ -150,7 +150,7 @@ function Overview(data) {
               </tr>
               <tr>
                 <td>
-                  <p2>Wallet Updated On</p2>
+                  <p>Wallet Updated On</p>
                 </td>
                 <td>
                   <h3>{`${
@@ -164,7 +164,7 @@ function Overview(data) {
               </tr>
               <tr>
                 <td>
-                  <p2>Wallet User</p2>
+                  <p>Wallet User</p>
                 </td>
                 <td>
                   <h3>{`${
@@ -209,7 +209,7 @@ const Root = styled.section`
         padding: 10px;
         td {
           padding: 5px;
-          p2 {
+          p {
             /* flex: 1; */
             font-size: 16px;
             color: rgb(140, 124, 240);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import styled from 'styled-components';
 import {FaHome,FaUserAlt,FaRegAddressCard} from 'react-icons/fa'
 import {RiAuctionFill} from 'react-icons/ri'
@@ -16,18 +16,22 @@ import { checkUserAction } from '../../redux/admin/action';
 
 
 export default function Sidebar() {
-
-  const [activeTab,setActiveTab] = useState("dashboard")
+  const activeParam = window.location.href.split('/')[3];
+  const [activeTab,setActiveTab] = useState(activeParam)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const userCheck = useSelector((state)=>state?.persistReducer?.username)
 
   const userLogoutAction = ()=>{
     dispatch(checkUserAction(false))
     localStorage.setItem("token","")
     cogoToast.success("Logout Successfully")
-    window.location.replace("/")
+    navigate('/')
+    // window.location.replace("/")
   }
 
-  console.log('ActiveTab',activeTab)
+  console.log('ActiveTab',activeParam)
 
   return (
     <Root>
@@ -48,20 +52,20 @@ export default function Sidebar() {
           <div>
             <h4 className="caption">CONTENT</h4>
           </div>
-          <Link to ='/user' className={activeTab=="user"?"link_2 active":"link_2"} onClick={()=>setActiveTab("user")}><FaUserAlt/><h3>User</h3></Link>
-          <Link to ='/nfts' className={activeTab=="nfts"?"link_2 active":"link_2"} onClick={()=>setActiveTab("nfts")}><GiCardKingDiamonds/><h3>NFTs</h3></Link>
-          <Link to ='/auction' className={activeTab=="auction"?"link_2 active":"link_2"} onClick={()=>setActiveTab("auction")}><RiAuctionFill/><h3>Auction</h3></Link>
-          <Link to ='/marketplace' className={activeTab=="marketplace"?"link_2 active":"link_2"} onClick={()=>setActiveTab("marketplace")}><TbReplace/><h3>Marketplace</h3></Link>
-          <Link to ='/bids' className={activeTab=="bids"?"link_2 active":"link_2"} onClick={()=>setActiveTab("bids")}><BiDna/><h3>Bids</h3></Link>
-          <Link to ='/kyc' className={activeTab=="kyc"?"link_2 active":"link_2"} onClick={()=>setActiveTab("kyc")}><FaRegAddressCard/><h3>KYC</h3></Link>
-          <Link to ='/chatsupport' className={activeTab=="chatsupport"?"link_2 active":"link_2"} onClick={()=>setActiveTab("chatsupport")}><BsFillChatDotsFill/><h3>Chat Support</h3></Link>
+          <Link to ='/user' className={activeParam=="user"?"link_2 active":"link_2"} onClick={()=>setActiveTab("user")}><FaUserAlt/><h3>User</h3></Link>
+          <Link to ='/nfts' className={activeParam=="nfts"?"link_2 active":"link_2"} onClick={()=>setActiveTab("nfts")}><GiCardKingDiamonds/><h3>NFTs</h3></Link>
+          <Link to ='/auction' className={activeParam=="auction"?"link_2 active":"link_2"} onClick={()=>setActiveTab("auction")}><RiAuctionFill/><h3>Auction</h3></Link>
+          <Link to ='/marketplace' className={activeParam=="marketplace"?"link_2 active":"link_2"} onClick={()=>setActiveTab("marketplace")}><TbReplace/><h3>Marketplace</h3></Link>
+          <Link to ='/bids' className={activeParam=="bids"?"link_2 active":"link_2"} onClick={()=>setActiveTab("bids")}><BiDna/><h3>Bids</h3></Link>
+          <Link to ='/kyc' className={activeParam=="kyc"?"link_2 active":"link_2"} onClick={()=>setActiveTab("kyc")}><FaRegAddressCard/><h3>KYC</h3></Link>
+          <Link to ='/chatsupport' className={activeParam=="chatsupport"?"link_2 active":"link_2"} onClick={()=>setActiveTab("chatsupport")}><BsFillChatDotsFill/><h3>Chat Support</h3></Link>
         </div>
       </div>
 
       <div  className='menu_button nav_link'>
         <div className='admin_profile2'>
           <img
-            src="https://kalasalingam.ac.in/wp-content/uploads/2021/08/Achievements-dummy-profile.png"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Tom_Cruise_%2834450932580%29.jpg/1200px-Tom_Cruise_%2834450932580%29.jpg"
             style={{ borderRadius: '60px' }}
             height="40"
             width="40"
@@ -69,12 +73,12 @@ export default function Sidebar() {
           />
           &#160;&#160;
           <div className='admin_details'>
-            Dummy Name
-            <p>Admin</p>
+            {userCheck}
+            <p>@Admin121</p>
         </div>
         </div>
-        <Link to ='/' className={activeTab=="help"?"link_2 active":"link_2"} onClick={()=>setActiveTab("help")}><FiHelpCircle/><h3>Help</h3></Link>
-        <Link to ='/'className={activeTab=="settings"?"link_2 active":"link_2"} onClick={()=>setActiveTab("settings")}><FiSettings/><h3>Settings</h3></Link>
+        <Link to ='/' className={activeParam=="help"?"link_2 active":"link_2"} onClick={()=>setActiveTab("help")}><FiHelpCircle/><h3>Help</h3></Link>
+        <Link to ='/appsettings'className={activeParam=="appsettings"?"link_2 active":"link_2"} onClick={()=>setActiveTab("appsettings")}><FiSettings/><h3>App Settings</h3></Link>
         <button onClick={()=>{dispatch(userLogoutAction())}} className='link_2'><FiLogOut/><h3>Logout</h3></button>
 
       </div>
@@ -137,10 +141,14 @@ height: 100%;
     background-color: whitesmoke;
     border-radius: 10px;
     padding: 5px;
+    img{
+      object-fit: cover;
+    }
     .admin_details{
       font-weight: 600;
       font-size: 18px;
       color: black;
+      text-transform: capitalize;
 
       p{
         font-size: 12px;

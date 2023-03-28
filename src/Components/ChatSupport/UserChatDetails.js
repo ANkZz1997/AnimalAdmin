@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Dimmer, Icon, Loader, Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 import URLS from '../../utils/urls';
 import LoaderCSS from '../Loader';
+import BackButton from '../Model/BackButton';
 
 function UserChatDetails({ id }) {
   const [message, setMessage] = useState([]);
@@ -169,6 +171,10 @@ function UserChatDetails({ id }) {
   return (
     <Root>
       <div className="main_div">
+        <Link to={`/chatsupport/`}>
+          <BackButton/>
+        </Link>
+
         <div className="user_details">
           {/* <Link
             href="/userdetails/[userid]"
@@ -246,6 +252,7 @@ color: whitesmoke;
     flex-direction: column;
     overflow: hidden;
     height: 83vh;
+    
     .user_details {
       display: flex;
       align-items: center;
