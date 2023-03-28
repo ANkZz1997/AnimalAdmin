@@ -38,6 +38,10 @@ const URLS = {
             GET_DISPUTE_TOPIC: `${EXCHANGE_URL}/dispute/getEntities`,
             GET_CONVERSATION: `${EXCHANGE_URL}/conversation?id=`,
             POST_CONVERSATION: `${EXCHANGE_URL}/dispute/newResponse`,
+            POST_BANNERS: `${EXCHANGE_URL}/admin/addBanner`,
+            BANNER_LIST:`${EXCHANGE_URL}/admin/banners`,
+            BANNER_STATUS: `${EXCHANGE_URL}/admin/updateBannerStatus`,
+            DELETE_BANNER: `${EXCHANGE_URL}/admin/deleteBanner`
 
         },
 

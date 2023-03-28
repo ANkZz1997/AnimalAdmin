@@ -53,8 +53,6 @@ color: whitesmoke;
 
 .parent_div{
     position: relative;
-    padding: 20px;
-
 
 .change_btn{
     padding: 3px;

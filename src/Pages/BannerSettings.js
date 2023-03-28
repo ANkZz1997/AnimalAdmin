@@ -1,5 +1,6 @@
 import React from 'react'
-import Banners from '../Components/Settings/Banners'
+import Banners from '../Components/Banners'
+
 
 function BannerSettings() {
   return (

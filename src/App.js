@@ -10,21 +10,16 @@ import Help from "./Pages/Help";
 import Kyc from "./Pages/Kyc";
 import Marketplace from "./Pages/Marketplace";
 import Nfts from "./Pages/Nfts";
-import PageNotFound from "./Pages/PageNotFound";
-import Settings from "./Pages/AppSettings";
 import User from "./Pages/User";
 import Protected from "./Protected";
-import Login from "./Components/Login";
 import UserDetails from "./Pages/UserDetails";
 import NftDetailsId from "./Pages/NftDetails";
-import AuctionDetails from "./Components/Auction/SingleAuctionDetails";
 import AuctionDetailsId from "./Pages/AuctionDetails";
 import DashboardDetailsId from "./Components/Dashboard/DashboardDetails/DashboardDetails";
 import JoinTodayId from "./Pages/JoinedToday";
 import UserChatDetailsId from "./Pages/ChatDetails";
 import MarketplaceDetailsId from "./Pages/MarketplaceDetails";
 import AppSettings from "./Pages/AppSettings";
-import BannerSettings from "./Pages/BannerSettings";
 import PlatformFees from "./Pages/PlatformFees";
 
 
@@ -50,8 +45,8 @@ function App() {
             <Route path="/chatsupport" element={ <Protected > <Chatsupport/> </Protected> } />
             <Route path="/help" element={ <Protected > <Help /> </Protected> } />
             <Route path="/appsettings" element={ <Protected > <AppSettings /> </Protected> } />
-            <Route path="/appsettings/bannersettings" element={ <Protected > <BannerSettings/> </Protected> } />
             <Route path="/appsettings/platformcharge" element={ <Protected > <PlatformFees/> </Protected> } />
+            {/* <Route path="/appsettings/accesscodes" element={}/> */}
 
 
 
