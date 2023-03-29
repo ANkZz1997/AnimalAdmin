@@ -19,8 +19,8 @@ import DashboardDetailsId from "./Components/Dashboard/DashboardDetails/Dashboar
 import JoinTodayId from "./Pages/JoinedToday";
 import UserChatDetailsId from "./Pages/ChatDetails";
 import MarketplaceDetailsId from "./Pages/MarketplaceDetails";
-import AppSettings from "./Pages/AppSettings";
-import PlatformFees from "./Pages/PlatformFees";
+import PlatformSettings from "./Pages/PlatformSettings";
+import MobileSettings from "./Pages/MobileSettings";
 
 
 
@@ -44,11 +44,10 @@ function App() {
             <Route path="/kyc" element={ <Protected > <Kyc /> </Protected> } />
             <Route path="/chatsupport" element={ <Protected > <Chatsupport/> </Protected> } />
             <Route path="/help" element={ <Protected > <Help /> </Protected> } />
-            <Route path="/appsettings" element={ <Protected > <AppSettings /> </Protected> } />
-            <Route path="/appsettings/platformcharge" element={ <Protected > <PlatformFees/> </Protected> } />
-            {/* <Route path="/appsettings/accesscodes" element={}/> */}
+            <Route path="/platformsettings" element={ <Protected > <PlatformSettings/> </Protected> } />
+            <Route path="/mobilesettings" element={ <Protected > <MobileSettings/> </Protected> } />
 
-
+            {/* <Route path="/platformsettings/platformcharge" element={ <Protected > <PlatformFees/> </Protected> } /> */}
 
             <Route path="/user/userdetails/:id" element={ <Protected > <UserDetails /> </Protected> } />
             <Route path="/nfts/nftdetails/:id" element={ <Protected > <NftDetailsId/> </Protected> } />
@@ -64,6 +63,5 @@ function App() {
       
     </>
   )}
-
 
 export default App;

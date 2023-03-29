@@ -1,21 +1,32 @@
 import React from 'react'
 import { useState } from 'react'
+import { AiOutlineCheck } from 'react-icons/ai'
 import { Checkbox } from 'semantic-ui-react'
 import styled from 'styled-components'
 import { codes } from '../../utils/codes'
 
 export default function RouteCodes() {
 
-    const[checked,setChecked] = useState()
-    const[checkedItem,setCheckedItem] = useState()
     const[codeList,setCodeList] = useState(codes)
 
     const handleParentClick =(e)=>{
         console.log("e ------------ ",e)
         const newObj = codeList.map((i)=> {
             if(i.secretCode == e){
-                return {...i , isCheck : !i.isCheck}
-                
+                const newChild = i.child.map((j)=>{
+                   return {...j,isCheck:!j.isCheck}
+                    // handleChildClick(j.accessCode,i.secretCode);
+                })
+                // console.log("newChild",newChild)
+                const obj = newChild.map((f)=>{
+                    return f.isCheck?"true":"false";
+                });
+                // console.log("newChild",obj)
+                if(obj.includes("true")){
+                    return {...i , isCheck : true, child: newChild}
+                }else{
+                    return {...i , isCheck : false, child: newChild}
+                }
             }
             else{
                return i
@@ -36,50 +47,59 @@ export default function RouteCodes() {
                         return x
                     }
                 })
-                return {...i,child : childObj}
+                // console.log("child update",childObj)
+                const checkChild = childObj.map((k)=>{
+                    return k.isCheck?"true":"false";
+                })
+                // console.log("checkChild",checkChild.includes("true"));
+                if(checkChild.includes("true")){
+                    return{...i,isCheck:true,child: childObj}
+                }else{
+                    return {...i,isCheck:false,child : childObj}
+                };
             }
             else{
                return i
             }
         })
         setCodeList(newObjs)
-
     }
 
-    console.log('checked--checkedItem',checked,checkedItem)
-    console.log("codeList",codeList)
-
+console.log("codeList",codeList)
     
   return (
     <Root>
+        <h2>Create New Role</h2>
+        <div className='create_parent'>
+            <div className='create_child'>
+                <h3>Create Role :</h3> 
+                <input/>
+                <button>Save</button>
+            </div>
+
+        </div>
             {codeList?.map((i,ix)=>{
                 return(
-      <table key={ix}>
-            <thead>
-                <tr>
-                    <th>{i.name}</th>
-                    <th>{i.secretCode}</th>
-                    <th>{i.isCheck?"True":"False"}</th>
-                    {/* <th>Access  */}
-                        <button value={i.secretCode} onClick={(e)=>{handleParentClick(e.target.value)}} className={i.isCheck ? 'checkbox on' : 'checkbox'}>ppp</button>
-                    {/* </th> */}
-                </tr>
-            </thead>
-                <tbody>
-                    {i?.child?.map((j,jx)=>{
-                        return(
-                            <tr key={jx}>
-                                <td>{j.accessName}</td>
-                                <td>{j.accessCode}</td>
-                                <td>{j.isCheck?"True":"False"}</td>
-                                <td>
-                                    <button className={j.isCheck ? 'checkbox on' : 'checkbox'} onClick={()=>{handleChildClick(j.accessCode,i.secretCode)}}></button>
-                                </td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-      </table>
+                    <div className='access_parent'>
+                        <div className='heading'>
+                            <h4>{i.name}</h4>
+                            <button onClick={()=>{handleParentClick(i.secretCode)}} 
+                                className={i.isCheck ? 'checkbox on' : 'checkbox'}>
+                            </button>
+                        </div>
+                        <div className='access_child'>
+                            {i?.child?.map((j,jx)=>{
+                                return(
+                                    <div className='child' key={jx}>
+                                        <button className={j.isCheck ? 'checkbox on' : 'checkbox'} 
+                                            onClick={()=>{handleChildClick(j.accessCode,i.secretCode)}}>
+                                        </button>
+                                        <h5>{j.accessName}</h5>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
                 )
             })}
         
@@ -88,27 +108,74 @@ export default function RouteCodes() {
 }
 
 const Root = styled.section`
+ h5,h4{
+        margin: 0;
+    }
+*:focus {
+    outline: 0 !important;
+    }
 
 color: white;
 padding: 20px;
 
-table{
-    width: 100%;
-    text-align: left;
-    td{
-        width:25%;
-    }
+.create_parent{
 
+    padding: 10px 0;
+
+    .create_child{
+        display: flex;
+        gap: 20px;
+        align-items: center;
+
+        input{
+            height: 30px;
+            background: #070c27;
+            border: 0.5px solid white;
+            color: white;
+            padding: 0 5px;
+            font-size: 16px;
+        }
+
+        button{
+            padding: 5px;
+            height: 30px;
+            border-radius: 5px;
+        }
+    }
 }
 
+.access_parent{
+    padding: 15px;
+    border: 2px solid;
+    margin-top: 5px;
+    .heading{
+        display: flex;
+        gap: 5px;
+    }
+    
+    .access_child{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        margin-top: 10px;
+    
+        .child{
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+    }
+}
+
+
 .checkbox {
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
     background: white;
+    border: none;
+ 
 }
 .checkbox.on{
     background:green;
 }
-
 
 `
