@@ -93,13 +93,12 @@ export default function BannersList({newBanner}) {
     }
 
     useEffect(()=>{
-        // setLoader(true)
+        setLoader(true)
         bannerList()
     },[])
 
     useEffect(()=>{
         if(newBanner){
-            // setLoader(true)
             setBannerData([newBanner , ...bannerData ])
         }
     },[newBanner])

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
-import Banner from './Banner'
+import Banners from './../Banners'
 
 export default function Index() {
 
@@ -21,7 +21,7 @@ export default function Index() {
             <hr/>
             <div className='content_div'>
                 {
-                activeTab=="banner"?<Banner/>:
+                activeTab=="banner"?<Banners/>:
                 activeTab =="setting4"?<h2 className='h2element'>Settings 4</h2>: 
                 activeTab =="setting5"?<h2 className='h2element'>Settings 5</h2>:
                 activeTab =="setting6"?<h2 className='h2element'>Settings 6</h2>:

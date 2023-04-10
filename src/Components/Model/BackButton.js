@@ -1,12 +1,19 @@
 import React from 'react'
 import {TbArrowBackUp} from 'react-icons/tb'
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 
 
 export default function BackButton() {
+
+  const navigate = useNavigate();
+
+  const goBack = ()=>{
+    navigate(-1);
+  }
   return (
     <Root>
-        <button className='back_btn'><TbArrowBackUp/></button>
+        <button className='back_btn' onClick={goBack}><TbArrowBackUp/></button>
     </Root>
   )
 }

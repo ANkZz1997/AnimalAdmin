@@ -21,9 +21,9 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
   return (
     <Root>
       <div className="main_title">
-        <Link to={`/user`}>
+        {/* <Link to={`/user`}> */}
           <BackButton/>
-        </Link>
+        {/* </Link> */}
         <h1>View User Profile</h1>
       </div>
       <div className="image_section">

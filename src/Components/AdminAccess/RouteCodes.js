@@ -1,7 +1,5 @@
 import React from 'react'
 import { useState } from 'react'
-import { AiOutlineCheck } from 'react-icons/ai'
-import { Checkbox } from 'semantic-ui-react'
 import styled from 'styled-components'
 import { codes } from '../../utils/codes'
 

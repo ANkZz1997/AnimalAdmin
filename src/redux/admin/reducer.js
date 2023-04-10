@@ -10,6 +10,8 @@ const adminReducer = (state = initialState, action)=>{
             return {...state, data: action.data}
         case userData.GET_DASHBOARD:
             return {...state, data: action.data}
+        case userData.GET_SETTING_LIST:
+            return{...state, data: action.data}
         case userData.GET_USER_LIST:
             return {...state, data: action.data}
         case userData.GET_USER_LIST_PARAMS:

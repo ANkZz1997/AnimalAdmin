@@ -14,7 +14,7 @@ import moment from 'moment';
 import URLS from '../../utils/urls';
 import { usersDataAction } from '../../redux/admin/action';
 import LoaderCSS from '../Loader';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import cogoToast from 'cogo-toast';
 import Clock from '../Cards/Counter';
 import BidDetails from '../Bids/BidDetails';
@@ -43,6 +43,8 @@ function AuctionDetails({ details }) {
   const callBack = (data) => {
     setMinterDetails(data.records[0]);
   };
+
+
 
   useEffect(() => {
     if (details) {
@@ -73,9 +75,7 @@ function AuctionDetails({ details }) {
       ) : (
         <Root>
           <div className="action_bar">
-          <Link to={"/auction"}>
-            <div><BackButton/></div>
-          </Link>
+            <div ><BackButton/></div>
             <Menu compact>
               <Dropdown text="Action" options={options} simple item />
             </Menu>

@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import AccessCode from './AccessCode'
-import PlatformCharge from './PlatformCharge'
+import PlatformCharge from '../PlatformFees/PlatformCharge'
+import CreateRoles from '../Create Roles'
+import AccessCodes from '../AdminAccess'
+
 
 export default function Settings() {
 
@@ -14,17 +16,17 @@ export default function Settings() {
         <div className='settings_main'>
             <div className='btn_div'>
                 <button onClick={()=>{setActiveTab("platformfee")}} className={activeTab=="platformfee"?"btn on":"btn"}>Platform Fee</button>
-                <button onClick={()=>{setActiveTab("accesscodes")}} className={activeTab=="accesscodes"?"btn on":"btn"}>Create Role</button>
-                <button onClick={()=>{setActiveTab("setting4")}} className={activeTab=="setting4"?"btn on":"btn"}>Settings 4</button>
-                <button onClick={()=>{setActiveTab("setting5")}} className={activeTab=="setting5"?"btn on":"btn"}>Settings 5</button>
-                <button onClick={()=>{setActiveTab("setting6")}} className={activeTab=="setting6"?"btn on":"btn"}>Settings 6</button>
+                <button onClick={()=>{setActiveTab("accesscodes")}} className={activeTab=="accesscodes"?"btn on":"btn"}>Access Codes</button>
+                <button onClick={()=>{setActiveTab("adminuser")}} className={activeTab=="adminuser"?"btn on":"btn"}>Admin Roles</button>
+                <button onClick={()=>{setActiveTab("setting5")}} className={activeTab=="setting5"?"btn on":"btn"}>Manage Access</button>
+                <button onClick={()=>{setActiveTab("setting6")}} className={activeTab=="setting6"?"btn on":"btn"}>Manage Access</button>
             </div>
             <hr/>
             <div className='content_div'>
                 {
                 activeTab=="platformfee"?<PlatformCharge/>:
-                activeTab =="accesscodes"?<AccessCode/>:
-                activeTab =="setting4"?<h2 className='h2element'>Settings 4</h2>: 
+                activeTab =="accesscodes"?<AccessCodes/>:
+                activeTab =="adminuser"?<CreateRoles/>: 
                 activeTab =="setting5"?<h2 className='h2element'>Settings 5</h2>:
                 activeTab =="setting6"?<h2 className='h2element'>Settings 6</h2>:
                 " "

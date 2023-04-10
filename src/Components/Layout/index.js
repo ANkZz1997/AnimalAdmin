@@ -1,36 +1,102 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Login from '../Login'
 import Sidebar from './Sidebar'
 import Topbar from './Topbar'
+import PreSettings from './../../Pages/PreSettings'
+import URLS from '../../utils/urls'
+import axios from 'axios'
+import { configAxios } from '../../utils/https'
+// import PreLoginSetting from '../PreLoginSettings'
+import CommissionValue from '../PreLoginSettings/CommissionValue'
+import LazyMinting from '../PreLoginSettings/LazyMinting'
+import PinataCredentials from '../PreLoginSettings/PinataCredentials'
+import StripeSecret from '../PreLoginSettings/StripeSecret'
+import { preLoginAction } from '../../redux/admin/action'
+import LoaderCSS from '../Loader'
 
 
-export default function Layout({children}) {
-    const userCheck = useSelector((state)=>state?.persistReducer?.isUser)
-    // console.log('Auth',userCheck)
-  
-  return (
-    <Root>
-        {userCheck?
-         <div className='layout_section'>
-         <div>
-            <Topbar/>
-            <div className='sidebar'>
-                <Sidebar/>
-            </div>
-         </div>
+export default function Layout({ children }) {
+    const userCheck = useSelector((state) => state?.persistReducer?.isUser);
+    const [checkPreSettings, setCheckPreSettings] = useState(true)
+    const [settingRes, setSettingRes] = useState({});
+    const [activeTab, setActiveTab] = useState();
+    const [loader,setLoader] = useState(true);
 
-         <div className='main_section'>
-             <div className='content_section'>{children}</div>
-         </div>
-     </div>:
-        <div>
-            <Login/>
-        </div>
+    const dispatch = useDispatch();
+
+    const userCallback = (data) => {
+        console.log("sagapresetting",data)
+        setSettingRes(data);
+        checkEmpty(data);
+        setLoader(false);
+      };
+
+    const checkEmpty = (val) => {
+        let emptyKey = [];
+        for (const i in val) {
+            if (val[i] == "") {
+                emptyKey.push(i);
+            }
+        }
+        emptyKey = emptyKey.filter(function (items) {
+            return items !== "adminPrivateKey"
+        })
+        setActiveTab(emptyKey[0])
+        setSettingRes(emptyKey)
     }
-    </Root>
-  )
+
+    const handleCall =()=>{
+        dispatch(preLoginAction({},userCallback));
+    }
+
+    useEffect(() => {
+        setLoader(true);
+        console.log('checkkk ----- 00000')
+        if(userCheck){
+            dispatch(preLoginAction({},userCallback));
+        }
+    }, [userCheck])
+
+    console.log('checkErr')
+
+    return (
+        <Root>
+            {
+            userCheck?
+                loader?<LoaderCSS/> : 
+                    settingRes.length > 0 ?
+                        <>
+                            {activeTab == "commission" || activeTab == "commissionType" ? 
+                            <CommissionValue nextPage={(e)=>{handleCall()}}/>:  
+                            activeTab == "lazymint"?<LazyMinting nextPage={(e)=>{handleCall()}} />: 
+                            //  activeTab == "adminPrivateKey" ? <LazyMinting /> : 
+                            activeTab == "pinataApiKey" || activeTab == "pinataSecret" ? 
+                            <PinataCredentials nextPage={(e)=>{handleCall()}} />: 
+                            activeTab == "stripeSecret" ? <StripeSecret nextPage={(e)=>{handleCall()}}/> : ""}
+                        </>
+                    :
+                    <div className='layout_section'>
+                        <div>
+                            <Topbar />
+                            <div className='sidebar'>
+                                <Sidebar />
+                            </div>
+                        </div>
+
+                        <div className='main_section'>
+                            <div className='content_section'>{children}</div>
+                        </div>
+                    </div>
+
+                :
+                <div>
+                    <Login />
+                </div>
+            }
+        </Root>
+    )
 }
 
 const Root = styled.section`

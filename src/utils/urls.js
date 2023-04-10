@@ -1,6 +1,9 @@
 // const EXCHANGE_URL = process.env.NEXT_PUBLIC_BASE_EXCHANGE_URL;
 // const NEXT_ORIGIN = process.env.NEXT_PUBLIC_NEXT_URL || '';
-const EXCHANGE_URL = 'http://nft.sdnatech.com:8080'
+// const EXCHANGE_URL = 'http://nft.sdnatech.com:8080'
+const EXCHANGE_URL = 'https://nft-admin.sdnatech.com/'
+
+
 
 const URLS = {
     //PAGE ROUTES
@@ -14,6 +17,15 @@ const URLS = {
 
             //COMPLETE DETAILS APIS
         ADMIN:{
+            //Pre Login APIs
+            GET_SETTING_LIST:`${EXCHANGE_URL}/admin/getSettings`,
+            SET_COMMISSION:`${EXCHANGE_URL}/admin/setCommission?value=`,
+            SET_COMMISSION_TYPE:`${EXCHANGE_URL}/admin/setCommissionType?value=`,
+            SET_LAZY_MINTING:`${EXCHANGE_URL}/admin/setLazyMint?value=`,
+            SET_STRIPE_SECRET:`${EXCHANGE_URL}/admin/setStripeSecret?value=`,
+            POST_PINATA_CREDINTIALS:`${EXCHANGE_URL}/admin/setPinataCreds?value=`,
+
+
             LOGIN: `${EXCHANGE_URL}/auth/adminLogin`,
             GET_DASHBOARD: `${EXCHANGE_URL}/admin/dashboard`,
             GET_USER_LIST: `${EXCHANGE_URL}/admin/users`,
@@ -41,7 +53,15 @@ const URLS = {
             POST_BANNERS: `${EXCHANGE_URL}/admin/addBanner`,
             BANNER_LIST:`${EXCHANGE_URL}/admin/banners`,
             BANNER_STATUS: `${EXCHANGE_URL}/admin/updateBannerStatus`,
-            DELETE_BANNER: `${EXCHANGE_URL}/admin/deleteBanner`
+            DELETE_BANNER: `${EXCHANGE_URL}/admin/deleteBanner`,
+
+            POST_ROLES: `${EXCHANGE_URL}/access/addRole`,
+            POST_ACCESS_CODE: `${EXCHANGE_URL}/access/addAccessCode`,
+            ASSIGN_ROLES_CODES: `${EXCHANGE_URL}/access/assignAccessCode`,
+            REMOVE_ROLES_CODES: `${EXCHANGE_URL}/access/removeAccessCode`,
+
+            GET_ROLES: `${EXCHANGE_URL}/access/getRoles`,
+            GET_ACCESS_CODES: `${EXCHANGE_URL}/access/getAccessCodes`
 
         },
 

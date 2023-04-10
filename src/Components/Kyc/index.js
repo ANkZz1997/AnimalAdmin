@@ -7,9 +7,10 @@ import { kycUserData } from '../../redux/admin/action';
 import URLS from '../../utils/urls';
 import LoaderCSS from '../Loader';
 import KycUsers from './KycUsers';
+import moment from 'moment';
 
 function KycDetails() {
-  const [kycData, setKycData] = useState();
+  const [kycData, setKycData] = useState([]);
   const [docs, setDocs] = useState('');
   const [action, setAction] = useState('');
   const [loader, setLoader] = useState(true);
@@ -17,7 +18,8 @@ function KycDetails() {
   const dispatch = useDispatch();
 
   const callBack = (data) => {
-    setKycData(data);
+    console.log("datadata",data)
+    setKycData(data.records);
     setLoader(false);
     // setLoading(data);
   };
@@ -32,7 +34,14 @@ function KycDetails() {
       await axios
         .get(`${URLS.EXCHANGE.ADMIN.KYC_ACTION_APPROVE}${id}`, axiosConfig)
         .then((res) => {
-          console.log(res)
+          const newData = kycData.map((i,ix)=>{
+            if(i.id == id){
+              return res.data.data[0]
+            }else{
+              return i
+            }
+          })
+          setKycData(newData)
         });
     } catch (err) {
       console.log(err);
@@ -50,7 +59,14 @@ function KycDetails() {
         .get(`${URLS.EXCHANGE.ADMIN.KYC_ACTION_REJECT}${id}`, axiosConfig)
         .then((res) => {
           console.log(res);
-
+          const newData = kycData.map((i,ix)=>{
+            if(i.id == id){
+              return res.data.data[0]
+            }else{
+              return i
+            }
+          })
+          setKycData(newData)
         });
     } catch (err) {
       console.log(err);
@@ -60,10 +76,10 @@ function KycDetails() {
   const handelAction = (e, f) => {
     if (e == 'Approve') {
       kycActionApprove(f);
-      callData();
+      // callData();
     } else if (e == 'Rejected') {
       kycActionReject(f);
-      callData();
+      // callData();
     }
   };
 
@@ -82,9 +98,11 @@ function KycDetails() {
   };
 
   useEffect(() => {
-    handelAction()
+    // handelAction()
     callData();
-  }, [kycData]);
+  }, []);
+
+  console.log("kycData",kycData)
 
   return (
     <Root>
@@ -109,10 +127,29 @@ function KycDetails() {
                 </tr>
               </thead>
               <tbody>
-                {kycData?.records.map((i, ix) => {
+                {kycData?.map((i, ix) => {
                   return (
                     <tr key={ix}>
                       <KycUsers items={i} indx={ix} />
+                      <td className="kyc_date" data-label="KYC Date">
+                        {moment(i?.createdAt).format('DD - MMM - YYYY')}
+                      </td>
+                      <td data-label="Remarks">
+                        {i?.remarks ? i.remarks : 'No Remarks'}
+                      </td>
+
+                        <td data-label="Status"
+                                className={
+                                  i?.status == 'APPROVED'
+                                    ? 'approve_status'
+                                    : i?.status == 'REJECTED'
+                                    ? 'reject_status'
+                                    : 'pending_status'
+                                }
+                              >
+                               {i?.status}
+                              </td>
+
                       <td className="select_cell">
                         <select
                           name="kyc_actions"

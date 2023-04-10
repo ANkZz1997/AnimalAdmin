@@ -60,9 +60,9 @@ function MarketplaceDetails({ details }) {
       ) : (
         <Root>
           <div className="action_bar">
-            <Link to={"/marketplace"}>
+            {/* <Link to={"/marketplace"}> */}
               <div><BackButton/></div>
-            </Link>
+            {/* </Link> */}
             <Menu compact>
               <Dropdown text="Action" options={options} simple item />
             </Menu>

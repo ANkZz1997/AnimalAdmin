@@ -40,6 +40,8 @@ function KycUsers({ items, indx }) {
     getUserDetails(items?.user);
   }, [items]);
 
+  console.log("userDetails ---- ",userDetails)
+
   return (
     <>
       <td scope="row" className="s_no" data-label="S.No">
@@ -48,9 +50,10 @@ function KycUsers({ items, indx }) {
       <td className="user_name" data-label="User">
         @{userDetails?.username}
       </td>
-      <td className="kyc_date" data-label="KYC Date">
-        {moment(kycData?.createdAt).format('DD - MMM - YYYY')}
-      </td>
+
+
+
+      
       <td data-label="ID Proof" className="docs">
         <button
           className="btn2"
@@ -79,10 +82,8 @@ function KycUsers({ items, indx }) {
         </button>
       </td>
 
-      <td data-label="Remarks">
-        {kycData?.remarks ? kycData.remarks : 'No Remarks'}
-      </td>
-      <td
+      
+      {/* <td
         data-label="Status"
         className={
           kycData?.status == 'APPROVED'
@@ -93,7 +94,11 @@ function KycUsers({ items, indx }) {
         }
       >
         {kycData?.status}
-      </td>
+      </td> */}
+
+
+
+
       <div className={isOpen ? 'img_popup ' : 'img_popup active'}>
         {!imgLoader ? (
           docs.length > 0 ? (

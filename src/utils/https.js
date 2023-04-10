@@ -89,3 +89,9 @@ new Promise((resolve, reject) => {
       reject(error.response);
     });
 });
+
+export const configAxios = {
+  headers: {
+    authorization: `Bearer ${localStorage.getItem('token')}`,
+  },
+}

@@ -188,33 +188,43 @@ export const codes = [
     },
     {   
         id:9,
-        name: 'Settings',
-        secretCode: 'SETTING01',
+        name: 'MobileSettings',
+        secretCode: 'MSETTING01',
         isCheck : false,
         child :[
             {
                 id:91,
                 accessName: "Banner",
-                accessCode: "SETTING11",
+                accessCode: "MSETTING11",
                 isCheck : false
 
             },
+          
+        ]
+
+    },
+    {   
+        id:10,
+        name: 'Settings',
+        secretCode: 'SETTING01',
+        isCheck : false,
+        child :[
             {
-                id:92,
+                id:101,
                 accessName: "Platform Fee",
                 accessCode: "SETTING12",
                 isCheck : false
 
             },
             {
-                id:92,
+                id:102,
                 accessName: "Create Admin User",
                 accessCode: "SETTING13",
                 isCheck : false
 
             },
             {
-                id:92,
+                id:103,
                 accessName: "Admin User List",
                 accessCode: "SETTING14",
                 isCheck : false

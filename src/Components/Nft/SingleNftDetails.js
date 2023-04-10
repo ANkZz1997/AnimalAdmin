@@ -31,9 +31,9 @@ console.log('nftdata cc' ,  )
     <div>
       <Root>
         <div className="action_bar">
-          <Link to={"/nfts"}>
+          {/* <Link to={"/nfts"}> */}
             <div><BackButton/></div>
-          </Link>
+          {/* </Link> */}
           <Menu compact>
             <Dropdown text="Action" options={options} simple item />
           </Menu>

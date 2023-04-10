@@ -21,9 +21,7 @@ import UserChatDetailsId from "./Pages/ChatDetails";
 import MarketplaceDetailsId from "./Pages/MarketplaceDetails";
 import PlatformSettings from "./Pages/PlatformSettings";
 import MobileSettings from "./Pages/MobileSettings";
-
-
-
+// import PreSettings from "./Pages/PreSettings";
 
 function App() {
   
@@ -35,6 +33,7 @@ function App() {
    <Layout>
           <Routes>
             {/* <Route path="/" element={ <Protected > <Dashboard /> </Protected> } /> */}
+            {/* <Route path="/presettings" element={<Protected><PreSettings/></Protected>}/> */}
             <Route path="/dashboard" element={ <Protected > <Dashboard /> </Protected> } />
             <Route path="/user" element={ <Protected > <User /> </Protected> } />
             <Route path="/nfts" element={ <Protected > <Nfts /> </Protected> } />
@@ -60,6 +59,11 @@ function App() {
             <Route path='*' element={ <Protected > <Dashboard /> </Protected> }/> 
           </Routes>
     </Layout>
+            {/* Pre settings before Super admin can actually Login in into the application  */}
+
+            <Routes>
+              {/* <Route path="/presettings" element={<PreSettings/>}/> */}
+            </Routes>
       
     </>
   )}

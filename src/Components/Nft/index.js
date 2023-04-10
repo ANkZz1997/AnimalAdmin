@@ -39,7 +39,7 @@ export default function NftsData() {
         "populate": ["user"],
       }
      }
-  
+
      setLoader(true);
     const Obj = [
       { name: { contains: searchText } },

@@ -5,6 +5,7 @@ import {AiFillEye, AiFillEyeInvisible} from 'react-icons/ai'
 import { Loader } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+// import PreLoginSettings from './../component/PreLoginSettings'
 
 export default function Login() {
     const [eyeOn,setEyeOn] = useState(true)
@@ -26,11 +27,11 @@ export default function Login() {
             password : inputPass,
         }
         const userCallback=(e)=>{
-            // console.log('userCallback',e)
-             nagivate("/dashboard")
+            nagivate("/dashboard")
         }
         dispatch(userLoginAction(data , userCallback))
     }
+
 
   return (
    <Root>

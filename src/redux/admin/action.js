@@ -17,6 +17,12 @@ export const userLoginAction = (data, callback) => ({
     data: data.data,
   });
 
+  export const preLoginAction = (params,callback) =>({
+    type: userData.GET_SETTING_LIST,
+    params,
+    callback
+  })
+
   export const checkUserAction = (data) => ({
     type: userLogin.CHECK_USER,
     data,

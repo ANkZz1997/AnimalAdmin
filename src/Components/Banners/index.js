@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import AddBanner from './AddBanner'
 import BannersList from './BannersList'
 
-export default function Banners() {
+export default function Index() {
   const [bannerData , setBannerData] = useState()
   return (
     <div>

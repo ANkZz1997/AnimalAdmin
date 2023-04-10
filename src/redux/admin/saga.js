@@ -16,9 +16,6 @@ import cogoToast from "cogo-toast";
 import { startLoading, stopLoading } from "../common/action";
 import { Navigate } from "react-router-dom";
 
-function forwardTo(location) {
-    window.location.replace(location);
-}
 // User Login
 
 function* loginUser({ data, callback }) {
@@ -28,15 +25,16 @@ function* loginUser({ data, callback }) {
         if (response?.status === 200) {
             // window.location.replace("/dashboard")
             // yield call(forwardTo, '/dashboard');
-            yield put(checkUserAction(true));
             localStorage.setItem('token', response?.data?.data?.token);
+            
             callback(response?.data);
             yield put(adminUserNameAction(response?.data?.data?.username));
             // yield put(adminAction(response));
             cogoToast.success('Login Successfull');
             // window.location.replace("/dashboard")
+          
             yield put(stopLoading());
-            
+            yield put(checkUserAction(true));
         }
         else if (response?.data?.message == "Invalid Password") {
             yield put(stopLoading());
@@ -58,6 +56,26 @@ function* loginUser({ data, callback }) {
     }
 }
 
+function* getPreLoginSettings({ params,callback}){
+    try {
+        const response = yield httpGet(URLS.EXCHANGE.ADMIN.GET_SETTING_LIST,params);
+        if (response?.status === 200) {
+            console.log("saga---->",params, response)
+            callback(response.data.data)
+        }else{
+            localStorage.setItem("token","")
+            yield put(checkUserAction(false));
+
+            cogoToast.error('Something Went Wrong');
+        }
+    } catch (error) {
+        console.log('error',error);
+        // localStorage.setItem("token","");
+
+        // cogoToast.error(error?.response?.statusText);
+    }
+}
+
 
 function* getDashboardData({ callBack }) {
     try {
@@ -70,6 +88,7 @@ function* getDashboardData({ callBack }) {
             cogoToast.warn('Session Expired');
         } else {
             cogoToast.error(response?.data?.message);
+
         }
 
     } catch (error) {
@@ -246,6 +265,7 @@ export default function* commonSaga() {
     yield all([throttle(500, userLogin.USER_LOGIN, loginUser)]);
     yield all([throttle(500, userData.GET_DASHBOARD, getDashboardData)]);
     yield all([throttle(500, userData.GET_USER_LIST, getUserData)]);
+    yield all([throttle(500, userData.GET_SETTING_LIST, getPreLoginSettings)]);
     yield all([throttle(500, userData.GET_USER_LIST_PARAMS, usersDataParams)]);
     yield all([throttle(500, userData.GET_NFTS_LIST, getNftData)]);
     yield all([throttle(500, userData.GET_MARKETPLACE_ITEM_LIST, getMarketplaceData)]);

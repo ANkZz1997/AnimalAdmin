@@ -171,9 +171,9 @@ function UserChatDetails({ id }) {
   return (
     <Root>
       <div className="main_div">
-        <Link to={`/chatsupport/`}>
+        {/* <Link to={`/chatsupport/`}> */}
           <BackButton/>
-        </Link>
+        {/* </Link> */}
 
         <div className="user_details">
           {/* <Link
