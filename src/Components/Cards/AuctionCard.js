@@ -90,6 +90,7 @@ const Root = styled.section`
         height: 30px;
         width: 30px;
         border-radius: 50%;
+        backdrop-filter: blur(10px);
       }
     }
     .img_section {

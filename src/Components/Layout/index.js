@@ -106,6 +106,9 @@ height: 100%;
     display: flex;
     height: 100%;
     /* width: 100%; */
+    *::-webkit-scrollbar {
+  display: none;
+}
     .sidebar{
         width: 240px;
         padding: 20px 10px 20px 20px;

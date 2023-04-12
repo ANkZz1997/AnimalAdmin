@@ -3,6 +3,7 @@ import URLS from '../../utils/urls'
 import { configAxios } from '../../utils/https'
 import styled from 'styled-components'
 import axios from 'axios'
+import LoaderCSS from '../Loader'
 
 
 export default function AccessCodes() {
@@ -12,6 +13,8 @@ export default function AccessCodes() {
     description:""
   })
   const [list,setList] = useState([])
+  const [loader,setLoader] = useState(true)
+
 
 
 
@@ -25,6 +28,7 @@ export default function AccessCodes() {
         description:""
       })
       codeList();
+      setLoader(false);
       
     }catch(err){
       console.log(err)
@@ -36,7 +40,9 @@ export default function AccessCodes() {
     try{
       const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_ACCESS_CODES}`,configAxios)
       console.log("gettingREsponseOfCodes",res.data?.data)
-      setList(res.data?.data)
+      setList(res.data?.data);
+      setLoader(false);
+
 
     }catch(err){
       console.log(err)
@@ -56,10 +62,11 @@ export default function AccessCodes() {
   }
 
   useEffect(()=>{
+    setLoader(true);
     codeList()
   },[])
 
-  console.log("codeDescodeDes",codeDes)
+  console.log("loader",loader)
 
 
   return (
@@ -83,7 +90,9 @@ export default function AccessCodes() {
 
         <div className='code_list'>
           <h3>List Of Codes</h3>
-          <table>
+          {loader? <LoaderCSS/> :
+
+            <table>
             <thead>
               <tr>
                 <th>S.No</th>
@@ -102,7 +111,10 @@ export default function AccessCodes() {
                 )
               })}
             </tbody>
-          </table>
+            </table>
+          
+          }
+        
 
         </div>
     </Root>
@@ -110,6 +122,10 @@ export default function AccessCodes() {
 }
 
 const Root = styled.section`
+
+*:focus{
+  outline: none;
+}
 
 .create_codes{
     .main_child{
@@ -126,6 +142,9 @@ const Root = styled.section`
             display: flex;
             gap: 10px;
             flex-direction: column;
+            textarea{
+              border: 0.5px solid white;
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ import { configAxios } from '../../utils/https';
 import cogoToast from "cogo-toast";
 import moment from 'moment';
 import AssignCodes from './AssignCodes';
+import LoaderCSS from '../Loader';
 
 
 
@@ -15,6 +16,7 @@ export default function CreateRoles() {
     const [roleId,setRoleId] = useState();
     const [roleName, setRoleName] = useState();
     const [dialogBox, setDialogBox] = useState(false);
+    const [loader, setLoader] = useState(true);
 
     const [postRole,setPostRole]= useState({
         name : '',
@@ -46,6 +48,8 @@ export default function CreateRoles() {
             const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_ROLES}`,configAxios)
             console.log("resresres",res.data?.data)
             setGetRoles(res.data?.data?.reverse())
+            setLoader(false)
+
 
         }catch(err){
             console.log(err)
@@ -70,6 +74,7 @@ export default function CreateRoles() {
     }
 
     useEffect(()=>{
+        setLoader(true)
         AllRoles()
     },[])
 
@@ -93,38 +98,41 @@ console.log('roleId',roleId,roleName,dialogBox)
         </div>
         <div className='child'>
             <h3>All Active Roles</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>S.No</th>
-                        <th>Role Name</th>
-                        <th>Role Code</th>
-                        <th>Created On</th>
-                        <th>Updated On</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {getRoles?.map((i,ix)=>{
-                        return(
-                            <tr key={ix}>
-                                <td>{ix+1}</td>
-                                <td>{i?.name}</td>
-                                <td>{i?.code}</td>
-                                <td>{`${moment(i?.createdAt,).format('DD-MMM-YY')}`}</td>
-                                <td>{`${moment(i?.updatedAt,).format('DD-MMM-YY')}`}</td>
-                                <td className='btn_td'>
-                                <button className='btn_tbl' onClick={()=>handleClick(i?.id, i?.name)} >Click</button>
-                                {roleId == i?.id && <div className={dialogBox?"dialog_box": "dialog_box no"}>
-                                    <AssignCodes role ={i} toClose = {(e)=>{setDialogBox(e)}}/>
-                                </div>}
-                                
-                                </td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
+            {loader? <LoaderCSS/> :
+              <table>
+              <thead>
+                  <tr>
+                      <th>S.No</th>
+                      <th>Role Name</th>
+                      <th>Role Code</th>
+                      <th>Created On</th>
+                      <th>Updated On</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {getRoles?.map((i,ix)=>{
+                      return(
+                          <tr key={ix}>
+                              <td>{ix+1}</td>
+                              <td>{i?.name}</td>
+                              <td>{i?.code}</td>
+                              <td>{`${moment(i?.createdAt,).format('DD-MMM-YY')}`}</td>
+                              <td>{`${moment(i?.updatedAt,).format('DD-MMM-YY')}`}</td>
+                              <td className='btn_td'>
+                              <button className='btn_tbl' onClick={()=>handleClick(i?.id, i?.name)} >Click</button>
+                              {roleId == i?.id && <div className={dialogBox?"dialog_box": "dialog_box no"}>
+                                  <AssignCodes role ={i} toClose = {(e)=>{setDialogBox(e);AllRoles()}}/>
+                              </div>}
+                              
+                              </td>
+                          </tr>
+                      )
+                  })}
+              </tbody>
+          </table>
+            }
+          
         </div>
 
       
@@ -139,6 +147,10 @@ const Root = styled.section`
 *{
     padding:0;
     margin:0;
+}
+
+*:focus {
+  outline: none;
 }
 
 padding: 10px;
