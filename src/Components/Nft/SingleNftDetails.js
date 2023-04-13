@@ -224,7 +224,10 @@ console.log('nftdata cc' ,  )
                             ? i.marketplace.price
                             : i.type == 'BID'
                             ? i.bid.price
-                            : '-'}
+                            : i.type == "UPDATEPRICE"
+                            ? i.payload.updatedprice
+                            : "-"
+                            }
                           Eth
                         </td>
 

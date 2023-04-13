@@ -91,8 +91,9 @@ export const userLoginAction = (data, callback) => ({
     callback,
   });
   
-  export const kycUserData = (params, callback) => ({
+  export const kycUserData = (params,data, callback) => ({
     type: userData.GET_KYC_DETAILS,
     params,
+    data,
     callback,
   });

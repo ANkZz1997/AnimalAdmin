@@ -146,6 +146,11 @@ const Root = styled.section`
               border: 0.5px solid white;
             }
         }
+
+        @media(max-width: 500px){
+          flex-direction: column;
+        }
+      
     }
 }
 

@@ -112,13 +112,13 @@ console.log('roleId',roleId,roleName,dialogBox)
               </thead>
               <tbody>
                   {getRoles?.map((i,ix)=>{
-                      return(
+                      return( 
                           <tr key={ix}>
-                              <td>{ix+1}</td>
-                              <td>{i?.name}</td>
-                              <td>{i?.code}</td>
-                              <td>{`${moment(i?.createdAt,).format('DD-MMM-YY')}`}</td>
-                              <td>{`${moment(i?.updatedAt,).format('DD-MMM-YY')}`}</td>
+                              <td data-label="S.No">{ix+1}</td>
+                              <td data-label="Role">{i?.name}</td>
+                              <td data-label="Code">{i?.code}</td>
+                              <td data-label="Created On">{`${moment(i?.createdAt,).format('DD-MMM-YY')}`}</td>
+                              <td data-label="Updated On">{`${moment(i?.updatedAt,).format('DD-MMM-YY')}`}</td>
                               <td className='btn_td'>
                               <button className='btn_tbl' onClick={()=>handleClick(i?.id, i?.name)} >Click</button>
                               {roleId == i?.id && <div className={dialogBox?"dialog_box": "dialog_box no"}>
@@ -178,8 +178,51 @@ gap: 20px;
         text-align: left;
         border: 1px solid;
         border-collapse: collapse;
-    }
 
+        @media(max-width:600px){
+            border: hidden;
+            td,
+      th {
+        border: 1px solid #ccc;
+        padding: 0.625em;
+        text-align: right;
+      }
+      thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+        text-align: right;
+      }
+
+      tr {
+        border-bottom: 2px solid #ddd;
+        display: block;
+        margin-bottom: 0.8em;
+      }
+      td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+      }
+
+      td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+      }
+      td:last-child {
+        border-bottom: 0;
+      }
+
+        }
+    }
     tr,thead,td,th{
         border: 1px solid;
     }

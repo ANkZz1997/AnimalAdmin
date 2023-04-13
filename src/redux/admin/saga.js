@@ -235,11 +235,11 @@ function* getBidsData({ params, obj, callback }) {
     }
 }
 
-function* getKycData({ params, callback }) {
+function* getKycData({ params,data, callback }) {
 
     try {
         const response = yield httpPost(
-            `${URLS.EXCHANGE.ADMIN.GET_KYC_DETAILS}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,);
+            `${URLS.EXCHANGE.ADMIN.GET_KYC_DETAILS}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,data);
         if (response?.status === 200) {
             callback(response?.data?.data)
         }  else if(response?.status===500){
