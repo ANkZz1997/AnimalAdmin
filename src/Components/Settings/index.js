@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import PlatformCharge from '../PlatformFees/PlatformCharge'
 import CreateRoles from '../Create Roles'
 import AccessCodes from '../AdminAccess'
+import Networks from '../Networks'
 
 
 export default function Settings() {
@@ -19,7 +20,7 @@ export default function Settings() {
                 <button onClick={()=>{setActiveTab("accesscodes")}} className={activeTab=="accesscodes"?"btn on":"btn"}>Access Codes</button>
                 <button onClick={()=>{setActiveTab("adminuser")}} className={activeTab=="adminuser"?"btn on":"btn"}>Admin Roles</button>
                 <button onClick={()=>{setActiveTab("setting5")}} className={activeTab=="setting5"?"btn on":"btn"}>Manage Access</button>
-                <button onClick={()=>{setActiveTab("setting6")}} className={activeTab=="setting6"?"btn on":"btn"}>Manage Access</button>
+                <button onClick={()=>{setActiveTab("setting6")}} className={activeTab=="setting6"?"btn on":"btn"}>Networks</button>
             </div>
             <hr/>
             <div className='content_div'>
@@ -28,7 +29,7 @@ export default function Settings() {
                 activeTab =="accesscodes"?<AccessCodes/>:
                 activeTab =="adminuser"?<CreateRoles/>: 
                 activeTab =="setting5"?<h2 className='h2element'>Settings 5</h2>:
-                activeTab =="setting6"?<h2 className='h2element'>Settings 6</h2>:
+                activeTab =="setting6"?<Networks/>:
                 " "
                 }
             </div>

@@ -36,7 +36,7 @@ export default function FilterBarA({ sort, order, searchText, chainNumber }) {
             }}
           >
             <option value="createdAt">Created At</option>
-            <option value="name">Name</option>
+            {/* <option value="name">Name</option> */}
             <option value="endTime">End Time</option>
             <option value="basePrice">Base Price</option>
           </select>

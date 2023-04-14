@@ -7,6 +7,7 @@ import { kycUserData } from '../../redux/admin/action';
 import URLS from '../../utils/urls';
 import LoaderCSS from '../Loader';
 import moment from 'moment';
+import { configAxios } from '../../utils/https';
 
 function KycDetails() {
   const [kycData, setKycData] = useState([]);
@@ -27,21 +28,17 @@ function KycDetails() {
   };
 
   const kycActionApprove = async (id) => {
-    var userData = {
-      "populate": ["user"],
-    }
+    // let userData = {
+    //   "populate": ["user"],
+    // }
     try {
-      let axiosConfig = {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      };
+      
       await axios
-        .get(`${URLS.EXCHANGE.ADMIN.KYC_ACTION_APPROVE}${id}`,userData, axiosConfig)
+        .get(`${URLS.EXCHANGE.ADMIN.KYC_ACTION_APPROVE}${id}`, configAxios)
         .then((res) => {
           const newData = kycData.map((i, ix) => {
             if (i.id == id) {
-              return res.data.data[0]
+              return {...i,status:"APPROVED"}
             } else {
               return i
             }
@@ -54,22 +51,17 @@ function KycDetails() {
   };
 
   const kycActionReject = async (id) => {
-    var userData = {
-      "populate": ["user"],
-    }
+    // let userData = {
+    //   "populate": ["user"],
+    // }
     try {
-      let axiosConfig = {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      };
       await axios
-        .get(`${URLS.EXCHANGE.ADMIN.KYC_ACTION_REJECT}${id}`,userData, axiosConfig)
+        .get(`${URLS.EXCHANGE.ADMIN.KYC_ACTION_REJECT}${id}`, configAxios)
         .then((res) => {
           console.log(res);
           const newData = kycData.map((i, ix) => {
             if (i.id == id) {
-              return res.data.data[0]
+              return {...i,status:"REJECTED"}
             } else {
               return i
             }

@@ -62,7 +62,9 @@ const URLS = {
             REMOVE_ROLES_CODES: `${EXCHANGE_URL}/access/removeAccessCode`,
 
             GET_ROLES: `${EXCHANGE_URL}/access/getRoles`,
-            GET_ACCESS_CODES: `${EXCHANGE_URL}/access/getAccessCodes`
+            GET_ACCESS_CODES: `${EXCHANGE_URL}/access/getAccessCodes`,
+            GET_NETWORKS:`${EXCHANGE_URL}/admin/getNetworks`,
+            ADD_NETWORK: `${EXCHANGE_URL}/admin/addNetwork`,
 
         },
 
