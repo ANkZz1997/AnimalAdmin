@@ -10,53 +10,79 @@ import cogoToast from "cogo-toast";
 export default function AddNetworks({toClose}) {
 
     const [inputFile, setInputFile] = useState([]);
+
     const [initialValue, setInitialValue] = useState({
         host:"",
         chainId:"",
         address:"",
-        logo:""
+        logo:"",
+        name:""
     })
    
 
     const AddNet = async ()=>{
-        try{
 
-            const data = initialValue;
-
-            const res = await axios.post(`${URLS.EXCHANGE.ADMIN.ADD_NETWORK}`,data,configAxios);
-            console.log("postresres",res)
-
-        }catch(err){
-            console.log("err",err)
+        if(inputFile[0]){
+            let Data = new FormData();
+            Data.append("name",initialValue.name)
+            Data.append("host",initialValue.host)
+            Data.append("chainId",initialValue.chainId)
+            Data.append("address",initialValue.address)
+            Data.append("logo",inputFile[0])
+                try{
+                    const res = await axios.post(`${URLS.EXCHANGE.ADMIN.ADD_NETWORK}`,Data,configAxios);
+                    console.log("postresres",res)
+                    cogoToast.success("Network Added Successfully")
+                    resetForm();
+        
+                }catch(err){
+                    console.log("err",err)
+                }
         }
     }
+
+    const resetForm = ()=>{
+        setInitialValue({
+            host:"",
+            chainId:"",
+            address:"",
+            logo:"",
+            name:""
+        });
+        setInputFile([]);
+        toClose(false)
+    }
+
 
     useEffect(() => {
         if (inputFile[0]) {
             console.log("inputFile", inputFile, URL.createObjectURL(inputFile[0]))
-            setInitialValue({...initialValue, logo: inputFile[0]})
+            setInitialValue({...initialValue, logo : inputFile[0] })
         }
     }, [inputFile])
 
-    console.log("initialValue",initialValue)
+    
+    // console.log("formData",formData)
 
   return (
     <Root>
         <div className='main_child'>
-                <button className='cls_btn' onClick={()=>{setInputFile([]);toClose(false)}}>Close</button>
+            <h2>Make Sure You Are Filling Valid Inputs</h2>
+                <button className='cls_btn'  onClick={()=>{resetForm()}}>Close</button>
             <div className='input_details'>
                 <div className='input_data'>
+
                     <h4>Add Name</h4>
-                    <input type='text' onChange={(e)=>{setInitialValue({...initialValue, name: e.target.value})}}/>
+                    <input type='text' value={initialValue.name} onChange={(e)=>{setInitialValue({...initialValue, name: e.target.value})}}/>
 
                     <h4>Add Host Link</h4>
-                    <input type='text' onChange={(e)=>{setInitialValue({...initialValue, host: e.target.value})}}/>
+                    <input type='text' value={initialValue.host} onChange={(e)=>{setInitialValue({...initialValue, host: e.target.value})}}/>
 
                     <h4>Add Chain Id</h4>
-                    <input type='text' onChange={(e)=>{setInitialValue({...initialValue, chainId: e.target.value})}}/>
+                    <input type='text' value={initialValue.chainId} onChange={(e)=>{setInitialValue({...initialValue, chainId: e.target.value})}}/>
 
                     <h4>Add Address</h4>
-                    <input type='text' onChange={(e)=>{setInitialValue({...initialValue, address: e.target.value})}}/>
+                    <input type='text' value={initialValue.address} onChange={(e)=>{setInitialValue({...initialValue, address: e.target.value})}}/>
 
                     <h4>Add Logo</h4>
                     <div className='input_file_div'>
@@ -69,10 +95,10 @@ export default function AddNetworks({toClose}) {
                     {inputFile[0] ? <img className='preview_img' src={URL.createObjectURL(inputFile[0])} /> : <h2 className='noimg'>No Image</h2>}
                 </div>
 
-
             </div>
             
-            <button className='save_btn' onClick={()=>{cogoToast.error("Work In Progress")}}>SAVE</button>
+            <button className={initialValue.host && initialValue.address && initialValue.chainId && initialValue.logo && initialValue.name?
+            "save_btn":"save_btn no"} onClick={()=>{AddNet()}}>SAVE</button>
             
         </div>
         
@@ -94,8 +120,8 @@ h4{
 }
 
 .main_child{
-    height: 70%;
-    width: 70%;
+    /* height: 50%;
+    width: 70%; */
     display: flex;
     justify-content: center;
     /* align-items: center; */
@@ -109,6 +135,9 @@ h4{
         height: 30px;
         width: 50px;
         margin-top: 10px;
+    }
+    .save_btn.no{
+        display: none;
     }
 
     .cls_btn{

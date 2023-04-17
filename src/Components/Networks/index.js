@@ -11,6 +11,8 @@ export default function Networks() {
 
     const [netData,setNetData] = useState()
     const [popup,setPopup] = useState(false)
+    const [netId,setNetId] = useState()
+    const [netEnable, setNetEnable] = useState();
     const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
 
@@ -26,11 +28,28 @@ export default function Networks() {
         }
     }
 
+    const EnableNetwork = async (value, id)=>{
+        const data = {
+            networkId: id,
+            status: value
+        }
+        try{
+            const res = await axios.post(`${URLS.EXCHANGE.ADMIN.ENABLE_NETWORK}`,data, configAxios)
+            console.log("resres",res)
+            GetNetworks();
+
+
+        }catch(Error){
+            console.log(Error)
+
+        }
+    }
+
     useEffect(()=>{
         GetNetworks();
-    },[])
+    },[popup])
 
-    console.log("popup",popup)
+    console.log("netId",netId,netEnable)
 
   return (
     <Root>
@@ -45,60 +64,61 @@ export default function Networks() {
         </div>
         <div>
             <h3>Active Networks</h3>
-            <table>
-              <tbody>
+            <div className= 'net_main_parent'>
                 {netData?.map((i)=>{
                     return(
-                        <div className='data_div'>
-                        <tr className='img_tr'>
-                            <td><h4>{i?.name}</h4></td>
-                            <td>
+                       <div className={i.enabled?'net_main_child':'net_main_child no'}>
+
+                            <div>
                                 <img
                                     className='img_logo'
                                     src={i?.logo
                                         ? `${IMAGE_END_POINT}${i?.logo}`
                                         : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
                                     }>
-
                                 </img>
-                            </td>
-                        </tr>
+                                <h4>{i.name}</h4>
+                             
+                            </div>
+                            <div>
+                                <h5>Address</h5>
+                                 <p>{i?.address}</p>
+                            </div>
+                            <div>
+                                <h5>Chain Id</h5>
+                                 <p>{i?.chainId}</p>
+                            </div>
+                         
+                            <div>
+                                <h5>Enabled</h5>
+                                 <p>{i?.enabled?"True":"False"}</p>
+                            </div>
+                            <div>
+                                <h5>Host</h5>
+                                 <p>{i?.host}</p>
+                            </div>
+                            <div>
+                                <h5>Default</h5>
+                                 <p>{i?.isDefault?"True":"False"}</p>
+                            </div>
+                            <div>
+                                <h5>Created On</h5>
+                                 <p>{i?.createdAt}</p>
+                            </div>
+                            <div>
+                                <h5>Updated On</h5>
+                                 <p>{i?.updatedAt}</p>
+                            </div>
+                            <div>
+                                <button onClick={()=>{EnableNetwork(!i?.enabled,i?.id)}}>{i?.enabled?"Diable":"Enable"}</button>
+                                <button>Set Default</button>
+                            </div>
                     
-                        <tr>
-                            <td>Address</td>
-                            <td>{i?.address}</td>
-                        </tr>
-                        <tr>
-                            <td>Chain Id</td>
-                            <td>{i?.chainId}</td>
-                        </tr>
-                        <tr>
-                            <td>Enabled</td>
-                            <td>{i?.enabled?"True":"False"}</td>
-                        </tr>
-                        <tr>
-                            <td>Host</td>
-                            <td>{i?.host}</td>
-                        </tr>
-                        <tr>
-                            <td>Default</td>
-                            <td>{i?.isDefault?"True":"False"}</td>
-                        </tr>
-                        <tr>
-                            <td>Created On</td>
-                            <td>{i?.createdAt}</td>
-                        </tr>
-                        <tr>
-                            <td>Updated On</td>
-                            <td>{i?.updatedAt}</td>
-                        </tr>
-            
-                        </div>
+                       </div>
                     )
                 })}
-              </tbody>
-            
-            </table>
+
+            </div>
         </div>
 
     </Root>
@@ -136,39 +156,59 @@ const Root = styled.section`
         display: none;
     }
 
-
 }
 
+.net_main_parent{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
+    justify-content: left;
 
-table{
-    width: 100%
-}
 
-.data_div{
-    border: 1px solid;
-    margin: 10px 0px;
-
-    .img_tr{
-        display: flex;
-        align-items: center;
-        justify-content: left;
-        gap: 40px;
-    }
-
-    tr{
-        td{
+    .net_main_child {
+        width: 49%;
+        /* flex:; */
+        border: 1px solid;
+        padding: 10px;
+        >div{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px;
             h4{
-                text-transform: capitalize;
+                padding-left: 10px;
             }
-            padding: 5px;
+            h5,h4{
+                min-width: 80px;
+                text-transform: capitalize;
+                margin: 0;
+            }
+
+            p{
+                word-break: break-all;
+            }
+            .img_logo{
+                height: 70px;
+                border-radius: 50%;
+                min-width: 70px;
+
+            }
+            button{
+                padding: 5px;
+            }
+        }
+
+        @media(max-width:600px){
+            width: 100%;
         }
     }
+
+    .net_main_child.no{
+        opacity: 50%;
+    }
 }
 
 
-.img_logo{
-    height: 50px;
-    border-radius: 50%;
-}
 
 `

@@ -15,6 +15,7 @@ import PinataCredentials from '../PreLoginSettings/PinataCredentials'
 import StripeSecret from '../PreLoginSettings/StripeSecret'
 import { preLoginAction } from '../../redux/admin/action'
 import LoaderCSS from '../Loader'
+import StripeCallback from '../PreLoginSettings/StripeCallback'
 
 
 export default function Layout({ children }) {
@@ -74,7 +75,9 @@ export default function Layout({ children }) {
                             //  activeTab == "adminPrivateKey" ? <LazyMinting /> : 
                             activeTab == "pinataApiKey" || activeTab == "pinataSecret" ? 
                             <PinataCredentials nextPage={(e)=>{handleCall()}} />: 
-                            activeTab == "stripeSecret" ? <StripeSecret nextPage={(e)=>{handleCall()}}/> : ""}
+                            activeTab == "stripeSecret" ? <StripeSecret nextPage={(e)=>{handleCall()}}/> : activeTab == "stripeCallbackUrl"
+                            ? <StripeCallback nextPage={(e)=>{handleCall()}}/>:""
+                            }
                         </>
                     :
                     <div className='layout_section'>

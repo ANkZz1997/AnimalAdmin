@@ -25,6 +25,7 @@ const URLS = {
             SET_LAZY_MINTING:`${EXCHANGE_URL}/admin/setLazyMint?value=`,
             SET_STRIPE_SECRET:`${EXCHANGE_URL}/admin/setStripeSecret?value=`,
             POST_PINATA_CREDINTIALS:`${EXCHANGE_URL}/admin/setPinataCreds?value=`,
+            POST_STRIPE_CALLBACK: `${EXCHANGE_URL}/admin/stripeCallbackUrl`,
 
 
             LOGIN: `${EXCHANGE_URL}/auth/adminLogin`,
@@ -65,6 +66,7 @@ const URLS = {
             GET_ACCESS_CODES: `${EXCHANGE_URL}/access/getAccessCodes`,
             GET_NETWORKS:`${EXCHANGE_URL}/admin/getNetworks`,
             ADD_NETWORK: `${EXCHANGE_URL}/admin/addNetwork`,
+            ENABLE_NETWORK: `${EXCHANGE_URL}/admin/setNetworkEnableStatus`,
 
         },
 
