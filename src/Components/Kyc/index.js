@@ -16,6 +16,7 @@ function KycDetails() {
   const [loader, setLoader] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [imgLoader, setImgLoader] = useState(true);
+  const [docName,setDocName] = useState();
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const dispatch = useDispatch();
@@ -148,6 +149,7 @@ function KycDetails() {
                           setDocs(e.target.value);
                           setIsOpen(!isOpen);
                           setImgLoader(false);
+                          setDocName(i?.identityProof?"Identity Proof":"")
                         }}
                       >
                         View Doc
@@ -162,6 +164,7 @@ function KycDetails() {
                           setDocs(e.target.value);
                           setIsOpen(!isOpen);
                           setImgLoader(false);
+                          setDocName(i?.addressProof?"Address Proof":"")
                         }}
                       >
                         View Doc
@@ -195,6 +198,8 @@ function KycDetails() {
                       </select>
                     </td>
                   </tr>
+
+                  
                 );
               })}
             </tbody>
@@ -204,6 +209,7 @@ function KycDetails() {
           {!imgLoader ? (
             docs.length > 0 ? (
               <div className="img_div">
+                <h2>Document: {docName}</h2>
                 <button
                   onClick={() => {
                     setIsOpen(!isOpen);
@@ -212,6 +218,7 @@ function KycDetails() {
                 >
                   close
                 </button>
+
                 <img src={`${IMAGE_END_POINT}${docs}`}></img>
               </div>
             ) : (
@@ -359,13 +366,21 @@ const Root = styled.section`
 
       .img_div {
         position: relative;
-        height: 80%;
-        width: 80%;
+        height: 70%;
+        width: 70%;
+        background: #070c2773;;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid;
 
         img {
-          object-fit: cover;
-          height: 100%;
-          width: 100%;
+          object-fit: contain;
+          height: 80%;
+          width: 80%;
+          padding: 10px;
         }
 
         .btn {
@@ -374,6 +389,7 @@ const Root = styled.section`
           right: 0;
           margin-top: -5px;
           margin-right: -5px;
+          top:0;
         }
       }
       .noimg_div {

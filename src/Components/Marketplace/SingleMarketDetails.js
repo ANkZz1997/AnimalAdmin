@@ -63,9 +63,9 @@ function MarketplaceDetails({ details }) {
             {/* <Link to={"/marketplace"}> */}
               <div><BackButton/></div>
             {/* </Link> */}
-            <Menu compact>
+            {/* <Menu compact>
               <Dropdown text="Action" options={options} simple item />
-            </Menu>
+            </Menu> */}
           </div>
 
           <div className="nft_box">

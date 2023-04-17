@@ -34,9 +34,9 @@ console.log('nftdata cc' ,  )
           {/* <Link to={"/nfts"}> */}
             <div><BackButton/></div>
           {/* </Link> */}
-          <Menu compact>
+          {/* <Menu compact>
             <Dropdown text="Action" options={options} simple item />
-          </Menu>
+          </Menu> */}
         </div>
 
         <div className="nft_box">
@@ -226,7 +226,7 @@ console.log('nftdata cc' ,  )
                             ? i.bid.price
                             : i.type == "UPDATEPRICE"
                             ? i.payload.updatedprice
-                            : "-"
+                            : "No "
                             }
                           Eth
                         </td>

@@ -49,9 +49,9 @@ export default function DashboardData() {
 
         <div className="box-div">
             <div>
-              <h2>
+              {/* <h2>
                 <FaUser/> User Status :
-              </h2>
+              </h2> */}
             </div>
             <div className="card_parent">
               {/* <Link as="/user" href={`/user`} passHref> */}

@@ -1,3 +1,4 @@
+import moment from 'moment/moment';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
@@ -12,7 +13,7 @@ const Clock = ({ deadline }) => {
   };
 
   const getTimeUntil = (deadline) => {
-    const time = Date.parse(deadline) - Date.parse(new Date());
+    const time = deadline - Date.parse(new Date());
     if (time < 0) {
       setDays(0);
       setHours(0);
@@ -25,6 +26,8 @@ const Clock = ({ deadline }) => {
       setSeconds(Math.floor((time / 1000) % 60));
     }
   };
+
+  moment.utc(deadline).format("DD-MM-Y")
 
   useEffect(() => {
     setInterval(() => getTimeUntil(deadline), 1000);
@@ -49,12 +52,6 @@ const Clock = ({ deadline }) => {
                 {leading0(hours)}H{' : '}
                 {leading0(minutes)}M{' : '}
                 {leading0(seconds)}S
-                {/* <div className="clock-hours">
-                </div>
-                <div className="clock-minutes">
-                </div>
-                <div className="clock-seconds">
-                </div> */}
               </div>
               <div className="clock-titles"></div>
             </>

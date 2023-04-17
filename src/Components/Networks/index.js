@@ -6,6 +6,9 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
 import AddNetworks from './AddNetworks'
+import { AiFillDelete, AiFillEdit, AiFillStar } from 'react-icons/ai';
+import cogoToast from 'cogo-toast'
+
 
 export default function Networks() {
 
@@ -28,7 +31,7 @@ export default function Networks() {
         }
     }
 
-    const EnableNetwork = async (value, id)=>{
+    const EnableNetwork = async(value, id)=>{
         const data = {
             networkId: id,
             status: value
@@ -42,6 +45,33 @@ export default function Networks() {
         }catch(Error){
             console.log(Error)
 
+        }
+    }
+
+    const DefaultNet = async(id,name)=>{
+        try{
+            const res = await axios.get(`${URLS.EXCHANGE.ADMIN.DEFAULT_NETWORK}${id}`, configAxios)
+            console.log("Resres",res)
+            cogoToast.success(`${name} Is Your Default Network Now...!`)
+            GetNetworks();
+
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    const DeleteNet = async(id)=>{
+        const delData = {
+            networkId: id
+        }
+        try{
+            const res = await axios.post(`${URLS.EXCHANGE.ADMIN.DELETE_NETWORK}`,delData, configAxios)
+            console.log("res",res)
+            GetNetworks();
+
+
+        }catch(err){
+            console.log(err)
         }
     }
 
@@ -65,10 +95,17 @@ export default function Networks() {
         <div>
             <h3>Active Networks</h3>
             <div className= 'net_main_parent'>
+                
                 {netData?.map((i)=>{
                     return(
                        <div className={i.enabled?'net_main_child':'net_main_child no'}>
-
+                        <div className='net_child'>
+                            <button className='btn1'><AiFillEdit/></button>
+                            <button className='btn1' onClick={()=>{DeleteNet(i?.id)}}><AiFillDelete/></button>
+                        </div>
+                        <div className='svg2'>
+                        {i.isDefault?< AiFillStar/> :""}
+                        </div>
                             <div>
                                 <img
                                     className='img_logo'
@@ -111,7 +148,7 @@ export default function Networks() {
                             </div>
                             <div>
                                 <button onClick={()=>{EnableNetwork(!i?.enabled,i?.id)}}>{i?.enabled?"Diable":"Enable"}</button>
-                                <button>Set Default</button>
+                                <button onClick={()=>{i.enabled ? DefaultNet(i?.id,i?.name) :cogoToast.error("Please Enable It First")}}>{i.isDefault?"Default": "Set Default"}</button>
                             </div>
                     
                        </div>
@@ -171,6 +208,34 @@ const Root = styled.section`
         /* flex:; */
         border: 1px solid;
         padding: 10px;
+        position: relative;
+        .net_child{
+            position: absolute;
+            right:0;
+            top: 0;
+
+            button{
+                padding:0;
+                border: none;
+                background-color: transparent;
+                svg{
+                    font-size: 25px;
+                    color: white;
+                    :hover{
+                        transform: scale(1.1)
+                    }
+                }
+            }
+        }
+        .svg2{
+            svg{
+                position: absolute;
+                /* left: 0; */
+                top: 0;
+                font-size: 25px;
+                right: 50%;
+            }
+        }
         >div{
             display: flex;
             align-items: center;
