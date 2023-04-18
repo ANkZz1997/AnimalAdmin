@@ -69,7 +69,7 @@ function AuctionsData() {
     <Root>
         {/* <Card.Group> */}
       
-          <h1>NFTs In Auction Are {auctionData?.totalCount}</h1>
+          <h1>NFTs In Auction</h1>
 
           <FilterBarA
             sort={(e) => {

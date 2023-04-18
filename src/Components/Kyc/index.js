@@ -113,7 +113,7 @@ function KycDetails() {
     <Root>
       <div className="main_div">
 
-        <h1>KYC Details Page</h1>
+        <h1>User KYC</h1>
         {loader ? (
           <LoaderCSS />
         ) : (

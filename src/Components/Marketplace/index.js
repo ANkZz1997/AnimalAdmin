@@ -67,7 +67,7 @@ export default function MarketPlaceData() {
     <Root>
         {/* <Card.Group className="card_main"> */}
        
-          <h1>NFTs In Marketplace Are {marketData?.totalCount}</h1>
+          <h1>NFTs In Marketplace</h1>
           <FilterBarM
             sort={(e) => {
               setSort(e);

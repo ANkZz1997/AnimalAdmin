@@ -58,7 +58,7 @@ export default function Userlist() {
 console.log("userData",userData)
   return (
     <Root>
-          <h1>Total NFT Users Are {userData?.totalCount} </h1>
+          <h1> NFT Users </h1>
           <FilterBar
             sort={(e) => {
               setSort(e);

@@ -69,6 +69,7 @@ const URLS = {
             ENABLE_NETWORK: `${EXCHANGE_URL}/admin/setNetworkEnableStatus`,
             DEFAULT_NETWORK: `${EXCHANGE_URL}/admin/setNetworkAsDefault?id=`,
             DELETE_NETWORK: `${EXCHANGE_URL}/admin/deleteNetwork`,
+            EDIT_NETWORK: `${EXCHANGE_URL}/admin/editNetwork`
         },
 
         ENDPOINTS: {

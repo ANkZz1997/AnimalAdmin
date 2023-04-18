@@ -70,7 +70,7 @@ export default function NftsData() {
 
   return (
         <Root>
-          <h1>NFTs Total Count - {nfts?.totalCount}</h1>
+          <h1>Total NFTs</h1>
           <FilterBar
             sort={(e) => {
               setSort(e);

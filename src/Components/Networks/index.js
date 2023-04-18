@@ -8,14 +8,21 @@ import styled from 'styled-components'
 import AddNetworks from './AddNetworks'
 import { AiFillDelete, AiFillEdit, AiFillStar } from 'react-icons/ai';
 import cogoToast from 'cogo-toast'
+import ConfirmDialogue from '../Model/ConfirmDialogue'
+import EditNetwork from './EditNetwork'
+import LoaderCSS from '../Loader'
 
 
 export default function Networks() {
 
     const [netData,setNetData] = useState()
     const [popup,setPopup] = useState(false)
+    const [editPopup, setEditPopup] = useState(false)
+    const [deleteBanner, setDeleteBanner] = useState(false)
     const [netId,setNetId] = useState()
-    const [netEnable, setNetEnable] = useState();
+    const [netName, setNetName] = useState()
+    const [editObj, setEditObj] = useState()
+    const [loader, setLoader] = useState(true)
     const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
 
@@ -25,6 +32,7 @@ export default function Networks() {
             const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`,configAxios)
             console.log("res---",res.data.data)
             setNetData(res.data?.data)
+            setLoader(false)
 
         }catch(err){
             console.log(err)
@@ -76,35 +84,43 @@ export default function Networks() {
     }
 
     useEffect(()=>{
+        setLoader(true);
         GetNetworks();
     },[popup])
 
-    console.log("netId",netId,netEnable)
+    console.log("netId",netId)
 
   return (
     <Root>
+        <ConfirmDialogue  show={deleteBanner} handleClick={(e)=>{setDeleteBanner(e)}}>
+             <h1>Confirm To Delete {netName}?</h1>
+             <p>Do you really want to Delete this Network?</p>
+             <button className='btns2' onClick={()=>{DeleteNet(netId);setDeleteBanner(!deleteBanner) } }>Yes</button> 
+             <button className='btns2' onClick={()=>{setDeleteBanner(!deleteBanner)}}>No</button>
+        </ConfirmDialogue>
         <div className='addnet_div'>
 
             <h3>Add New Network <button onClick={()=>{setPopup(true)}}>+</button></h3>
             <div className={popup?"addnet":"addnet no"}>
-                <AddNetworks toClose ={(e)=>{setPopup(e)}}/>
+                <AddNetworks toClose ={(e)=>{setPopup(e);GetNetworks()}}/>
             </div>
             <hr/>
 
         </div>
-        <div>
-            <h3>Active Networks</h3>
+          <div>
+          <h3>Active Networks</h3>
+          {loader? <LoaderCSS/>:
             <div className= 'net_main_parent'>
                 
                 {netData?.map((i)=>{
                     return(
-                       <div className={i.enabled?'net_main_child':'net_main_child no'}>
+                        <div className={i.enabled?'net_main_child':'net_main_child no'}>
                         <div className='net_child'>
-                            <button className='btn1'><AiFillEdit/></button>
-                            <button className='btn1' onClick={()=>{DeleteNet(i?.id)}}><AiFillDelete/></button>
-                        </div>
-                        <div className='svg2'>
-                        {i.isDefault?< AiFillStar/> :""}
+                            <button className='btn1' onClick={()=>{setEditPopup(true);setEditObj(i)}} ><AiFillEdit/></button>
+                            <div className={editPopup?"edit_net": "edit_net no"}>
+                                <EditNetwork toClose = {(e)=>{setEditPopup(e);GetNetworks()}} val={editObj}/>
+                            </div>
+                            <button className={i?.isDefault?"btn1 no":"btn1"} onClick={()=>{setNetId(i?.id);setDeleteBanner(!deleteBanner);setNetName(i?.name)}}><AiFillDelete/></button>
                         </div>
                             <div>
                                 <img
@@ -114,49 +130,52 @@ export default function Networks() {
                                         : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
                                     }>
                                 </img>
-                                <h4>{i.name}</h4>
-                             
+                                <h4 className='hh4'>{i.name}{i.isDefault?< AiFillStar/> :""}</h4>
+                            
                             </div>
                             <div>
                                 <h5>Address</h5>
-                                 <p>{i?.address}</p>
+                                <p>{i?.address}</p>
                             </div>
                             <div>
                                 <h5>Chain Id</h5>
-                                 <p>{i?.chainId}</p>
+                                <p>{i?.chainId}</p>
                             </div>
-                         
+                        
                             <div>
                                 <h5>Enabled</h5>
-                                 <p>{i?.enabled?"True":"False"}</p>
+                                <p>{i?.enabled?"True":"False"}</p>
                             </div>
                             <div>
                                 <h5>Host</h5>
-                                 <p>{i?.host}</p>
+                                <p>{i?.host}</p>
                             </div>
                             <div>
                                 <h5>Default</h5>
-                                 <p>{i?.isDefault?"True":"False"}</p>
+                                <p>{i?.isDefault?"True":"False"}</p>
                             </div>
                             <div>
                                 <h5>Created On</h5>
-                                 <p>{i?.createdAt}</p>
+                                <p>{i?.createdAt}</p>
                             </div>
                             <div>
                                 <h5>Updated On</h5>
-                                 <p>{i?.updatedAt}</p>
+                                <p>{i?.updatedAt}</p>
                             </div>
                             <div>
-                                <button onClick={()=>{EnableNetwork(!i?.enabled,i?.id)}}>{i?.enabled?"Diable":"Enable"}</button>
-                                <button onClick={()=>{i.enabled ? DefaultNet(i?.id,i?.name) :cogoToast.error("Please Enable It First")}}>{i.isDefault?"Default": "Set Default"}</button>
+                                <button className={i.isDefault?"btn2 no":"btn2"} disabled={i?.isDefault?true:false} onClick={()=>{EnableNetwork(!i?.enabled,i?.id)}}>{i?.enabled?"Diable":"Enable"}</button>
+                                <button className={i.isDefault?"btn2 no":"btn2"} disabled={i?.isDefault?true:false} onClick={()=>{i.enabled ? DefaultNet(i?.id,i?.name) :cogoToast.error("Please Enable It First")}}>{i.isDefault?"Default": "Set Default"}</button>
                             </div>
                     
-                       </div>
+                        </div>
                     )
                 })}
 
             </div>
-        </div>
+          }
+      </div>
+        
+      
 
     </Root>
   )
@@ -165,6 +184,9 @@ export default function Networks() {
 const Root = styled.section`
    h3{
         margin:20px 0px;
+    }
+    h1{
+        text-transform: capitalize;
     }
 
 .addnet_div{
@@ -214,10 +236,26 @@ const Root = styled.section`
             right:0;
             top: 0;
 
-            button{
+            .edit_net{
+                background-color: transparent;
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                z-index: 999;
+                left: 0;
+                backdrop-filter: blur(4px);
+            }
+
+            .edit_net.no{
+                display: none;
+            }
+
+            .btn1{
                 padding:0;
                 border: none;
                 background-color: transparent;
+                cursor: pointer;
                 svg{
                     font-size: 25px;
                     color: white;
@@ -226,14 +264,8 @@ const Root = styled.section`
                     }
                 }
             }
-        }
-        .svg2{
-            svg{
-                position: absolute;
-                /* left: 0; */
-                top: 0;
-                font-size: 25px;
-                right: 50%;
+            .btn1.no{
+                display: none;
             }
         }
         >div{
@@ -241,10 +273,17 @@ const Root = styled.section`
             align-items: center;
             gap: 5px;
             padding: 3px;
-            h4{
-                padding-left: 10px;
+            .hh4{
+                padding-left: 8px;
+                svg{
+                    overflow: hidden;
+                    font-size: 20px;
+                    text-align: center;
+                    vertical-align: bottom;
+                    color: red;
+                }
             }
-            h5,h4{
+            h5,.hh4{
                 min-width: 80px;
                 text-transform: capitalize;
                 margin: 0;
@@ -255,12 +294,15 @@ const Root = styled.section`
             }
             .img_logo{
                 height: 70px;
-                border-radius: 50%;
-                min-width: 70px;
-
+                width: 70px;
+                object-fit: contain;
             }
-            button{
+            .btn2{
                 padding: 5px;
+                cursor: pointer;
+            }
+            .btn2.no{
+                cursor: not-allowed;
             }
         }
 

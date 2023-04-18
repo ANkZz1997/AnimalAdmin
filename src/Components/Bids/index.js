@@ -51,8 +51,7 @@ export default function BidsData() {
 
   return (
     <Root>
-       
-          <h1>NFTs For Bid</h1>
+          <h1>Bids On NFTs</h1>
           <FilterBarB
             sort={(e) => {
               setSort(e);

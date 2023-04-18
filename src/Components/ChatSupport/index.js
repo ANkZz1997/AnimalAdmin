@@ -82,7 +82,7 @@ function ChatSupport() {
         <Root>
           <div>
             <div>
-              <h1>Chat Support Table</h1>
+              <h1>User Chat Support</h1>
             </div>
 
             <div>
