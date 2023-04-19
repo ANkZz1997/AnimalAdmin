@@ -11,11 +11,14 @@ import bnb from '../../Assets/bnb.svg'
 export default function AuctionCard(data) {
   const [items, setItems] = useState();
   const [user, setUser] = useState();
+  const [getLogo,setGetLogo] = useState();
+
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
   const deadline = data?.data?.endTime;
 
   useEffect(() => {
+    setGetLogo(data.logo)
     if (data.data) {
       setItems(data?.data);
       setUser(data?.data?.user)
@@ -25,17 +28,19 @@ export default function AuctionCard(data) {
   return (
     <Root>
       <div className="user_section">
-      <span className='chain_id'>{items?.nft?.chainId=="5"?<img src={Goerli}/>:(items?.nft?.chainId=="97"?<img src={bnb}/>:
-      (items?.nft?.chainId=="80001"?<img src={polygon}/>:""))}</span>
-        <div className="img_section">
-          {/* <Link
-            href="/auctiondetails/[auctiondetails]"
-            as={`/auctiondetails/${items?.id}`}
-          > */}
-          <Link to={`/auction/auctiondetails/${items?.id}`}>
-            <img src={`${IMAGE_END_POINT}${items?.nft?.media}`} />
-          </Link>
+
+        <Link to={`/auction/auctiondetails/${items?.id}`}>
+        <div className="image_style">
+        <div className='top_bar'>
+          {getLogo?.map((i)=>{
+            if(i.chainId==items.chainId){
+                return <img src={`${IMAGE_END_POINT}${i?.logo}`}/>
+            }
+            })}
+        </div> 
+          <img src={`${IMAGE_END_POINT}${items?.nft?.media}`} />
         </div>
+        </Link>
         <div className="count_down">
           <Clock deadline={deadline} />
         </div>
@@ -83,17 +88,27 @@ const Root = styled.section`
     /* height: 360px; */
     position: relative;
     overflow: hidden;
-    span.chain_id{
-      position: absolute;
-      border-radius: 50%;
-      img{
+     .image_style {
+      .top_bar{
+        display: flex;
+        justify-content: absolute;
+        position: absolute;
+        width: 100%;
+        backdrop-filter: blur(10px);
+        align-items: center;
+        justify-content: space-between;
+
+        p{
+          background: #070c27;
+          /* height: 100%; */
+        }
+
+        img{
         height: 30px;
         width: 30px;
-        border-radius: 50%;
-        backdrop-filter: blur(10px);
+        /* border-radius: 50%; */
       }
-    }
-    .img_section {
+      }
       cursor: pointer;
       width: 100%;
       height: 100%;
@@ -103,15 +118,13 @@ const Root = styled.section`
         transition: all 0.7s;
         width: 100%;
         height: auto;
-        aspect-ratio: 1;
         object-position: top;
-
+        aspect-ratio: 1;
         :hover {
           transform: scale(1.1);
         }
       }
     }
-
     .count_down {
       margin: -24px auto 0px;
       position: relative;

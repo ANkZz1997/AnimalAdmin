@@ -13,10 +13,12 @@ import blank from '../../Assets/blank.svg';
 export default function MarketplaceCard(data) {
   const [items, setItems] = useState({});
   const [user, setUser] = useState();
+  const [getLogo,setGetLogo] = useState();
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
   useEffect(() => {
+    setGetLogo(data.logo)
     if (data.data) {
       setItems(data?.data);
       setUser(data?.data?.user)
@@ -26,21 +28,14 @@ export default function MarketplaceCard(data) {
   return (
     <Root>
       <div className="card_section">
-
-      {/* <span className='chain_id'>{items?.nft?.chainId=="5"?<img src={Goerli}/>:(items?.nft?.chainId=="97"?<img src={bnb}/>:
-      (items?.nft?.chainId=="80001"?<img src={polygon}/>:""))}
-      </span> */}
-{/* 
-        {items?.status == 'PORTFOLIO' ? (
-          ''
-        ) : (
-          <span className="status">{items?.status}</span>
-        )} */}
         <Link to={`/marketplace/marketplacedetails/${items?.id}`}>
           <div className="image_style">
             <div className='top_bar'>
-            {items?.nft?.chainId=="5"?<img src={Goerli}/>:(items?.nft?.chainId=="97"?<img src={bnb}/>:
-            (items?.nft?.chainId=="80001"?<img src={polygon}/>:<img src={blank}/>))}
+              {getLogo?.map((i)=>{
+            if(i.chainId==items.chainId){
+                return <img src={`${IMAGE_END_POINT}${i?.logo}`}/>
+            }
+            })}
 
             {items?.status == 'PORTFOLIO' ? (
                 ''

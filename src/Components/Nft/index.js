@@ -6,6 +6,9 @@ import FilterBar from './FilterBar';
 import LoaderCSS from '../Loader';
 import PaginationCode from '../Pagination';
 import NftCard from '../Cards/NftCard';
+import URLS from '../../utils/urls';
+import axios from 'axios';
+import { configAxios } from '../../utils/https';
 
 
 export default function NftsData() {
@@ -17,8 +20,20 @@ export default function NftsData() {
   const [order, setOrder] = useState('DESC');
   const [searchText, setSearchText] = useState('');
   const [chainNumber,setChainNumber] = useState("");
+  const [netLogo,setNetLogo] = useState('')
 
   const dataLimit = 20;
+
+  const GetNetworks = async()=>{
+    try{
+        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`,configAxios)
+        console.log("res---",res.data.data)
+        setNetLogo(res.data?.data)
+
+    }catch(err){
+        console.log(err)
+    }
+}
 
   const dispatch = useDispatch();
 
@@ -27,6 +42,10 @@ export default function NftsData() {
     setTotalPage(data.totalCount);
     setLoader(false);
   };
+
+  useEffect(()=>{
+    GetNetworks();
+  },[])
 
   useEffect(() => {
      if(chainNumber){
@@ -66,7 +85,7 @@ export default function NftsData() {
     );
   }, [activePage, sort, order, searchText,chainNumber]);
 
-  // console.log("Number",chainNumber)
+  console.log("Number",netLogo)
 
   return (
         <Root>
@@ -94,7 +113,7 @@ export default function NftsData() {
                 nfts?.records?.map((i, ix) => {
                   return (
                     <div key={ix}>
-                      <NftCard data={i} />
+                     <NftCard data={i} logo={netLogo} />
                     </div>
                   );
                 })

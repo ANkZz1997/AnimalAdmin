@@ -4,41 +4,51 @@ import styled from 'styled-components';
 import axios from 'axios';
 import URLS from '../../utils/urls';
 import { Link } from 'react-router-dom';
-import Goerli from '../../Assets/Goerli.png';
-import polygon from '../../Assets/polygon.svg';
-import bnb from '../../Assets/bnb.svg'
-
 
 export default function NftCard(data) {
   const [items, setItems] = useState({});
   const [user, setUser] = useState();
+  const [getLogo,setGetLogo] = useState();
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
   useEffect(() => {
+    console.log("ITem",data.data, data.logo)
+    setGetLogo(data.logo)
     if (data.data) {
       setItems(data.data);
       setUser(data.data.user);
-    }
+    };
   }, [data]);
 
-  // console.log("ITem",items)
+  console.log("aaaaaaa",getLogo)
 
   return (
     <Root>
       <div className="card_section">
-      <span className='chain_id'>{items?.chainId=="5"?<img src={Goerli}/>:(items?.chainId=="97"?<img src={bnb}/>:(items?.chainId=="80001"?
-      <img src={polygon}/>:""))}</span>
-        {items?.status == 'PORTFOLIO' ? (
-          ''
-        ) : (
-          <span className="status">{items?.status}</span>
-        )}
-        <Link to={`/nfts/nftdetails/${items?.id}`}>
+      <Link to={`/nfts/nftdetails/${items?.id}`}>
 
-          <div className="image_style">
+      {/* <span className='chain_id'> */}
+      <div className="image_style">
+
+       <div className='top_bar'>
+
+            {getLogo?.map((i)=>{
+            if(i.chainId==items.chainId){
+                return <img src={`${IMAGE_END_POINT}${i?.logo}`}/>
+            }
+            })}
+          {/* </span> */}
+            {items?.status == 'PORTFOLIO' ? (
+              ''
+            ) : (
+              <span className="status">{items?.status}</span>
+            )}
+        </div>
+
             <img src={`${IMAGE_END_POINT}${items?.media}`} />
-          </div>
+        </div>
+          
         </Link>
         <div className="card_details">
           <div className="content_user">
@@ -88,6 +98,26 @@ const Root = styled.section`
 
   .card_section {
     .image_style {
+      .top_bar{
+        display: flex;
+        justify-content: absolute;
+        position: absolute;
+        width: 100%;
+        backdrop-filter: blur(10px);
+        align-items: center;
+        justify-content: space-between;
+
+        p{
+          background: #070c27;
+          /* height: 100%; */
+        }
+
+        img{
+        height: 30px;
+        width: 30px;
+        /* border-radius: 50%; */
+      }
+      }
       cursor: pointer;
       width: 100%;
       height: 100%;
@@ -97,9 +127,8 @@ const Root = styled.section`
         transition: all 0.7s;
         width: 100%;
         height: auto;
-        aspect-ratio: 1;
         object-position: top;
-
+        aspect-ratio: 1;
         :hover {
           transform: scale(1.1);
         }
@@ -107,6 +136,7 @@ const Root = styled.section`
     }
 
     .card_details {
+      /* color: black; */
       padding: 10px;
       * {
         margin: 0px;
@@ -115,7 +145,7 @@ const Root = styled.section`
 
       .nft_name {
         margin-top: 10px;
-        max-width: 200px;
+        max-width: 202px;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
@@ -126,8 +156,12 @@ const Root = styled.section`
         max-width: 200px;
         align-items: center;
         gap: 10px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
         width: fit-content;
         transition: 0.6s;
+
         :hover {
           transform: translateX(10px);
           color: white;
@@ -139,29 +173,8 @@ const Root = styled.section`
           border-radius: 50%;
           object-fit: cover;
         }
-
-        .user_name {
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          overflow: hidden;
-        }
-
-        .royalty_div {
-          margin: -24px auto 0px;
-          position: relative;
-          z-index: 9;
-          width: fit-content;
-          background: #000000bd;
-          padding: 3px;
-          border-radius: 4px;
-          box-shadow: rgb(0 0 0 / 16%) 0px 1px 4px;
-          font-weight: bolder;
-          font-size: 16px;
-          color: white;
-        }
       }
     }
-
     .royalty_div {
       display: flex;
       justify-content: space-between;
@@ -174,7 +187,6 @@ const Root = styled.section`
       right: 0;
       padding: 2px;
     }
-
     span.chain_id{
       position: absolute;
       border-radius: 50%;
@@ -182,8 +194,6 @@ const Root = styled.section`
         height: 30px;
         width: 30px;
         border-radius: 50%;
-        backdrop-filter: blur(10px);
-
       }
     }
   }

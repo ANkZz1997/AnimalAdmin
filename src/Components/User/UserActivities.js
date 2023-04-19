@@ -47,7 +47,7 @@ function UserActivities({ ids }) {
     userActivities();
   }, [activePage]);
 
-  console.log("Data Count",userActivity?.length)
+  console.log("Dataaaaaaaa",userActivity?.length)
 
   return (
     <Root>
@@ -121,14 +121,16 @@ function UserActivities({ ids }) {
           }
         </div>
       </div>
-      <PaginationCode
-        active={activePage}
-        activePage={(e) => {
-          setActivePage(e);
-        }}
-        totalPage={totalPage}
-        limit={dataLimit}
-      />
+      {userActivity?.length==0?"": 
+        <PaginationCode
+          active={activePage}
+          activePage={(e) => {
+            setActivePage(e);
+          }}
+          totalPage={totalPage}
+          limit={dataLimit}
+        />
+      }
     </Root>
   );
 }

@@ -7,6 +7,8 @@ import MarketplaceCard from '../Cards/MarketplaceCard';
 import LoaderCSS from '../Loader';
 import PaginationCode from '../Pagination';
 import FilterBarM from './FilterBar';
+import axios from 'axios';
+import { configAxios } from '../../utils/https';
 
 
 export default function MarketPlaceData() {
@@ -18,10 +20,23 @@ export default function MarketPlaceData() {
   const [order, setOrder] = useState('DESC');
   const [searchText, setSearchText] = useState('');
   const [chainNumber,setChainNumber] = useState("");
+  const [netLogo,setNetLogo] = useState('')
+
 
   const dataLimit = 20;
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
+
+  const GetNetworks = async()=>{
+    try{
+        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`,configAxios)
+        console.log("res---",res.data.data)
+        setNetLogo(res.data?.data)
+
+    }catch(err){
+        console.log(err)
+    }
+}
   const dispatch = useDispatch();
 
   const callBack = (data) => {
@@ -29,6 +44,11 @@ export default function MarketPlaceData() {
     setTotalPage(data.totalCount);
     setLoader(false);
   };
+
+  useEffect(()=>{
+    GetNetworks();
+  },[])
+
 
   useEffect(() => {
     if(chainNumber){
@@ -89,7 +109,7 @@ export default function MarketPlaceData() {
               {marketData?.records.map((i, ix) => {
                 return (
                   <div key={ix}>
-                    <MarketplaceCard data={i} />
+                    <MarketplaceCard data={i} logo={netLogo} />
                   </div>
                 );
               })}

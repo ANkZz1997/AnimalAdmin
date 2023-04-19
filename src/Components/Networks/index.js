@@ -11,6 +11,7 @@ import cogoToast from 'cogo-toast'
 import ConfirmDialogue from '../Model/ConfirmDialogue'
 import EditNetwork from './EditNetwork'
 import LoaderCSS from '../Loader'
+import moment from 'moment'
 
 
 export default function Networks() {
@@ -156,11 +157,11 @@ export default function Networks() {
                             </div>
                             <div>
                                 <h5>Created On</h5>
-                                <p>{i?.createdAt}</p>
+                                <p>{`${moment(i?.createdAt).format('DD-MMM-YY (hh:mm A)',)}`}</p>
                             </div>
                             <div>
                                 <h5>Updated On</h5>
-                                <p>{i?.updatedAt}</p>
+                                <p>{`${moment(i?.updatedAt).format('DD-MMM-YY (hh:mm A)',)}`}</p>
                             </div>
                             <div>
                                 <button className={i.isDefault?"btn2 no":"btn2"} disabled={i?.isDefault?true:false} onClick={()=>{EnableNetwork(!i?.enabled,i?.id)}}>{i?.enabled?"Diable":"Enable"}</button>
@@ -174,9 +175,6 @@ export default function Networks() {
             </div>
           }
       </div>
-        
-      
-
     </Root>
   )
 }

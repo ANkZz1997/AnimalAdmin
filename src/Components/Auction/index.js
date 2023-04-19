@@ -6,6 +6,9 @@ import AuctionCard from '../Cards/AuctionCard';
 import LoaderCSS from '../Loader';
 import PaginationCode from '../Pagination';
 import FilterBarA from './FilterBar';
+import axios from 'axios';
+import URLS from '../../utils/urls';
+import { configAxios } from '../../utils/https';
 
 
 function AuctionsData() {
@@ -17,9 +20,21 @@ function AuctionsData() {
   const [order, setOrder] = useState('DESC');
   const [searchText, setSearchText] = useState('');
   const [chainNumber,setChainNumber] = useState("");
+  const [netLogo,setNetLogo] = useState('')
 
 
   const dataLimit = 20;
+
+  const GetNetworks = async()=>{
+    try{
+        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`,configAxios)
+        console.log("res---",res.data.data)
+        setNetLogo(res.data?.data)
+
+    }catch(err){
+        console.log(err)
+    }
+}
 
   const dispatch = useDispatch();
 
@@ -28,6 +43,10 @@ function AuctionsData() {
     setTotalPage(data.totalCount);
     setLoader(false);
   };
+
+  useEffect(()=>{
+    GetNetworks();
+  },[])
 
   useEffect(() => {
     if(chainNumber){
@@ -94,7 +113,7 @@ function AuctionsData() {
               auctionData?.records?.map((i, ix) => {
                 return (
                   <div key={ix}>
-                    <AuctionCard data={i} />
+                    <AuctionCard data={i} logo={netLogo}/>
                   </div>
                 );
               })}
