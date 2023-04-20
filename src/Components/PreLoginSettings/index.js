@@ -3,7 +3,6 @@
 // import { useEffect } from 'react'
 // import { useState } from 'react'
 // import styled from 'styled-components'
-// import { configAxios } from '../../utils/https'
 // import URLS from '../../utils/urls'
 // import CommissionValue from './CommissionValue'
 // import LazyMinting from './LazyMinting'
@@ -18,7 +17,7 @@
 
 //     const getSettings = async () => {
 //         try {
-//             const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_SETTING_LIST}`, configAxios)
+//             const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_SETTING_LIST}`)
 //             setSettingRes(res?.data?.data)
 
 //         } catch (err) {

@@ -2,6 +2,17 @@ import axios from "axios";
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_EXCHANGE_URL;
 
+axios.interceptors.request.use(
+  config => {
+    config.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+        return config;
+    },
+    error => {
+        return Promise.reject(error);
+    }
+);
+
+
 export const formatUrl = (url, params) => {
   const param =
     params && Object.keys(params).length > 0
@@ -90,8 +101,3 @@ new Promise((resolve, reject) => {
     });
 });
 
-export const configAxios = {
-  headers: {
-    authorization: `Bearer ${localStorage.getItem('token')}`,
-  },
-}

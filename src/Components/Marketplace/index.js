@@ -8,7 +8,6 @@ import LoaderCSS from '../Loader';
 import PaginationCode from '../Pagination';
 import FilterBarM from './FilterBar';
 import axios from 'axios';
-import { configAxios } from '../../utils/https';
 
 
 export default function MarketPlaceData() {
@@ -29,7 +28,7 @@ export default function MarketPlaceData() {
 
   const GetNetworks = async()=>{
     try{
-        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`,configAxios)
+        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
         console.log("res---",res.data.data)
         setNetLogo(res.data?.data)
 

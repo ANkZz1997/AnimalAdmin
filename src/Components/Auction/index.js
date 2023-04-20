@@ -8,7 +8,6 @@ import PaginationCode from '../Pagination';
 import FilterBarA from './FilterBar';
 import axios from 'axios';
 import URLS from '../../utils/urls';
-import { configAxios } from '../../utils/https';
 
 
 function AuctionsData() {
@@ -27,7 +26,7 @@ function AuctionsData() {
 
   const GetNetworks = async()=>{
     try{
-        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`,configAxios)
+        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
         console.log("res---",res.data.data)
         setNetLogo(res.data?.data)
 

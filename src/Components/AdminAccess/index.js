@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import URLS from '../../utils/urls'
-import { configAxios } from '../../utils/https'
 import styled from 'styled-components'
 import axios from 'axios'
 import LoaderCSS from '../Loader'
@@ -21,7 +20,7 @@ export default function AccessCodes() {
   const postAccess = async()=>{
     const data = codeDes;
     try{
-      const res = await axios.post(`${URLS.EXCHANGE.ADMIN.POST_ACCESS_CODE}`,data,configAxios)
+      const res = await axios.post(`${URLS.EXCHANGE.ADMIN.POST_ACCESS_CODE}`,data)
       console.log("gettingREsres", res)
       setCodeDes({
         code:"",
@@ -38,7 +37,7 @@ export default function AccessCodes() {
 
   const codeList = async()=>{
     try{
-      const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_ACCESS_CODES}`,configAxios)
+      const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_ACCESS_CODES}`)
       console.log("gettingREsponseOfCodes",res.data?.data)
       setList(res.data?.data);
       setLoader(false);

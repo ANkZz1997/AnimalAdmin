@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import URLS from '../../utils/urls';
 import axios from 'axios';
-import { configAxios } from '../../utils/https';
 import cogoToast from 'cogo-toast';
 
 export default function EditNetwork({toClose, val}) {
@@ -22,7 +21,7 @@ export default function EditNetwork({toClose, val}) {
             Data.append("logo",inputFile[0])
 
         try{
-            const res = await axios.put(`${URLS.EXCHANGE.ADMIN.EDIT_NETWORK}`,Data, configAxios)
+            const res = await axios.put(`${URLS.EXCHANGE.ADMIN.EDIT_NETWORK}`,Data)
             console.log("resres",res)
             cogoToast.success("Network Edited Successfully")
             resetForm();

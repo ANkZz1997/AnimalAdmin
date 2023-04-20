@@ -3,7 +3,6 @@ import { Icon } from 'semantic-ui-react';
 import { FilterBarStyle } from '../Style/filterbar.style';
 import axios from 'axios';
 import URLS from '../../utils/urls';
-import { configAxios } from '../../utils/https';
 import { useEffect } from 'react';
 export default function FilterBarM({ sort, order, searchText,chainNumber }) {
   const [search, setSearch] = useState('');
@@ -12,7 +11,7 @@ export default function FilterBarM({ sort, order, searchText,chainNumber }) {
   const GetNetworks = async()=>{
 
     try{
-        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`,configAxios)
+        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
         console.log("res---",res.data.data)
         setNetName(res.data?.data)
 

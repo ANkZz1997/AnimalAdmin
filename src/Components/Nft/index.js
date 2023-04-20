@@ -8,7 +8,6 @@ import PaginationCode from '../Pagination';
 import NftCard from '../Cards/NftCard';
 import URLS from '../../utils/urls';
 import axios from 'axios';
-import { configAxios } from '../../utils/https';
 
 
 export default function NftsData() {
@@ -26,7 +25,7 @@ export default function NftsData() {
 
   const GetNetworks = async()=>{
     try{
-        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`,configAxios)
+        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
         console.log("res---",res.data.data)
         setNetLogo(res.data?.data)
 

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useEffect } from 'react';
 import styled from 'styled-components'
 import URLS from '../../utils/urls';
-import { configAxios } from '../../utils/https';
 import axios from 'axios';
 import cogoToast from "cogo-toast";
 
@@ -30,7 +29,7 @@ export default function AddNetworks({toClose}) {
             Data.append("address",initialValue.address)
             Data.append("logo",inputFile[0])
                 try{
-                    const res = await axios.post(`${URLS.EXCHANGE.ADMIN.ADD_NETWORK}`,Data,configAxios);
+                    const res = await axios.post(`${URLS.EXCHANGE.ADMIN.ADD_NETWORK}`,Data);
                     console.log("postresres",res)
                     cogoToast.success("Network Added Successfully")
                     resetForm();

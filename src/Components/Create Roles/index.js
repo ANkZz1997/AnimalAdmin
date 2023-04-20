@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import URLS from '../../utils/urls';
 import axios from 'axios';
-import { configAxios } from '../../utils/https';
 import cogoToast from "cogo-toast";
 import moment from 'moment';
 import AssignCodes from './AssignCodes';
@@ -26,7 +25,7 @@ export default function CreateRoles() {
     const PostRoles = async () =>{
         const data = postRole
         try{
-            const res = await axios.post(`${URLS.EXCHANGE.ADMIN.POST_ROLES}`,data,configAxios)
+            const res = await axios.post(`${URLS.EXCHANGE.ADMIN.POST_ROLES}`,data)
             console.log("abccc roleRESRES ------",res.status)
             setPostRole({
                 name : '',
@@ -45,7 +44,7 @@ export default function CreateRoles() {
 
     const AllRoles = async()=>{
         try{
-            const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_ROLES}`,configAxios)
+            const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_ROLES}`)
             console.log("resresres",res.data?.data)
             setGetRoles(res.data?.data?.reverse())
             setLoader(false)

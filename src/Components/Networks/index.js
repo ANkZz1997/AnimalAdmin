@@ -1,7 +1,6 @@
 import axios from 'axios'
 import React from 'react'
 import URLS from '../../utils/urls'
-import { configAxios } from '../../utils/https'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
@@ -30,7 +29,7 @@ export default function Networks() {
     const GetNetworks = async()=>{
         try{
 
-            const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`,configAxios)
+            const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
             console.log("res---",res.data.data)
             setNetData(res.data?.data)
             setLoader(false)
@@ -46,7 +45,7 @@ export default function Networks() {
             status: value
         }
         try{
-            const res = await axios.post(`${URLS.EXCHANGE.ADMIN.ENABLE_NETWORK}`,data, configAxios)
+            const res = await axios.post(`${URLS.EXCHANGE.ADMIN.ENABLE_NETWORK}`,data)
             console.log("resres",res)
             GetNetworks();
 
@@ -59,7 +58,7 @@ export default function Networks() {
 
     const DefaultNet = async(id,name)=>{
         try{
-            const res = await axios.get(`${URLS.EXCHANGE.ADMIN.DEFAULT_NETWORK}${id}`, configAxios)
+            const res = await axios.get(`${URLS.EXCHANGE.ADMIN.DEFAULT_NETWORK}${id}`)
             console.log("Resres",res)
             cogoToast.success(`${name} Is Your Default Network Now...!`)
             GetNetworks();
@@ -74,10 +73,21 @@ export default function Networks() {
             networkId: id
         }
         try{
-            const res = await axios.post(`${URLS.EXCHANGE.ADMIN.DELETE_NETWORK}`,delData, configAxios)
+            const res = await axios.post(`${URLS.EXCHANGE.ADMIN.DELETE_NETWORK}`,delData)
             console.log("res",res)
             GetNetworks();
 
+
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    const eventListner = async ()=>{
+        try{
+            const res = await axios.get(`${URLS.EXCHANGE.ADMIN.START_LISTENING}`)
+            console.log("resres",res)
+            cogoToast.success("Started Event Listening")
 
         }catch(err){
             console.log(err)
@@ -100,8 +110,12 @@ export default function Networks() {
              <button className='btns2' onClick={()=>{setDeleteBanner(!deleteBanner)}}>No</button>
         </ConfirmDialogue>
         <div className='addnet_div'>
+            <div className='add_listen'>
+                <h3>Add New Network <button onClick={()=>{setPopup(true)}}>+</button> </h3>
+                <button className='event_btn' onClick={()=>{eventListner()}}>Start Event Listening</button>
+          
 
-            <h3>Add New Network <button onClick={()=>{setPopup(true)}}>+</button></h3>
+            </div>
             <div className={popup?"addnet":"addnet no"}>
                 <AddNetworks toClose ={(e)=>{setPopup(e);GetNetworks()}}/>
             </div>
@@ -189,13 +203,23 @@ const Root = styled.section`
 
 .addnet_div{
 
-    h3{
-        margin:20px 0px;
-    
-        button{
-            width: 30px;
-        }
+    .add_listen{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h3{
+            margin:20px 0px;
+            button{
+                width: 30px;
+        }}
+            .event_btn{
+                height: 30px;
+                padding: 2px;
+            }
+        
     }
+
 
     .addnet{
         background-color: transparent;

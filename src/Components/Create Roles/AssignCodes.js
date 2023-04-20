@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import URLS from '../../utils/urls'
-import { configAxios } from '../../utils/https'
 import cogoToast from 'cogo-toast'
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import LoaderCSS from '../Loader'
@@ -19,7 +18,7 @@ export default function AssignCodes({role, toClose}) {
                 roleId: role.id,
                 accessCodeId: id,
             }
-            const res = await axios.post(`${URLS.EXCHANGE.ADMIN.ASSIGN_ROLES_CODES}`,data,configAxios)
+            const res = await axios.post(`${URLS.EXCHANGE.ADMIN.ASSIGN_ROLES_CODES}`,data)
             // const newData = list.map((i)=>{
             //     if(i.id == id){
             //         return{ ...i ,checked:true}
@@ -44,7 +43,7 @@ export default function AssignCodes({role, toClose}) {
                 roleId: role.id,
                 accessCodeId: id,
             }
-            const res = await axios.post(`${URLS.EXCHANGE.ADMIN.REMOVE_ROLES_CODES}`,data,configAxios)
+            const res = await axios.post(`${URLS.EXCHANGE.ADMIN.REMOVE_ROLES_CODES}`,data)
             // const newData = list.map((i)=>{
             //     if(i.id == id){
             //         return{ ...i ,checked:false}
@@ -65,7 +64,7 @@ export default function AssignCodes({role, toClose}) {
 
     const codeList = async()=>{
         try{
-          const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_ACCESS_CODES}`,configAxios)
+          const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_ACCESS_CODES}`)
         //   console.log("gettingREsponseOfCodes",res.data?.data)
 
           if(res.data?.data){

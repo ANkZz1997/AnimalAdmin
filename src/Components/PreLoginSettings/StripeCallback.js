@@ -1,6 +1,5 @@
 import React from 'react'
 import URLS from '../../utils/urls'
-import { configAxios } from '../../utils/https'
 import axios from 'axios'
 import { useState } from 'react'
 import { PreLoginCSs } from './PreLoginCss'
@@ -16,7 +15,7 @@ export default function StripeCallback({nextPage}) {
             stripeCallbackUrl: callData
         }
         try{
-            const res = await axios.post(`${URLS.EXCHANGE.ADMIN.POST_STRIPE_CALLBACK}`,data, configAxios)
+            const res = await axios.post(`${URLS.EXCHANGE.ADMIN.POST_STRIPE_CALLBACK}`,data)
             console.log("res",res)
             nextPage();
 

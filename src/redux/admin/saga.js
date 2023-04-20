@@ -88,7 +88,6 @@ function* getDashboardData({ callBack }) {
             cogoToast.warn('Session Expired');
         } else {
             cogoToast.error(response?.data?.message);
-
         }
 
     } catch (error) {

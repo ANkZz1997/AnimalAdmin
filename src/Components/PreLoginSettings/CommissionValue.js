@@ -5,7 +5,6 @@ import cogoToast from 'cogo-toast';
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import URLS from '../../utils/urls';
-import { configAxios } from '../../utils/https';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { preLoginAction } from '../../redux/admin/action';
@@ -23,7 +22,7 @@ export default function CommissionValue({nextPage}) {
   const FillCommissionType = async ()=>{
     setLoading(true);
     try{
-      const res = await axios.get(`${URLS.EXCHANGE.ADMIN.SET_COMMISSION_TYPE}${option}`,configAxios)
+      const res = await axios.get(`${URLS.EXCHANGE.ADMIN.SET_COMMISSION_TYPE}${option}`)
       console.log("ResponseCommission",res)
       FillCommissionVal()
     }catch(err){
@@ -33,7 +32,7 @@ export default function CommissionValue({nextPage}) {
 
   const FillCommissionVal = async ()=>{
     try{
-      const res = await axios.get(`${URLS.EXCHANGE.ADMIN.SET_COMMISSION}${comValue?comValue:0}`,configAxios)
+      const res = await axios.get(`${URLS.EXCHANGE.ADMIN.SET_COMMISSION}${comValue?comValue:0}`)
       console.log("ResponseCommission i9999",res)
       nextPage();
     }catch(err){

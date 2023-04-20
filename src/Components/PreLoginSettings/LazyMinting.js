@@ -1,7 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import URLS from '../../utils/urls'
-import { configAxios } from '../../utils/https';
 import styled from 'styled-components';
 
 export default function LazyMinting({handleApiCall}) {
@@ -12,7 +11,7 @@ export default function LazyMinting({handleApiCall}) {
   const lazyMint = async()=>{
 
     try{
-      const res = await axios.get(`${URLS.EXCHANGE.ADMIN.SET_LAZY_MINTING}${lazy}`,configAxios);
+      const res = await axios.get(`${URLS.EXCHANGE.ADMIN.SET_LAZY_MINTING}${lazy}`);
       handleApiCall()
   
     }catch(err){

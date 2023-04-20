@@ -7,7 +7,6 @@ import { kycUserData } from '../../redux/admin/action';
 import URLS from '../../utils/urls';
 import LoaderCSS from '../Loader';
 import moment from 'moment';
-import { configAxios } from '../../utils/https';
 
 function KycDetails() {
   const [kycData, setKycData] = useState([]);
@@ -35,7 +34,7 @@ function KycDetails() {
     try {
       
       await axios
-        .get(`${URLS.EXCHANGE.ADMIN.KYC_ACTION_APPROVE}${id}`, configAxios)
+        .get(`${URLS.EXCHANGE.ADMIN.KYC_ACTION_APPROVE}${id}`)
         .then((res) => {
           const newData = kycData.map((i, ix) => {
             if (i.id == id) {
@@ -57,7 +56,7 @@ function KycDetails() {
     // }
     try {
       await axios
-        .get(`${URLS.EXCHANGE.ADMIN.KYC_ACTION_REJECT}${id}`, configAxios)
+        .get(`${URLS.EXCHANGE.ADMIN.KYC_ACTION_REJECT}${id}`)
         .then((res) => {
           console.log(res);
           const newData = kycData.map((i, ix) => {

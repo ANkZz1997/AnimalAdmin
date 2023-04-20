@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import URLS from '../../utils/urls'
-import { configAxios } from '../../utils/https'
 import axios from 'axios'
 import styled from 'styled-components'
 import { PreLoginCSs } from './PreLoginCss'
@@ -18,7 +17,7 @@ export default function PinataCredentials({nextPage}) {
       pinataSecret: pinSecret
     }
     try{
-      const res = await axios.post(`${URLS.EXCHANGE.ADMIN.POST_PINATA_CREDINTIALS}`,data,configAxios)
+      const res = await axios.post(`${URLS.EXCHANGE.ADMIN.POST_PINATA_CREDINTIALS}`,data)
       nextPage()
 
     }catch(err){
