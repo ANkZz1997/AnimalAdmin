@@ -1,18 +1,17 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import URLS from '../../utils/urls'
-import styled from 'styled-components';
-
-export default function LazyMinting({handleApiCall}) {
-
-  const [lazy, setLazy] = useState();
+import { PreLoginCSs } from './PreLoginCss';
 
 
-  const lazyMint = async()=>{
+export default function LazyMinting({nextPage}) {
+
+
+  const lazyMint = async(lazy)=>{
 
     try{
       const res = await axios.get(`${URLS.EXCHANGE.ADMIN.SET_LAZY_MINTING}${lazy}`);
-      handleApiCall()
+      nextPage()
   
     }catch(err){
       console.log("err",err)
@@ -21,26 +20,21 @@ export default function LazyMinting({handleApiCall}) {
   }
   
 
-  console.log("lazyMinting",lazy)
-
   return (
-    <Root>Set Lazy Minting Feature....
-    <button onClick={()=>{setLazy("true")}}>Enable</button>
-    <button onClick={()=>{setLazy("false")}}>Diable</button>
-
-    <button className={lazy?"btn":"btn no"} onClick={()=>{lazyMint()}}>Click to send i am great</button>
-    </Root>
+    <PreLoginCSs>
+       <div className='main_body'>
+            <div className='child1'>
+            <h2>Set Lazy Minting Feature</h2>
+            <div className='lazy_bdy'>
+              <button onClick={()=>{lazyMint("true")}}>Enable</button>
+              <button onClick={()=>{lazyMint("false")}}>Diable</button>
+            </div>
+            {/* <button className={!lazy==0?"btn":"perr.no"} onClick={()=>{lazyMint()}}>Click to send i am great</button> */}
+  
+            </div>
+        </div>
+      
+    </PreLoginCSs>
   )
 }
 
-const Root = styled.section`
-
-.btn{
-  padding: 10px;
-}
-
-.btn.no{
-  display: none;
-}
-
-`

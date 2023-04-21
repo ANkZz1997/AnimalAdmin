@@ -15,6 +15,7 @@ import StripeSecret from '../PreLoginSettings/StripeSecret'
 import { preLoginAction } from '../../redux/admin/action'
 import LoaderCSS from '../Loader'
 import StripeCallback from '../PreLoginSettings/StripeCallback'
+import CompanyLogo from '../PreLoginSettings/CompanyLogo'
 
 
 export default function Layout({ children }) {
@@ -75,7 +76,8 @@ export default function Layout({ children }) {
                             activeTab == "pinataApiKey" || activeTab == "pinataSecret" ? 
                             <PinataCredentials nextPage={(e)=>{handleCall()}} />: 
                             activeTab == "stripeSecret" ? <StripeSecret nextPage={(e)=>{handleCall()}}/> : activeTab == "stripeCallbackUrl"
-                            ? <StripeCallback nextPage={(e)=>{handleCall()}}/>:""
+                            ? <StripeCallback nextPage={(e)=>{handleCall()}}/>:activeTab == "platformTitle" || activeTab == "platformLogo"?
+                            <CompanyLogo nextPage={(e)=>{handleCall()}} />: ""
                             }
                         </>
                     :

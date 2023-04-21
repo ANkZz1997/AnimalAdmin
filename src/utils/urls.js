@@ -26,6 +26,7 @@ const URLS = {
             SET_STRIPE_SECRET:`${EXCHANGE_URL}/admin/setStripeSecret?value=`,
             POST_PINATA_CREDINTIALS:`${EXCHANGE_URL}/admin/setPinataCreds?value=`,
             POST_STRIPE_CALLBACK: `${EXCHANGE_URL}/admin/stripeCallbackUrl`,
+            POST_PLATFORM_DETAILS:`${EXCHANGE_URL}/admin/setPlatformDetails`,
 
 
             LOGIN: `${EXCHANGE_URL}/auth/adminLogin`,
@@ -70,7 +71,8 @@ const URLS = {
             DEFAULT_NETWORK: `${EXCHANGE_URL}/admin/setNetworkAsDefault?id=`,
             DELETE_NETWORK: `${EXCHANGE_URL}/admin/deleteNetwork`,
             EDIT_NETWORK: `${EXCHANGE_URL}/admin/editNetwork`,
-            START_LISTENING: `${EXCHANGE_URL}/contractEvent/startListening`
+            START_LISTENING: `${EXCHANGE_URL}/contractEvent/startListening`,
+           
         },
 
         ENDPOINTS: {

@@ -24,6 +24,15 @@ padding: 20px;
 border: 2px solid #fff;
 }
 
+.lazy_bdy{
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  button{
+    padding: 5px;
+  }
+}
+
 .child1{
   display: flex;
   flex-direction: column;
@@ -32,6 +41,61 @@ border: 2px solid #fff;
   select{
     padding: 5px;
     border-radius: 5px;
+  }
+}
+
+.child3{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width:100% ;
+  align-items: center;
+  select{
+    padding: 5px;
+    border-radius: 5px;
+  }
+  .comp_logo{
+    display: flex;
+    justify-content: center;
+    border: 1px solid;
+    >div{
+      padding: 5px;
+      height: 150px;
+      width: 200px;
+      position: relative;
+      cursor: pointer;
+
+      .preview_img{
+        object-fit: contain;
+        height: 100%;
+        width: 100%;
+      cursor: pointer;
+
+      }
+
+      .preview_img1{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        text-align: center;
+      cursor: pointer;
+
+      }
+
+      .input_file{
+        position: absolute;
+        left: 0;
+        height: 150px;
+        width: 200px;
+        top: 0;
+        opacity: 0;
+        cursor: pointer;
+
+      }
+
+    }
+
   }
 }
 
