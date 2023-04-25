@@ -28,12 +28,14 @@ export default function BidsData() {
   };
 
   useEffect(() => {
+    setLoader(true)
     const nftObj = [
       { auction: { contains: searchText } },
       // { name: { contains: searchText } },
       // { price: { contains: searchText} },
       // { user: { contains: searchText} },
     ];
+    const obj = {or:nftObj}
     setBidsData([]);
     dispatch(
       bidsAction(
@@ -43,7 +45,7 @@ export default function BidsData() {
           sorting: sort,
           order: order,
         },
-        nftObj,
+        obj,
         callBack,
       ),
     );

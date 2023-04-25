@@ -3,13 +3,27 @@ import { Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 import URLS from '../../utils/urls';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function FilterBar({ sort, order, searchText, chainNumber }) {
-  const [search, setSearch] = useState('');
   const [netName, setNetName] = useState();
+  const nevigate = useNavigate()
+  const urlParams = new URLSearchParams(window.location.search);
+  const redirect = urlParams.get("searchNft");
+  const [search, setSearch] = useState(redirect);
 
+  const handleNevigate = (search)=>{
+    nevigate(`/nfts?searchNft=${search}`)
+  }
+  const keyPressed = (e) => {
+    if (e.key === 'Enter') {
+      searchText(search);
+      handleNevigate(search)
+
+    }
+  };
+  
   const GetNetworks = async()=>{
-
     try{
         const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
         console.log("res---",res.data.data)
@@ -19,6 +33,15 @@ export default function FilterBar({ sort, order, searchText, chainNumber }) {
         console.log(err)
     }
 }
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirect = urlParams.get("searchNft");
+    console.log("redirect",redirect,search)
+    if (redirect) {
+      searchText(redirect);
+    }
+  }, [window.location.search]);
+
 
 useEffect(()=>{
   GetNetworks();
@@ -32,16 +55,19 @@ useEffect(()=>{
             className="search_child"
             type="Search"
             placeholder="Search"
+            value={search}
             onChange={(e) => {
               setSearch(e.target.value);
-              searchText(e.target.value);
+              // searchText(e.target.value);
             }}
+            onKeyPress={keyPressed}
           />
           <button
             className="search_btn"
             type="submit"
             onClick={() => {
               searchText(search);
+              handleNevigate(search)
             }}
           >
             <Icon name="search" />

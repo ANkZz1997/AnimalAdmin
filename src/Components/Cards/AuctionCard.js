@@ -11,19 +11,21 @@ import bnb from '../../Assets/bnb.svg'
 export default function AuctionCard(data) {
   const [items, setItems] = useState();
   const [user, setUser] = useState();
-  const [getLogo,setGetLogo] = useState();
+  const [getLogo,setGetLogo] = useState([]);
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
   const deadline = data?.data?.endTime;
 
   useEffect(() => {
-    setGetLogo(data.logo)
+    setGetLogo(data?.logo)
     if (data.data) {
       setItems(data?.data);
       setUser(data?.data?.user)
     }
   }, [data]);
+
+  console.log("data--",data)
 
   return (
     <Root>

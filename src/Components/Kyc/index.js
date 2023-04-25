@@ -148,7 +148,7 @@ function KycDetails() {
                           setDocs(e.target.value);
                           setIsOpen(!isOpen);
                           setImgLoader(false);
-                          setDocName(i?.identityProof?"Identity Proof":"")
+                          setDocName(i?.identityProofDocType.name)
                         }}
                       >
                         View Doc
@@ -163,7 +163,7 @@ function KycDetails() {
                           setDocs(e.target.value);
                           setIsOpen(!isOpen);
                           setImgLoader(false);
-                          setDocName(i?.addressProof?"Address Proof":"")
+                          setDocName(i?.addressProofDocType?.name)
                         }}
                       >
                         View Doc

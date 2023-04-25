@@ -1,9 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Icon } from 'semantic-ui-react';
 import { FilterBarStyle } from '../Style/filterbar.style';
+import { useNavigate } from 'react-router-dom';
 
 export default function FilterBarB({ sort, order, searchText }) {
-  const [search, setSearch] = useState('');
+  const nevigate = useNavigate()
+  const urlParams = new URLSearchParams(window.location.search);
+  const redirect = urlParams.get("search");
+  const [search, setSearch] = useState(redirect);
+
+  const handleNevigate = (search)=>{
+    nevigate(`/bids?search=${search}`)
+  }
+  const keyPressed = (e) => {
+    if (e.key === 'Enter') {
+      searchText(search);
+      handleNevigate(search)
+    }
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirect = urlParams.get("search");
+    console.log("redirect",redirect,search)
+    if (redirect) {
+      searchText(redirect);
+    }
+  }, [window.location.search]);
 
   return (
     <FilterBarStyle>
@@ -13,15 +36,19 @@ export default function FilterBarB({ sort, order, searchText }) {
             className="search_child"
             type="Search"
             placeholder="Search"
+            value={search}
             onChange={(e) => {
               setSearch(e.target.value);
             }}
+            onKeyPress={keyPressed}
+
           />
           <button
             className="search_btn"
             type="submit"
             onClick={() => {
               searchText(search);
+              handleNevigate(search)
             }}
           >
             <Icon name="search" />

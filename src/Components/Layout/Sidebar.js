@@ -16,13 +16,13 @@ import { checkUserAction } from '../../redux/admin/action';
 
 
 export default function Sidebar() {
-  const activeParam = window.location.href.split('/')[3];
+  const expe = window.location.href.replace('?',"/");
+  const activeParam = expe.split('/')[3];
   const [activeTab,setActiveTab] = useState(activeParam)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const userCheck = useSelector((state)=>state?.persistReducer?.username)
-
   const userLogoutAction = ()=>{
     dispatch(checkUserAction(false))
     localStorage.setItem("token","")
@@ -31,7 +31,7 @@ export default function Sidebar() {
     // window.location.replace("/")
   }
 
-  console.log('ActiveTab',activeParam)
+  console.log('expe',expe)
 
   return (
     <Root>

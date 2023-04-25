@@ -59,16 +59,17 @@ export default function NftsData() {
      }
 
      setLoader(true);
-    const Obj = [
+
+    const nftObj = [
       { name: { contains: searchText } },
       { category: { contains: searchText } },
-      { id: { contains: searchText } },
+      { status: { contains: searchText } },
       // { contact: { contains: searchText} },
     ];
 
-    const nftObj = {or:Obj}
+    const obj = {or:nftObj}
     
-    setNfts('');
+    // setNfts('');
     dispatch(
         nftDataAction(
         {
@@ -78,7 +79,7 @@ export default function NftsData() {
           order: order,
         },
         userData,
-        nftObj,
+        obj,
         callBack,
       ),
     );

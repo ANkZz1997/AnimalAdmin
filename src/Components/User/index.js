@@ -53,8 +53,6 @@ export default function Userlist() {
         );
       }, [activePage, searchTextUser, sort, order]);
 
-      console.log("sort",sort)
-
 console.log("userData",userData)
   return (
     <Root>

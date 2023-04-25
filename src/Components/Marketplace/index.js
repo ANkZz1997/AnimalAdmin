@@ -67,6 +67,7 @@ export default function MarketPlaceData() {
       { price: { contains: searchText } },
     ];
     setLoader(true);
+    const obj = {or:nftObj}
     dispatch(
       marketPlaceAction(
         {
@@ -76,7 +77,7 @@ export default function MarketPlaceData() {
           order: order,
         },
         data,
-        nftObj,
+        obj,
         callBack,
       ),
     );

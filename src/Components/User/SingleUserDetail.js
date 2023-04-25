@@ -9,14 +9,59 @@ import NftSold from './NftSold';
 import NftWishlisted from './NftWishlisted';
 import Overview from './Overview';
 import UserActivities from './UserActivities';
+import axios from 'axios';
+import cogoToast from 'cogo-toast';
 
 function UserDetails({ userDetails, nfts, userActivity, ids }) {
   const [activeTab, setActiveTab] = useState('overview');
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const soldData = userActivity?.filter((s) => s.type == 'SOLD');
   const buyData = userActivity?.filter((s) => s.type == 'BUY');
+  const [detailsUser, setDetailsUser] = useState(userDetails)
 
-  // console.log('userActivity', userActivity);
+  const [userStatus, setUserStatus] = useState();
+
+  const postStatus = async (userStatus)=>{
+    try{
+      const data = {
+        id: ids,
+        status:userStatus
+      }
+      const res = await axios.post(`${URLS.EXCHANGE.ADMIN.POST_USER_STATUS}`,data)
+      setDetailsUser(res?.data.data[0])
+      cogoToast.success(`User ${res?.data.data[0].status}`)
+
+    }catch(error){
+      console.log(error)
+    }
+  }
+
+  const handleBlock =()=>{
+    if(detailsUser?.status == "BLOCKED"){
+      // setUserStatus("UNBLOCK")
+    postStatus("ACTIVE");
+
+    }else{
+      // setUserStatus("BLOCKED")
+    postStatus("BLOCKED");
+
+    }
+  }
+
+  const handleInactive=()=>{
+    if(detailsUser?.status == "INACTIVE"){
+      // setUserStatus("ACTIVE")
+    postStatus("ACTIVE");
+
+    }else{
+      // setUserStatus("INACTIVE")
+    postStatus("INACTIVE");
+
+    }
+
+  }
+
+  console.log('userStatus', detailsUser.status);
 
   return (
     <Root>
@@ -27,10 +72,16 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
         <h1>View User Profile</h1>
       </div>
       <div className="image_section">
+        <div className='action_div'>
+          <button className='action_btn' onClick={()=>{handleBlock()}}>
+          {detailsUser?.status=="BLOCKED"?"Unblock":"Block"}</button>
+          <button className='action_btn' onClick={()=>{handleInactive()}}>
+            {detailsUser?.status=="INACTIVE"?"Active":"InActive"}</button>
+        </div>
         <img
           src={
-            userDetails.avatar
-              ? `${IMAGE_END_POINT}${userDetails.avatar}`
+            detailsUser.avatar
+              ? `${IMAGE_END_POINT}${detailsUser.avatar}`
               : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
           }
           size="medium"
@@ -41,11 +92,11 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
         <div className="details">
           {/* <h2>Status: {userDetails?.status}</h2> */}
           <h2>
-            {`${userDetails?.firstName ? userDetails.firstName : 'N/A'} ${
-              userDetails?.lastName ? userDetails.lastName : 'N/A'
+            {`${detailsUser?.firstName ? detailsUser.firstName : 'N/A'} ${
+              detailsUser?.lastName ? detailsUser.lastName : 'N/A'
             }`}
           </h2>
-          <h4>@{`${userDetails?.username ? userDetails.username : 'N/A'}`}</h4>
+          <h4>@{`${detailsUser?.username ? detailsUser.username : 'N/A'}`}</h4>
 
           <div className="nft_data">
             <div className="nft">
@@ -108,15 +159,15 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
       </div>
 
       {activeTab === 'overview' ? (
-        <Overview data={userDetails} />
+        <Overview data={detailsUser} />
       ) : activeTab === 'created' ? (
-        <NftCreated items={userDetails} nftList={nfts} />
+        <NftCreated items={detailsUser} nftList={nfts} />
       ) : activeTab === 'purchased' ? (
         <NftPurchased data={buyData} ids={ids} />
       ) : activeTab === 'sold' ? (
         <NftSold data={soldData} />
       ) : activeTab === 'wishlisted' ? (
-        <NftWishlisted data={userDetails} />
+        <NftWishlisted data={detailsUser} />
       ) : activeTab === 'activities' ? (
         <UserActivities data={userActivity} ids={ids} />
       ) : (
@@ -146,7 +197,19 @@ color: whitesmoke;
     display: flex;
     width: 100%;
     background-color: rgb(17 22 50);
+    position: relative;
     gap: 10px;
+
+    .action_div{
+      position: absolute;
+      right: 0;
+      .action_btn{
+        padding: 3px;
+        margin: 1px;
+      }
+  
+    }
+
 
     @media (max-width: 768px) {
       flex-direction: column;

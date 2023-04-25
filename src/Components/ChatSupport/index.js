@@ -5,7 +5,6 @@ import moment from 'moment';
 import PaginationCode from '../Pagination';
 import LoaderCSS from '../Loader';
 import URLS from '../../utils/urls';
-import UserInfo from './UserInfo';
 import FilterBarB from './FilterBar';
 import { Link } from 'react-router-dom';
 
@@ -20,20 +19,15 @@ function ChatSupport() {
   const [totalPage, setTotalPage] = useState(1);
 
   const dataLimit = 20;
+  const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
+
 
   const getDisputeList = async () => {
     try {
-      let axiosConfig = {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      };
-      // let searchObj = [{user:{contains:searchText}}]
+      const searchObj = [{user:{contains:searchText}}]
       await axios
         .get(
-          `${URLS.EXCHANGE.ADMIN.GET_DISPUTE_LIST}page=${activePage}&limit=${dataLimit}&sort=${sort}&order=${order}`,
-          axiosConfig,
-          // {or:searchObj}
+          `${URLS.EXCHANGE.ADMIN.GET_DISPUTE_LIST}page=${activePage}&limit=${dataLimit}&sort=${sort}&order=${order}`,{or:searchObj}
         )
         .then((res) => {
           setDisputeData(res.data.data.records);
@@ -124,7 +118,23 @@ function ChatSupport() {
                           <td className="s_no" data-label="S.No">
                             {ix + 1}
                           </td>
-                          <UserInfo id={i?.user} />
+                          <td className="user_img_table" data-label="User">
+                            <Link to={`/user/userdetails/${i.user?.id}`}>
+
+                                <div className="user_image_name">
+                                <img
+                                    src={
+                                    i.user?.avatar
+                                        ? `${IMAGE_END_POINT}${i.user?.avatar}`
+                                        : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
+                                    }
+                                />
+                                {i.user?.firstName
+                                    ? `${i.user.firstName} ${i.user.lastName}`
+                                    : 'Unnamed User'}
+                                </div>
+                            </Link>
+                          </td>
                           {/* <td> {`${moment(1675757417520).format(
                               'DD-MMM-YY (hh:mm A)',
                             )}`}</td> */}

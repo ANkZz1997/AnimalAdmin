@@ -96,7 +96,7 @@ function* getDashboardData({ callBack }) {
 }
 
 function* getUserData({ params, obj, callback }) {
-
+    console.log("objobj",obj)
     try {
         const response = yield httpPost(
             `${URLS.EXCHANGE.ADMIN.GET_USER_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,
@@ -154,12 +154,10 @@ function* userActivities({ params, callback, obj }) {
 }
 
 function* getNftData({ params,data, obj, callback }) {
-    console.log("datadata",params)
-
+    
     try {
         const response = yield httpPost(
-            `${URLS.EXCHANGE.ADMIN.GET_NFTS_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,data,
-            obj,
+            `${URLS.EXCHANGE.ADMIN.GET_NFTS_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,{...data, ...obj},
         );
         if (response?.status === 200) {
             callback(response?.data?.data)
@@ -178,8 +176,8 @@ function* getMarketplaceData({ params,data, obj, callback }) {
 
     try {
         const response = yield httpPost(
-            `${URLS.EXCHANGE.ADMIN.GET_MARKETPLACE_ITEM_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,data,
-            { or: obj },
+            `${URLS.EXCHANGE.ADMIN.GET_MARKETPLACE_ITEM_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`
+            ,{...data, ...obj}
         );
         if (response?.status === 200) {
             callback(response?.data?.data)
@@ -198,8 +196,8 @@ function* getAuctionData({ params,data, obj, callback }) {
 
     try {
         const response = yield httpPost(
-            `${URLS.EXCHANGE.ADMIN.GET_AUCTIONS_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,data,
-            { or: obj },
+            `${URLS.EXCHANGE.ADMIN.GET_AUCTIONS_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,
+            {...data, ...obj},
         );
         if (response?.status === 200) {
             callback(response?.data?.data)
@@ -218,8 +216,7 @@ function* getBidsData({ params, obj, callback }) {
 
     try {
         const response = yield httpPost(
-            `${URLS.EXCHANGE.ADMIN.GET_BIDS_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,
-            { or: obj },
+            `${URLS.EXCHANGE.ADMIN.GET_BIDS_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,obj,
         );
         if (response?.status === 200) {
             callback(response?.data?.data)

@@ -58,7 +58,7 @@ export default function UserListCard({ data }) {
                   {i?.type}
                 </td>
                 <td data-label="Verification" className="status">
-                  {i?.verified ? 'True' : 'False'}
+                  {i?.kycVerified ? 'Verified' : 'Pending'}
                 </td>
                 <td data-label="Status" className="status">
                   {i?.status}

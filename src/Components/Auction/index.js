@@ -60,11 +60,13 @@ function AuctionsData() {
      }
      setLoader(true);
     const nftObj = [
-      { endTime: { contains: searchText } },
-      { id: { contains: searchText } },
+      // { endTime: { contains: searchText } },
+      // { id: { contains: searchText } },
       { status: { contains: searchText } },
-      { user: { contains: searchText } },
+      // { user: { contains: searchText } },
     ];
+
+    const obj = {or: nftObj};
     setAuctionData([]);
     dispatch(
       auctionsAction(
@@ -75,7 +77,7 @@ function AuctionsData() {
           order: order,
         },
         data,
-        nftObj,
+        obj,
         callBack,
       ),
     );

@@ -42,6 +42,7 @@ const URLS = {
             //INDIVIDUAL DETAILS APIS
 
             GET_USER_DETAILS: `${EXCHANGE_URL}/admin/getUserDetail?id=`,
+            POST_USER_STATUS: `${EXCHANGE_URL}/admin/updateUserStatus`,
             GET_USER_ACTIVITIES: `${EXCHANGE_URL}/admin/getActivities`,
             GET_NFT_DETAILS: `${EXCHANGE_URL}/admin/getNftDetail?id=`,
             GET_AUCTION_DETAILS: `${EXCHANGE_URL}/admin/getAuctionDetail?id=`,
