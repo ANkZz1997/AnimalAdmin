@@ -6,8 +6,11 @@ import { useState } from 'react';
 import URLS from '../../utils/urls';
 import {AiFillEdit} from 'react-icons/ai'
 import cogoToast from 'cogo-toast';
+import BasicPreLoginEdit from './BasicPreLoginEdit';
 
 export default function BasicPreLogin() {
+
+  const [editWindow,setEditWindow] = useState(false)
 
   const dispatch = useDispatch();
   const [settingData, setSettingData] = useState({});
@@ -33,7 +36,7 @@ export default function BasicPreLogin() {
    <Root>
     <div className='head_bar'>
       <h3>Below Settings Are Very Important...</h3>
-      <button onClick={()=>{cogoToast.info("Work Is In Progress... Sir")}}><AiFillEdit/></button>
+      <button onClick={()=>{setEditWindow(true)}}><AiFillEdit/></button>
     </div>
     <div className='prelogin_body'>
       <div className='body_child'>
@@ -53,6 +56,10 @@ export default function BasicPreLogin() {
         <img src={`${IMAGE_END_POINT}${settingData?.platformLogo}`}/>
         <h4>{settingData?.platformTitle} Logo</h4>
       </div>
+    </div>
+
+    <div className={editWindow?"prelogedit":"prelogedit no"}>
+      <BasicPreLoginEdit currentData={settingData} closeIt={(e)=>{setEditWindow(e)}}/>
     </div>
     
    </Root>
@@ -75,6 +82,7 @@ border: 1px solid;
 .prelogin_body{
   display: flex;
   gap: 10px;
+  justify-content: space-between;
   @media(max-width:600px){
     flex-direction: column-reverse;
     justify-content: center;
@@ -117,6 +125,23 @@ border: 1px solid;
       }
     }
   }
+}
+
+.prelogedit{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top:0;
+  left:0;
+  z-index:999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+}
+
+.prelogedit.no{
+  display: none;
 }
 
 `

@@ -13,12 +13,12 @@ import blank from '../../Assets/blank.svg';
 export default function MarketplaceCard(data) {
   const [items, setItems] = useState({});
   const [user, setUser] = useState();
-  const [getLogo,setGetLogo] = useState();
+  const [getLogo,setGetLogo] = useState([]);
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
   useEffect(() => {
-    setGetLogo(data.logo)
+    setGetLogo(data?.logo)
     if (data.data) {
       setItems(data?.data);
       setUser(data?.data?.user)

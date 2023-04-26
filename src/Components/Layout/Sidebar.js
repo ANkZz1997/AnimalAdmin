@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import styled from 'styled-components';
 import {FaHome,FaUserAlt,FaRegAddressCard} from 'react-icons/fa'
@@ -10,7 +10,8 @@ import {BsFillChatDotsFill} from 'react-icons/bs'
 import {FiHelpCircle, FiSettings, FiLogOut} from 'react-icons/fi'
 import cogoToast from "cogo-toast";
 import { useDispatch, useSelector } from 'react-redux';
-import { checkUserAction } from '../../redux/admin/action';
+import { checkUserAction, preLoginAction } from '../../redux/admin/action';
+import URLS from '../../utils/urls';
 // import { userLoginAction, userLogoutAction } from '../../redux/admin/action';
 
 
@@ -19,8 +20,10 @@ export default function Sidebar() {
   const expe = window.location.href.replace('?',"/");
   const activeParam = expe.split('/')[3];
   const [activeTab,setActiveTab] = useState(activeParam)
+  const [logo,setLogo] = useState();
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
   const userCheck = useSelector((state)=>state?.persistReducer?.username)
   const userLogoutAction = ()=>{
@@ -31,14 +34,27 @@ export default function Sidebar() {
     // window.location.replace("/")
   }
 
-  console.log('expe',expe)
+  const callBack = (data)=>{
+    console.log("getSettingsData",data)
+    setLogo(data?.platformLogo)
+  }
+
+  const checkSettings = ()=>{
+    dispatch(preLoginAction({},callBack))
+  }
+
+  useEffect(()=>{
+    checkSettings()
+  },[])
+
+  console.log('logo',logo)
 
   return (
     <Root>
       <div className='menu_top'>
         <div className='company_logo'>
-          <img
-            src="https://sdnatech.com/img/Untitled-1.webp"
+          <img className='com_img'
+            src={`${IMAGE_END_POINT}${logo}`}
             alt="SDNA logo"
           />
         </div>
@@ -100,7 +116,15 @@ height: 100%;
 
   .company_logo{
     padding: 10px 20px 10px 0px;
+    text-align: center;
+    .com_img{
+      border-style: none;
+      height: 60px;
+      width: 200px;
+      object-fit: contain;
+    }
   }
+
   .nav_section{
     display: flex;
     flex-direction: column;

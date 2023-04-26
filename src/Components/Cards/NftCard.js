@@ -8,13 +8,13 @@ import { Link } from 'react-router-dom';
 export default function NftCard(data) {
   const [items, setItems] = useState({});
   const [user, setUser] = useState();
-  const [getLogo,setGetLogo] = useState();
+  const [getLogo,setGetLogo] = useState([]);
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
   useEffect(() => {
     console.log("ITem",data.data, data.logo)
-    setGetLogo(data.logo)
+    setGetLogo(data?.logo)
     if (data.data) {
       setItems(data.data);
       setUser(data.data.user);
@@ -34,7 +34,7 @@ export default function NftCard(data) {
        <div className='top_bar'>
 
             {getLogo?.map((i)=>{
-            if(i.chainId==items.chainId){
+            if(i?.chainId==items.chainId){
                 return <img src={`${IMAGE_END_POINT}${i?.logo}`}/>
             }
             })}
