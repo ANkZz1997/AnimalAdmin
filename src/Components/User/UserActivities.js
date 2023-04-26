@@ -52,7 +52,7 @@ function UserActivities({ ids }) {
   return (
     <Root>
       <div className="overview">
-        <div className="table_title">NFT Purchased</div>
+        <div className="table_title">Activities</div>
 
         <div className="overview_section">
           {loader ? (

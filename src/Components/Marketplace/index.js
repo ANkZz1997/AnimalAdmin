@@ -52,22 +52,12 @@ export default function MarketPlaceData() {
   useEffect(() => {
     if(chainNumber){
       var data =  {
-        "populate": ["user","nft"],
         "chainId": chainNumber
       }
-     }else{
-      var data =  {
-        "populate": ["user","nft"],
-      }
      }
-    const nftObj = [
-      // { user: { contains: searchText } },
-      // { nft.category: { contains: searchText } },
-      { status: { contains: searchText } },
-      { price: { contains: searchText } },
-    ];
+ 
     setLoader(true);
-    const obj = {or:nftObj}
+    const obj = {search: searchText}
     dispatch(
       marketPlaceAction(
         {
@@ -96,7 +86,7 @@ export default function MarketPlaceData() {
               setOrder(e);
             }}
             searchText={(e) => {
-              setSearchText(e);
+              setSearchText(e.trim());
             }}
             chainNumber = {(e)=>{
               setChainNumber(e);

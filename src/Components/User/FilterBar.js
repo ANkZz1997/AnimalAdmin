@@ -23,8 +23,10 @@ export default function FilterBar({ sort, order, searchText, view, setView }) {
     const urlParams = new URLSearchParams(window.location.search);
     const redirect = urlParams.get("search");
     console.log("redirect",redirect,search)
+       
     if (redirect) {
       searchText(redirect);
+      
     }
   }, [window.location.search]);
 

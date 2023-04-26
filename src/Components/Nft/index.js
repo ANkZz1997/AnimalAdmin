@@ -49,25 +49,13 @@ export default function NftsData() {
   useEffect(() => {
      if(chainNumber){
       var userData =  {
-        "populate": ["user"],
         "chainId": chainNumber
-      }
-     }else{
-      var userData =  {
-        "populate": ["user"],
       }
      }
 
      setLoader(true);
 
-    const nftObj = [
-      { name: { contains: searchText } },
-      { category: { contains: searchText } },
-      { status: { contains: searchText } },
-      // { contact: { contains: searchText} },
-    ];
-
-    const obj = {or:nftObj}
+    const obj = {search: searchText}
     
     // setNfts('');
     dispatch(
@@ -98,7 +86,7 @@ export default function NftsData() {
               setOrder(e);
             }}
             searchText={(e) => {
-              setSearchText(e);
+              setSearchText(e.trim());
             }}
             chainNumber = {(e)=>{
               setChainNumber(e);

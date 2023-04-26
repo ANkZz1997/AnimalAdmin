@@ -6,6 +6,7 @@ export default function BasicPreLoginEdit({currentData, closeIt}) {
     const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
     console.log("currentData",currentData)
 
+
   return (
     <Root>
         <button className='btnbtn2' onClick={()=>{closeIt(false)}}>Close</button>
@@ -25,7 +26,7 @@ export default function BasicPreLoginEdit({currentData, closeIt}) {
                 <h4>{currentData?.platformTitle} Logo</h4>
             </div>
         </div>
-        <button className='btnbtn2'>Save Changes</button>
+        <button className='btnbtn3' onClick={()=>{closeIt(false)}}>Save Changes</button>
     </Root>
   )
 }
@@ -36,15 +37,28 @@ background-color: #070c27;
 padding: 5px;
 width: 80%;
 border: 1px solid;
+display: flex;
+flex-direction: column;
+align-items: right;
+align-items: end;
 
 .btnbtn2{
     padding:3px;
-    font-size: 20px;
+    font-size: 16px;
+    right:0;
+}
+
+.btnbtn3{
+    padding:5px;
+    font-size: 16px;
+    right:0;
+    margin: 10px;
 }
 
 .prelogin_body2{
   display: flex;
   gap: 10px;
+  width: 100%;
   justify-content: space-between;
   @media(max-width:600px){
     flex-direction: column-reverse;
@@ -80,6 +94,7 @@ border: 1px solid;
     >div{
       display: flex;
       gap: 10px;
+      align-items: center;
       h5{
         margin:0;
         padding:0;
@@ -89,6 +104,9 @@ border: 1px solid;
         width: 100%;
         border: none;
         padding: 3px;
+        :focus{
+            outline: none;
+        }
       }
      
     }

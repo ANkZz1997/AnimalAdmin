@@ -48,25 +48,14 @@ function AuctionsData() {
   },[])
 
   useEffect(() => {
+    let data =   { }
     if(chainNumber){
-      var data =  {
-        "populate": ["user","nft"],
-        "chainId": chainNumber
-      }
-     }else{
-      var data =  {
-        "populate": ["user","nft"],
-      }
+        data["chainId"] = chainNumber
      }
      setLoader(true);
-    const nftObj = [
-      // { endTime: { contains: searchText } },
-      // { id: { contains: searchText } },
-      { status: { contains: searchText } },
-      // { user: { contains: searchText } },
-    ];
 
-    const obj = {or: nftObj};
+
+    const obj = {search:searchText};
     setAuctionData([]);
     dispatch(
       auctionsAction(
@@ -99,7 +88,7 @@ function AuctionsData() {
               setOrder(e);
             }}
             searchText={(e) => {
-              setSearchText(e);
+              setSearchText(e.trim());
             }}
             chainNumber = {(e)=>{
               setChainNumber(e);

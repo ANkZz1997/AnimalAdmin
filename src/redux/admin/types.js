@@ -6,6 +6,8 @@ export const userLogin = {
     RESEND_OTP: 'RESEND_OTP',
     CHECK_USER: 'CHECK_USER',
     USER_NAME: 'USER_NAME',
+    PRE_LOG_SETTING_LIST:"PRE_LOG_SETTING_LIST",
+
   };
 
   export const admin = {

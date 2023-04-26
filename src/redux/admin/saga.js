@@ -1,5 +1,5 @@
 
-import { adminAction, adminUserNameAction, checkUserAction } from "./action";
+import { adminAction, adminUserNameAction, checkUserAction, preLoginAdminDataAction } from "./action";
 import {
     all,
     call,
@@ -62,6 +62,7 @@ function* getPreLoginSettings({ params,callback}){
         if (response?.status === 200) {
             console.log("saga---->",params, response)
             callback(response.data.data)
+            yield put(preLoginAdminDataAction(response.data?.data))
         }else{
             localStorage.setItem("token","")
             yield put(checkUserAction(false));

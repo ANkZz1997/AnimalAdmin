@@ -100,7 +100,7 @@ export default function AccessCodes() {
               </tr>
             </thead>
             <tbody>
-              {list.map((i,ix)=>{
+              {list && list.map((i,ix)=>{
                 return(
                   <tr key={ix}>
                     <td>{ix+1}</td>

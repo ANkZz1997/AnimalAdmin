@@ -20,12 +20,15 @@ export default function Sidebar() {
   const expe = window.location.href.replace('?',"/");
   const activeParam = expe.split('/')[3];
   const [activeTab,setActiveTab] = useState(activeParam)
-  const [logo,setLogo] = useState();
+  // const [logo,setLogo] = useState();
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
   const userCheck = useSelector((state)=>state?.persistReducer?.username)
+
+  const logo = useSelector((state)=>state?.persistReducer?.preLogData?.platformLogo)
+
   const userLogoutAction = ()=>{
     dispatch(checkUserAction(false))
     localStorage.setItem("token","")
@@ -34,20 +37,6 @@ export default function Sidebar() {
     // window.location.replace("/")
   }
 
-  const callBack = (data)=>{
-    console.log("getSettingsData",data)
-    setLogo(data?.platformLogo)
-  }
-
-  const checkSettings = ()=>{
-    dispatch(preLoginAction({},callBack))
-  }
-
-  useEffect(()=>{
-    checkSettings()
-  },[])
-
-  console.log('logo',logo)
 
   return (
     <Root>

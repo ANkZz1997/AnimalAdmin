@@ -34,7 +34,7 @@ export default function AuctionCard(data) {
         <Link to={`/auction/auctiondetails/${items?.id}`}>
         <div className="image_style">
         <div className='top_bar'>
-          {getLogo?.map((i)=>{
+          {getLogo && getLogo?.map((i)=>{
             if(i.chainId==items.chainId){
                 return <img src={`${IMAGE_END_POINT}${i?.logo}`}/>
             }

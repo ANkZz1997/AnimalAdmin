@@ -40,7 +40,6 @@ export default function CommissionValue({nextPage}) {
     }
   }
 
-
   useEffect(() => {
     // setLoading(true)
     // console.log('comValue',Number(comValue) > 0 , option)

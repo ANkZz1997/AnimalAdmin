@@ -4,8 +4,6 @@
 // const EXCHANGE_URL = 'https://nft-admin.sdnatech.com/'
 const EXCHANGE_URL = 'https://nft.sdnatech.com/animal-api-dev'
 
-
-
 const URLS = {
     //PAGE ROUTES
     NEXT :{

@@ -11,6 +11,7 @@ import Overview from './Overview';
 import UserActivities from './UserActivities';
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
+import ConfirmDialogue from '../Model/ConfirmDialogue';
 
 function UserDetails({ userDetails, nfts, userActivity, ids }) {
   const [activeTab, setActiveTab] = useState('overview');
@@ -48,18 +49,18 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
     }
   }
 
-  const handleInactive=()=>{
-    if(detailsUser?.status == "INACTIVE"){
-      // setUserStatus("ACTIVE")
-    postStatus("ACTIVE");
+  // const handleInactive=()=>{
+  //   if(detailsUser?.status == "INACTIVE"){
+  //     // setUserStatus("ACTIVE")
+  //   postStatus("ACTIVE");
 
-    }else{
-      // setUserStatus("INACTIVE")
-    postStatus("INACTIVE");
+  //   }else{
+  //     // setUserStatus("INACTIVE")
+  //   postStatus("INACTIVE");
 
-    }
+  //   }
 
-  }
+  // }
 
   console.log('userStatus', detailsUser.status);
 
@@ -73,10 +74,10 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
       </div>
       <div className="image_section">
         <div className='action_div'>
-          <button className='action_btn' onClick={()=>{handleBlock()}}>
+          <button className={detailsUser?.status=="BLOCKED"?'action_btn no':'action_btn'} onClick={()=>{handleBlock()}}>
           {detailsUser?.status=="BLOCKED"?"Unblock":"Block"}</button>
-          <button className='action_btn' onClick={()=>{handleInactive()}}>
-            {detailsUser?.status=="INACTIVE"?"Active":"InActive"}</button>
+          {/* <button className='action_btn' onClick={()=>{handleInactive()}}>
+            {detailsUser?.status=="INACTIVE"?"Active":"InActive"}</button> */}
         </div>
         <img
           src={
@@ -204,8 +205,28 @@ color: whitesmoke;
       position: absolute;
       right: 0;
       .action_btn{
-        padding: 3px;
-        margin: 1px;
+        background-color: transparent;
+        border: 2px solid #c15656;
+        padding: 4px;
+        margin: 0px 9px;
+        color: #da5454;
+        border-radius: 10px;
+        font-weight: 700;
+        :hover{
+          background-color: #680b1e
+        }
+      }
+      .action_btn.no{
+        background-color: transparent;
+        border: 2px solid green;
+        padding: 4px;
+        margin: 0px 9px;
+        color: green;
+        border-radius: 10px;
+        font-weight: 700;
+        :hover{
+          background-color: #61a261
+        }
       }
   
     }

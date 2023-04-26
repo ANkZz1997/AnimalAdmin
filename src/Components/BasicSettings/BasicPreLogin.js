@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components'
 import { preLoginAction } from '../../redux/admin/action';
 import { useState } from 'react';
@@ -13,24 +13,12 @@ export default function BasicPreLogin() {
   const [editWindow,setEditWindow] = useState(false)
 
   const dispatch = useDispatch();
-  const [settingData, setSettingData] = useState({});
+  // const [settingData, setSettingData] = useState({});
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
+  
+  const settingData = useSelector((state)=>state?.persistReducer?.preLogData)
 
-
-  const callback = (data)=>{
-    console.log("datadata",data)
-    setSettingData(data)
-  }
-
-  const getAllSettings = ()=>{
-    dispatch(preLoginAction({},callback))
-  }
-
-  useEffect(()=>{
-    getAllSettings();
-  },[])
-
-  console.log("settingData",settingData)
+  console.log("userCheck",settingData)
 
   return (
    <Root>

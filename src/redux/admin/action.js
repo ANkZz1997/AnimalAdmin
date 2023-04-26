@@ -1,4 +1,4 @@
-import { admin, userData, userLogin } from "./types";
+import { admin, preLoginAdminData, userData, userLogin } from "./types";
 
 export const userLoginAction = (data, callback) => ({
     type: userLogin.USER_LOGIN,
@@ -21,6 +21,11 @@ export const userLoginAction = (data, callback) => ({
     type: userData.GET_SETTING_LIST,
     params,
     callback
+  })
+
+  export const preLoginAdminDataAction = (data)=>({
+    type: userLogin.PRE_LOG_SETTING_LIST,
+    data,
   })
 
   export const checkUserAction = (data) => ({

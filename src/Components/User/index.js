@@ -31,13 +31,12 @@ export default function Userlist() {
 
     useEffect(() => {
         setLoader(true);
-
         setuserData('');
         const objData = [
           { firstName: { contains: searchTextUser} },
           { lastName: { contains: searchTextUser } },
           { email: { contains: searchTextUser } },
-          { contact: { contains: searchTextUser } },
+          { username: { contains: searchTextUser } },
         ];
         dispatch(
           usersDataAction(
@@ -51,6 +50,7 @@ export default function Userlist() {
             callBack,
           ),
         );
+        
       }, [activePage, searchTextUser, sort, order]);
 
 console.log("userData",userData)
@@ -65,7 +65,7 @@ console.log("userData",userData)
               setOrder(e);
             }}
             searchText={(e) => {
-              setSearchText(e);
+              setSearchText(e.trim());
             }}
             view={view}
             setView={(e) => {

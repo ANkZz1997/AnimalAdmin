@@ -33,7 +33,7 @@ export default function NftCard(data) {
 
        <div className='top_bar'>
 
-            {getLogo?.map((i)=>{
+            {getLogo && getLogo?.map((i)=>{
             if(i?.chainId==items.chainId){
                 return <img src={`${IMAGE_END_POINT}${i?.logo}`}/>
             }
