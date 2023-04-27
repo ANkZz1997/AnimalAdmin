@@ -96,7 +96,7 @@ export default function MarketPlaceData() {
             <LoaderCSS />
           ) : (
             <div className="grid_tile">
-              {marketData?.records.map((i, ix) => {
+              {marketData.records && marketData?.records.map((i, ix) => {
                 return (
                   <div key={ix}>
                     <MarketplaceCard data={i} logo={netLogo} />

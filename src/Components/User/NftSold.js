@@ -15,7 +15,7 @@ function NftSold({ data }) {
         <div className="table_title">NFT Sold</div>
 
         <div className="overview_section">
-          {data?.length > 0 ? (
+          {data && data?.length > 0 ? (
             <table>
               <thead>
                 <tr>
@@ -26,7 +26,7 @@ function NftSold({ data }) {
                 </tr>
               </thead>
               <tbody>
-                {data?.map((i) => {
+                {data && data?.map((i) => {
                   return (
                     <tr>
                       {/* <Link

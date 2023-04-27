@@ -99,7 +99,7 @@ function AuctionsData() {
             <LoaderCSS />
           ) : (
             <div className="card_box">
-              {
+              {auctionData.records &&
               auctionData?.records?.map((i, ix) => {
                 return (
                   <div key={ix}>

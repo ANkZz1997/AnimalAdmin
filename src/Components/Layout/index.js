@@ -37,7 +37,7 @@ export default function Layout({ children }) {
     const checkEmpty = (val) => {
         let emptyKey = [];
         for (const i in val) {
-            if (val[i] == "") {
+            if (val[i] === "") {
                 emptyKey.push(i);
             }
         }

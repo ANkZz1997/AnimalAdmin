@@ -131,7 +131,7 @@ function KycDetails() {
               </tr>
             </thead>
             <tbody>
-              {kycData?.map((i, ix) => {
+              {kycData && kycData?.map((i, ix) => {
                 return (
                   <tr key={ix}>
                     <td>{ix + 1}</td>

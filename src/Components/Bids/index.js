@@ -29,13 +29,13 @@ export default function BidsData() {
 
   useEffect(() => {
     setLoader(true)
-    const nftObj = [
-      { auction: { contains: searchText } },
-      // { name: { contains: searchText } },
-      // { price: { contains: searchText} },
-      // { user: { contains: searchText} },
-    ];
-    const obj = {or:nftObj}
+    // const nftObj = [
+    //   { auction: { contains: searchText } },
+    //   // { name: { contains: searchText } },
+    //   // { price: { contains: searchText} },
+    //   // { user: { contains: searchText} },
+    // ];
+    const obj = {search:searchText}
     setBidsData([]);
     dispatch(
       bidsAction(
@@ -81,7 +81,7 @@ export default function BidsData() {
                     </tr>
                   </thead>
                   <tbody>
-                    {bidsData?.map((i, ix) => {
+                    {bidsData && bidsData?.map((i, ix) => {
                       return (
                         <tr key={ix}>
                           {/* <Link

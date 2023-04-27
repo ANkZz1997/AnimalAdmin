@@ -23,7 +23,7 @@ export default function UserListCard({ data }) {
           </tr>
         </thead>
         <tbody>
-          {data?.map((i, ix) => {
+          {data && data?.map((i, ix) => {
             return (
               <tr className="table_data" key={ix}>
                   <td className="user_details">

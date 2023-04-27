@@ -70,7 +70,7 @@ function UserActivities({ ids }) {
                 </tr>
               </thead>
               <tbody>
-                {userActivity?.map((i) => {
+                {userActivity && userActivity?.map((i) => {
                   return (
                     <tr>
                       <td data-label="Type">

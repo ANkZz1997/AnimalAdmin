@@ -156,7 +156,7 @@ function AuctionDetails({ details }) {
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                      {auctionData?.bid?.reverse().map((i) => {
+                      {auctionData.bid && auctionData?.bid?.reverse().map((i) => {
                         return (
                           <Table.Row>
                             <BidDetails userID={i?.user} />

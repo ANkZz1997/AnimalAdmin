@@ -112,7 +112,7 @@ function ChatSupport() {
                     </tr>
                   </thead>
                   <tbody>
-                    {disputeData?.map((i, ix) => {
+                    {disputeData && disputeData?.map((i, ix) => {
                       return (
                         <tr key={ix}>
                           <td className="s_no" data-label="S.No">

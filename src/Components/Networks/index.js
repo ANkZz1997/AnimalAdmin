@@ -127,7 +127,7 @@ export default function Networks() {
           {loader? <LoaderCSS/>:
             <div className= 'net_main_parent'>
                 
-                {netData?.map((i)=>{
+                {netData && netData?.map((i)=>{
                     return(
                         <div className={i.enabled?'net_main_child':'net_main_child no'}>
                         <div className='net_child'>

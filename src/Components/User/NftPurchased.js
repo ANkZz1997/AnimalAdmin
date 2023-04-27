@@ -26,7 +26,7 @@ function NftPurchased({ data }) {
                 </tr>
               </thead>
               <tbody>
-                {data?.map((i) => {
+                {data && data?.map((i) => {
                   return (
                     <tr>
                       {/* <Link

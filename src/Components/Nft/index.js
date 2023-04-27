@@ -97,7 +97,7 @@ export default function NftsData() {
             <LoaderCSS />
           ) : (
             <div className="grid_tiles">
-              {
+              {nfts.records && 
                 nfts?.records?.map((i, ix) => {
                   return (
                     <div key={ix}>

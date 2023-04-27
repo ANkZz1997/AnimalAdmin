@@ -35,7 +35,7 @@ function NftWishlisted(data) {
                     </tr>
                 </thead>
                     <tbody>
-                        {userDetails?.map((i, ix) => {
+                        {userDetails && userDetails?.map((i, ix) => {
                           return (
                       <tr>
                         <Link to={`/nfts/nftdetails/${i?.id}`}>

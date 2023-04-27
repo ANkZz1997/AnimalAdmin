@@ -37,7 +37,7 @@ function NftCreated({ items, nftList }) {
                       </tr>
                     </thead>
                     <tbody>
-                      {nfts?.records?.map((i) => {
+                      {nfts.records && nfts?.records?.map((i) => {
                         return (
                           <tr>
                            <Link to={`/nfts/nftdetails/${i?.id}`}>

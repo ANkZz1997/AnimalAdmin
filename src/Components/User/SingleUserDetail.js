@@ -30,7 +30,7 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
       }
       const res = await axios.post(`${URLS.EXCHANGE.ADMIN.POST_USER_STATUS}`,data)
       setDetailsUser(res?.data.data[0])
-      cogoToast.success(`User ${res?.data.data[0].status}`)
+      cogoToast.success(`USER ${res?.data.data[0].status == "ACTIVE"?"UNBLOCKED":"BLOCKED"}`)
 
     }catch(error){
       console.log(error)
