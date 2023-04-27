@@ -20,25 +20,22 @@ function MarketplaceDetails({ details }) {
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const [minterdetails, setMinterDetails] = useState();
 
-  const minterId = marketplaceData?.nft?.minter;
-
   const dispatch = useDispatch();
 
   const callBack = (data) => {
-    setMinterDetails(data.records[0]);
+    console.log("datadata",data)
+    setMinterDetails(data?.records[0]);
     Setloader(false);
   };
 
-  const options = [
-    { key: 1, text: 'Choice 1', value: 1 },
-    { key: 2, text: 'Choice 2', value: 2 },
-    { key: 3, text: 'Choice 3', value: 3 },
-  ];
+  // const options = [
+  //   { key: 1, text: 'Choice 1', value: 1 },
+  //   { key: 2, text: 'Choice 2', value: 2 },
+  //   { key: 3, text: 'Choice 3', value: 3 },
+  // ];
 
-  useEffect(() => {
-    SetMarketplaceData(details);
+  const  getMinterDetail = (minterId)=>{
     const obj = [{ id: minterId }];
-
     dispatch(
       usersDataAction(
         {
@@ -51,7 +48,18 @@ function MarketplaceDetails({ details }) {
         callBack,
       ),
     );
-  }, [details, minterId]);
+  }
+  useEffect(() => {
+    if(details){
+      SetMarketplaceData(details);
+      if(details.nft?.minter){
+        getMinterDetail(details.nft?.minter)
+
+      }
+    }
+  }, [details]);
+
+  console.log('minterdetails',minterdetails)
 
   return (
     <div>
@@ -78,7 +86,7 @@ function MarketplaceDetails({ details }) {
                       href="/userdetails/[userid]"
                       as={`/userdetails/${marketplaceData?.user?.id}`}
                     > */}
-                    <Link to={`/user/userdetails/${marketplaceData?.user?.minter}`}>
+                    <Link to={`/user/userdetails/${marketplaceData?.nft?.user}`}>
                       <h3>
                         <img
                           src={
@@ -86,11 +94,11 @@ function MarketplaceDetails({ details }) {
                               ? `${IMAGE_END_POINT}${marketplaceData?.user?.avatar}`
                               : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
                           }
-                        />{' '}
+                        />
                         {marketplaceData?.user?.firstName
                           ? marketplaceData?.user?.firstName
-                          : 'Unnamed User'}{' '}
-                        {marketplaceData?.user?.lastName}{' '}
+                          : 'Unnamed User'}
+                        {/* {marketplaceData?.user?.lastName}{' '} */}
                       </h3>
                     </Link>
                 </div>
@@ -110,11 +118,9 @@ function MarketplaceDetails({ details }) {
                             ? `${IMAGE_END_POINT}${minterdetails?.avatar}`
                             : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
                         }
-                      />{' '}
-                      {minterdetails?.firstName
-                        ? minterdetails?.firstName
-                        : 'Unnamed Minter'}{' '}
-                      {minterdetails?.lastName}{' '}
+                      />
+                      {minterdetails?.firstName ? minterdetails.firstName : 'Unnamed Minter'}
+                      {/* {minterdetails?.lastName}{' '} */}
                     </h3>
                   </Link>
                 </div>

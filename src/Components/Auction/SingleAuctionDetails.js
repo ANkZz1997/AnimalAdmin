@@ -38,22 +38,14 @@ function AuctionDetails({ details }) {
     { key: 3, text: 'Choice 3', value: 3 },
   ];
 
-  const minterId = auctionData?.nft?.minter;
 
   const callBack = (data) => {
-    setMinterDetails(data.records[0]);
+    setLoader(false);
+    setMinterDetails(data?.records[0]);
   };
 
-
-
-  useEffect(() => {
-    if (details) {
-      setAuctionData(details);
-      setDeadline(details?.endTime);
-      setLoader(false);
-    }
+  const  getMinterDetail = (minterId)=>{
     const obj = [{ id: minterId }];
-
     dispatch(
       usersDataAction(
         {
@@ -66,7 +58,20 @@ function AuctionDetails({ details }) {
         callBack,
       ),
     );
-  }, [details, minterId]);
+  }
+
+  useEffect(() => {
+    if (details) {
+      setAuctionData(details);
+      setDeadline(details?.endTime);
+      if(details?.nft?.minter){
+        getMinterDetail(details?.nft?.minter)
+        
+      }
+    }
+  }, [details]);
+
+  console.log("minterdetails?.firstName",minterdetails?.firstName)
 
   return (
     <div>
@@ -99,8 +104,8 @@ function AuctionDetails({ details }) {
                       />{' '}
                       {auctionData?.user?.firstName
                         ? auctionData?.user?.firstName
-                        : 'Unnamed User'}{' '}
-                      {auctionData?.user?.lastName}{' '}
+                        : 'Unnamed User'}
+                      {/* {auctionData?.user?.lastName}{' '} */}
                     </h3>
                   </Link>
                   {/* </Link> */}
@@ -109,7 +114,7 @@ function AuctionDetails({ details }) {
                 <div>
                   <span>Minter</span>
 
-                  <Link to={`/user/userdetails/${auctionData?.minter?.id}`}>
+                  <Link to={`/user/userdetails/${auctionData?.nft?.minter}`}>
                     <h3>
                       <img
                         src={
@@ -120,8 +125,8 @@ function AuctionDetails({ details }) {
                       />{' '}
                       {minterdetails?.firstName
                         ? minterdetails?.firstName
-                        : 'Unnamed Minter'}{' '}
-                      {minterdetails?.lastName}{' '}
+                        : 'Unnamed Minter'}
+                      {/* {minterdetails?.lastName}{' '} */}
                     </h3>
                   </Link>
                 </div>
