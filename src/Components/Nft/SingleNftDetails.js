@@ -5,28 +5,43 @@ import { Dropdown, Icon, Menu, Table } from 'semantic-ui-react';
 import URLS from '../../utils/urls';
 import { toast } from 'react-toastify';
 import cogoToast from 'cogo-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Goerli from '../../Assets/Goerli.png';
 import polygon from '../../Assets/polygon.svg';
 import bnb from '../../Assets/bnb.svg'
 import BackButton from '../Model/BackButton';
+import axios from 'axios';
 
 
 export default function NftDetails({ details, activity }) {
   const [nftdata, setNftData] = useState({});
+  const [netData,setNetData] = useState();
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
+  const nevigate = useNavigate()
   const options = [
     { key: 1, text: 'Choice 1', value: 1 },
     { key: 2, text: 'Choice 2', value: 2 },
     { key: 3, text: 'Choice 3', value: 3 },
   ];
 
+  const GetNetworks = async()=>{
+    try{
+        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
+        console.log("res---",res.data.data)
+        setNetData(res.data?.data)
+
+    }catch(err){
+        console.log(err)
+    }
+}
+
   useEffect(() => {
     if (details) {
       setNftData(details);
+      GetNetworks()
     }
   }, [details]);
-console.log('nftdata cc' ,  )
+console.log('nftdata cc' ,netData  )
   return (
     <div>
       <Root>
@@ -117,16 +132,22 @@ console.log('nftdata cc' ,  )
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell collapsing>Chain</Table.Cell>
-                    <Table.Cell>{nftdata?.chainId=="5"?"Goerli":(nftdata?.chainId=="97"?"BNB":(nftdata?.chainId=="80001"?"Polygon":"None"))}</Table.Cell>
+                    <Table.Cell>
+                      {netData && netData?.map((i,ix)=>{
+                        return i?.chainId== nftdata?.chainId?i?.name:""
+                          })}
+                          </Table.Cell>
+                      {/* {nftdata?.chainId=="5"?"Goerli":(nftdata?.chainId=="97"?"BNB":(nftdata?.chainId=="80001"?"Polygon":"None"))} */}
+                      
                   </Table.Row>
-                  {/* {nftdata?.attributes?.map((i) => {
+                  {nftdata?.attributes?.map((i) => {
                     return (
                       <Table.Row>
                         <Table.Cell collapsing>{i.propertyType? i.propertyType:"No Attributes"}</Table.Cell>
                         <Table.Cell>{i.propertyName}</Table.Cell>
                       </Table.Row>
                     );
-                  })} */}
+                  })}
 
 
                 </Table.Body>
@@ -235,9 +256,9 @@ console.log('nftdata cc' ,  )
                           href="/userdetails/[userid]"
                           as={`/userdetails/${i.user?.id}`}
                         > */}
-                        <Link to={`/user/userdetails/${i.user?.id}`}>
-                          <td className="user_cell">{i.user.username}</td>
-                        </Link>
+                          <td className="user_cell" onClick={()=>{nevigate(`/user/userdetails/${i.user?.id}`)}}>
+                            {i.user.username}
+                          </td>
                       </tr>
                     );
                   })}
@@ -335,6 +356,7 @@ const Root = styled.section`
       .details_activity {
         margin-bottom: 20px;
         table {
+          border-collapse: collapse;
           caption {
             /* margin: 5px; */
             padding: 5px;
@@ -358,8 +380,7 @@ const Root = styled.section`
         .user_cell {
           cursor: pointer;
           :hover {
-            background-color: grey;
-            color: black;
+            background-color: #111632;
           }
         }
       }

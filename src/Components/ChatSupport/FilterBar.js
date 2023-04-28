@@ -64,7 +64,7 @@ export default function FilterBarB({ sort, order, searchText }) {
             }}
           >
             <option value="createdAt">Created At</option>
-            <option value="price">Price</option>
+            {/* <option value="price">Price</option> */}
             <option value="updatedAt">Updated At</option>
             {/* <option value="status">Status</option> */}
           </select>

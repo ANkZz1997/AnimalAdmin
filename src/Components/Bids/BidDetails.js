@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Dimmer, Loader, Tab, Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 import URLS from '../../utils/urls';
@@ -9,6 +9,7 @@ function BidDetails({ userID }) {
   const [userDetails, setUserDetails] = useState(' ');
   const [loader, setLoader] = useState(true);
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
+  const nevigate = useNavigate()
 
   const getUserDetails = async () => {
     try {
@@ -37,7 +38,6 @@ function BidDetails({ userID }) {
 
   return (
     <Root>
-      
         <Table.Cell collapsing className="bid_user_data">
           <img
             src={
@@ -48,16 +48,14 @@ function BidDetails({ userID }) {
           />
         </Table.Cell>
       
-      <Table.Cell className="user_name">
+      <td className="user_name" onClick={()=>{nevigate(`/user/userdetails/${userDetails?.id}`)}}>
         <div className="username_div">
-        <Link to={`/user/userdetails/${userDetails?.id}`}  >
           <h4>
             {userDetails?.username ? userDetails?.username : '@NoUserName'}
           </h4>
-          </Link>
         </div>
         {/* {userDetails?.username} */}
-      </Table.Cell>
+      </td>
     </Root>
   );
 }
@@ -89,10 +87,15 @@ const Root = styled.section`
   }
   .user_name {
     vertical-align: middle;
+    :hover {
+      background-color: #111632;
+      cursor: pointer;
+    }
 
     .username_div {
       word-wrap: break-word;
       word-break: break-all;
+    
     }
   }
 `;

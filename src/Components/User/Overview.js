@@ -22,11 +22,11 @@ function Overview(data) {
                   <p>Full Name</p>{' '}
                 </td>
                 <td>
-                  <h3>{`${
+                  <h4 className='h4_fullname'>{`${
                     userDetails?.firstName ? userDetails.firstName : 'N/A'
                   } ${
                     userDetails?.lastName ? userDetails.lastName : 'N/A'
-                  }`}</h3>
+                  }`}</h4>
                 </td>
               </tr>
               <tr>
@@ -35,9 +35,9 @@ function Overview(data) {
                 </td>
                 <td>
                   {' '}
-                  <h3>
+                  <h4>
                     @{`${userDetails?.username ? userDetails.username : 'N/A'}`}
-                  </h3>
+                  </h4>
                 </td>
               </tr>
               <tr>
@@ -45,9 +45,9 @@ function Overview(data) {
                   <p>Contact</p>
                 </td>
                 <td>
-                  <h3>{`${
+                  <h4>{`${
                     userDetails?.contact ? userDetails.contact : 'N/A'
-                  }`}</h3>
+                  }`}</h4>
                 </td>
               </tr>
               <tr>
@@ -55,7 +55,7 @@ function Overview(data) {
                   <p>Email</p>
                 </td>
                 <td>
-                  <h3>{`${userDetails?.email ? userDetails.email : 'N/A'}`}</h3>
+                  <h4>{`${userDetails?.email ? userDetails.email : 'N/A'}`}</h4>
                 </td>
               </tr>
               <tr>
@@ -63,7 +63,7 @@ function Overview(data) {
                   <p>Created On</p>
                 </td>
                 <td>
-                  <h3>
+                  <h4>
                     {`${
                       userDetails?.createdAt
                         ? `${moment(userDetails.createdAt).format(
@@ -71,7 +71,7 @@ function Overview(data) {
                           )}`
                         : 'N/A'
                     }`}
-                  </h3>
+                  </h4>
                 </td>
               </tr>
               <tr>
@@ -79,7 +79,7 @@ function Overview(data) {
                   <p>User Id</p>
                 </td>
                 <td>
-                  <h3>{`${userDetails?.id ? userDetails.id : 'N/A'}`}</h3>
+                  <h4>{`${userDetails?.id ? userDetails.id : 'N/A'}`}</h4>
                 </td>
               </tr>
               <tr>
@@ -87,9 +87,9 @@ function Overview(data) {
                   <p>User Status</p>
                 </td>
                 <td>
-                  <h3>{`${
+                  <h4>{`${
                     userDetails?.status ? userDetails.status : 'N/A'
-                  }`}</h3>
+                  }`}</h4>
                 </td>
               </tr>
               <tr>
@@ -97,11 +97,11 @@ function Overview(data) {
                   <p>Social Account Type</p>
                 </td>
                 <td>
-                  <h3>{`${
+                  <h4>{`${
                     userDetails?.socialAccountType
                       ? userDetails.socialAccountType
                       : 'N/A'
-                  }`}</h3>
+                  }`}</h4>
                 </td>
               </tr>
               <tr>
@@ -109,9 +109,9 @@ function Overview(data) {
                   <p>Social Id</p>
                 </td>
                 <td>
-                  <h3>{`${
+                  <h4>{`${
                     userDetails?.socialId ? userDetails.socialId : 'N/A'
-                  }`}</h3>
+                  }`}</h4>
                 </td>
               </tr>
               <tr>
@@ -119,9 +119,9 @@ function Overview(data) {
                   <p>Wallet Address</p>
                 </td>
                 <td>
-                  <h3>{`${
+                  <h4>{`${
                     userDetails?.wallet ? userDetails.wallet.address : 'N/A'
-                  }`}</h3>
+                  }`}</h4>
                 </td>
               </tr>
               <tr>
@@ -129,9 +129,9 @@ function Overview(data) {
                   <p>Wallet Id</p>
                 </td>
                 <td>
-                  <h3>{`${
+                  <h4>{`${
                     userDetails?.wallet ? userDetails.wallet.id : 'N/A'
-                  }`}</h3>
+                  }`}</h4>
                 </td>
               </tr>
               <tr>
@@ -139,13 +139,13 @@ function Overview(data) {
                   <p>Wallet Created On</p>
                 </td>
                 <td>
-                  <h3>{`${
+                  <h4>{`${
                     userDetails?.wallet
                       ? `${moment(userDetails.wallet.createdAt).format(
                           'DD-MMM-YY (hh:mm A)',
                         )}`
                       : 'N/A'
-                  }`}</h3>
+                  }`}</h4>
                 </td>
               </tr>
               <tr>
@@ -153,13 +153,13 @@ function Overview(data) {
                   <p>Wallet Updated On</p>
                 </td>
                 <td>
-                  <h3>{`${
+                  <h4>{`${
                     userDetails?.wallet
                       ? `${moment(userDetails.wallet.updatedAt).format(
                           'DD-MMM-YY (hh:mm A)',
                         )}`
                       : 'N/A'
-                  }`}</h3>
+                  }`}</h4>
                 </td>
               </tr>
               <tr>
@@ -167,9 +167,9 @@ function Overview(data) {
                   <p>Wallet User</p>
                 </td>
                 <td>
-                  <h3>{`${
+                  <h4>{`${
                     userDetails?.wallet ? userDetails.wallet.user : 'N/A'
-                  }`}</h3>
+                  }`}</h4>
                 </td>
               </tr>
             </tbody>
@@ -194,8 +194,8 @@ const Root = styled.section`
       display: flex;
       align-items: center;
       font-size: 25px;
-      font-weight: 900;
-      font-family: emoji;
+      font-weight: 500;
+      /* font-family: emoji; */
       padding: 10px;
       padding-left: 30px;
       color: whitesmoke;
@@ -215,12 +215,16 @@ const Root = styled.section`
             color: rgb(140, 124, 240);
           }
 
-          h3 {
+          h4 {
             /* flex: 2; */
             color: whitesmoke;
             overflow: hidden;
             text-overflow: ellipsis;
             word-break: break-all;
+            /* text-transform: capitalize; */
+          }
+          h4.h4_fullname{
+            text-transform: capitalize;
           }
         }
       }

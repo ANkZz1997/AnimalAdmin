@@ -7,6 +7,7 @@ import URLS from '../../utils/urls';
 import {AiFillEdit} from 'react-icons/ai'
 import cogoToast from 'cogo-toast';
 import BasicPreLoginEdit from './BasicPreLoginEdit';
+import moment from 'moment';
 
 export default function BasicPreLogin() {
 
@@ -37,8 +38,8 @@ export default function BasicPreLogin() {
         <div><h5>Commission</h5><p>{settingData?.commission}</p></div>
         <div><h5>Commission Type</h5><p>{settingData?.commissionType}</p></div>
         <div><h5>Admin Private Key</h5><p>{settingData?.adminPrivateKey?settingData.adminPrivateKey:"No Key Entered"}</p></div>
-        <div><h5>Created On</h5><p>{settingData?.createdAt}</p></div>
-        <div><h5>Updated On</h5><p>{settingData?.updatedAt}</p></div>
+        <div><h5>Created On</h5><p>{`${moment(settingData?.createdAt).format( 'DD-MMM-YYYY',)}`}</p></div>
+        <div><h5>Updated On</h5><p>{`${moment(settingData?.updatedAt).format('DD-MMM-YYYY',)}`}</p></div>
       </div>
       <div className='admin_logo'>
         <img src={`${IMAGE_END_POINT}${settingData?.platformLogo}`}/>

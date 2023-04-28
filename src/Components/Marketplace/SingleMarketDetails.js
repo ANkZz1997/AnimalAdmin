@@ -12,6 +12,7 @@ import Goerli from '../../Assets/Goerli.png';
 import polygon from '../../Assets/polygon.svg';
 import bnb from '../../Assets/bnb.svg'
 import BackButton from '../Model/BackButton';
+import axios from 'axios';
 
 
 function MarketplaceDetails({ details }) {
@@ -19,12 +20,26 @@ function MarketplaceDetails({ details }) {
   const [loader, Setloader] = useState(true);
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const [minterdetails, setMinterDetails] = useState();
+  const [netData,setNetData] = useState();
+
+
+  const GetNetworks = async()=>{
+    try{
+        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
+        console.log("res---",res.data.data)
+        setNetData(res.data?.data)
+
+    }catch(err){
+        console.log(err)
+    }
+}
 
   const dispatch = useDispatch();
 
   const callBack = (data) => {
     console.log("datadata",data)
     setMinterDetails(data?.records[0]);
+    GetNetworks()
     Setloader(false);
   };
 
@@ -166,8 +181,12 @@ function MarketplaceDetails({ details }) {
                     </Table.Row>
                     <Table.Row>
                     <Table.Cell collapsing>Chain</Table.Cell>
-                    <Table.Cell>{marketplaceData?.nft?.chainId=="5"?"Goerli":(marketplaceData?.nft?.chainId=="97"?"BNB":(marketplaceData?.nft?.chainId=="80001"?"Polygon":"None"))}</Table.Cell>
-                  </Table.Row>
+                    <Table.Cell>
+                      {netData && netData?.map((i,ix)=>{
+                        return i?.chainId== marketplaceData?.nft?.chainId? i?.name:""
+                          })}
+                          </Table.Cell>
+                    </Table.Row>
                     <Table.Row>
                       <Table.Cell collapsing>Collection</Table.Cell>
                       <Table.Cell>

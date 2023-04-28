@@ -22,12 +22,15 @@ import Goerli from '../../Assets/Goerli.png';
 import polygon from '../../Assets/polygon.svg';
 import bnb from '../../Assets/bnb.svg'
 import BackButton from '../Model/BackButton';
+import axios from 'axios';
 
 function AuctionDetails({ details }) {
   const [auctionData, setAuctionData] = useState('');
   const [minterdetails, setMinterDetails] = useState();
   const [deadline, setDeadline] = useState();
   const [loader, setLoader] = useState(true);
+  const [netData,setNetData] = useState();
+
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const dispatch = useDispatch();
@@ -43,6 +46,17 @@ function AuctionDetails({ details }) {
     setLoader(false);
     setMinterDetails(data?.records[0]);
   };
+
+  const GetNetworks = async()=>{
+    try{
+        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
+        console.log("res---",res.data.data)
+        setNetData(res.data?.data)
+
+    }catch(err){
+        console.log(err)
+    }
+}
 
   const  getMinterDetail = (minterId)=>{
     const obj = [{ id: minterId }];
@@ -64,6 +78,7 @@ function AuctionDetails({ details }) {
     if (details) {
       setAuctionData(details);
       setDeadline(details?.endTime);
+      GetNetworks()
       if(details?.nft?.minter){
         getMinterDetail(details?.nft?.minter)
         
@@ -210,7 +225,11 @@ function AuctionDetails({ details }) {
                     </Table.Row>
                     <Table.Row>
                     <Table.Cell collapsing>Chain</Table.Cell>
-                    <Table.Cell>{auctionData?.nft?.chainId=="5"?"Goerli":(auctionData?.nft?.chainId=="97"?"BNB":(auctionData?.nft?.chainId=="80001"?"Polygon":"None"))}</Table.Cell>
+                    <Table.Cell>
+                      {netData && netData?.map((i,ix)=>{
+                        return i?.chainId== auctionData?.nft?.chainId ? i.name: ""
+                          })}
+                    </Table.Cell>
                   </Table.Row>
                     <Table.Row>
                       <Table.Cell collapsing>Collection</Table.Cell>

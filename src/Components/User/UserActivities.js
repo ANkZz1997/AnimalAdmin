@@ -9,6 +9,7 @@ import { userActivitiesActions } from '../../redux/admin/action';
 import LoaderCSS from '../Loader';
 import PaginationCode from '../Pagination';
 import { Link } from 'react-router-dom';
+import { UserChildCss } from './UserChildCss';
 
 function UserActivities({ ids }) {
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
@@ -50,7 +51,7 @@ function UserActivities({ ids }) {
   console.log("Dataaaaaaaa",userActivity?.length)
 
   return (
-    <Root>
+    <UserChildCss>
       <div className="overview">
         <div className="table_title">Activities</div>
 
@@ -63,16 +64,22 @@ function UserActivities({ ids }) {
             <table>
               <thead>
                 <tr>
+                  <th>Date/Time</th>
                   <th>Type</th>
                   <th>NFT Details</th>
                   <th>Price</th>
-                  <th>Date/Time</th>
                 </tr>
               </thead>
               <tbody>
                 {userActivity && userActivity?.map((i) => {
                   return (
                     <tr>
+                       <td data-label="Date & Time">
+                        <h4>{`${moment(i?.createdAt).format(
+                          'DD-MMM-YY (hh:mm A)',
+                        )}`}</h4>
+                      </td>
+
                       <td data-label="Type">
                         <h4>{i.type}</h4>
                       </td>
@@ -84,12 +91,9 @@ function UserActivities({ ids }) {
                             '---'
                           ) : (i.type == "INTENT"?<h5>Payment Initiated</h5>:(i.type == "VERIFIED"?<h5>Payment Successfull</h5>:
                             <Link to={`/nfts/nftdetails/${i?.nft?.id}`}>
-                              <div>
-                                <img
-                                  src={`${IMAGE_END_POINT}${i.nft?.media}`}
-                                />{' '}
-                                <h5>{i.nft?.name}</h5>
-                              </div>
+                              {/* <div><img src={`${IMAGE_END_POINT}${i.nft?.media}`}/>{' '} */}
+                                <h4>{i.nft?.name}</h4>
+                              {/* </div> */}
                              </Link>
                           )
               
@@ -107,11 +111,7 @@ function UserActivities({ ids }) {
                           </h4>
                         )}{' '}
                       </td> 
-                      <td data-label="Date & Time">
-                        <h4>{`${moment(i?.createdAt).format(
-                          'DD-MMM-YY (hh:mm A)',
-                        )}`}</h4>
-                      </td>
+                     
                     </tr>
                   );
                 })}
@@ -131,111 +131,9 @@ function UserActivities({ ids }) {
           limit={dataLimit}
         />
       }
-    </Root>
+    </UserChildCss>
   );
 }
 
 export default UserActivities;
 
-const Root = styled.section`
-color: whitesmoke;
-  * {
-    margin: 0;
-    padding: 0;
-  }
-  h2 {
-        text-align: center;
-      }
-  .loader_parent {
-    height: 100%;
-  }
-  .table_title {
-    margin-top: 10px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    font-size: 25px;
-    font-weight: 900;
-    font-family: emoji;
-    padding: 10px;
-    padding-left: 30px;
-    color: whitesmoke;
-  }
-
-  .overview {
-    border-radius: 10px;
-    margin-top: 20px;
-    padding: 10px;
-    background-color: rgb(17 22 50);
-
-    table {
-      padding: 10px;
-      width: 100%;
-      text-align: left;
-      th {
-        font-size: 20px;
-        padding: 5px;
-        padding-bottom: 5px;
-      }
-
-      td {
-        padding: 5px;
-      }
-
-      .nft_cell {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        cursor: pointer;
-        img {
-          height: 30px;
-          width: 30px;
-        }
-        h5 {
-          text-transform: capitalize;
-        }
-      }
-
-      @media (max-width: 575px) {
-        td,
-        th {
-          border: 1px solid #ccc;
-          padding: 0.625em;
-          text-align: right;
-        }
-        thead {
-          border: none;
-          clip: rect(0 0 0 0);
-          height: 1px;
-          margin: -1px;
-          overflow: hidden;
-          padding: 0;
-          position: absolute;
-          width: 1px;
-          text-align: right;
-        }
-        tr {
-          border-bottom: 2px solid #ddd;
-          display: block;
-          margin-bottom: 0.8em;
-        }
-        td {
-          border-bottom: 1px solid #ddd;
-          display: block;
-        }
-        td::before {
-          content: attr(data-label);
-          float: left;
-          font-weight: 400;
-          text-transform: uppercase;
-          display: flex;
-          align-items: center;
-          text-align: left;
-        }
-        .nft_cell {
-          justify-content: space-between;
-        }
-      }
-    }
-  }
-`;

@@ -237,7 +237,7 @@ color: whitesmoke;
     }
 
     h2 {
-      font-family: cursive;
+      /* font-family: cursive; */
       color: whitesmoke;
     }
     img {

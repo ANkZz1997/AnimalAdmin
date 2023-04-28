@@ -74,10 +74,10 @@ export default function BidsData() {
                 <table>
                   <thead>
                     <tr>
-                      <th>NFT</th>
+                      <th>NFT Details</th>
                       <th>Base Price</th>
-                      <th>Max Bid</th>
                       <th>Bid Created On</th>
+                      <th>Max Bid</th>
                     </tr>
                   </thead>
                   <tbody>

@@ -28,7 +28,6 @@ export default function Networks() {
 
     const GetNetworks = async()=>{
         try{
-
             const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
             console.log("res---",res.data.data)
             setNetData(res.data?.data)
