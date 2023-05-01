@@ -12,6 +12,7 @@ import UserActivities from './UserActivities';
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import ConfirmDialogue from '../Model/ConfirmDialogue';
+import moment from 'moment';
 
 function UserDetails({ userDetails, nfts, userActivity, ids }) {
   const [activeTab, setActiveTab] = useState('overview');
@@ -62,7 +63,7 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
 
   // }
 
-  console.log('userStatus', detailsUser.status);
+  console.log('userStatus', detailsUser.lastLoggedInTime);
 
   return (
     <Root>
@@ -97,7 +98,8 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
               detailsUser?.lastName ? detailsUser.lastName : 'N/A'
             }`}
           </h2>
-          <h4>@{`${detailsUser?.username ? detailsUser.username : 'N/A'}`}</h4>
+          <h4>@{`${detailsUser?.username ? detailsUser.username : 'N/A'}`} - 
+            Active On {detailsUser?.lastLoggedInTime?`${moment(detailsUser?.lastLoggedInTime).format('DD-MMM-YY (hh:mm A)')}`:"---"}</h4>
 
           <div className="nft_data">
             <div className="nft">

@@ -71,7 +71,7 @@ export default function BidsData() {
               setOrder(e);
             }}
             searchText={(e) => {
-              setSearchText(e);
+              setSearchText(e.trim());
             }}
           />
 

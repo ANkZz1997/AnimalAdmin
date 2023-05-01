@@ -20,10 +20,12 @@ export default function FilterBar({ sort, order, searchText, view, setView }) {
   };
 
   useEffect(()=>{
-    setTimeout(() => {
-      searchText(search);
-      handleNevigate(search)
-    }, 1500);
+    if(search != null){
+      setTimeout(() => {
+        searchText(search);
+        handleNevigate(search)
+      }, 1500);
+    }
   },[search])
 
   useEffect(() => {

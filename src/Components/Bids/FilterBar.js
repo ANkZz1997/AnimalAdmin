@@ -3,14 +3,15 @@ import { Icon } from 'semantic-ui-react';
 import { FilterBarStyle } from '../Style/filterbar.style';
 import { useNavigate } from 'react-router-dom';
 
+
 export default function FilterBarB({ sort, order, searchText }) {
   const nevigate = useNavigate()
   const urlParams = new URLSearchParams(window.location.search);
-  const redirect = urlParams.get("searchbid");
+  const redirect = urlParams.get("");
   const [search, setSearch] = useState(redirect);
 
   const handleNevigate = (search)=>{
-    nevigate(`/bids?searchbid=${search}`)
+    nevigate(`/bids?search=${search}`)
   }
   
   const keyPressed = (e) => {
@@ -23,12 +24,21 @@ export default function FilterBarB({ sort, order, searchText }) {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const redirect = urlParams.get("searchbid");
+    const redirect = urlParams.get("search");
     console.log("redirect",redirect,search)
     if (redirect) {
       searchText(redirect);
     }
   }, [window.location.search]);
+
+  useEffect(()=>{
+    if(search != null){
+      setTimeout(() => {
+        searchText(search);
+        handleNevigate(search)
+      }, 1500);
+    }
+  },[search])
 
   return (
     <FilterBarStyle>
