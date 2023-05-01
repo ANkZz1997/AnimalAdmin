@@ -92,19 +92,19 @@ function Overview(data) {
                   }`}</h4>
                 </td>
               </tr>
-              <tr>
+              {userDetails?.socialAccountType?
+              <>
+                <tr>
                 <td>
                   <p>Social Account Type</p>
                 </td>
                 <td>
                   <h4>{`${
                     userDetails?.socialAccountType
-                      ? userDetails.socialAccountType
-                      : 'N/A'
                   }`}</h4>
                 </td>
-              </tr>
-              <tr>
+                </tr>
+                <tr>
                 <td>
                   <p>Social Id</p>
                 </td>
@@ -113,7 +113,12 @@ function Overview(data) {
                     userDetails?.socialId ? userDetails.socialId : 'N/A'
                   }`}</h4>
                 </td>
-              </tr>
+                </tr>
+              </>
+                :
+                ""
+            }
+             
               <tr>
                 <td>
                   <p>Wallet Address</p>

@@ -29,11 +29,38 @@ color: whitesmoke;
       padding: 10px;
       padding-left: 30px;
       color: whitesmoke;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h3{
+        button{
+          font-size: 12px;
+          margin-left: 5px;
+          padding: 3px;
+        }
+      }
+  }
+
+  .activity_filter{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+    .select_type{
+      background-color: #070c27;
+      color: white;
+      height: 30px;
+    }
+    button{
+      height: 30px;
+    }
+
   }
 
   .overview_section {
       background-color: rgb(17 22 50);
-      padding: 25px;
+      padding: 5px 25px 25px 25px;
       h2 {
         text-align: center;
       }
@@ -117,6 +144,66 @@ color: whitesmoke;
           }
         }
       }
+    }
+  }
+
+  .date_range {
+    display: flex;
+    transition: all 1s;
+    align-items: center;
+
+    button {
+      padding: 3px;
+      border-radius: 5px;
+      background-color: whitesmoke;
+    }
+    .date_popup_active {
+      position: fixed;
+      top: 0px;
+      right: 0;
+      z-index: 9999;
+      backdrop-filter: blur(4px);
+      color: black;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 1s;
+
+      .date_main_div {
+        position: relative;
+
+        .sav_btn{
+          position: absolute;
+          bottom: 0;
+          margin-bottom: -34px;
+          right: 0;
+          border: none;
+        }
+
+        .cncl_btn{
+          position: absolute;
+          right: 0;
+          margin-top: -30px;
+          margin-right: -10px;
+          border-radius: 50%;
+          height: fit-content;
+          padding: 0px;
+          background: transparent;
+          color: white;
+          border: none;
+          :hover{
+            color: #9b5050fc;
+          }
+          svg{
+            font-size: 30px;
+          }
+        }
+      }
+    }
+    .date_popup_notactive {
+      content-visibility: hidden;
     }
   }
 

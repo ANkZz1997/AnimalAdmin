@@ -29,31 +29,42 @@ export default function Userlist() {
       setLoader(false);
     };
 
-    useEffect(() => {
-        setLoader(true);
-        setuserData('');
-        const objData = [
-          { firstName: { contains: searchTextUser} },
-          { lastName: { contains: searchTextUser } },
-          { email: { contains: searchTextUser } },
-          { username: { contains: searchTextUser } },
-        ];
-        dispatch(
-          usersDataAction(
-            {
-              page: activePage,
-              limit: dataLimit,
-              sorting: sort,
-              order: order,
-            },
-            objData,
-            callBack,
-          ),
-        );
-        
-      }, [activePage, searchTextUser, sort, order]);
+    const searchSortUserFunction = (activePage)=>{
+     
+      setuserData('');
+      const objData = [
+        { firstName: { contains: searchTextUser} },
+        { lastName: { contains: searchTextUser } },
+        { email: { contains: searchTextUser } },
+        { username: { contains: searchTextUser } },
+      ];
+      dispatch(
+        usersDataAction(
+          {
+            page: activePage,
+            limit: dataLimit,
+            sorting: sort,
+            order: order,
+          },
+          objData,
+          callBack,
+        ),
+      );
+    }
 
-console.log("userData",userData)
+    useEffect(() => {
+      setLoader(true);
+      searchSortUserFunction(activePage)
+      }, [activePage, sort, order]);
+
+      useEffect(()=>{
+        setLoader(true);
+        setActivePage(1)
+        searchSortUserFunction(activePage)
+      }, [searchTextUser])
+
+
+  console.log("searchTextUser",searchTextUser)
   return (
     <Root>
           <h1> NFT Users </h1>

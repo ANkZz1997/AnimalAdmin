@@ -7,6 +7,9 @@ import { kycUserData } from '../../redux/admin/action';
 import URLS from '../../utils/urls';
 import LoaderCSS from '../Loader';
 import moment from 'moment';
+import {AiOutlineCloseCircle} from 'react-icons/ai'
+import FilterBarKYC from './FilterBarKYC';
+import PaginationCode from '../Pagination';
 
 function KycDetails() {
   const [kycData, setKycData] = useState([]);
@@ -16,12 +19,22 @@ function KycDetails() {
   const [isOpen, setIsOpen] = useState(false);
   const [imgLoader, setImgLoader] = useState(true);
   const [docName,setDocName] = useState();
+  const [sort, setSort] = useState('createdAt');
+  const [order, setOrder] = useState('DESC');
+  const [activePage, setActivePage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const [searchTextUser, setSearchText] = useState('');
+  const [view, setView] = useState('list');
+  const [checkStatus, setCheckStatus] = useState('')
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const dispatch = useDispatch();
 
+  const dataLimit = 15;
+
   const callBack = (data) => {
     console.log("datadata", data)
+    setTotalPage(data?.totalCount)
     setKycData(data.records);
     setLoader(false);
     // setLoading(data);
@@ -83,36 +96,64 @@ function KycDetails() {
     }
   };
 
-  const callData = () => {
+  const callData = (activePage) => {
     var userData = {
       "populate": ["user"],
     }
+ 
+    const obj = {search: searchTextUser, status: checkStatus}
+
     dispatch(
       kycUserData(
         {
-          page: 1,
-          limit: 100,
-          sorting: 'createdAt',
-          order: 'DESC',
+          page: activePage,
+          limit: dataLimit,
+          sorting: sort,
+          order: order,
         },
-        userData,
+        {...userData,...obj},
         callBack,
       ),
     );
   };
 
   useEffect(() => {
-    // handelAction()
-    callData();
-  }, []);
+    setLoader(true);
+    callData(activePage);
+  }, [activePage,searchTextUser, sort, order, checkStatus]);
 
-  console.log("kycData", kycData)
+  useEffect(() => {
+    setLoader(true);
+    callData(1);
+  }, [searchTextUser]);
+
+  console.log("kycData", checkStatus)
 
   return (
     <Root>
       <div className="main_div">
 
         <h1>User KYC</h1>
+
+        <FilterBarKYC
+            sort={(e) => {
+              setSort(e);
+            }}
+            order={(e) => {
+              setOrder(e);
+            }}
+            searchText={(e) => {
+              setSearchText(e.trim());
+            }}
+            view={view}
+            setView={(e) => {
+              setView(e);
+            }}
+            checkStatus = {(e)=>{
+              setCheckStatus(e);
+            }}
+          />
+
         {loader ? (
           <LoaderCSS />
         ) : (
@@ -135,7 +176,7 @@ function KycDetails() {
                 return (
                   <tr key={ix}>
                     <td>{ix + 1}</td>
-                    <td>@{i?.user?.username}</td>
+                    <td>{i?.user?.firstName}{" "}{i?.user?.lastName}</td>
                     <td className="kyc_date" data-label="KYC Date">
                       {moment(i?.createdAt).format('DD - MMM - YYYY')}
                     </td>
@@ -215,7 +256,7 @@ function KycDetails() {
                   }}
                   className="btn"
                 >
-                  close
+                  <AiOutlineCloseCircle/>
                 </button>
 
                 <img src={`${IMAGE_END_POINT}${docs}`}></img>
@@ -237,6 +278,14 @@ function KycDetails() {
           )}
         </div>
       </div>
+      <PaginationCode
+            active={activePage}
+            activePage={(e) => {
+              setActivePage(e);
+            }}
+            totalPage={totalPage}
+            limit={dataLimit}
+          />
     </Root>
   );
 }
@@ -295,6 +344,7 @@ const Root = styled.section`
         border: 1px solid #ccc;
         padding: 0.625em;
         text-align: left;
+        text-transform: capitalize;
       }
       .user_name {
         word-break: break-all;
@@ -386,9 +436,13 @@ const Root = styled.section`
           margin-right: 0px;
           position: absolute;
           right: 0;
-          margin-top: -5px;
+          margin-top: -4px;
           margin-right: -5px;
           top:0;
+          background-color: transparent;
+          font-size: 30px;
+          border: none;
+          color: white;
         }
       }
       .noimg_div {

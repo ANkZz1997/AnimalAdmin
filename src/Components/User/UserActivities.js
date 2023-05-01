@@ -10,6 +10,11 @@ import LoaderCSS from '../Loader';
 import PaginationCode from '../Pagination';
 import { Link } from 'react-router-dom';
 import { UserChildCss } from './UserChildCss';
+import DateRange from '../Dashboard/DateRange';
+import {AiOutlineCloseCircle} from 'react-icons/ai'
+
+
+
 
 function UserActivities({ ids }) {
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
@@ -17,6 +22,13 @@ function UserActivities({ ids }) {
   const [activePage, setActivePage] = useState(1);
   const [totalPage, setTotalPage] = useState(2);
   const [loader, setLoader] = useState(true);
+  const [datePopup, setDatePopup] = useState(false);
+  const [selected,setSelected] = useState("");
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+  const [rawStart, setRawStart] = useState();
+  const [rawEnd, setRawEnd] = useState()
+
   const dataLimit = 10;
   const dispatch = useDispatch();
   const callBack2 = (data) => {
@@ -26,8 +38,33 @@ function UserActivities({ ids }) {
     setLoader(false);
   };
 
+  const onChange = (ranges) => {
+    setRawStart(ranges?.startDate);
+    setRawEnd(ranges?.endDate);
+    const newDateStart = String(ranges.startDate).split(' ');
+    const newDateEnd = String(ranges.endDate).split(' ');
+    const formateDateStart = `${newDateStart[1]}-${newDateStart[2]}-${newDateStart[3]}`;
+    const formateDateEnd = `${newDateEnd[1]}-${newDateEnd[2]}-${newDateEnd[3]}`;
+    setStartDate(formateDateStart);
+    setEndDate(formateDateEnd);
+  };
+
+  const clearFunction =()=>{
+    setStartDate();
+    setEndDate();
+    setRawStart();
+    setRawEnd();
+  }
+
   const userActivities = () => {
-    const obj = { user: ids };
+    const obj = { user: ids,
+    };
+    if(selected){
+      obj['type']=selected;
+    }
+    if(startDate && endDate){
+      obj['createdAt'] = { ">=" : moment(rawStart).startOf("day").valueOf(), "<=" : moment(rawEnd).endOf("day").valueOf() };
+    }
     setLoader(true);
     dispatch(
       userActivitiesActions(
@@ -46,14 +83,47 @@ function UserActivities({ ids }) {
   useEffect(() => {
     setLoader(false);
     userActivities();
-  }, [activePage]);
+  }, [activePage, selected,rawStart, rawEnd]);
 
-  console.log("Dataaaaaaaa",userActivity?.length)
+  console.log("Dataaaaaaaa",startDate, endDate, selected)
 
   return (
     <UserChildCss>
       <div className="overview">
-        <div className="table_title">Activities</div>
+        <div className="table_title">Activities {startDate?<h3>{`${startDate} To ${endDate}`}<button onClick={()=>{clearFunction()}}>Clear</button></h3>:""}</div>
+        <div className='activity_filter'>
+          <select className='select_type' onChange={(e)=>{setSelected(e.target.value)}}>
+            <option value="">All Type</option>
+            <option value="ADDTOMARKET">ADDTOMARKET</option>
+            <option value="CREATE">CREATE</option>
+            <option value="BUY">BUY</option>
+            <option value="SOLD">SOLD</option>
+            <option value="UNMARKFAV">UNMARKFAV</option>
+            <option value="REMOVEFROMMARKET">REMOVEFROMMARKET</option>
+            <option value="UPDATEPRICE">UPDATEPRICE</option>
+            <option value="BID">BID</option>
+            <option value="INTENT">INTENT</option>
+            <option value="VERIFIED">VERIFIED</option>
+          </select>
+          <div className="date_range">
+            <button onClick={() => setDatePopup(true)}>Select Date </button>
+            <div
+              className={
+                datePopup ? 'date_popup_active' : 'date_popup_notactive'
+              }
+            >
+              <div className="date_main_div">
+                  <button className='cncl_btn'  onClick={() => {setDatePopup(false);clearFunction()}}>
+                    <AiOutlineCloseCircle/>
+                  </button>
+                  <button className='sav_btn' onClick={() => setDatePopup(false)}>
+                    Save
+                  </button>
+                <DateRange onChange={onChange}/>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="overview_section">
           {loader ? (

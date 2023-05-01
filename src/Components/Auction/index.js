@@ -43,18 +43,12 @@ function AuctionsData() {
     setLoader(false);
   };
 
-  useEffect(()=>{
-    GetNetworks();
-  },[])
+  const searchSortAuctionData = (activePage) =>{
 
-  useEffect(() => {
-    let data =   { }
+    let data =  { }
     if(chainNumber){
         data["chainId"] = chainNumber
      }
-     setLoader(true);
-
-
     const obj = {search:searchText};
     setAuctionData([]);
     dispatch(
@@ -70,7 +64,22 @@ function AuctionsData() {
         callBack,
       ),
     );
-  }, [activePage, sort, order, searchText, chainNumber]);
+  }
+
+  useEffect(()=>{
+    GetNetworks();
+  },[])
+
+  useEffect(() => {
+    setLoader(true);
+    searchSortAuctionData(activePage)
+  }, [activePage, sort, order, chainNumber]);
+
+  useEffect(() => {
+    setLoader(true);
+    setActivePage(1)
+    searchSortAuctionData(activePage)
+  }, [searchText, chainNumber]);
 
   console.log("auctiondata",auctionData)
 

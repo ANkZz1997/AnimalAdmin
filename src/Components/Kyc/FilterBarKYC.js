@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
-export default function FilterBar({ sort, order, searchText, view, setView }) {
+export default function FilterBarKYC({ sort, order, searchText, checkStatus, setView }) {
 
   const nevigate = useNavigate()
   const urlParams = new URLSearchParams(window.location.search);
   const redirect = urlParams.get("search");
   const [search, setSearch] = useState(redirect);
 
-  const handleNevigate = (search)=>{
-    nevigate(`/user?search=${search}`)
-  }
+//   const handleNevigate = (search)=>{
+//     nevigate(`/user?search=${search}`)
+//   }
   const keyPressed = (e) => {
     if (e.key === 'Enter') {
       searchText(search);
-      handleNevigate(search)
+    //   handleNevigate(search)
     }
   };
 
@@ -50,7 +50,7 @@ export default function FilterBar({ sort, order, searchText, view, setView }) {
             type="submit"
             onChange={() => {
               searchText(search);
-              handleNevigate(search);
+            //   handleNevigate(search);
             }}
           >
             <Icon name="search" />
@@ -91,6 +91,12 @@ export default function FilterBar({ sort, order, searchText, view, setView }) {
           >
             <option value="DESC">Decending</option>
             <option value="ASC">Ascending</option>
+          </select>
+          <select onChange={(e)=>{checkStatus(e.target.value)}}>
+            <option value={""}>All KYC</option>
+            <option value={"APPROVED"}>Approved</option>
+            <option value={"REJECTED"}>Rejected</option>
+            <option value={"PENDING"}>Pending</option>
           </select>
         </div>
       </div>

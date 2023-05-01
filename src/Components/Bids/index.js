@@ -27,7 +27,7 @@ export default function BidsData() {
     setLoader(false);
   };
 
-  useEffect(() => {
+  const searchSortBidsData = () =>{
     setLoader(true)
     // const nftObj = [
     //   { auction: { contains: searchText } },
@@ -49,7 +49,15 @@ export default function BidsData() {
         callBack,
       ),
     );
-  }, [activePage, sort, order, searchText]);
+  }
+
+  useEffect(() => {
+    searchSortBidsData(activePage)
+  }, [activePage, sort, order]);
+
+  useEffect(() => {
+    searchSortBidsData(1)
+  }, [searchText]);
 
   return (
     <Root>

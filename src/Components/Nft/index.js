@@ -42,22 +42,15 @@ export default function NftsData() {
     setLoader(false);
   };
 
-  useEffect(()=>{
-    GetNetworks();
-  },[])
-
-  useEffect(() => {
-     if(chainNumber){
+  const searchSorftNftFunction = (activePage)=>{
+    if(chainNumber){
       var userData =  {
         "chainId": chainNumber
       }
      }
-
-     setLoader(true);
-
     const obj = {search: searchText}
     
-    // setNfts('');
+    setNfts('');
     dispatch(
         nftDataAction(
         {
@@ -71,7 +64,22 @@ export default function NftsData() {
         callBack,
       ),
     );
-  }, [activePage, sort, order, searchText,chainNumber]);
+  }
+
+  useEffect(()=>{
+    GetNetworks();
+  },[])
+
+  useEffect(() => {
+     setLoader(true);
+     searchSorftNftFunction(activePage);
+  }, [activePage, sort, order,chainNumber]);
+
+   useEffect(() => {
+    setLoader(true);
+    setActivePage(1)
+    searchSorftNftFunction(activePage);
+  }, [searchText,chainNumber]);
 
   console.log("Number",netLogo)
 

@@ -44,19 +44,13 @@ export default function MarketPlaceData() {
     setLoader(false);
   };
 
-  useEffect(()=>{
-    GetNetworks();
-  },[])
-
-
-  useEffect(() => {
+  const searchSortMarketData = (activePage)=>{
     if(chainNumber){
       var data =  {
         "chainId": chainNumber
       }
      }
- 
-    setLoader(true);
+    
     const obj = {search: searchText}
     dispatch(
       marketPlaceAction(
@@ -71,7 +65,23 @@ export default function MarketPlaceData() {
         callBack,
       ),
     );
-  }, [activePage, sort, order, searchText, chainNumber]);
+  }
+
+  useEffect(()=>{
+    GetNetworks();
+  },[])
+
+
+  useEffect(() => {
+    setLoader(true);
+    searchSortMarketData(activePage)
+  }, [activePage, sort, order, chainNumber]);
+
+  
+  useEffect(() => {
+    setLoader(true);
+    searchSortMarketData(1)
+  }, [searchText, chainNumber]);
 
   return (
     <Root>
