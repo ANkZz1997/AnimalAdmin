@@ -6,7 +6,7 @@ import PaginationCode from '../Pagination';
 import LoaderCSS from '../Loader';
 import URLS from '../../utils/urls';
 import FilterBarB from './FilterBar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function ChatSupport() {
   const [disputeData, setDisputeData] = useState([]);
@@ -20,6 +20,7 @@ function ChatSupport() {
 
   const dataLimit = 20;
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
+  const nevigate = useNavigate()
 
 
   const getDisputeList = async () => {
@@ -119,9 +120,9 @@ function ChatSupport() {
                             {ix + 1}
                           </td>
                           <td className="user_img_table" data-label="User">
-                            <Link to={`/user/userdetails/${i.user?.id}`}>
+                            {/* <Link to={`/user/userdetails/${i.user?.id}`}> */}
 
-                                <div className="user_image_name">
+                                <div className="user_image_name" onClick={()=>{nevigate(`/user/userdetails/${i.user?.id}`)}}>
                                 <img
                                     src={
                                     i.user?.avatar
@@ -133,7 +134,7 @@ function ChatSupport() {
                                     ? `${i.user.firstName} ${i.user.lastName}`
                                     : 'Unnamed User'}
                                 </div>
-                            </Link>
+                            {/* </Link> */}
                           </td>
                           {/* <td> {`${moment(1675757417520).format(
                               'DD-MMM-YY (hh:mm A)',

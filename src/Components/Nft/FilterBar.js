@@ -15,13 +15,20 @@ export default function FilterBar({ sort, order, searchText, chainNumber }) {
   const handleNevigate = (search)=>{
     nevigate(`/nfts?searchNft=${search}`)
   }
+
   const keyPressed = (e) => {
     if (e.key === 'Enter') {
       searchText(search);
       handleNevigate(search)
-
     }
   };
+
+  useEffect(()=>{
+    setTimeout(() => {
+      searchText(search);
+      handleNevigate(search)
+    }, 1500);
+  },[search])
   
   const GetNetworks = async()=>{
     try{
@@ -57,8 +64,7 @@ useEffect(()=>{
             placeholder="Search"
             value={search}
             onChange={(e) => {
-              setSearch(e.target.value);
-              // searchText(e.target.value);
+              setSearch(e.target.value)
             }}
             onKeyPress={keyPressed}
           />

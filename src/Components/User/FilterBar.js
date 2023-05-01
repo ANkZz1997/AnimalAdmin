@@ -19,6 +19,13 @@ export default function FilterBar({ sort, order, searchText, view, setView }) {
     }
   };
 
+  useEffect(()=>{
+    setTimeout(() => {
+      searchText(search);
+      handleNevigate(search)
+    }, 1500);
+  },[search])
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const redirect = urlParams.get("search");
@@ -28,6 +35,7 @@ export default function FilterBar({ sort, order, searchText, view, setView }) {
       searchText(redirect);
     }
   }, [window.location.search]);
+
 
   console.log("search",search)
 
@@ -48,7 +56,7 @@ export default function FilterBar({ sort, order, searchText, view, setView }) {
           <button
             className="search_btn"
             type="submit"
-            onChange={() => {
+            onClick={() => {
               searchText(search);
               handleNevigate(search);
             }}

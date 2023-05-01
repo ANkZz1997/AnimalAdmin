@@ -21,6 +21,13 @@ export default function FilterBarA({ sort, order, searchText, chainNumber }) {
       handleNevigate(search)
     }
   };
+
+  useEffect(()=>{
+    setTimeout(() => {
+      searchText(search);
+      handleNevigate(search)
+    }, 1500);
+  },[search])
   
   const GetNetworks = async()=>{
     try{

@@ -79,7 +79,7 @@ function AuctionsData() {
     setLoader(true);
     setActivePage(1)
     searchSortAuctionData(activePage)
-  }, [searchText, chainNumber]);
+  }, [searchText]);
 
   console.log("auctiondata",auctionData)
 

@@ -6,12 +6,13 @@ import { useNavigate } from 'react-router-dom';
 export default function FilterBarB({ sort, order, searchText }) {
   const nevigate = useNavigate()
   const urlParams = new URLSearchParams(window.location.search);
-  const redirect = urlParams.get("search");
+  const redirect = urlParams.get("searchbid");
   const [search, setSearch] = useState(redirect);
 
   const handleNevigate = (search)=>{
-    nevigate(`/bids?search=${search}`)
+    nevigate(`/bids?searchbid=${search}`)
   }
+  
   const keyPressed = (e) => {
     if (e.key === 'Enter') {
       searchText(search);
@@ -19,9 +20,10 @@ export default function FilterBarB({ sort, order, searchText }) {
     }
   };
 
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const redirect = urlParams.get("search");
+    const redirect = urlParams.get("searchbid");
     console.log("redirect",redirect,search)
     if (redirect) {
       searchText(redirect);

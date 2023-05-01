@@ -9,15 +9,23 @@ export default function FilterBarKYC({ sort, order, searchText, checkStatus, set
   const redirect = urlParams.get("search");
   const [search, setSearch] = useState(redirect);
 
-//   const handleNevigate = (search)=>{
-//     nevigate(`/user?search=${search}`)
-//   }
+  const handleNevigate = (search)=>{
+    nevigate(`/kyc?search=${search}`)
+  }
+
   const keyPressed = (e) => {
     if (e.key === 'Enter') {
       searchText(search);
-    //   handleNevigate(search)
+      handleNevigate(search)
     }
   };
+
+  useEffect(()=>{
+    setTimeout(() => {
+      searchText(search);
+      handleNevigate(search)
+    }, 1500);
+  },[search])
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -50,7 +58,7 @@ export default function FilterBarKYC({ sort, order, searchText, checkStatus, set
             type="submit"
             onChange={() => {
               searchText(search);
-            //   handleNevigate(search);
+              handleNevigate(search);
             }}
           >
             <Icon name="search" />

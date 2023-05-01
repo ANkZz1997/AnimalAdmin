@@ -79,7 +79,7 @@ export default function NftsData() {
     setLoader(true);
     setActivePage(1)
     searchSorftNftFunction(activePage);
-  }, [searchText,chainNumber]);
+  }, [searchText]);
 
   console.log("Number",netLogo)
 

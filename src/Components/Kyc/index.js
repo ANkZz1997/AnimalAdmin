@@ -10,6 +10,7 @@ import moment from 'moment';
 import {AiOutlineCloseCircle} from 'react-icons/ai'
 import FilterBarKYC from './FilterBarKYC';
 import PaginationCode from '../Pagination';
+import { useNavigate } from 'react-router-dom';
 
 function KycDetails() {
   const [kycData, setKycData] = useState([]);
@@ -29,6 +30,7 @@ function KycDetails() {
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const dispatch = useDispatch();
+  const nevigate = useNavigate()
 
   const dataLimit = 15;
 
@@ -176,7 +178,7 @@ function KycDetails() {
                 return (
                   <tr key={ix}>
                     <td>{ix + 1}</td>
-                    <td>{i?.user?.firstName}{" "}{i?.user?.lastName}</td>
+                    <td className='nev_user' onClick={()=>{nevigate(`/user/userdetails/${i?.user?.id}`)}}>{i?.user?.firstName}{" "}{i?.user?.lastName}</td>
                     <td className="kyc_date" data-label="KYC Date">
                       {moment(i?.createdAt).format('DD - MMM - YYYY')}
                     </td>
@@ -345,6 +347,12 @@ const Root = styled.section`
         padding: 0.625em;
         text-align: left;
         text-transform: capitalize;
+      }
+      .nev_user{
+        cursor: pointer;
+        :hover{
+          background-color: grey;
+        }
       }
       .user_name {
         word-break: break-all;

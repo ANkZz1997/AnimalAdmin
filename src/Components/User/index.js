@@ -59,8 +59,7 @@ export default function Userlist() {
 
       useEffect(()=>{
         setLoader(true);
-        setActivePage(1)
-        searchSortUserFunction(activePage)
+        searchSortUserFunction(1)
       }, [searchTextUser])
 
 
