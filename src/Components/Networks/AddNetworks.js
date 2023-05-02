@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import URLS from '../../utils/urls';
 import axios from 'axios';
 import cogoToast from "cogo-toast";
-
+import {AiOutlineCloseCircle} from 'react-icons/ai'
 
 export default function AddNetworks({toClose}) {
 
@@ -67,7 +67,7 @@ export default function AddNetworks({toClose}) {
     <Root>
         <div className='main_child'>
             <h2>Make Sure You Are Filling Valid Inputs</h2>
-                <button className='cls_btn'  onClick={()=>{resetForm()}}>Close</button>
+                <button className='cls_btn'  onClick={()=>{resetForm()}}><AiOutlineCloseCircle/></button>
             <div className='input_details'>
                 <div className='input_data'>
 
@@ -143,6 +143,14 @@ h4{
         position: absolute;
         top: 0;
         right: 0;
+        background-color: transparent;
+        font-size: 30px;
+        border: none;
+        color: white;
+        padding: 0;
+        :hover{
+            color: #e67a7a;
+        }
     }
 
     .input_details{

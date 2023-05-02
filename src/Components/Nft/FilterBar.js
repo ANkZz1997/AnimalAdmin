@@ -25,11 +25,15 @@ export default function FilterBar({ sort, order, searchText, chainNumber }) {
 
   useEffect(()=>{
     if(search != null){
-      setTimeout(() => {
+      const debounce = setTimeout(() => {
         searchText(search);
         handleNevigate(search)
-      }, 1500);
-     }
+      }, 1000);
+
+      return ()=>{
+        clearTimeout(debounce)
+      }
+    }
   },[search])
   
   const GetNetworks = async()=>{

@@ -21,12 +21,16 @@ export default function FilterBarKYC({ sort, order, searchText, checkStatus, set
   };
 
   useEffect(()=>{
-   if(search != null){
-    setTimeout(() => {
-      searchText(search);
-      handleNevigate(search)
-    }, 1500);
-   }
+    if(search != null){
+      const debounce = setTimeout(() => {
+        searchText(search);
+        handleNevigate(search)
+      }, 1000);
+
+      return ()=>{
+        clearTimeout(debounce)
+      }
+    }
   },[search])
 
   useEffect(() => {

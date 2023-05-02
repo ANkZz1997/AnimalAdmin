@@ -30,6 +30,7 @@ function AuctionDetails({ details }) {
   const [deadline, setDeadline] = useState();
   const [loader, setLoader] = useState(true);
   const [netData,setNetData] = useState();
+  const nevigate = useNavigate();
 
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
@@ -157,7 +158,9 @@ function AuctionDetails({ details }) {
                     : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
                 }
                 className="image"
+                onClick={()=>{nevigate(`/nfts/nftdetails/${auctionData?.nft?.id}`)}}
               />
+              <p className='views_p'>{auctionData?.nft?.views} {auctionData?.nft?.views>1?"views":"view"}</p>
 
               <div className="nft_highlights">
                 <div className="countdown_time">
@@ -365,12 +368,24 @@ const Root = styled.section`
       width: 100%;
       flex: 1;
       position: relative;
+
+      p.views_p {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-right: 11px;
+        margin-top: -8px;
+}
       .image {
         width: 100%;
         border-radius: 10px;
         margin-bottom: 5px;
         border: 1px solid rgba(34, 36, 38, 0.15);
         padding: 10px;
+        :hover{
+          opacity: 0.5;
+          cursor: pointer;
+        }
       }
 
       span.chain_id{

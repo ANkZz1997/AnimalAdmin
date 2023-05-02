@@ -7,7 +7,7 @@ import { usersDataAction } from '../../redux/admin/action';
 import LoaderCSS from '../Loader';
 import URLS from '../../utils/urls';
 import cogoToast from 'cogo-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Goerli from '../../Assets/Goerli.png';
 import polygon from '../../Assets/polygon.svg';
 import bnb from '../../Assets/bnb.svg'
@@ -21,6 +21,7 @@ function MarketplaceDetails({ details }) {
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const [minterdetails, setMinterDetails] = useState();
   const [netData,setNetData] = useState();
+  const nevigate = useNavigate();
 
 
   const GetNetworks = async()=>{
@@ -144,8 +145,8 @@ function MarketplaceDetails({ details }) {
             <div className="image_box">
             <span className='chain_id'>{marketplaceData?.nft?.chainId=="5"?<img src={Goerli} className="chain_img"/>:(marketplaceData?.nft?.chainId=="97"?<img src={bnb}  className="chain_img"/>:
       (marketplaceData?.nft?.chainId=="80001"?<img src={polygon}  className="chain_img"/>:""))}</span>
-              <img src={`${IMAGE_END_POINT}${marketplaceData?.nft?.media}`} />
-
+              <img src={`${IMAGE_END_POINT}${marketplaceData?.nft?.media}`} onClick={()=>{nevigate(`/nfts/nftdetails/${marketplaceData?.nft?.id}`)}}/>
+              <p className='views_p'>{marketplaceData?.nft?.views} {marketplaceData?.nft?.views>1?"views":"view"}</p>
               {/* <div className="nft_highlights">
            <div className="countdown_time">
              <span>History</span>
@@ -336,7 +337,18 @@ const Root = styled.section`
         margin-bottom: 5px;
         border: 1px solid rgba(34, 36, 38, 0.15);
         padding: 10px;
+        :hover{
+          opacity: 0.5;
+          cursor: pointer;
+        }
       }
+      p.views_p {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-right: 11px;
+        margin-top: -8px;
+}
 
       span.chain_id{
       position: absolute;

@@ -36,6 +36,12 @@ const URLS = {
             GET_BIDS_LIST: `${EXCHANGE_URL}/admin/bids`,
             GET_USERDETAILS_LIST: `${EXCHANGE_URL}/admin/getUserDetail?id=6392c0a5101f472e2010c544`,
             GET_KYC_DETAILS: `${EXCHANGE_URL}/admin/kyc`,
+            GET_KYC_DOC_LIST: `${EXCHANGE_URL}/admin/getKYCDocType`,
+            ADD_KYC_DOC_LIST: `${EXCHANGE_URL}/admin/addKYCDocType`,
+            EDIT_KYC_DOC: `${EXCHANGE_URL}/admin/editKYCDocType`,
+            UPDATE_KYC_DOC: `${EXCHANGE_URL}/admin/setKYCDocTypeStatus`,
+
+
 
             //INDIVIDUAL DETAILS APIS
 

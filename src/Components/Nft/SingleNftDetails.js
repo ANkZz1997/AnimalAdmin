@@ -109,6 +109,7 @@ console.log('nftdata cc' ,netData  )
           <span className='chain_id'>{nftdata?.chainId=="5"?<img src={Goerli} className="chain_img"/>:(nftdata?.chainId=="97"?<img src={bnb}  className="chain_img"/>:
       (nftdata?.chainId=="80001"?<img src={polygon}  className="chain_img"/>:""))}</span>
             <img src={`${IMAGE_END_POINT}${nftdata?.media?.id}`} />
+            <p className='views_p'>{nftdata?.views} {nftdata?.views>1?"views":"view"}, {nftdata.wishlistedCount} wishlist</p>
           </div>
           <div className="content_box">
             <div className="details_table">
@@ -125,6 +126,10 @@ console.log('nftdata cc' ,netData  )
                   <Table.Row>
                     <Table.Cell>Royalty</Table.Cell>
                     <Table.Cell>{nftdata?.royalty} %</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell collapsing>Category</Table.Cell>
+                    <Table.Cell>{nftdata?.category}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell collapsing>Category</Table.Cell>
@@ -332,6 +337,14 @@ const Root = styled.section`
         /* border-radius: 50%; */
       }
     }
+
+    p.views_p {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 11px;
+    margin-top: -8px;
+}
    
     }
     .content_box {

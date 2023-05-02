@@ -33,10 +33,14 @@ export default function FilterBarB({ sort, order, searchText }) {
 
   useEffect(()=>{
     if(search != null){
-      setTimeout(() => {
+      const debounce = setTimeout(() => {
         searchText(search);
         handleNevigate(search)
-      }, 1500);
+      }, 1000);
+
+      return ()=>{
+        clearTimeout(debounce)
+      }
     }
   },[search])
 

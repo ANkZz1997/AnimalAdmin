@@ -96,7 +96,7 @@ export default function Networks() {
     useEffect(()=>{
         setLoader(true);
         GetNetworks();
-    },[popup])
+    },[])
 
     console.log("netId",netId)
 
@@ -116,7 +116,7 @@ export default function Networks() {
 
             </div>
             <div className={popup?"addnet":"addnet no"}>
-                <AddNetworks toClose ={(e)=>{setPopup(e);GetNetworks()}}/>
+                <AddNetworks toClose ={(e)=>{setPopup(e)}}/>
             </div>
             <hr/>
 
