@@ -5,8 +5,9 @@ import axios from 'axios';
 import URLS from '../../utils/urls';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 export default function FilterBarM({ sort, order, searchText,chainNumber }) {
-  const [netName, setNetName] = useState();
+  // const [netName, setNetName] = useState();
   const nevigate = useNavigate()
   const urlParams = new URLSearchParams(window.location.search);
   const redirect = urlParams.get("searchNft");
@@ -22,6 +23,8 @@ export default function FilterBarM({ sort, order, searchText,chainNumber }) {
     }
   };
 
+  const netName = useSelector((state)=>state?.persistReducer?.platformChains)
+
   useEffect(()=>{
     if(search != null){
       const debounce = setTimeout(() => {
@@ -35,16 +38,16 @@ export default function FilterBarM({ sort, order, searchText,chainNumber }) {
     }
   },[search])
   
-  const GetNetworks = async()=>{
-    try{
-        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
-        console.log("res---",res.data.data)
-        setNetName(res.data?.data)
+//   const GetNetworks = async()=>{
+//     try{
+//         const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
+//         console.log("res---",res.data.data)
+//         setNetName(res.data?.data)
 
-    }catch(err){
-        console.log(err)
-    }
-}
+//     }catch(err){
+//         console.log(err)
+//     }
+// }
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const redirect = urlParams.get("searchNft");
@@ -55,9 +58,9 @@ export default function FilterBarM({ sort, order, searchText,chainNumber }) {
   }, [window.location.search]);
 
 
-useEffect(()=>{
-  GetNetworks();
-},[])
+// useEffect(()=>{
+//   GetNetworks();
+// },[])
 
   return (
     <FilterBarStyle>

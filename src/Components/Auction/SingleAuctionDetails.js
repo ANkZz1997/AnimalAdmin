@@ -9,7 +9,7 @@ import {
   Table,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import URLS from '../../utils/urls';
 import { usersDataAction } from '../../redux/admin/action';
@@ -29,12 +29,13 @@ function AuctionDetails({ details }) {
   const [minterdetails, setMinterDetails] = useState();
   const [deadline, setDeadline] = useState();
   const [loader, setLoader] = useState(true);
-  const [netData,setNetData] = useState();
+  // const [netData,setNetData] = useState();
   const nevigate = useNavigate();
 
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const dispatch = useDispatch();
+  const netData = useSelector((state)=>state?.persistReducer?.platformChains)
 
   const options = [
     { key: 1, text: 'Choice 1', value: 1 },
@@ -48,16 +49,16 @@ function AuctionDetails({ details }) {
     setMinterDetails(data?.records[0]);
   };
 
-  const GetNetworks = async()=>{
-    try{
-        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
-        console.log("res---",res.data.data)
-        setNetData(res.data?.data)
+//   const GetNetworks = async()=>{
+//     try{
+//         const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
+//         console.log("res---",res.data.data)
+//         setNetData(res.data?.data)
 
-    }catch(err){
-        console.log(err)
-    }
-}
+//     }catch(err){
+//         console.log(err)
+//     }
+// }
 
   const  getMinterDetail = (minterId)=>{
     const obj = [{ id: minterId }];
@@ -79,7 +80,6 @@ function AuctionDetails({ details }) {
     if (details) {
       setAuctionData(details);
       setDeadline(details?.endTime);
-      GetNetworks()
       if(details?.nft?.minter){
         getMinterDetail(details?.nft?.minter)
         

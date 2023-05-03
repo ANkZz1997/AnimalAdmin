@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { nftDataAction } from '../../redux/admin/action';
 import FilterBar from './FilterBar';
 import LoaderCSS from '../Loader';
@@ -19,20 +19,22 @@ export default function NftsData() {
   const [order, setOrder] = useState('DESC');
   const [searchText, setSearchText] = useState('');
   const [chainNumber,setChainNumber] = useState("");
-  const [netLogo,setNetLogo] = useState('')
+  // const [netLogo,setNetLogo] = useState('')
 
   const dataLimit = 20;
 
-  const GetNetworks = async()=>{
-    try{
-        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
-        console.log("res---",res.data.data)
-        setNetLogo(res.data?.data)
+  const netLogo = useSelector((state)=>state?.persistReducer?.platformChains)
 
-    }catch(err){
-        console.log(err)
-    }
-}
+//   const GetNetworks = async()=>{
+//     try{
+//         const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
+//         console.log("res---",res.data.data)
+//         setNetLogo(res.data?.data)
+
+//     }catch(err){
+//         console.log(err)
+//     }
+// }
 
   const dispatch = useDispatch();
 
@@ -66,10 +68,6 @@ export default function NftsData() {
     );
   }
 
-  useEffect(()=>{
-    GetNetworks();
-  },[])
-
   useEffect(() => {
      setLoader(true);
      searchSorftNftFunction(activePage);
@@ -81,7 +79,7 @@ export default function NftsData() {
     searchSorftNftFunction(activePage);
   }, [searchText]);
 
-  console.log("Number",netLogo)
+  
 
   return (
         <Root>

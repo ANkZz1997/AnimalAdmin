@@ -28,6 +28,16 @@ export const userLoginAction = (data, callback) => ({
     data,
   })
 
+  export const getChainsListAction = (callback) =>({
+    type: userData.GET_NETWORKS,
+    callback
+  })
+  
+  export const getChainsListAdminAction = (data) =>({
+    type: userLogin.GET_CHAINS_DETAILS,
+    data,
+  })
+
   export const checkUserAction = (data) => ({
     type: userLogin.CHECK_USER,
     data,

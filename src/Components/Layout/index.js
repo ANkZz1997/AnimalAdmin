@@ -12,7 +12,7 @@ import CommissionValue from '../PreLoginSettings/CommissionValue'
 import LazyMinting from '../PreLoginSettings/LazyMinting'
 import PinataCredentials from '../PreLoginSettings/PinataCredentials'
 import StripeSecret from '../PreLoginSettings/StripeSecret'
-import { preLoginAction } from '../../redux/admin/action'
+import { getChainsListAction, preLoginAction } from '../../redux/admin/action'
 import LoaderCSS from '../Loader'
 import StripeCallback from '../PreLoginSettings/StripeCallback'
 import CompanyLogo from '../PreLoginSettings/CompanyLogo'
@@ -57,6 +57,7 @@ export default function Layout({ children }) {
         console.log('checkkk ----- 00000')
         if(userCheck){
             dispatch(preLoginAction({},userCallback));
+            dispatch(getChainsListAction());
         }
     }, [userCheck])
 

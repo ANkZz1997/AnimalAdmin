@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { auctionsAction } from '../../redux/admin/action';
 import AuctionCard from '../Cards/AuctionCard';
@@ -19,21 +19,24 @@ function AuctionsData() {
   const [order, setOrder] = useState('DESC');
   const [searchText, setSearchText] = useState('');
   const [chainNumber,setChainNumber] = useState("");
-  const [netLogo,setNetLogo] = useState('')
+  // const [netLogo,setNetLogo] = useState('')
+  const [auctionStatus, setAuctionStatus] = useState();
 
 
   const dataLimit = 20;
 
-  const GetNetworks = async()=>{
-    try{
-        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
-        console.log("res---",res.data.data)
-        setNetLogo(res.data?.data)
+  const netLogo = useSelector((state)=>state?.persistReducer?.platformChains)
 
-    }catch(err){
-        console.log(err)
-    }
-}
+//   const GetNetworks = async()=>{
+//     try{
+//         const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
+//         console.log("res---",res.data.data)
+//         setNetLogo(res.data?.data)
+
+//     }catch(err){
+//         console.log(err)
+//     }
+// }
 
   const dispatch = useDispatch();
 
@@ -49,7 +52,7 @@ function AuctionsData() {
     if(chainNumber){
         data["chainId"] = chainNumber
      }
-    const obj = {search:searchText};
+    const obj = {search:searchText, status:auctionStatus};
     setAuctionData([]);
     dispatch(
       auctionsAction(
@@ -66,14 +69,14 @@ function AuctionsData() {
     );
   }
 
-  useEffect(()=>{
-    GetNetworks();
-  },[])
+  // useEffect(()=>{
+  //   GetNetworks();
+  // },[])
 
   useEffect(() => {
     setLoader(true);
     searchSortAuctionData(activePage)
-  }, [activePage, sort, order, chainNumber]);
+  }, [activePage, sort, order, chainNumber,auctionStatus]);
 
   useEffect(() => {
     setLoader(true);
@@ -81,7 +84,7 @@ function AuctionsData() {
     searchSortAuctionData(activePage)
   }, [searchText]);
 
-  console.log("auctiondata",auctionData)
+  console.log("auctionStatus",auctionStatus)
 
   return (
     <Root>
@@ -101,6 +104,9 @@ function AuctionsData() {
             }}
             chainNumber = {(e)=>{
               setChainNumber(e);
+            }}
+            auctionStatus = {(e)=>{
+              setAuctionStatus(e);
             }}
           />
 

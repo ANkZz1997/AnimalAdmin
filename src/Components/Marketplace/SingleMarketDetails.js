@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Dimmer, Dropdown, Icon, Loader, Menu, Table } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { usersDataAction } from '../../redux/admin/action';
 import LoaderCSS from '../Loader';
@@ -20,27 +20,28 @@ function MarketplaceDetails({ details }) {
   const [loader, Setloader] = useState(true);
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const [minterdetails, setMinterDetails] = useState();
-  const [netData,setNetData] = useState();
+  // const [netData,setNetData] = useState();
   const nevigate = useNavigate();
 
+  const netData = useSelector((state)=>state?.persistReducer?.platformChains)
 
-  const GetNetworks = async()=>{
-    try{
-        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
-        console.log("res---",res.data.data)
-        setNetData(res.data?.data)
 
-    }catch(err){
-        console.log(err)
-    }
-}
+//   const GetNetworks = async()=>{
+//     try{
+//         const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
+//         console.log("res---",res.data.data)
+//         setNetData(res.data?.data)
+
+//     }catch(err){
+//         console.log(err)
+//     }
+// }
 
   const dispatch = useDispatch();
 
   const callBack = (data) => {
     console.log("datadata",data)
     setMinterDetails(data?.records[0]);
-    GetNetworks()
     Setloader(false);
   };
 

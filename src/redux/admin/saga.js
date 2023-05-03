@@ -1,5 +1,5 @@
 
-import { adminAction, adminUserNameAction, checkUserAction, preLoginAdminDataAction } from "./action";
+import { adminAction, adminUserNameAction, checkUserAction, getChainsListAction, getChainsListAdminAction, preLoginAdminDataAction } from "./action";
 import {
     all,
     call,
@@ -26,13 +26,11 @@ function* loginUser({ data, callback }) {
             // window.location.replace("/dashboard")
             // yield call(forwardTo, '/dashboard');
             localStorage.setItem('token', response?.data?.data?.token);
-            
             callback(response?.data);
             yield put(adminUserNameAction(response?.data?.data?.username));
             // yield put(adminAction(response));
             cogoToast.success('Login Successfull');
             // window.location.replace("/dashboard")
-          
             yield put(stopLoading());
             yield put(checkUserAction(true));
         }
@@ -61,8 +59,30 @@ function* getPreLoginSettings({ params,callback}){
         const response = yield httpGet(URLS.EXCHANGE.ADMIN.GET_SETTING_LIST,params);
         if (response?.status === 200) {
             console.log("saga---->",params, response)
+            yield put(preLoginAdminDataAction(response.data?.data));
             callback(response.data.data)
-            yield put(preLoginAdminDataAction(response.data?.data))
+           
+        }else{
+            localStorage.setItem("token","")
+            yield put(checkUserAction(false));
+            cogoToast.error('Something Went Wrong');
+        }
+    } catch (error) {
+        console.log('error',error);
+        // localStorage.setItem("token","");
+
+        // cogoToast.error(error?.response?.statusText);
+    }
+}
+
+function* getChainsList({callback}){
+    try {
+        const response = yield httpGet(URLS.EXCHANGE.ADMIN.GET_NETWORKS);
+        if (response?.status === 200) {
+            console.log("saga---->",response)
+            yield put(getChainsListAdminAction(response.data?.data))
+            callback(response.data.data)
+           
         }else{
             localStorage.setItem("token","")
             yield put(checkUserAction(false));
@@ -263,6 +283,7 @@ export default function* commonSaga() {
     yield all([throttle(500, userData.GET_DASHBOARD, getDashboardData)]);
     yield all([throttle(500, userData.GET_USER_LIST, getUserData)]);
     yield all([throttle(500, userData.GET_SETTING_LIST, getPreLoginSettings)]);
+    yield all([throttle(500, userData.GET_NETWORKS, getChainsList)]);
     yield all([throttle(500, userData.GET_USER_LIST_PARAMS, usersDataParams)]);
     yield all([throttle(500, userData.GET_NFTS_LIST, getNftData)]);
     yield all([throttle(500, userData.GET_MARKETPLACE_ITEM_LIST, getMarketplaceData)]);

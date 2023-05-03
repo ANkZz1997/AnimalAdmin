@@ -11,11 +11,12 @@ import polygon from '../../Assets/polygon.svg';
 import bnb from '../../Assets/bnb.svg'
 import BackButton from '../Model/BackButton';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 
 export default function NftDetails({ details, activity }) {
   const [nftdata, setNftData] = useState({});
-  const [netData,setNetData] = useState();
+  // const [netData,setNetData] = useState();
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const nevigate = useNavigate()
   const options = [
@@ -24,21 +25,22 @@ export default function NftDetails({ details, activity }) {
     { key: 3, text: 'Choice 3', value: 3 },
   ];
 
-  const GetNetworks = async()=>{
-    try{
-        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
-        console.log("res---",res.data.data)
-        setNetData(res.data?.data)
+  const netData = useSelector((state)=>state?.persistReducer?.platformChains)
 
-    }catch(err){
-        console.log(err)
-    }
-}
+//   const GetNetworks = async()=>{
+//     try{
+//         const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
+//         console.log("res---",res.data.data)
+//         setNetData(res.data?.data)
+
+//     }catch(err){
+//         console.log(err)
+//     }
+// }
 
   useEffect(() => {
     if (details) {
       setNftData(details);
-      GetNetworks()
     }
   }, [details]);
 console.log('nftdata cc' ,netData  )

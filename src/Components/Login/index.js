@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { userLoginAction } from '../../redux/admin/action';
+import { getChainsListAction, userLoginAction } from '../../redux/admin/action';
 import {AiFillEye, AiFillEyeInvisible} from 'react-icons/ai'
 import { Loader } from 'semantic-ui-react';
 import styled from 'styled-components';
@@ -29,7 +29,7 @@ export default function Login() {
         const userCallback=(e)=>{
             nagivate("/dashboard")
         }
-        dispatch(userLoginAction(data , userCallback))
+        dispatch(userLoginAction(data , userCallback));
     }
 
 

@@ -4,13 +4,16 @@ import { FilterBarStyle } from '../Style/filterbar.style';
 import axios from 'axios';
 import URLS from '../../utils/urls';
 import { useNavigate } from 'react-router-dom';
-export default function FilterBarA({ sort, order, searchText, chainNumber }) {
+import { useSelector } from 'react-redux';
+export default function FilterBarA({ sort, order, searchText, chainNumber, auctionStatus }) {
 
-  const [netName, setNetName] = useState();
+  // const [netName, setNetName] = useState();
   const nevigate = useNavigate()
   const urlParams = new URLSearchParams(window.location.search);
   const redirect = urlParams.get("searchNft");
   const [search, setSearch] = useState(redirect);
+  const netName = useSelector((state)=>state?.persistReducer?.platformChains)
+  
 
   const handleNevigate = (search)=>{
     nevigate(`/auction?searchNft=${search}`)
@@ -35,16 +38,16 @@ export default function FilterBarA({ sort, order, searchText, chainNumber }) {
     }
   },[search])
   
-  const GetNetworks = async()=>{
-    try{
-        const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
-        console.log("res---",res.data.data)
-        setNetName(res.data?.data)
+//   const GetNetworks = async()=>{
+//     try{
+//         const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
+//         console.log("res---",res.data.data)
+//         setNetName(res.data?.data)
 
-    }catch(err){
-        console.log(err)
-    }
-}
+//     }catch(err){
+//         console.log(err)
+//     }
+// }
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const redirect = urlParams.get("searchNft");
@@ -55,9 +58,9 @@ export default function FilterBarA({ sort, order, searchText, chainNumber }) {
   }, [window.location.search]);
 
 
-useEffect(()=>{
-  GetNetworks();
-},[])
+// useEffect(()=>{
+//   GetNetworks();
+// },[])
 
   
   return (
@@ -117,6 +120,13 @@ useEffect(()=>{
                 </>
               )
             })}
+          </select>
+          <select onChange={(e)=>{auctionStatus(e.target.value)}}>
+            <option value={""}>All Status</option>
+            <option value={"ACTIVE"}> Active</option>
+            <option value={"ENDED"}>Ended</option>
+            <option value={"REMOVED"}>Removed</option>
+            <option value={"FAILED"}>Failed</option>
           </select>
         </div>
       </div>

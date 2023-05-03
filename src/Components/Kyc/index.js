@@ -122,12 +122,12 @@ function KycDetails() {
   useEffect(() => {
     setLoader(true);
     callData(activePage);
-  }, [activePage,searchTextUser, sort, order, checkStatus]);
+  }, [activePage,searchTextUser, sort, order]);
 
   useEffect(() => {
     setLoader(true);
     callData(1);
-  }, [searchTextUser]);
+  }, [searchTextUser,checkStatus]);
 
   console.log("kycData", checkStatus)
 

@@ -56,7 +56,7 @@ function UserActivities({ ids }) {
     setRawEnd();
   }
 
-  const userActivities = () => {
+  const userActivities = (activePage) => {
     const obj = { user: ids,
     };
     if(selected){
@@ -82,8 +82,12 @@ function UserActivities({ ids }) {
 
   useEffect(() => {
     setLoader(false);
-    userActivities();
-  }, [activePage, selected,rawStart, rawEnd]);
+    userActivities(activePage);
+  }, [activePage,rawStart, rawEnd]);
+  useEffect(() => {
+    setLoader(false);
+    userActivities(1);
+  }, [selected]);
 
   console.log("Dataaaaaaaa",startDate, endDate, selected)
 
@@ -94,16 +98,17 @@ function UserActivities({ ids }) {
         <div className='activity_filter'>
           <select className='select_type' onChange={(e)=>{setSelected(e.target.value)}}>
             <option value="">All Type</option>
-            <option value="ADDTOMARKET">ADDTOMARKET</option>
-            <option value="CREATE">CREATE</option>
-            <option value="BUY">BUY</option>
-            <option value="SOLD">SOLD</option>
-            <option value="UNMARKFAV">UNMARKFAV</option>
-            <option value="REMOVEFROMMARKET">REMOVEFROMMARKET</option>
-            <option value="UPDATEPRICE">UPDATEPRICE</option>
-            <option value="BID">BID</option>
-            <option value="INTENT">INTENT</option>
-            <option value="VERIFIED">VERIFIED</option>
+            <option value="ADDTOMARKET">Added To MarketPlace</option>
+            <option value="CREATE">NFT Created</option>
+            <option value="BUY">NFT Bought</option>
+            <option value="SOLD">NFT Sold</option>
+            <option value="UNMARKFAV">Marked Favourite</option>
+            <option value="MARKFAV">Unmarked Favourite</option>
+            <option value="REMOVEFROMMARKET">Removed From MarketPlace</option>
+            <option value="UPDATEPRICE">Price Updated</option>
+            <option value="BID">Placed Bid</option>
+            <option value="INTENT">Created Payment Intent</option>
+            <option value="VERIFIED">Payment Intent Verified</option>
           </select>
           <div className="date_range">
             <button onClick={() => setDatePopup(true)}>Select Date </button>

@@ -36,8 +36,6 @@ export default function Sidebar() {
     // navigate('/')
     // window.location.replace("/")
   }
-
-
   return (
     <Root>
       <div className='menu_top'>

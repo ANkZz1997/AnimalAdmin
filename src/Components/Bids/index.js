@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment/moment';
 import { bidsAction } from '../../redux/admin/action';
 import FilterBarB from './FilterBar';
 import LoaderCSS from '../Loader';
 import PaginationCode from '../Pagination';
 import URLS from '../../utils/urls';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function BidsData() {
   const [bidsData, setBidsData] = useState([]);
@@ -18,6 +18,8 @@ export default function BidsData() {
   const [order, setOrder] = useState('DESC');
   const [searchText, setSearchText] = useState('');
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
+  const nevigate = useNavigate();
+  const netData = useSelector((state)=>state?.persistReducer?.platformChains)
 
   const dataLimit = 60;
 
@@ -84,6 +86,7 @@ export default function BidsData() {
                   <thead>
                     <tr>
                       <th>NFT Details</th>
+                      <th>Chain</th>
                       <th>Base Price</th>
                       <th>Bid Created On</th>
                       <th>Max Bid</th>
@@ -100,15 +103,23 @@ export default function BidsData() {
                           > */}
 
                             <td className="nft_img">
-                            <Link to={`/auction/auctiondetails/${i?.auction?.id}`}>
-                              <div className="nft_div">
+                            {/* <Link to={`/auction/auctiondetails/${i?.auction?.id}`}> */}
+                              <div className="nft_div" onClick={()=>{nevigate(`/auction/auctiondetails/${i?.auction?.id}`)}}>
                                 <img
                                   src={`${IMAGE_END_POINT}${i?.auction?.nft?.media}`}
                                 ></img>{' '}
                                 {i?.auction?.nft?.name}
                               </div>
-                              </Link>
+                              {/* </Link> */}
                             </td>
+                          
+                          <td data-label="Chain">
+                            {netData && netData?.map((j)=>{
+                              if(j.chainId == i.auction.chainId){
+                                return j.name;
+                              }
+                            })}
+                          </td>
                           
                           <td data-label="Base Price">
                             {i?.auction?.basePrice}Eth

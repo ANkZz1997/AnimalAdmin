@@ -38,7 +38,6 @@ export default function DashboardData() {
     useEffect(() => {
         setLoader(true);
         dispatch(dashboardAction(callBack));
-   
     }, []);
     
     console.log("dashboardData",dashboardData)

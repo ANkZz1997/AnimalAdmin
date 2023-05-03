@@ -11,32 +11,31 @@ import ConfirmDialogue from '../Model/ConfirmDialogue'
 import EditNetwork from './EditNetwork'
 import LoaderCSS from '../Loader'
 import moment from 'moment'
+import { useDispatch, useSelector } from 'react-redux'
+import { getChainsListAction } from '../../redux/admin/action'
 
 
 export default function Networks() {
 
-    const [netData,setNetData] = useState()
+    // const [netData,setNetData] = useState()
     const [popup,setPopup] = useState(false)
     const [editPopup, setEditPopup] = useState(false)
     const [deleteBanner, setDeleteBanner] = useState(false)
     const [netId,setNetId] = useState()
     const [netName, setNetName] = useState()
     const [editObj, setEditObj] = useState()
-    const [loader, setLoader] = useState(true)
+    const [loader, setLoader] = useState(false)
     const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
+    const dispatch = useDispatch();
 
-    const GetNetworks = async()=>{
-        try{
-            const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
-            console.log("res---",res.data.data)
-            setNetData(res.data?.data)
-            setLoader(false)
+    const netData = useSelector((state)=>state?.persistReducer?.platformChains)
 
-        }catch(err){
-            console.log(err)
-        }
+    const callback = ()=>{
     }
+    const GetNetworks = ()=>{
+        dispatch(getChainsListAction(callback))
+      }
 
     const EnableNetwork = async(value, id)=>{
         const data = {
@@ -47,7 +46,8 @@ export default function Networks() {
             const res = await axios.post(`${URLS.EXCHANGE.ADMIN.ENABLE_NETWORK}`,data)
             console.log("resres",res)
             GetNetworks();
-
+            cogoToast.success("Network Enabled")
+            // dispatch(getChainsListAction());
 
         }catch(Error){
             console.log(Error)
@@ -93,10 +93,10 @@ export default function Networks() {
         }
     }
 
-    useEffect(()=>{
-        setLoader(true);
-        GetNetworks();
-    },[])
+    // useEffect(()=>{
+    //     // setLoader(true);
+    //     GetNetworks();
+    // },[])
 
     console.log("netId",netId)
 
