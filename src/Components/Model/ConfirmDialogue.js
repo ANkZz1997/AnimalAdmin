@@ -2,13 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 import {AiOutlineCloseCircle} from 'react-icons/ai'
 
-export default function ConfirmDialogue({show , handleClick , children}) {
+export default function ConfirmDialogue({show , handleClick , children, setDefault}) {
     return (
     <Root>
     <div className={show?"popup active": "popup"}>
         <div className='background_layer' onClick={()=>{handleClick(!show)}}></div>
         <div className='child_section'>
-            <button className='cls_btn' onClick={()=>{handleClick(!show)}}><AiOutlineCloseCircle/></button>
+            <button className='cls_btn' onClick={()=>{handleClick(!show);setDefault("")}}><AiOutlineCloseCircle/></button>
             {children}
         </div>
     </div>

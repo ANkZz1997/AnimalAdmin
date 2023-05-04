@@ -46,6 +46,7 @@ color: whitesmoke;
     display: flex;
     align-items: center;
     justify-content: end;
+    gap: 10px;
 
     .select_type{
       background-color: #070c27;

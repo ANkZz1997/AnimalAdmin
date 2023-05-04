@@ -125,7 +125,7 @@ export default function FilterBarA({ sort, order, searchText, chainNumber, aucti
             <option value={""}>All Status</option>
             <option value={"ACTIVE"}> Active</option>
             <option value={"ENDED"}>Ended</option>
-            <option value={"REMOVED"}>Removed</option>
+            {/* <option value={"REMOVED"}>Removed</option> */}
             <option value={"FAILED"}>Failed</option>
           </select>
         </div>

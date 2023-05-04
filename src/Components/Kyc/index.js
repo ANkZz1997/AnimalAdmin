@@ -11,6 +11,7 @@ import {AiOutlineCloseCircle} from 'react-icons/ai'
 import FilterBarKYC from './FilterBarKYC';
 import PaginationCode from '../Pagination';
 import { useNavigate } from 'react-router-dom';
+import ConfirmDialogue from '../Model/ConfirmDialogue';
 
 function KycDetails() {
   const [kycData, setKycData] = useState([]);
@@ -26,7 +27,10 @@ function KycDetails() {
   const [totalPage, setTotalPage] = useState(1);
   const [searchTextUser, setSearchText] = useState('');
   const [view, setView] = useState('list');
-  const [checkStatus, setCheckStatus] = useState('')
+  const [checkStatus, setCheckStatus] = useState('');
+  const [confirmPopup,setConfirmPopup] = useState(false);
+  const [remarkContent,setRemarkContent] = useState();
+  const [rjtId,setRjtId] = useState();
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const dispatch = useDispatch();
@@ -59,6 +63,7 @@ function KycDetails() {
             }
           })
           setKycData(newData)
+          setAction("")
         });
     } catch (err) {
       console.log(err);
@@ -66,17 +71,20 @@ function KycDetails() {
   };
 
   const kycActionReject = async (id) => {
-    // let userData = {
-    //   "populate": ["user"],
-    // }
+    const data = {
+      remarks: remarkContent
+    }
+    console.log("rejectkyc----",id,action,remarkContent)
+    setConfirmPopup(false);
     try {
       await axios
-        .get(`${URLS.EXCHANGE.ADMIN.KYC_ACTION_REJECT}${id}`)
+        .post(`${URLS.EXCHANGE.ADMIN.KYC_ACTION_REJECT}${id}`,data)
         .then((res) => {
           console.log(res);
           const newData = kycData.map((i, ix) => {
+            console.log("console2222",res.data.data[0])
             if (i.id == id) {
-              return {...i,status:"REJECTED"}
+              return {...i,status:"REJECTED",remarks:res.data.data[0].remarks}
             } else {
               return i
             }
@@ -89,11 +97,15 @@ function KycDetails() {
   };
 
   const handelAction = (e, f) => {
+    setAction(e)
     if (e == 'Approve') {
       kycActionApprove(f);
+      setAction("")
       // callData();
     } else if (e == 'Rejected') {
-      kycActionReject(f);
+      setConfirmPopup(true);
+      setRjtId(f);
+      // kycActionReject(f);
       // callData();
     }
   };
@@ -119,6 +131,7 @@ function KycDetails() {
     );
   };
 
+ 
   useEffect(() => {
     setLoader(true);
     callData(activePage);
@@ -129,14 +142,22 @@ function KycDetails() {
     callData(1);
   }, [searchTextUser,checkStatus]);
 
-  console.log("kycData", checkStatus)
+  console.log("kycData", kycData)
 
   return (
     <Root>
+      <ConfirmDialogue show={confirmPopup} handleClick={(e)=>{setConfirmPopup(e)}} setDefault={()=>{setAction("")}}>
+        <h1>Are You Sure You Want To Reject It?</h1>
+        {action == "Rejected"?<div className='input_remark'>
+          <h3>Add Remarks</h3>
+        <textarea onChange={(e)=>{setRemarkContent(e.target.value)}}></textarea></div> :""}
+        <div className='rjt_btn'>
+          Click To Reject {remarkContent?.length>5?<button onClick={()=>{kycActionReject(rjtId)}}>Reject</button>:""}
+        </div>
+
+      </ConfirmDialogue>
       <div className="main_div">
-
         <h1>User KYC</h1>
-
         <FilterBarKYC
             sort={(e) => {
               setSort(e);
@@ -227,21 +248,22 @@ function KycDetails() {
                     >
                       {i?.status}
                     </td>
+                    <HandleActionBtn  i={i} handelActionBtn={(e,id)=>{handelAction(e, id)}}/>
 
-                    <td className="select_cell">
+                    {/* <td className="select_cell">
                       <select
                         name="kyc_actions"
                         id="actions"
-                        onClick={(e) => handelAction(e.target.value, i.id)}
+                        onChange={(e) => {handelAction(e.target.value, i.id);setAction(e.target.value)}}
+                        value={action}
                       >
                         <option value="">Actions</option>
                         <option value="Approve">Approve</option>
                         <option value="Rejected">Reject</option>
                       </select>
-                    </td>
-                  </tr>
+                    </td> */}
 
-                  
+                  </tr>
                 );
               })}
             </tbody>
@@ -296,6 +318,26 @@ export default KycDetails;
 
 const Root = styled.section`
     color: whitesmoke;
+  .input_remark{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    textarea{
+      border: none;
+      padding: 5px;
+      resize: none;
+      :focus{
+        outline: none;
+      }
+    }
+  }
+  .rjt_btn{
+    margin: 10px;
+    button{
+      padding: 3px;
+    }
+}
   .main_div {
     table {
       border: 1px solid #ccc;
@@ -471,3 +513,23 @@ const Root = styled.section`
     }
   }
 `;
+
+// Name export function to handle action button
+export const HandleActionBtn = ({i,handelActionBtn}) => {
+  const [action, setAction] = useState('');
+  return(
+    <td className="select_cell">
+    <select
+      name="kyc_actions"
+      id="actions"
+      onChange={(e) => {handelActionBtn(e.target.value, i.id);setAction('')}}
+      value={action}
+    >
+      <option value="">Actions</option>
+      <option value="Approve">Approve</option>
+      <option value="Rejected">Reject</option>
+    </select>
+  </td>
+  )
+
+}

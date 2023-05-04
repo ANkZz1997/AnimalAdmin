@@ -63,7 +63,7 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
 
   // }
 
-  console.log('userStatus', detailsUser.lastLoggedInTime);
+  console.log('userStatus', detailsUser.wishlist);
 
   return (
     <Root>
@@ -98,26 +98,23 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
               detailsUser?.lastName ? detailsUser.lastName : 'N/A'
             }`}
           </h2>
-          <h4>@{`${detailsUser?.username ? detailsUser.username : 'N/A'}`} - 
-            Active On {detailsUser?.lastLoggedInTime?`${moment(detailsUser?.lastLoggedInTime).format('DD-MMM-YY (hh:mm A)')}`:"---"}</h4>
+          <h4>
+            Active On {detailsUser?.lastLoggedInTime?`${moment(detailsUser?.lastLoggedInTime).format('DD-MMM-YY (hh:mm A)')}`
+            :"---"}</h4>
 
           <div className="nft_data">
-            <div className="nft">
-              <h1>{nfts?.records?.length || '0'}</h1>
-              <h5>NFT Created</h5>
-            </div>
-            <div className="nft">
-              <h1>
-                {userActivity?.filter((s) => s.type == 'SOLD').length || '0'}
-              </h1>
-              <h5>NFT Sold</h5>
-            </div>
-            <div className="nft">
-              <h1>
-                {userActivity?.filter((s) => s.type == 'BUY').length || '0'}
-              </h1>
-              <h5>NFT Purchased</h5>
-            </div>
+            { detailsUser && detailsUser?.networks?.map((i)=>{
+              return(
+                <div className="nft">
+                  <div><h1> {i.amount==0? `00.00`:Number(i.amount).toFixed(6)} </h1><h3>Eth</h3> </div>
+                  <h5>{i.name}</h5>
+                </div>
+              )
+            })}
+                <div className="nft">
+                  <div><h1> {detailsUser.wallet.amount? detailsUser.wallet.amount: `00.00`} </h1><h3>Rs</h3> </div>
+                  <h5>Fiat Wallet</h5>
+                </div>
           </div>
         </div>
       </div>
@@ -133,25 +130,28 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
           onClick={() => setActiveTab('created')}
           className={activeTab === 'created' ? 'active' : ''}
         >
-          Created
+          Created {`(${userActivity?.filter((s) => s.type == 'CREATE').length || '0'})`}
+          
         </button>
         <button
           onClick={() => setActiveTab('purchased')}
           className={activeTab === 'purchased' ? 'active' : ''}
         >
-          Purchased
+          Purchased {`(${userActivity?.filter((s) => s.type == 'BUY').length || '0'})`} 
         </button>
         <button
           onClick={() => setActiveTab('sold')}
           className={activeTab === 'sold' ? 'active' : ''}
         >
-          Sold
+          Sold {`(${userActivity?.filter((s) => s.type == 'SOLD').length || '0'})`}
+          
         </button>
         <button
           onClick={() => setActiveTab('wishlisted')}
           className={activeTab === 'wishlisted' ? 'active' : ''}
         >
-          Wishlist
+          Wishlist {`(${detailsUser?.wishlist?.length})`}
+          
         </button>
         <button
           onClick={() => setActiveTab('activities')}
@@ -267,6 +267,8 @@ color: whitesmoke;
 
     .nft_data {
       display: flex;
+      flex-wrap: wrap;
+      width: 100%;
       h5 {
         color: rgb(140, 124, 240);
         text-align: center;
@@ -274,20 +276,28 @@ color: whitesmoke;
 
       .nft {
         border-radius: 10px;
+        padding: 10px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 90px;
-        width: 140px;
+        /* width: 140px; */
         margin: 25px 5px 5px 5px;
         border: 0.5px dashed grey;
 
-        h1 {
-          font-size: 40px;
-          color: black;
-          color: whitesmoke;
+        >div{
+          display: flex;
+          align-items: baseline;
+          gap: 5px;
+
+          h1 {
+            font-size: 40px;
+            color: black;
+            color: whitesmoke;
+          }
         }
+
       }
     }
   }

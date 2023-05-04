@@ -66,7 +66,7 @@ export default function Sidebar() {
       </div>
 
       <div  className='menu_button nav_link'>
-        <div className='admin_profile2'>
+        {/* <div className='admin_profile2'>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Tom_Cruise_%2834450932580%29.jpg/1200px-Tom_Cruise_%2834450932580%29.jpg"
             style={{ borderRadius: '60px' }}
@@ -79,13 +79,12 @@ export default function Sidebar() {
             {userCheck}
             <p>@Admin121</p>
         </div>
-        </div>
+        </div> */}
+        <hr/>
         <Link to ='/mobilesettings' className={activeParam=="mobilesettings"?"link_2 active":"link_2"} onClick={()=>setActiveTab("help")}><FiSettings/><h3>Mobile Settings</h3></Link>
         <Link to ='/platformsettings'className={activeParam=="platformsettings"?"link_2 active":"link_2"} onClick={()=>setActiveTab("platformsettings")}><FiSettings/><h3>Platform Settings</h3></Link>
         <button onClick={()=>{dispatch(userLogoutAction())}} className='link_2'><FiLogOut/><h3>Logout</h3></button>
-
       </div>
-
     </Root>
     
   )

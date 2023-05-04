@@ -102,8 +102,8 @@ function UserActivities({ ids }) {
             <option value="CREATE">NFT Created</option>
             <option value="BUY">NFT Bought</option>
             <option value="SOLD">NFT Sold</option>
-            <option value="UNMARKFAV">Marked Favourite</option>
-            <option value="MARKFAV">Unmarked Favourite</option>
+            <option value="MARKFAV">Marked Favourite</option>
+            <option value="UNMARKFAV">Unmarked Favourite</option>
             <option value="REMOVEFROMMARKET">Removed From MarketPlace</option>
             <option value="UPDATEPRICE">Price Updated</option>
             <option value="BID">Placed Bid</option>
