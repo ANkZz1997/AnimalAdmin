@@ -116,9 +116,8 @@ function ChatSupport() {
                     {disputeData && disputeData?.map((i, ix) => {
                       return (
                         <tr key={ix}>
-                          <td className="s_no" data-label="S.No">
-                            {ix + 1}
-                          </td>
+                          {activePage == 1 ? <td className="s_no" data-label="S.No">{ix + 1}</td>:<td>{ix + 15 * (activePage -1) + 1}</td>}
+                        
                           <td className="user_img_table" data-label="User">
                             {/* <Link to={`/user/userdetails/${i.user?.id}`}> */}
 

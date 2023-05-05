@@ -8,7 +8,6 @@ import Sidebar from './Sidebar'
 export default function Topbar() {
 
   const [toggle,setToggle] = useState(false)
-
   const userCheck = useSelector((state)=>state?.persistReducer?.username)
 
   return (
@@ -37,7 +36,6 @@ export default function Topbar() {
       </div>
       <div className='back_blur'>
       </div>
-
     </div>
 
       </Root>

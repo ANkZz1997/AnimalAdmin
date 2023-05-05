@@ -58,7 +58,7 @@ export default function AuctionCard(data) {
                     : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
                 }
               ></img>
-              <h5>{user?.username ? user.username : 'Unnamed User'}</h5>
+              <h5> {user?.firstName ? `${user.firstName} ${user.lastName}` : 'Unnamed User'}</h5>
             </div>
           </Link>
           <h3 className="nft_name">

@@ -20,8 +20,8 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
   const soldData = userActivity?.filter((s) => s.type == 'SOLD');
   const buyData = userActivity?.filter((s) => s.type == 'BUY');
   const [detailsUser, setDetailsUser] = useState(userDetails)
+  const [confirmPopup,setConfirmPopup] = useState(false);
 
-  const [userStatus, setUserStatus] = useState();
 
   const postStatus = async (userStatus)=>{
     try{
@@ -30,7 +30,8 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
         status:userStatus
       }
       const res = await axios.post(`${URLS.EXCHANGE.ADMIN.POST_USER_STATUS}`,data)
-      setDetailsUser(res?.data.data[0])
+      setConfirmPopup(false)
+      setDetailsUser({...userDetails, status: res?.data.data[0].status })
       cogoToast.success(`USER ${res?.data.data[0].status == "ACTIVE"?"UNBLOCKED":"BLOCKED"}`)
 
     }catch(error){
@@ -40,33 +41,25 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
 
   const handleBlock =()=>{
     if(detailsUser?.status == "BLOCKED"){
-      // setUserStatus("UNBLOCK")
     postStatus("ACTIVE");
-
     }else{
-      // setUserStatus("BLOCKED")
     postStatus("BLOCKED");
-
     }
   }
 
-  // const handleInactive=()=>{
-  //   if(detailsUser?.status == "INACTIVE"){
-  //     // setUserStatus("ACTIVE")
-  //   postStatus("ACTIVE");
-
-  //   }else{
-  //     // setUserStatus("INACTIVE")
-  //   postStatus("INACTIVE");
-
-  //   }
-
-  // }
 
   console.log('userStatus', detailsUser.wishlist);
 
   return (
     <Root>
+      <ConfirmDialogue show={confirmPopup} handleClick={(e)=>{setConfirmPopup(e)}} setDefault={()=>{("")}}>
+        <h3 className='popup_title'>Are You Sure You Want {detailsUser?.status == "BLOCKED"?"Unblock":"Block"} This User ?</h3>
+        
+        <button className='confirm_btn' onClick={()=>{handleBlock()}}>Yes</button> 
+        
+        <button className='confirm_btn' onClick={()=>{ setConfirmPopup(false)}}>No</button>
+
+      </ConfirmDialogue>
       <div className="main_title">
         {/* <Link to={`/user`}> */}
           <BackButton/>
@@ -75,7 +68,7 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
       </div>
       <div className="image_section">
         <div className='action_div'>
-          <button className={detailsUser?.status=="BLOCKED"?'action_btn no':'action_btn'} onClick={()=>{handleBlock()}}>
+          <button className={detailsUser?.status=="BLOCKED"?'action_btn no':'action_btn'} onClick={()=>{setConfirmPopup(true)}}>
           {detailsUser?.status=="BLOCKED"?"Unblock":"Block"}</button>
           {/* <button className='action_btn' onClick={()=>{handleInactive()}}>
             {detailsUser?.status=="INACTIVE"?"Active":"InActive"}</button> */}
@@ -112,7 +105,7 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
               )
             })}
                 <div className="nft">
-                  <div><h1> {detailsUser.wallet.amount? detailsUser.wallet.amount: `00.00`} </h1><h3>Rs</h3> </div>
+                  <div><h1> {detailsUser?.wallet?.amount? detailsUser?.wallet?.amount/100: `00.00`} </h1><h3>Rs</h3> </div>
                   <h5>Fiat Wallet</h5>
                 </div>
           </div>
@@ -130,27 +123,32 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
           onClick={() => setActiveTab('created')}
           className={activeTab === 'created' ? 'active' : ''}
         >
-          Created {`(${userActivity?.filter((s) => s.type == 'CREATE').length || '0'})`}
+          {/* Created {`(${userActivity?.filter((s) => s.type == 'CREATE').length || '0'})`} */}
+          Created {`(${detailsUser?.createdCount})`}
           
         </button>
         <button
           onClick={() => setActiveTab('purchased')}
           className={activeTab === 'purchased' ? 'active' : ''}
         >
-          Purchased {`(${userActivity?.filter((s) => s.type == 'BUY').length || '0'})`} 
+          {/* Purchased {`(${userActivity?.filter((s) => s.type == 'BUY').length || '0'})`}  */}
+          Purchased  {`(${detailsUser?.purchasedCount})`}
+
         </button>
         <button
           onClick={() => setActiveTab('sold')}
           className={activeTab === 'sold' ? 'active' : ''}
         >
-          Sold {`(${userActivity?.filter((s) => s.type == 'SOLD').length || '0'})`}
+          {/* Sold {`(${userActivity?.filter((s) => s.type == 'SOLD').length || '0'})`} */}
+          Sold {`(${detailsUser?.soldCount})`}
           
         </button>
         <button
           onClick={() => setActiveTab('wishlisted')}
           className={activeTab === 'wishlisted' ? 'active' : ''}
         >
-          Wishlist {`(${detailsUser?.wishlist?.length})`}
+          {/* Wishlist {`(${detailsUser?.wishlist?.length})`} */}
+          Wishlist {`(${detailsUser?.favCount})`}
           
         </button>
         <button
@@ -184,6 +182,20 @@ export default UserDetails;
 
 const Root = styled.section`
 color: whitesmoke;
+.popup_title{
+  margin: 20px 0px;
+}
+.confirm_btn{
+  height: 30px;
+  width: 35px;
+  background-color: #424d8d;
+  border: none;
+  color: white;
+  margin: 5px;
+  :hover{
+    background-color: #1c2b7f;
+  }
+}
   * {
     padding: 0;
     margin: 0;

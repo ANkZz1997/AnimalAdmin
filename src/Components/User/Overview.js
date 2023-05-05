@@ -10,6 +10,7 @@ function Overview(data) {
     setUserDetails(data.data);
   }, [data]);
 
+  console.log("userDetailsuserDetails",userDetails)
   return (
     <Root>
       <div className="overview">

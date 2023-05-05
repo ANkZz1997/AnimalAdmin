@@ -31,6 +31,7 @@ function KycDetails() {
   const [confirmPopup,setConfirmPopup] = useState(false);
   const [remarkContent,setRemarkContent] = useState();
   const [rjtId,setRjtId] = useState();
+  const [userName,setUserName] = useState();
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const dispatch = useDispatch();
@@ -96,7 +97,7 @@ function KycDetails() {
     }
   };
 
-  const handelAction = (e, f) => {
+  const handelAction = (e, f, name) => {
     setAction(e)
     if (e == 'Approve') {
       kycActionApprove(f);
@@ -105,6 +106,8 @@ function KycDetails() {
     } else if (e == 'Rejected') {
       setConfirmPopup(true);
       setRjtId(f);
+      setUserName(name)
+
       // kycActionReject(f);
       // callData();
     }
@@ -146,15 +149,14 @@ function KycDetails() {
 
   return (
     <Root>
-      <ConfirmDialogue show={confirmPopup} handleClick={(e)=>{setConfirmPopup(e)}} setDefault={()=>{setAction("")}}>
-        <h1>Are You Sure You Want To Reject It?</h1>
+      <ConfirmDialogue show={confirmPopup} handleClick={(e)=>{setConfirmPopup(e);setRemarkContent('')}} setDefault={()=>{setAction("")}}>
+        <h1>Are You Sure You Want To Reject The KYC?</h1>
         {action == "Rejected"?<div className='input_remark'>
-          <h3>Add Remarks</h3>
-        <textarea onChange={(e)=>{setRemarkContent(e.target.value)}}></textarea></div> :""}
+          <h3>Add Remarks before rejecting {userName}'s KYC request</h3>
+        <textarea maxlength="200" rows={5} value={remarkContent} onChange={(e)=>{setRemarkContent(e.target.value)}}></textarea></div> :""}
         <div className='rjt_btn'>
-          Click To Reject {remarkContent?.length>5?<button onClick={()=>{kycActionReject(rjtId)}}>Reject</button>:""}
+        {remarkContent?.length>5?<button onClick={()=>{kycActionReject(rjtId);setRemarkContent('')}}>Confirm</button>:""}
         </div>
-
       </ConfirmDialogue>
       <div className="main_div">
         <h1>User KYC</h1>
@@ -198,7 +200,7 @@ function KycDetails() {
               {kycData && kycData?.map((i, ix) => {
                 return (
                   <tr key={ix}>
-                    <td>{ix + 1}</td>
+                    {activePage == 1 ? <td data-label="S.No">{ix + 1}</td>:<td>{ix + 15 * (activePage -1) + 1}</td>}
                     <td className='nev_user' onClick={()=>{nevigate(`/user/userdetails/${i?.user?.id}`)}}>{i?.user?.firstName}{" "}{i?.user?.lastName}</td>
                     <td className="kyc_date" data-label="KYC Date">
                       {moment(i?.createdAt).format('DD - MMM - YYYY')}
@@ -248,8 +250,7 @@ function KycDetails() {
                     >
                       {i?.status}
                     </td>
-                    <HandleActionBtn  i={i} handelActionBtn={(e,id)=>{handelAction(e, id)}}/>
-
+                    <HandleActionBtn  i={i} handelActionBtn={(e,id,name)=>{handelAction(e, id, name)}}/>
                     {/* <td className="select_cell">
                       <select
                         name="kyc_actions"
@@ -322,11 +323,19 @@ const Root = styled.section`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     gap: 10px;
+    h3{
+      text-transform: capitalize;
+    }
     textarea{
       border: none;
       padding: 5px;
       resize: none;
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      width: 50%;
       :focus{
         outline: none;
       }
@@ -522,7 +531,7 @@ export const HandleActionBtn = ({i,handelActionBtn}) => {
     <select
       name="kyc_actions"
       id="actions"
-      onChange={(e) => {handelActionBtn(e.target.value, i.id);setAction('')}}
+      onChange={(e) => {handelActionBtn(e.target.value, i.id, i.user?.firstName);setAction('')}}
       value={action}
     >
       <option value="">Actions</option>

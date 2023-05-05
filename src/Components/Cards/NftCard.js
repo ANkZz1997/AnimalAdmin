@@ -62,7 +62,7 @@ export default function NftCard(data) {
               ></img>
             </Link>
             <h5 className="user_name">
-              {user?.username ? user.username : 'Unnamed User'}
+              {user?.firstName ? `${user.firstName} ${user.lastName}` : 'Unnamed User'}
             </h5>
           </div>
           <div>
