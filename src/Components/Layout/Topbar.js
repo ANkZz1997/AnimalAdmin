@@ -4,27 +4,32 @@ import { BiMenu } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
+import { useNavigate } from 'react-router-dom'
+import URLS from '../../utils/urls'
 
 export default function Topbar() {
 
   const [toggle,setToggle] = useState(false)
-  const userCheck = useSelector((state)=>state?.persistReducer?.username)
+  const userCheck = useSelector((state)=>state?.persistReducer?.adminDetails)
+  const nevigate = useNavigate()
+  const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
   return (
     <Root>
       <div className="admin_profile">
+      <div className='update_admin'>Update User Profile</div>
       <div className='click_menu' onClick={()=>setToggle(!toggle)}><BiMenu/></div>
-      <div className="admin_details">
+      <div className="admin_details" onClick={()=>{nevigate("platformsettings?basicSetting=adminProfile")}}>
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Tom_Cruise_%2834450932580%29.jpg/1200px-Tom_Cruise_%2834450932580%29.jpg"
+          src={`${IMAGE_END_POINT}${userCheck?.avatar}`}
           style={{ borderRadius: '60px' }}
           height="40"
           width="40"
           alt="antier logo"
         />
         &#160;&#160;
-        <div className="notify_parent">
-          Welcome Back {userCheck}
+        <div className="notify_parent" >
+          Welcome Back {userCheck?.name}
           <p>@Admin121</p>
           <div className="notify_child"> 21</div>
         </div>
@@ -47,10 +52,16 @@ position: fixed;
 width: 100%;
 background-color: #070c27;
 z-index:5;
+
     .admin_profile {
       display: flex;
       justify-content: space-between;
       cursor: pointer;
+      .update_admin{
+        position: fixed;
+        background-color: red;
+        top:0;
+      }
       .click_menu{
         color: white;
         font-size: 30px;
@@ -63,6 +74,9 @@ z-index:5;
         padding: 5px;
         margin: 15px 15px 5px 15px;
         border-radius: 10px;
+        :hover{
+        background-color: grey;
+      }
         img{
           object-fit: cover;
         }

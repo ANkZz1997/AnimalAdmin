@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import KycOption from './KycOption'
 import { useState } from 'react'
 import BasicPreLogin from './BasicPreLogin'
+import AdminProfile from './AdminProfile'
+import { RiUserSettingsLine } from 'react-icons/ri'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function BasicSettings() {
@@ -11,19 +14,29 @@ export default function BasicSettings() {
   const[basicActive2,setBasicActive2] = useState(false)
   const[basicActive3,setBasicActive3] = useState(false)
   const[basicActive4,setBasicActive4] = useState(false)
+  const urlParams = new URLSearchParams(window.location.search);
+  const redirect = urlParams.get("basicSetting");
+  const nevigate = useNavigate();
 
-
-  console.log("basicActive",basicActive)
+  useEffect(()=>{
+    if(redirect=="adminProfile"){
+      setBasicActive3(true);
+      setBasicActive4(false);
+      setBasicActive2(false);
+      setBasicActive(false);
+    }
+  },[redirect])
+  console.log("redirect",redirect)
 
   return (
     <Root>
-      <button onClick={()=>{setBasicActive(!basicActive)}}><h5>Pre-Login Settings List</h5></button>
+      <button onClick={()=>{setBasicActive(!basicActive);nevigate("?basicSetting=prelogin")}}><h5>Pre-Login Settings List</h5></button>
       <div className={basicActive?"makeActive":"makeActive no"}><BasicPreLogin/></div>
-      <button onClick={()=>{setBasicActive2(!basicActive2)}}><h5>KYC Options Setting</h5></button>
+      <button onClick={()=>{setBasicActive2(!basicActive2);nevigate("?basicSetting=kycOption")}}><h5>KYC Options Setting</h5></button>
       <div className={basicActive2?"makeActive":"makeActive no"}><KycOption/></div>
-      <button onClick={()=>{setBasicActive3(!basicActive3)}}><h5>Setting 3</h5></button>
-      <div className={basicActive3?"makeActive":"makeActive no"}>Setting 3</div>
-      <button onClick={()=>{setBasicActive4(!basicActive4)}}><h5>Setting 4</h5></button>
+      <button onClick={()=>{setBasicActive3(!basicActive3);nevigate("?basicSetting=adminProfile")}}><h5>Admin Profile</h5></button>
+      <div className={basicActive3?"makeActive":"makeActive no"}><AdminProfile/></div>
+      <button onClick={()=>{setBasicActive4(!basicActive4);nevigate("?basicSetting=setting4")}}><h5>Setting 4</h5></button>
       <div className={basicActive4?"makeActive":"makeActive no"}>Setting 4</div>
     </Root>
   )

@@ -88,7 +88,7 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
           {/* <h2>Status: {userDetails?.status}</h2> */}
           <h2>
             {`${detailsUser?.firstName ? detailsUser.firstName : 'N/A'} ${
-              detailsUser?.lastName ? detailsUser.lastName : 'N/A'
+              detailsUser?.lastName ? detailsUser.lastName : ''
             }`}
           </h2>
           <h4>

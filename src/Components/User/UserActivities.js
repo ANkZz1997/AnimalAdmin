@@ -156,7 +156,7 @@ function UserActivities({ ids }) {
                       </td>
 
                       <td data-label="Type">
-                        <h4>{i.type}</h4>
+                        <h4>{i.type=="USERSTATUS"? i.payload.status:i.type}</h4>
                       </td>
                       
                       

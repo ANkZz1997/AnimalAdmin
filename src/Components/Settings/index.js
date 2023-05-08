@@ -1,14 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import CreateRoles from '../Create Roles'
 import AccessCodes from '../AdminAccess'
 import Networks from '../Networks'
 import BasicSettings from '../BasicSettings'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function Settings() {
 
-    const [activeTab,setActiveTab] = useState("platformfee")
+    const [activeTab,setActiveTab] = useState("basicSettings")
+    const nevigate = useNavigate()
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirect = urlParams.get("basicSetting");
+
+    useEffect(()=>{
+        if(redirect=="adminProfile"){
+            setActiveTab("basicSettings")
+        }
+    },[redirect])
 
     console.log("activeTab",activeTab)
     return (
@@ -16,16 +26,16 @@ export default function Settings() {
         <div><h1>Platform Settings</h1></div>
         <div className='settings_main'>
             <div className='btn_div'>
-                <button onClick={()=>{setActiveTab("platformfee")}} className={activeTab=="platformfee"?"btn on":"btn"}>Basic Settings</button>
-                <button onClick={()=>{setActiveTab("accesscodes")}} className={activeTab=="accesscodes"?"btn on":"btn"}>Access Codes</button>
-                <button onClick={()=>{setActiveTab("adminuser")}} className={activeTab=="adminuser"?"btn on":"btn"}>Admin Roles</button>
-                <button onClick={()=>{setActiveTab("setting5")}} className={activeTab=="setting5"?"btn on":"btn"}>Manage Access</button>
-                <button onClick={()=>{setActiveTab("setting6")}} className={activeTab=="setting6"?"btn on":"btn"}>Networks</button>
+                <button onClick={()=>{setActiveTab("basicSettings");nevigate('?basicSettings')}} className={activeTab=="basicSettings"?"btn on":"btn"}>Basic Settings</button>
+                <button onClick={()=>{setActiveTab("accesscodes");nevigate('?accessCodes')}} className={activeTab=="accesscodes"?"btn on":"btn"}>Access Codes</button>
+                <button onClick={()=>{setActiveTab("adminuser");nevigate('?adminRoles')}} className={activeTab=="adminuser"?"btn on":"btn"}>Admin Roles</button>
+                <button onClick={()=>{setActiveTab("setting5");nevigate('?manageAccess')}} className={activeTab=="setting5"?"btn on":"btn"}>Manage Access</button>
+                <button onClick={()=>{setActiveTab("setting6");nevigate('?networkSettings')}} className={activeTab=="setting6"?"btn on":"btn"}>Networks</button>
             </div>
             <hr/>
             <div className='content_div'>
                 {
-                activeTab=="platformfee"?<BasicSettings/>:
+                activeTab=="basicSettings"?<BasicSettings/>:
                 activeTab =="accesscodes"?<AccessCodes/>:
                 activeTab =="adminuser"?<CreateRoles/>: 
                 activeTab =="setting5"?<h2 className='h2element'>Settings 5</h2>:

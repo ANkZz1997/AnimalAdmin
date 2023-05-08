@@ -40,6 +40,10 @@ const URLS = {
             ADD_KYC_DOC_LIST: `${EXCHANGE_URL}/admin/addKYCDocType`,
             EDIT_KYC_DOC: `${EXCHANGE_URL}/admin/editKYCDocType`,
             UPDATE_KYC_DOC: `${EXCHANGE_URL}/admin/setKYCDocTypeStatus`,
+            EDIT_ADMIN_PROFILE: `${EXCHANGE_URL}/admin/editProfile`,
+            EDIT_ADMIN_PASSWORD: `${EXCHANGE_URL}/admin/changePassword`,
+
+            
 
 
 

@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import {AiOutlineCloseCircle} from 'react-icons/ai'
 import cogoToast from 'cogo-toast';
+import moment from 'moment/moment';
 
 export default function KycOption() {
 
@@ -73,6 +74,7 @@ const emptyFunction = ()=>{
 }
 
 const handleCheckSelect = (e)=>{
+  console.log("initial value",e.target.value)
   if(e.target.value =="AA"){
     setAddress(true);
     setIdentity(false)
@@ -82,6 +84,9 @@ const handleCheckSelect = (e)=>{
   }if(e.target.value =="CC"){
     setAddress(true)
     setIdentity(true)
+  }if(e.target.value =="OO"){
+    setAddress(false)
+    setIdentity(false)
   }
 }
 
@@ -103,8 +108,14 @@ console.log("AAaaaa----",changeStatus,docId)
                 <div><h5>Document Name</h5><p>{i?.name}</p></div>
                 <div><h5>Document Status</h5><p>{i?.enabled?"Enabled":"Disabled"}</p></div>
                 <div><h5>Id Proof</h5><p>{i?.identitiyProof?"True":"False"}</p></div>
-                <div><h5>Created On</h5><p>{i?.createdAt}</p></div>
-                <div><h5>Updated on</h5><p>{i?.updatedAt}</p></div>
+                <div><h5>Address Proof</h5><p>{i?.addressProof?"True":"False"}</p></div>
+                <div><h5>Created On</h5><p> {`${moment(i?.createdAt).format(
+                                'DD-MMM-YY',
+                              )}`}</p></div>
+                <div><h5>Updated on</h5><p>{`${moment(i?.updatedAt).format(
+                                'DD-MMM-YY',
+                              )}`}</p></div>
+                
               </div>
             )
           })}
@@ -123,12 +134,13 @@ console.log("AAaaaa----",changeStatus,docId)
               </select>
             <h3>Document KYC Type</h3>
               <select onClick={(e)=>{handleCheckSelect(e)}}>
+                <option value={"OO"}>Select Type</option>
                 <option value={"AA"}>Address Proof</option>
                 <option value={"BB"}>Id Proof</option>
                 <option value={"CC"}>Both</option>
               </select>
             <div>
-              <button onClick={()=>{saveNewDocType()}}>Save</button>
+              <button className={!identity && !address?"btn_hide":" "} onClick={()=>{saveNewDocType()}}>Save</button>
             </div>
           </div>
       </div>
@@ -209,6 +221,9 @@ h3{
     border: 1px solid;
     gap: 10px;
     position: relative;
+    .btn_hide{
+      display: none;
+    }
 
     .cls{
       background-color: #070c27;

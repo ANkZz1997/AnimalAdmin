@@ -27,7 +27,7 @@ function* loginUser({ data, callback }) {
             // yield call(forwardTo, '/dashboard');
             localStorage.setItem('token', response?.data?.data?.token);
             callback(response?.data);
-            yield put(adminUserNameAction(response?.data?.data?.username));
+            yield put(adminUserNameAction(response?.data?.data));
             // yield put(adminAction(response));
             cogoToast.success('Login Successfull');
             // window.location.replace("/dashboard")
@@ -96,7 +96,6 @@ function* getChainsList({callback}){
         // cogoToast.error(error?.response?.statusText);
     }
 }
-
 
 function* getDashboardData({ callBack }) {
     try {

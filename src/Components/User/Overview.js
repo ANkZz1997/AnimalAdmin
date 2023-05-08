@@ -26,7 +26,7 @@ function Overview(data) {
                   <h4 className='h4_fullname'>{`${
                     userDetails?.firstName ? userDetails.firstName : 'N/A'
                   } ${
-                    userDetails?.lastName ? userDetails.lastName : 'N/A'
+                    userDetails?.lastName ? userDetails.lastName : ''
                   }`}</h4>
                 </td>
               </tr>

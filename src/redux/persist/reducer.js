@@ -2,7 +2,7 @@ import { userLogin } from "../admin/types";
 
 const initialState = {
     isUser: false,
-    username: "",
+    adminDetails:{},
     preLogData:{},
     platformChains:[],
 }
@@ -12,7 +12,7 @@ const persistReducer = (state = initialState, action)=>{
         case userLogin.CHECK_USER:
             return {...state,isUser: action.data};
         case userLogin.USER_NAME:
-            return {...state, username: action.data};
+            return {...state, adminDetails: action.data};
         case userLogin.PRE_LOG_SETTING_LIST:
             return {...state,preLogData: action.data}
         case userLogin.GET_CHAINS_DETAILS:
