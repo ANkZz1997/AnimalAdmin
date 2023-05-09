@@ -53,6 +53,15 @@ function Overview(data) {
               </tr>
               <tr>
                 <td>
+                  <p>Last Login IP</p>
+                </td>
+                <td>
+                  <h4>{
+                    userDetails?.lastLoginIP}</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
                   <p>Email</p>
                 </td>
                 <td>
