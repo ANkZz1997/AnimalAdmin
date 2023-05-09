@@ -52,11 +52,12 @@ export default function AdminProfile() {
       localStorage.setItem("token","")
 
     }catch(err){
-      console.log(err)
+      console.log("errerrerr",err.response)
+      cogoToast.error(err.response?.data?.message? err.response?.data?.message: "Something went wrong" )
     }
   }
 
-  console.log("inputFile", userCheck)
+  // console.log("inputFile", userCheck)
 
   return (
     <Root>
@@ -76,11 +77,12 @@ export default function AdminProfile() {
 
       <div className='child_1'>
         <div className='child_1_title'>
-          <h4>Click To Change Password</h4>
-          <button onClick={() => { setChangePassPop(!changePassPop) }}>Change Password</button>
+          <h4>You Can Also Change Your Password...</h4>
+          {/* <button onClick={() => { setChangePassPop(!changePassPop) }}>Change Password</button> */}
         </div>
 
-        <div className={changePassPop ? "edit_pass" : "edit_pass no"}>
+        {/* <div className={changePassPop ? "edit_pass" : "edit_pass no"}> */}
+        <div className= "edit_pass">
           <div className='edit_div'>
             <h4>Current Password:
             </h4><input type={!eyeOn ? "text" : "password"} onChange={(e) => { setCurrentPass(e.target.value) }}></input>
@@ -95,9 +97,9 @@ export default function AdminProfile() {
             <h4>Confirm Password :
             </h4><input value={passCheck2} type="password" onChange={(e) => { setPassCheck2(e.target.value) }}></input>
           </div>
-          <p>Password Length should be greater than 8</p>
+          <p>Password Length must be greater than 8, else it will not show the save button.</p>
           <button className={currentPass && passCheck1.length>8 && passCheck1 === passCheck2 ?
-            "" : "btn_hide"} onClick={() => { handlePass() }}>Save Password</button>
+            "" : "btn_hide"} onClick={() => { handlePass() }}>Change Password</button>
         </div>
       </div>
 
@@ -115,8 +117,9 @@ display: flex;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  flex-wrap: wrap;
 
   .child_1_title{
     display: flex;
@@ -131,6 +134,7 @@ display: flex;
   .edit_div{
     display: flex;
     /* gap: 10px; */
+    flex-wrap: wrap;
     align-items: center;
     .btn_eye{
       background-color: transparent;
@@ -171,6 +175,7 @@ display: flex;
     display: flex;
     gap: 10px;
     align-items: center;
+    flex-wrap: wrap;
     h4{
       margin: 0;
     }
@@ -209,6 +214,12 @@ display: flex;
       }
     }
   }
+}
+
+@media(max-width: 770px){
+  flex-direction: column;
+  gap: 20px;
+  text-align: left;
 }
 
 `

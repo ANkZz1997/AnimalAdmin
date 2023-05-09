@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 export default function UserListCard({ data }) {
   const ImgEndPoint = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
-  console.log("Imageendpint",ImgEndPoint)
+  // console.log("Imageendpint",ImgEndPoint)
 
   return (
     <Root>

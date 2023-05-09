@@ -61,7 +61,7 @@ export default function Layout({ children }) {
         }
     }, [userCheck])
 
-    console.log('checkErr')
+    console.log('checkErr',userCheck)
 
     return (
         <Root>

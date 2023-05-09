@@ -13,7 +13,6 @@ export default function NftCard(data) {
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
   useEffect(() => {
-    console.log("ITem",data.data, data.logo)
     setGetLogo(data?.logo)
     if (data.data) {
       setItems(data.data);
@@ -21,7 +20,6 @@ export default function NftCard(data) {
     };
   }, [data]);
 
-  console.log("aaaaaaa",getLogo)
 
   return (
     <Root>
@@ -33,9 +31,9 @@ export default function NftCard(data) {
 
        <div className='top_bar'>
 
-            {getLogo && getLogo?.map((i)=>{
+            {getLogo && getLogo?.map((i,ix)=>{
             if(i?.chainId==items.chainId){
-                return <img src={`${IMAGE_END_POINT}${i?.logo}`}/>
+                return <img key={ix} src={`${IMAGE_END_POINT}${i?.logo}`}/>
             }
             })}
           {/* </span> */}

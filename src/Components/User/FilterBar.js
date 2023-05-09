@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
-export default function FilterBar({ sort, order, searchText, view, setView }) {
+export default function FilterBar({ sort, order, searchText }) {
 
   const nevigate = useNavigate()
   const urlParams = new URLSearchParams(window.location.search);
@@ -35,7 +35,7 @@ export default function FilterBar({ sort, order, searchText, view, setView }) {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const redirect = urlParams.get("search");
-    console.log("redirect",redirect,search)
+    // console.log("redirect",redirect,search)
        
     if (redirect) {
       searchText(redirect);
@@ -43,7 +43,7 @@ export default function FilterBar({ sort, order, searchText, view, setView }) {
   }, [window.location.search]);
 
 
-  console.log("search",search)
+  // console.log("search",search)
 
   return (
     <Root>

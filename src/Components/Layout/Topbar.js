@@ -17,7 +17,6 @@ export default function Topbar() {
   return (
     <Root>
       <div className="admin_profile">
-      <div className='update_admin'>Update User Profile</div>
       <div className='click_menu' onClick={()=>setToggle(!toggle)}><BiMenu/></div>
       <div className="admin_details" onClick={()=>{nevigate("platformsettings?basicSetting=adminProfile")}}>
         <img
@@ -29,8 +28,8 @@ export default function Topbar() {
         />
         &#160;&#160;
         <div className="notify_parent" >
-          Welcome Back {userCheck?.name}
-          <p>@Admin121</p>
+          Welcome {userCheck?.name}
+          <p>@{userCheck?.username}</p>
           <div className="notify_child"> 21</div>
         </div>
       </div>

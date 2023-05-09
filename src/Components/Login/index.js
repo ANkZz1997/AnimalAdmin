@@ -56,7 +56,7 @@ export default function Login() {
             
             <br/>
             <button onClick={()=>{handelLogin()}} className="login_btn"  >{loading ? (
-                <Loader size="small" active inline="loading" />
+                <Loader size="small" active inline="true" />
               ) : (
                 'Login'
               )}</button>

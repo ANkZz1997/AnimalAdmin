@@ -146,8 +146,6 @@ const lazyMint = async(lazy)=>{
           <button onClick={() => { setActiveSetting("setting6") }} className={activeSetting=="setting6"?"btnbtn4 active":"btnbtn4"}>
             Lazy Minting</button>
             
-          
-
         </div>
         <div className='body_child1'>
           {activeSetting == "setting2" ?
@@ -267,7 +265,7 @@ align-items: end;
   padding: 10px;
   justify-content: space-between;
   @media(max-width:600px){
-    flex-direction: column-reverse;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
@@ -338,6 +336,12 @@ align-items: end;
     flex-direction: column;
     gap: 5px;
     justify-content: center;
+
+    @media(max-width:600px){
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
    
   }
 }

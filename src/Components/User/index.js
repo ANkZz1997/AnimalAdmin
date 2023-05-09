@@ -63,7 +63,7 @@ export default function Userlist() {
       }, [searchTextUser])
 
 
-  console.log("searchTextUser",searchTextUser)
+  // console.log("searchTextUser",searchTextUser)
   return (
     <Root>
           <h1> NFT Users </h1>

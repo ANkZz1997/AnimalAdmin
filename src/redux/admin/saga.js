@@ -31,8 +31,8 @@ function* loginUser({ data, callback }) {
             // yield put(adminAction(response));
             cogoToast.success('Login Successfull');
             // window.location.replace("/dashboard")
-            yield put(stopLoading());
             yield put(checkUserAction(true));
+            yield put(stopLoading());
         }
         else if (response?.data?.message == "Invalid Password") {
             yield put(stopLoading());
@@ -58,7 +58,7 @@ function* getPreLoginSettings({ params,callback}){
     try {
         const response = yield httpGet(URLS.EXCHANGE.ADMIN.GET_SETTING_LIST,params);
         if (response?.status === 200) {
-            console.log("saga---->",params, response)
+            // console.log("saga---->",params, response)
             yield put(preLoginAdminDataAction(response.data?.data));
             callback(response.data.data)
            
@@ -79,7 +79,7 @@ function* getChainsList({callback}){
     try {
         const response = yield httpGet(URLS.EXCHANGE.ADMIN.GET_NETWORKS);
         if (response?.status === 200) {
-            console.log("saga---->",response)
+            // console.log("saga---->",response)
             yield put(getChainsListAdminAction(response.data?.data))
             callback(response.data.data)
            
@@ -116,7 +116,7 @@ function* getDashboardData({ callBack }) {
 }
 
 function* getUserData({ params, obj, callback }) {
-    console.log("objobj",obj)
+    // console.log("objobj",obj)
     try {
         const response = yield httpPost(
             `${URLS.EXCHANGE.ADMIN.GET_USER_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,
@@ -155,7 +155,7 @@ function* usersDataParams({ params, obj, callback }) {
 }
 
 function* userActivities({ params, callback, obj }) {
-    console.log('params', params);
+    // console.log('params', params);
     yield put(startLoading());
 
     try {
@@ -163,7 +163,7 @@ function* userActivities({ params, callback, obj }) {
             `${URLS.EXCHANGE.ADMIN.GET_USER_ACTIVITIES}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,
             obj,
         );
-        console.log('activities Saga Data', response.data.data);
+        // console.log('activities Saga Data', response.data.data);
         if (response) {
             callback(response.data.data);
         }

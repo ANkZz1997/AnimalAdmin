@@ -172,7 +172,7 @@ h3{
   
       .doc_body{
         border: 1px solid;
-        padding: 15px;
+        padding: 30px 15px 15px 15px;
         width: 49%;
         background-color: #11183f;
         position: relative;
@@ -180,6 +180,7 @@ h3{
           position: absolute;
           right: 0;
           top:0;
+          padding: 6px;
           background-color:#070c27;
           :hover{
             background-color: grey;
@@ -194,6 +195,10 @@ h3{
             min-width: 120px;
           }
         }
+
+      @media(max-width: 750px){
+        width: 100%;
+      }
       }
       .doc_body.no{
         opacity: 0.5;

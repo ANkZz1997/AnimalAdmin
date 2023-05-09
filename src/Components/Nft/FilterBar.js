@@ -52,7 +52,6 @@ export default function FilterBar({ sort, order, searchText, chainNumber }) {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const redirect = urlParams.get("searchNft");
-    console.log("redirect",redirect,search)
     if (redirect) {
       searchText(redirect);
     }
@@ -113,10 +112,10 @@ export default function FilterBar({ sort, order, searchText, chainNumber }) {
 
           <select onChange={(e)=>{chainNumber(e.target.value)}}>
             <option value={""}>All Chains</option>
-            {netName?.map((i)=>{
+            {netName?.map((i,ix)=>{
               return(
                 <>
-                <option value={i.chainId}>{i?.name}</option>
+                <option key={ix} value={i.chainId}>{i?.name}</option>
                 </>
               )
             })}
