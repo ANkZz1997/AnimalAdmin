@@ -35,15 +35,15 @@ function NftSold({ data }) {
                         as={`/nftdetails/${i?.nft.id}`}
                       > */}
                         <td data-label="NFT Details" className="nft_cell">
-                      <Link to={`/nfts/nftdetails/${i?.nft.id}`}>
+                      <Link to={`/nfts/nftdetails/${i?.nft?.id}`}>
                           {/* <div> */}
                             {/* <img src={`${IMAGE_END_POINT}${i.nft.media}`} />{' '} */}
-                            <h4>{i.nft.name}</h4>
+                            <h4>{i.nft?.name}</h4>
                           {/* </div> */}
                       </Link>
                         </td>
                       <td data-label="Category" className="cate_cell">
-                        <h4>{i.nft.category}</h4>
+                        <h4>{i.nft?.category}</h4>
                       </td>
                       <td data-label="Date/Time">
                         <h4>{`${moment(i.createdAt).format(
@@ -51,7 +51,7 @@ function NftSold({ data }) {
                         )}`}</h4>
                       </td>
                       <td data-label="Price">
-                        <h4>{i.marketplace.price}Eth</h4>
+                        <h4>{i.marketplace?.price}Eth</h4>
                       </td>
                     </tr>
                   );

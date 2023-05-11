@@ -5,20 +5,24 @@ import { TbUserOff } from 'react-icons/tb';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
-import { dashboardAction } from '../../redux/admin/action';
+import { checkUserAction, dashboardAction } from '../../redux/admin/action';
 import LoaderCSS from '../Loader';
 import DateRange from './DateRange';
 import NftTransactionChart from './NftTransactionChart';
 import TopBuyer from './TopBuyer';
 import TopSeller from './TopSeller';
+import cogoToast from 'cogo-toast';
+import axios from 'axios';
+import URLS from '../../utils/urls';
 
 export default function DashboardData() {
     const [dashboardData,setDashboardData] = useState('')
     const [loader, setLoader] = useState(true);
-
     const [datePopup, setDatePopup] = useState(false);
     const [startDate, setStartDate] = useState('Start Date');
     const [endDate, setEndDate] = useState(' End Date');
+    const dispatch = useDispatch();
+
 
     const onChange = (ranges) => {
         const newDateStart = String(ranges.startDate).split(' ');
@@ -29,18 +33,33 @@ export default function DashboardData() {
         setEndDate(formateDateEnd);
       };
 
-    const dispatch = useDispatch();
-    const callBack = (data) => {
-        setDashboardData(data);
-        setLoader(false);
-      };
+    const getDashboardDetails = async()=>{
+      try{
+        const res = await axios.post(`${URLS.EXCHANGE.ADMIN.GET_DASHBOARD}`,{})
+        if(res.status === 200){
+          setDashboardData(res.data?.data)
+          setLoader(false);
+        }else if(res.status === 500){
+          dispatch(checkUserAction(false));
+          localStorage.setItem('token', "");
+          cogoToast.warn('Session Expired');
+        }
+      }catch(err){
+          cogoToast.error("Something Went Wrong",err.message)
+      }
+    }
+
+    // const callBack = (data) => {
+    //     setDashboardData(data);
+    //     setLoader(false);
+    //   };
 
     useEffect(() => {
         setLoader(true);
-        dispatch(dashboardAction(callBack));
+        getDashboardDetails()
     }, []);
     
-    console.log("dashboardData",dashboardData)
+    // console.log("dashboardData",dashboardData)
 
   return (
     <Root>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import URLS from '../../utils/urls';
 import BackButton from '../Model/BackButton';
@@ -47,14 +46,13 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
     }
   }
 
-
   console.log('userStatus', detailsUser.wishlist);
 
   return (
     <Root>
       <ConfirmDialogue show={confirmPopup} handleClick={(e)=>{setConfirmPopup(e)}} setDefault={()=>{("")}}>
         <h3 className='popup_title'>Are You Sure You Want {detailsUser?.status == "BLOCKED"?"Unblock":"Block"} This User ?</h3>
-        
+
         <button className='confirm_btn' onClick={()=>{handleBlock()}}>Yes</button> 
         
         <button className='confirm_btn' onClick={()=>{ setConfirmPopup(false)}}>No</button>

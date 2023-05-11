@@ -22,19 +22,7 @@ export default function NftsData() {
   // const [netLogo,setNetLogo] = useState('')
 
   const dataLimit = 20;
-
   const netLogo = useSelector((state)=>state?.persistReducer?.platformChains)
-
-//   const GetNetworks = async()=>{
-//     try{
-//         const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_NETWORKS}`)
-//         console.log("res---",res.data.data)
-//         setNetLogo(res.data?.data)
-
-//     }catch(err){
-//         console.log(err)
-//     }
-// }
 
   const dispatch = useDispatch();
 
@@ -71,13 +59,13 @@ export default function NftsData() {
   useEffect(() => {
      setLoader(true);
      searchSorftNftFunction(activePage);
-  }, [activePage, sort, order,chainNumber]);
+  }, [activePage, sort, order,chainNumber,searchText]);
 
-   useEffect(() => {
-    setLoader(true);
-    setActivePage(1)
-    searchSorftNftFunction(activePage);
-  }, [searchText]);
+  //  useEffect(() => {
+  //   setLoader(true);
+  //   setActivePage(1)
+  //   searchSorftNftFunction(activePage);
+  // }, [searchText]);
 
   
 
@@ -93,6 +81,7 @@ export default function NftsData() {
             }}
             searchText={(e) => {
               setSearchText(e.trim());
+              setActivePage(1)
             }}
             chainNumber = {(e)=>{
               setChainNumber(e);

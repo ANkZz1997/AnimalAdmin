@@ -46,7 +46,7 @@ function AuctionsData() {
     setLoader(false);
   };
 
-  const searchSortAuctionData = (activePage) =>{
+  const searchSortAuctionData = () =>{
 
     let data =  { }
     if(chainNumber){
@@ -75,14 +75,14 @@ function AuctionsData() {
 
   useEffect(() => {
     setLoader(true);
-    searchSortAuctionData(activePage)
-  }, [activePage, sort, order, chainNumber,auctionStatus]);
+    searchSortAuctionData()
+  }, [activePage, sort, order, chainNumber,auctionStatus, searchText]);
 
-  useEffect(() => {
-    setLoader(true);
-    setActivePage(1)
-    searchSortAuctionData(activePage)
-  }, [searchText]);
+  // useEffect(() => {
+  //   setLoader(true);
+  //   setActivePage(1)
+  //   searchSortAuctionData(activePage)
+  // }, [searchText]);
 
   console.log("auctionStatus",auctionStatus)
 
@@ -101,6 +101,7 @@ function AuctionsData() {
             }}
             searchText={(e) => {
               setSearchText(e.trim());
+              setActivePage(1)
             }}
             chainNumber = {(e)=>{
               setChainNumber(e);

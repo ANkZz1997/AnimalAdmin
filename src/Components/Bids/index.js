@@ -29,7 +29,7 @@ export default function BidsData() {
     setLoader(false);
   };
 
-  const searchSortBidsData = (activePage) =>{
+  const searchSortBidsData = () =>{
     // const nftObj = [
     //   { auction: { contains: searchText } },
     //   // { name: { contains: searchText } },
@@ -54,13 +54,13 @@ export default function BidsData() {
 
   useEffect(() => {
     setLoader(true);
-    searchSortBidsData(activePage)
-  }, [activePage, sort, order]);
+    searchSortBidsData()
+  }, [activePage, sort, order, searchText]);
 
-  useEffect(() => {
-    setLoader(true);
-    searchSortBidsData(1)
-  }, [searchText]);
+  // useEffect(() => {
+  //   setLoader(true);
+  //   searchSortBidsData(1)
+  // }, [searchText]);
 
   return (
     <Root>
@@ -74,6 +74,7 @@ export default function BidsData() {
             }}
             searchText={(e) => {
               setSearchText(e.trim());
+              setActivePage(1)
             }}
           />
 

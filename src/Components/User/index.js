@@ -29,7 +29,7 @@ export default function Userlist() {
       setLoader(false);
     };
 
-    const searchSortUserFunction = (activePage)=>{
+    const searchSortUserFunction = ()=>{
      
       setuserData('');
       const objData = [
@@ -54,13 +54,13 @@ export default function Userlist() {
 
     useEffect(() => {
       setLoader(true);
-      searchSortUserFunction(activePage)
-      }, [activePage, sort, order]);
+      searchSortUserFunction()
+      }, [activePage, sort, order,searchTextUser]);
 
-      useEffect(()=>{
-        setLoader(true);
-        searchSortUserFunction(1)
-      }, [searchTextUser])
+      // useEffect(()=>{
+      //   setLoader(true);
+      //   searchSortUserFunction(1)
+      // }, [searchTextUser])
 
 
   // console.log("searchTextUser",searchTextUser)
@@ -76,6 +76,7 @@ export default function Userlist() {
             }}
             searchText={(e) => {
               setSearchText(e.trim());
+              setActivePage(1)
             }}
             view={view}
             setView={(e) => {

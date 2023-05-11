@@ -113,7 +113,7 @@ function KycDetails() {
     }
   };
 
-  const callData = (activePage) => {
+  const callData = () => {
     var userData = {
       "populate": ["user"],
     }
@@ -137,13 +137,13 @@ function KycDetails() {
  
   useEffect(() => {
     setLoader(true);
-    callData(activePage);
-  }, [activePage,searchTextUser, sort, order]);
+    callData();
+  }, [activePage,searchTextUser, sort, order, checkStatus]);
 
-  useEffect(() => {
-    setLoader(true);
-    callData(1);
-  }, [searchTextUser,checkStatus]);
+  // useEffect(() => {
+  //   setLoader(true);
+  //   callData(1);
+  // }, [searchTextUser,checkStatus]);
 
   console.log("kycData", kycData)
 
@@ -169,6 +169,7 @@ function KycDetails() {
             }}
             searchText={(e) => {
               setSearchText(e.trim());
+              setActivePage(1);
             }}
             view={view}
             setView={(e) => {

@@ -56,7 +56,7 @@ function UserActivities({ ids }) {
     setRawEnd();
   }
 
-  const userActivities = (activePage) => {
+  const userActivities = () => {
     const obj = { user: ids,
     };
     if(selected){
@@ -82,12 +82,13 @@ function UserActivities({ ids }) {
 
   useEffect(() => {
     setLoader(false);
-    userActivities(activePage);
-  }, [activePage,rawStart, rawEnd]);
-  useEffect(() => {
-    setLoader(false);
-    userActivities(1);
-  }, [selected]);
+    userActivities();
+  }, [activePage,rawStart, rawEnd, selected]);
+
+  // useEffect(() => {
+  //   setLoader(false);
+  //   userActivities(1);
+  // }, [selected]);
 
   console.log("Dataaaaaaaa",startDate, endDate, selected)
 
@@ -96,7 +97,7 @@ function UserActivities({ ids }) {
       <div className="overview">
         <div className="table_title">Activities {startDate?<h3>{`${startDate} To ${endDate}`}<button onClick={()=>{clearFunction()}}>Clear</button></h3>:""}</div>
         <div className='activity_filter'>
-          <select className='select_type' onChange={(e)=>{setSelected(e.target.value)}}>
+          <select className='select_type' onChange={(e)=>{setSelected(e.target.value);setActivePage(1)}}>
             <option value="">All Type</option>
             <option value="ADDTOMARKET">Added To MarketPlace</option>
             <option value="CREATE">NFT Created</option>
