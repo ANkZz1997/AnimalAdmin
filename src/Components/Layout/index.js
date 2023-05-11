@@ -16,6 +16,7 @@ import { getChainsListAction, preLoginAction } from '../../redux/admin/action'
 import LoaderCSS from '../Loader'
 import StripeCallback from '../PreLoginSettings/StripeCallback'
 import CompanyLogo from '../PreLoginSettings/CompanyLogo'
+import { stopLoading } from '../../redux/common/action'
 
 
 export default function Layout({ children }) {
@@ -58,6 +59,8 @@ export default function Layout({ children }) {
         if(userCheck){
             dispatch(preLoginAction({},userCallback));
             dispatch(getChainsListAction());
+        }else{
+            dispatch(stopLoading());
         }
     }, [userCheck])
 
