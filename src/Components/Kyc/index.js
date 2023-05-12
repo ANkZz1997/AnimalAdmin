@@ -12,6 +12,7 @@ import FilterBarKYC from './FilterBarKYC';
 import PaginationCode from '../Pagination';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDialogue from '../Model/ConfirmDialogue';
+import cogoToast from 'cogo-toast';
 
 function KycDetails() {
   const [kycData, setKycData] = useState([]);
@@ -65,6 +66,8 @@ function KycDetails() {
           })
           setKycData(newData)
           setAction("")
+          cogoToast.success("KYC Approved")
+
         });
     } catch (err) {
       console.log(err);
@@ -91,6 +94,7 @@ function KycDetails() {
             }
           })
           setKycData(newData)
+          cogoToast.success("KYC Rejected")
         });
     } catch (err) {
       console.log(err);

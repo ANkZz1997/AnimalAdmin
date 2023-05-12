@@ -60,7 +60,11 @@ export default function MarketplaceCard(data) {
               ></img>
             </Link>
 
-            <h5> {user?.firstName ? `${user.firstName} ${user.lastName}` : 'Unnamed User'}</h5>
+            <h5> 
+              <Link to={`/user/userdetails/${user?.id}`}>
+                {user?.firstName ? `${user.firstName} ${user.lastName}` : 'Unnamed User'}
+              </Link>
+            </h5>
           </div>
           <div>
             <h3 className="nft_name">{items?.nft?.name}</h3>

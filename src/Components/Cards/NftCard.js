@@ -60,7 +60,9 @@ export default function NftCard(data) {
               ></img>
             </Link>
             <h5 className="user_name">
+            <Link to={`/user/userdetails/${items?.user?.id}`}>
               {user?.firstName ? `${user.firstName} ${user.lastName}` : 'Unnamed User'}
+            </Link>
             </h5>
           </div>
           <div>

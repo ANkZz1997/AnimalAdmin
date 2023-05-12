@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import * as Yup from 'yup';
 import URLS from '../../utils/urls';
+import LoaderCSS from '../Loader';
 
 
 export default function AddBanner({handleClick}) {
@@ -15,6 +16,7 @@ export default function AddBanner({handleClick}) {
     const [saveBanner, setSaveBanner] = useState(false);
     const [imgError, setImgError] = useState("")
     const [formData, setFormData] = useState()
+    const [loader, setLoader] = useState(false)
 
     const BannerSchema = Yup.object().shape({
         title: Yup.string()
@@ -29,6 +31,7 @@ export default function AddBanner({handleClick}) {
             'Enter correct url!')
     })
     const handleAddBanner = async (values, { resetForm }) => {
+        setLoader(true)
         const checkLink = (link)=>{
             let check = link.split('//')
             if(check[0] == 'https:'){
@@ -60,12 +63,17 @@ export default function AddBanner({handleClick}) {
                     handleClick(res.data)
                     resetForm();
                     setInputFile("")
+                    setLoader(false)
+
 
                 } catch (error) {
                     console.log(error)
+                    setLoader(false)
+
                 }
             } else {
-                setImgError('Please Select Image ')
+                setImgError('Please Select Image')
+
             }
         }
     }
@@ -80,63 +88,64 @@ export default function AddBanner({handleClick}) {
     return (
 
         <Root>
-            <div className='add_banner_section'>
-                <div className='fill_details'>
-                    <h3>Upload Banner *</h3>
-                    <div className='input_file_div'>
-                        <input className='input_file' type="file" onChange={(e) => { setInputFile(e.target.files) }} />
-                        <p>Click To Select Banner</p>
+            {loader? <LoaderCSS/>:
+                <div className='add_banner_section'>
+                    <div className='fill_details'>
+                        <h3>Upload Banner *</h3>
+                        <div className='input_file_div'>
+                            <input className='input_file' type="file" onChange={(e) => { setInputFile(e.target.files) }} />
+                            <p>Click To Select Banner</p>
+                        </div>
+
+                        <Formik
+                            initialValues={{
+                                title: "",
+                                description: "",
+                                link: "",
+                                order: "",
+                                image: "",
+                            }}
+                            validationSchema={BannerSchema}
+                            onSubmit={handleAddBanner}
+
+                        >
+                            {({ errors, touched }) => (
+                                <Form >
+                                    <h3>Add Title *</h3>
+                                    <Field name="title" className='input_title' type="text" />
+                                    {errors.title && touched.title ? (
+                                        <div className='error'>{errors.title}</div>
+                                    ) : null}
+                                    <h3>Add Link</h3>
+                                    <Field name="link" className='input_title' type="text" />
+                                    {errors.link && touched.link ? (
+                                        <div className='error'>{errors.link}</div>
+                                    ) : null}
+                                    <h3>Add Order</h3>
+                                    <Field name="order" className='input_title' type="text" />
+
+                                    <h3>Add Description *</h3>
+                                    <Field name="description" className='input_description' component="textarea" type="text" />
+                                    {errors.description && touched.description ? (
+                                        <div className='error'>{errors.description}</div>
+                                    ) : null}
+
+                                    <button type="submit">Confirm</button>
+
+                                </Form>
+                            )}
+
+                        </Formik>
                     </div>
-
-                    <Formik
-                        initialValues={{
-                            title: "",
-                            description: "",
-                            link: "",
-                            order: "",
-                            image: "",
-                        }}
-                        validationSchema={BannerSchema}
-                        onSubmit={handleAddBanner}
-
-                    >
-                        {({ errors, touched }) => (
-                            <Form >
-                                <h3>Add Title *</h3>
-                                <Field name="title" className='input_title' type="text" />
-                                {errors.title && touched.title ? (
-                                    <div className='error'>{errors.title}</div>
-                                ) : null}
-                                <h3>Add Link</h3>
-                                <Field name="link" className='input_title' type="text" />
-                                {errors.link && touched.link ? (
-                                    <div className='error'>{errors.link}</div>
-                                ) : null}
-                                <h3>Add Order</h3>
-                                <Field name="order" className='input_title' type="text" />
-
-                                <h3>Add Description *</h3>
-                                <Field name="description" className='input_description' component="textarea" type="text" />
-                                {errors.description && touched.description ? (
-                                    <div className='error'>{errors.description}</div>
-                                ) : null}
-
-                                <button type="submit">Confirm</button>
-
-                            </Form>
-                        )}
-
-                    </Formik>
-                </div>
-                <div className='img_preview'>
-                    <h5>Preview Image Here</h5>
-                    <div className='img_div'>
-                        {inputFile[0] ? <img className='img' src={URL.createObjectURL(inputFile[0])} /> : <h2 className='noimg'>No Image</h2>}
+                    <div className='img_preview'>
+                        <h5>Preview Image Here</h5>
+                        <div className='img_div'>
+                            {inputFile[0] ? <img className='img' src={URL.createObjectURL(inputFile[0])} /> : <h2 className='noimg'>No Image</h2>}
+                        </div>
+                        <div className='error'>{imgError}</div>
                     </div>
-                    <div className='error'>{imgError}</div>
                 </div>
-            </div>
-
+            }
         </Root>
     )
 }
