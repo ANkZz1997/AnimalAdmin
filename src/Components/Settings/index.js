@@ -5,6 +5,7 @@ import AccessCodes from '../AdminAccess'
 import Networks from '../Networks'
 import BasicSettings from '../BasicSettings'
 import { useNavigate } from 'react-router-dom'
+import BasicSettingAccess from '../BasicSettingsAccess'
 
 
 export default function Settings() {
@@ -27,19 +28,22 @@ export default function Settings() {
         <div className='settings_main'>
             <div className='btn_div'>
                 <button onClick={()=>{setActiveTab("basicSettings");nevigate('?basicSettings')}} className={activeTab=="basicSettings"?"btn on":"btn"}>Basic Settings</button>
-                <button onClick={()=>{setActiveTab("accesscodes");nevigate('?accessCodes')}} className={activeTab=="accesscodes"?"btn on":"btn"}>Access Codes</button>
-                <button onClick={()=>{setActiveTab("adminuser");nevigate('?adminRoles')}} className={activeTab=="adminuser"?"btn on":"btn"}>Admin Roles</button>
-                <button onClick={()=>{setActiveTab("setting5");nevigate('?manageAccess')}} className={activeTab=="setting5"?"btn on":"btn"}>Manage Access</button>
+                <button onClick={()=>{setActiveTab("accesscodes");nevigate('?accessCodeSettings')}} className={activeTab=="accesscodes"?"btn on":"btn"}>Access Codes</button>
+                {/* <button onClick={()=>{setActiveTab("adminuser");nevigate('?adminRoles')}} className={activeTab=="adminuser"?"btn on":"btn"}>Admin Roles</button> */}
+                {/* <button onClick={()=>{setActiveTab("setting5");nevigate('?manageAccess')}} className={activeTab=="setting5"?"btn on":"btn"}>Manage Access</button> */}
                 <button onClick={()=>{setActiveTab("setting6");nevigate('?networkSettings')}} className={activeTab=="setting6"?"btn on":"btn"}>Networks</button>
+                {/* <button onClick={()=>{setActiveTab("setting7");nevigate('?accessCodeSettings')}} className={activeTab=="setting6"?"btn on":"btn"}>Access Codes</button> */}
+
             </div>
             <hr/>
             <div className='content_div'>
                 {
                 activeTab=="basicSettings"?<BasicSettings/>:
-                activeTab =="accesscodes"?<AccessCodes/>:
-                activeTab =="adminuser"?<CreateRoles/>: 
-                activeTab =="setting5"?<h2 className='h2element'>Settings 5</h2>:
+                activeTab =="accesscodes"?<BasicSettingAccess/>:
+                // activeTab =="adminuser"?<CreateRoles/>: 
+                // activeTab =="setting5"?<h2 className='h2element'>Settings 5</h2>:
                 activeTab =="setting6"?<Networks/>:
+                // activeTab =="setting7"?<BasicSettingAccess/>:
                 " "
                 }
             </div>

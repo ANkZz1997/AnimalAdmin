@@ -82,14 +82,14 @@ console.log('roleId',roleId,roleName,dialogBox)
     <Root>
         <div className='create_role'>
 
-            <h1>Create a new role</h1>
+            <h3>Create a new role</h3>
             <div className='main_child'>
                 <div>
-                    <h3>Role Name</h3> 
+                    <h5>Role Name</h5> 
                     <input value={postRole.name} onChange={(e)=>{handleInput('name',e.target.value)}} onKeyPress={keyPressed}/>
                 </div>
                 <div>
-                    <h3>Role Code</h3>
+                    <h5>Role Code</h5>
                     <input value={postRole.code} onChange={(e)=>{handleInput('code',e.target.value)}} onKeyPress={keyPressed}/>
                 </div>
             </div>
@@ -152,7 +152,8 @@ const Root = styled.section`
   outline: none;
 }
 
-padding: 10px;
+padding: 20px;
+border: 1px solid;
 display: flex;
 flex-direction: column;
 gap: 20px;
@@ -233,6 +234,7 @@ gap: 20px;
     .btn_tbl{
         height: 100%;
         width: 100%;
+        text-align: center;
     }
 
 }
@@ -241,7 +243,8 @@ gap: 20px;
             padding: 5px;
             height: 30px;
             width: 50px;
-            margin-top: 10px
+            margin-top: 10px;
+            text-align: center;
         }
     .btn.no{
         display: none;

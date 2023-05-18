@@ -186,10 +186,10 @@ export default function AssignCodes({role, toClose}) {
                 {list.map((i,ix)=>{
                     return(
                     <tr key={ix}>
-                        <td>{ix+1}</td>
-                        <td>{i.code}</td>
-                        <td>{i.description}</td>
-                        <td className='btn_td'>
+                        <td data-label="S.No">{ix+1}</td>
+                        <td data-label="Access Code">{i.code}</td>
+                        <td data-label="Descrition">{i.description}</td>
+                        <td data-label="Select" className='btn_td'>
                             <button className={i.checked ? "add_btn":"rvm_btn"} onClick={()=>{handleAddRemove(!i.checked, i.id)}}>
                             </button>
                         </td>
@@ -222,6 +222,9 @@ const Root = styled.section`
 
 .main_child{
     padding: 20px;
+    h2{
+        text-align: left;
+    }
     h3{
         margin-top: 20px;
     }
@@ -274,6 +277,56 @@ const Root = styled.section`
 
     td,th{
         padding: 5px;
+        text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      table {
+        border: hidden;
+      }
+
+      td,
+      th {
+        border: 1px solid #ccc;
+        padding: 0.625em;
+        text-align: right;
+      }
+      thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+        text-align: right;
+      }
+
+      tr {
+        border-bottom: 2px solid #ddd;
+        display: block;
+        margin-bottom: 0.8em;
+      }
+      td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+      }
+
+      td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+      }
+      td:last-child {
+        border-bottom: 0;
+      }
+      .nft_div {
+        justify-content: space-between;
+      }
     }
 }
 
@@ -281,6 +334,7 @@ const Root = styled.section`
     button{
         width: 75px;
         padding: 2px;
+        text-align: center;
         /* background-color: red; */
     }
 }

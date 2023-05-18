@@ -14,9 +14,6 @@ export default function AccessCodes() {
   const [list,setList] = useState([])
   const [loader,setLoader] = useState(true)
 
-
-
-
   const postAccess = async()=>{
     const data = codeDes;
     try{
@@ -70,10 +67,9 @@ export default function AccessCodes() {
 
   return (
     <Root>
-        <h1>Add Access Codes</h1>
         <div className='create_codes'>
-
-            <h1>Create a new role</h1>
+          <h3>Add Access Codes</h3>
+            {/* <h3>Create a new role</h3> */}
             <div className='main_child'>
                 <div className='code_div'>
                     <h3>Access Code</h3> 
@@ -125,8 +121,13 @@ const Root = styled.section`
 *:focus{
   outline: none;
 }
+padding: 20px;
+border: 1px solid;
 
 .create_codes{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
     .main_child{
         display: flex;
         gap: 20px;
@@ -177,7 +178,8 @@ const Root = styled.section`
     padding: 5px;
     height: 30px;
     width: 50px;
-    margin-top: 10px
+    margin-top: 10px;
+    text-align: center;
     }
 .btn.no{
     display: none;
