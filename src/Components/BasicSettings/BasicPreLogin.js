@@ -65,6 +65,8 @@ border: 1px solid;
   button{
     padding:3px;
     font-size: 20px;
+    cursor: pointer;
+
   }
   margin-bottom: 10px;
 }

@@ -207,6 +207,8 @@ display: flex;
     button{
       margin: 5px;
       position: relative;
+      cursor: pointer;
+
       input{
         position: absolute;
         opacity: 0;

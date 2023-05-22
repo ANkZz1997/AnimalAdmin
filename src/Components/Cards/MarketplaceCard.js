@@ -31,9 +31,9 @@ export default function MarketplaceCard(data) {
         <Link to={`/marketplace/marketplacedetails/${items?.id}`}>
           <div className="image_style">
             <div className='top_bar'>
-              {getLogo && getLogo?.map((i)=>{
+              {getLogo && getLogo?.map((i,ix)=>{
             if(i.chainId==items.chainId){
-                return <img src={`${IMAGE_END_POINT}${i?.logo}`}/>
+                return <img key={ix} src={`${IMAGE_END_POINT}${i?.logo}`}/>
             }
             })}
 

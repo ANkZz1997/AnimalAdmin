@@ -166,6 +166,7 @@ const Root = styled.section`
             button{
                 padding: 5px;
                 border-radius: 5px;
+                cursor: pointer;
             }
 
             .input_file_div{

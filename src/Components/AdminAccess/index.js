@@ -180,6 +180,7 @@ border: 1px solid;
     width: 50px;
     margin-top: 10px;
     text-align: center;
+    cursor: pointer;
     }
 .btn.no{
     display: none;

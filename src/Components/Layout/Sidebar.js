@@ -145,6 +145,7 @@ height: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  cursor: pointer;
 
   .admin_profile2{
     display: flex;
@@ -170,6 +171,8 @@ height: 100%;
   button{
     background-color: transparent;
     border: none;
+    cursor: pointer;
+
   }
 }
 .link_2{

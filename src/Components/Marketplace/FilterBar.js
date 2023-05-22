@@ -112,11 +112,9 @@ export default function FilterBarM({ sort, order, searchText,chainNumber }) {
           </select>
           <select onChange={(e)=>{chainNumber(e.target.value)}}>
           <option value={""}>All Chains</option>
-            {netName?.map((i)=>{
+            {netName?.map((i,ix)=>{
               return(
-                <>
-                <option value={i.chainId}>{i?.name}</option>
-                </>
+                <option key={ix} value={i.chainId}>{i?.name}</option>
               )
             })}
           </select>

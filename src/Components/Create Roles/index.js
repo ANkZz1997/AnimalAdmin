@@ -235,6 +235,8 @@ gap: 20px;
         height: 100%;
         width: 100%;
         text-align: center;
+        cursor: pointer;
+
     }
 
 }
@@ -245,6 +247,8 @@ gap: 20px;
             width: 50px;
             margin-top: 10px;
             text-align: center;
+            cursor: pointer;
+
         }
     .btn.no{
         display: none;

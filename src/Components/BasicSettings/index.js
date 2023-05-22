@@ -53,6 +53,8 @@ button{
   text-align: left;
   padding: 10px;
   border: 0;
+  cursor: pointer;
+
   :hover{
     background-color: #40404d;
   }

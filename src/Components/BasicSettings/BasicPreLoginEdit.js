@@ -224,6 +224,8 @@ align-items: end;
     padding:3px;
     font-size: 14px;
     right:0;
+    cursor: pointer;
+
 }
 
 .btnbtn3{
@@ -233,6 +235,8 @@ align-items: end;
     margin: 10px;
     position: absolute;
     bottom: 0;
+    cursor: pointer;
+
 }
 
 .btnbtn4{
@@ -241,10 +245,14 @@ align-items: end;
     text-align: left;
     padding: 10px;
     border: 0;
+    cursor: pointer;
+
 }
 .btnbtn4.active{
     background-color: white;
     color: black;
+    cursor: pointer;
+
 }
 .btn_lazy{
   background-color: #11183f;
@@ -253,6 +261,8 @@ align-items: end;
   padding: 5px;
   border: 0;
   margin: 0px 5px;
+  cursor: pointer;
+
   :hover{
     background-color: grey;
   }

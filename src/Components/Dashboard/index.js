@@ -333,6 +333,8 @@ const Root = styled.section`
       padding: 5px;
       border-radius: 5px;
       background-color: whitesmoke;
+      cursor: pointer;
+
     }
     .date_popup_active {
       position: fixed;
@@ -359,6 +361,8 @@ const Root = styled.section`
           z-index: 9;
           border-radius: 50%;
           border: 1px solid grey;
+          cursor: pointer;
+
           i.icon {
             margin: 0px;
           }

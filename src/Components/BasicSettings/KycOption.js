@@ -158,6 +158,8 @@ h3{
     padding: 5px;
     font-size: 15px;
     margin: 0px 10px;
+    cursor: pointer;
+
   }
 }
 
@@ -261,6 +263,8 @@ h3{
         button{
           width: fit-content;
           padding: 5px;
+          cursor: pointer;
+
         }
       }
 

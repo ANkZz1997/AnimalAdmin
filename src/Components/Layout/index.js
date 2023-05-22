@@ -87,7 +87,7 @@ export default function Layout({ children }) {
                     :
                     <div className='layout_section'>
                         <div>
-                            <Topbar />
+                            <Topbar/>
                             <div className='sidebar'>
                                 <Sidebar />
                             </div>

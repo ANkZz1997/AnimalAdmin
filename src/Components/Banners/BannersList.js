@@ -191,6 +191,7 @@ const Root = styled.section`
                 height: 30px;
                 width: 50px;
                 border: none;
+                cursor: pointer;
                 :hover{
                     background-color: #ffff14;
                 }
@@ -208,6 +209,7 @@ const Root = styled.section`
                 border: none;
                 height: 30px;
                 width: 50px;
+                cursor: pointer;
                 :hover{
                     background-color: #ca0d0d;
                 }

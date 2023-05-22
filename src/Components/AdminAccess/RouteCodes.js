@@ -138,6 +138,7 @@ padding: 20px;
             padding: 5px;
             height: 30px;
             border-radius: 5px;
+            cursor: pointer;
         }
     }
 }
@@ -170,10 +171,13 @@ padding: 20px;
     width: 16px;
     background: white;
     border: none;
+    cursor: pointer;
  
 }
 .checkbox.on{
     background:green;
+    cursor: pointer;
+
 }
 
 `

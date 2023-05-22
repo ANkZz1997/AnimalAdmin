@@ -350,6 +350,8 @@ const Root = styled.section`
     margin: 10px;
     button{
       padding: 3px;
+      cursor: pointer;
+
     }
 }
   .main_div {
@@ -516,6 +518,8 @@ const Root = styled.section`
         button {
           border-radius: 50%;
           padding: 10px;
+          cursor: pointer;
+
           :hover {
             background-color: orange;
           }

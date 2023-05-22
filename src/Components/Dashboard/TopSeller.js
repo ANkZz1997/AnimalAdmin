@@ -158,6 +158,7 @@ const Root = styled.section`
           border: none;
           font-size: 25px;
           color: #000;
+          cursor: pointer;
 
           :hover {
             color: #070c27;

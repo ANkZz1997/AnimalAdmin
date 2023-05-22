@@ -252,6 +252,8 @@ const Root = styled.section`
     button{
         padding:8px 5px;
         border-radius: 5px;
+        cursor: pointer;
+
     }   
 }
 
@@ -335,6 +337,8 @@ const Root = styled.section`
         width: 75px;
         padding: 2px;
         text-align: center;
+        cursor: pointer;
+
         /* background-color: red; */
     }
 }
@@ -345,11 +349,15 @@ const Root = styled.section`
     .add_btn{
         height: 20px;
         width: 20px;
-        background: green
+        background: green;
+        cursor: pointer;
+
     }
     .rvm_btn{
         height: 20px;
-        width: 20px
+        width: 20px;
+        cursor: pointer;
+
     }
 
  

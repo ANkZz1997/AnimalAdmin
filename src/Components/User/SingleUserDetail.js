@@ -202,6 +202,7 @@ color: whitesmoke;
 
   .main_title {
     padding: 10px;
+    display: flex;
   }
 
   .image_section {

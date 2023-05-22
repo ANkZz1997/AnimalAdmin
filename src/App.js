@@ -21,6 +21,7 @@ import UserChatDetailsId from "./Pages/ChatDetails";
 import MarketplaceDetailsId from "./Pages/MarketplaceDetails";
 import PlatformSettings from "./Pages/PlatformSettings";
 import MobileSettings from "./Pages/MobileSettings";
+import NotificationPage from "./Pages/NotificationPage";
 // import PreSettings from "./Pages/PreSettings";
 
 function App() {
@@ -45,6 +46,8 @@ function App() {
             <Route path="/help" element={ <Protected > <Help /> </Protected> } />
             <Route path="/platformsettings" element={ <Protected > <PlatformSettings/> </Protected> } />
             <Route path="/mobilesettings" element={ <Protected > <MobileSettings/> </Protected> } />
+            <Route path="/notification" element={ <Protected > <NotificationPage/> </Protected> } />
+
 
             {/* <Route path="/platformsettings/platformcharge" element={ <Protected > <PlatformFees/> </Protected> } /> */}
 
