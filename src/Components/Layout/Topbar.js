@@ -21,8 +21,8 @@ export default function Topbar() {
     <Root>
       <div className="admin_profile">
       <div className='click_menu' onClick={()=>setToggle(!toggle)}><BiMenu/></div>
-      <div className='admin_details_notification' onClick={()=>{nevigate("/notification")}}>
-        <div className='notification_point'>
+      <div className='admin_details_notification' >
+        <div className='notification_point' onClick={()=>{nevigate("/notification")}}>
           <IoIosNotifications/>
           <div className={notifyToggle?"notify": "notify off"}>
             <NotificationBar/>
