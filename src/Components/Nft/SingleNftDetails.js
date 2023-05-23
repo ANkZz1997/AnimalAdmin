@@ -264,7 +264,7 @@ console.log('nftdata cc' ,netData  )
                           as={`/userdetails/${i.user?.id}`}
                         > */}
                           <td className="user_cell" onClick={()=>{nevigate(`/user/userdetails/${i.user?.id}`)}}>
-                            {i.user.username}
+                            {i?.user?.firstName}
                           </td>
                       </tr>
                     );
