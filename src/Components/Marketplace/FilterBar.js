@@ -6,7 +6,7 @@ import URLS from '../../utils/urls';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-export default function FilterBarM({ sort, order, searchText,chainNumber }) {
+export default function FilterBarM({ sort, order, searchText,chainNumber,mintedNft }) {
   // const [netName, setNetName] = useState();
   const nevigate = useNavigate()
   const urlParams = new URLSearchParams(window.location.search);
@@ -109,6 +109,13 @@ export default function FilterBarM({ sort, order, searchText,chainNumber }) {
           >
             <option value="DESC">Decending</option>
             <option value="ASC">Ascending</option>
+          </select>
+          <select onChange={(e)=>{
+            mintedNft(e.target.value)
+          }}>
+            <option value="">All NFTs</option>
+            <option value='true'>Minted</option>
+            <option value='false'>Not Minted</option>
           </select>
           <select onChange={(e)=>{chainNumber(e.target.value)}}>
           <option value={""}>All Chains</option>

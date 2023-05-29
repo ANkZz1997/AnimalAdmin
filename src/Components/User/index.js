@@ -18,6 +18,7 @@ export default function Userlist() {
     const [totalPage, setTotalPage] = useState(1);
     const [searchTextUser, setSearchText] = useState('');
     const [view, setView] = useState('list');
+    const [verifiedUser, setVerifieduser] = useState("")
 
     const dataLimit = 16;
 
@@ -32,6 +33,11 @@ export default function Userlist() {
     const searchSortUserFunction = ()=>{
      
       setuserData('');
+      if(verifiedUser){
+        var verifyUserObj = {
+          "kycVerified": verifiedUser
+        };
+      }
       const objData = [
         { firstName: { contains: searchTextUser} },
         { lastName: { contains: searchTextUser } },
@@ -46,7 +52,8 @@ export default function Userlist() {
             sorting: sort,
             order: order,
           },
-          objData,
+          {or : objData},
+          verifyUserObj,
           callBack,
         ),
       );
@@ -55,7 +62,7 @@ export default function Userlist() {
     useEffect(() => {
       setLoader(true);
       searchSortUserFunction()
-      }, [activePage, sort, order,searchTextUser]);
+      }, [activePage, sort, order,searchTextUser,verifiedUser]);
 
       // useEffect(()=>{
       //   setLoader(true);
@@ -63,7 +70,7 @@ export default function Userlist() {
       // }, [searchTextUser])
 
 
-  // console.log("searchTextUser",searchTextUser)
+  console.log("verifiedUser",verifiedUser)
   return (
     <Root>
           <h1> NFT Users </h1>
@@ -81,6 +88,9 @@ export default function Userlist() {
             view={view}
             setView={(e) => {
               setView(e);
+            }}
+            verifiedUser = {(e)=>{
+              setVerifieduser(e)
             }}
           />
           {loader? <LoaderCSS/>:

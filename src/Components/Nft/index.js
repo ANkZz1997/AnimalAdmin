@@ -19,6 +19,7 @@ export default function NftsData() {
   const [order, setOrder] = useState('DESC');
   const [searchText, setSearchText] = useState('');
   const [chainNumber,setChainNumber] = useState("");
+  const [mintedNft,setMintedNft] = useState()
   // const [netLogo,setNetLogo] = useState('')
 
   const dataLimit = 20;
@@ -33,11 +34,18 @@ export default function NftsData() {
   };
 
   const searchSorftNftFunction = (activePage)=>{
+    let userData = {}
     if(chainNumber){
-      var userData =  {
+      userData =  {
         "chainId": chainNumber
       }
      }
+     if(mintedNft){
+      userData["minted"] = mintedNft == 'true' ? true :false
+   }else{
+    userData["minted"] = ''
+   }
+    
     const obj = {search: searchText}
     
     setNfts('');
@@ -59,7 +67,7 @@ export default function NftsData() {
   useEffect(() => {
      setLoader(true);
      searchSorftNftFunction(activePage);
-  }, [activePage, sort, order,chainNumber,searchText]);
+  }, [activePage, sort, order,chainNumber,searchText, mintedNft]);
 
   //  useEffect(() => {
   //   setLoader(true);
@@ -68,6 +76,7 @@ export default function NftsData() {
   // }, [searchText]);
 
   
+  console.log("mintedNft",mintedNft)
 
   return (
         <Root>
@@ -85,6 +94,9 @@ export default function NftsData() {
             }}
             chainNumber = {(e)=>{
               setChainNumber(e);
+            }}
+            mintedNft = {(e)=>{
+              setMintedNft(e);
             }}
           />
 

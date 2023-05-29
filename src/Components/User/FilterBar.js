@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
-export default function FilterBar({ sort, order, searchText }) {
+export default function FilterBar({ sort, order, searchText, verifiedUser }) {
 
   const nevigate = useNavigate()
   const urlParams = new URLSearchParams(window.location.search);
@@ -86,6 +86,15 @@ export default function FilterBar({ sort, order, searchText }) {
               setView('grid');
             }}
           /> */}
+          <select onChange={(e)=>{
+            verifiedUser(e.target.value)
+          }}>
+            <option value="">All Users</option>
+            <option value="true">Only Verified</option>
+            <option value="false">Not Verified</option>
+            {/* <option value="ACTIVE">Active Users</option>
+            <option value="NEW">New Users</option> */}
+          </select>
           <select
             name="Sort"
             onChange={(e) => {

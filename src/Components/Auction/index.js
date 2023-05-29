@@ -21,6 +21,8 @@ function AuctionsData() {
   const [chainNumber,setChainNumber] = useState("");
   // const [netLogo,setNetLogo] = useState('')
   const [auctionStatus, setAuctionStatus] = useState();
+  const [mintedNft,setMintedNft] = useState()
+
 
 
   const dataLimit = 20;
@@ -52,6 +54,11 @@ function AuctionsData() {
     if(chainNumber){
         data["chainId"] = chainNumber
      }
+     if(mintedNft){
+      data["minted"] = mintedNft == 'true' ? true :false
+   }else{
+     data["minted"] = ''
+   }
     const obj = {search:searchText, status:auctionStatus};
     setAuctionData([]);
     dispatch(
@@ -76,7 +83,7 @@ function AuctionsData() {
   useEffect(() => {
     setLoader(true);
     searchSortAuctionData()
-  }, [activePage, sort, order, chainNumber,auctionStatus, searchText]);
+  }, [activePage, sort, order, chainNumber,auctionStatus, searchText,mintedNft ]);
 
   // useEffect(() => {
   //   setLoader(true);
@@ -108,6 +115,9 @@ function AuctionsData() {
             }}
             auctionStatus = {(e)=>{
               setAuctionStatus(e);
+            }}
+            mintedNft = {(e)=>{
+              setMintedNft(e);
             }}
           />
 

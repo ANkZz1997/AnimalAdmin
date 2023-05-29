@@ -5,7 +5,7 @@ import axios from 'axios';
 import URLS from '../../utils/urls';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-export default function FilterBarA({ sort, order, searchText, chainNumber, auctionStatus }) {
+export default function FilterBarA({ sort, order, searchText, chainNumber, auctionStatus, mintedNft }) {
 
   // const [netName, setNetName] = useState();
   const nevigate = useNavigate()
@@ -110,6 +110,13 @@ export default function FilterBarA({ sort, order, searchText, chainNumber, aucti
           >
             <option value="DESC">Decending</option>
             <option value="ASC">Ascending</option>
+          </select>
+          <select onChange={(e)=>{
+            mintedNft(e.target.value)
+          }}>
+            <option value="">All NFTs</option>
+            <option value='true'>Minted</option>
+            <option value='false'>Not Minted</option>
           </select>
           <select onChange={(e)=>{chainNumber(e.target.value)}}>
           <option value={""}>All Chains</option>

@@ -19,6 +19,8 @@ export default function MarketPlaceData() {
   const [order, setOrder] = useState('DESC');
   const [searchText, setSearchText] = useState('');
   const [chainNumber,setChainNumber] = useState("");
+  const [mintedNft,setMintedNft] = useState()
+
   // const [netLogo,setNetLogo] = useState('')
 
 
@@ -47,11 +49,17 @@ export default function MarketPlaceData() {
   };
 
   const searchSortMarketData = ()=>{
+let data = {};   
     if(chainNumber){
-      var data =  {
+      data = {
         "chainId": chainNumber
       }
      }
+     if(mintedNft){
+       data["minted"] = mintedNft == 'true' ? true :false
+    }else{
+      data["minted"] = ''
+    }
     
     const obj = {search: searchText}
     dispatch(
@@ -64,6 +72,7 @@ export default function MarketPlaceData() {
         },
         data,
         obj,
+        // minObj,
         callBack,
       ),
     );
@@ -77,7 +86,7 @@ export default function MarketPlaceData() {
   useEffect(() => {
     setLoader(true);
     searchSortMarketData()
-  }, [activePage, sort, order, chainNumber,searchText]);
+  }, [activePage, sort, order, chainNumber,searchText, mintedNft]);
 
   
   // useEffect(() => {
@@ -103,6 +112,9 @@ export default function MarketPlaceData() {
             }}
             chainNumber = {(e)=>{
               setChainNumber(e);
+            }}
+            mintedNft = {(e)=>{
+              setMintedNft(e);
             }}
           />
           {loader ? (
