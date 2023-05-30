@@ -18,6 +18,7 @@ import axios from 'axios';
 function MarketplaceDetails({ details }) {
   const [marketplaceData, SetMarketplaceData] = useState('');
   const [loader, Setloader] = useState(true);
+  const [minterId, setMinterId] = useState("")
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const [minterdetails, setMinterDetails] = useState();
   // const [netData,setNetData] = useState();
@@ -51,8 +52,12 @@ function MarketplaceDetails({ details }) {
   //   { key: 3, text: 'Choice 3', value: 3 },
   // ];
 
-  const  getMinterDetail = (minterId)=>{
-    const obj = [{ id: minterId }];
+  const getMinterDetail = ()=>{
+    let obj = {};
+    if(minterId){
+      obj = { id: minterId};
+    }
+    let verifyUserObj = {}
     dispatch(
       usersDataAction(
         {
@@ -62,6 +67,7 @@ function MarketplaceDetails({ details }) {
           order: 'DESC',
         },
         obj,
+        verifyUserObj,
         callBack,
       ),
     );
@@ -69,14 +75,14 @@ function MarketplaceDetails({ details }) {
   useEffect(() => {
     if(details){
       SetMarketplaceData(details);
-      if(details.nft?.minter){
-        getMinterDetail(details.nft?.minter)
-
+      if(details?.nft?.minter){
+        setMinterId(details?.nft?.minter)
+        getMinterDetail();
       }
     }
   }, [details]);
 
-  console.log('minterdetails',minterdetails)
+  console.log('details----',details)
 
   return (
     <div>

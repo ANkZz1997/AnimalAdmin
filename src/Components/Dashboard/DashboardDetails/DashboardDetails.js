@@ -6,6 +6,7 @@ import { usersDataParamsAction } from '../../../redux/admin/action';
 import UserListCard from '../../Cards/UserListCard';
 import LoaderCSS from '../../Loader';
 import FilterBar from '../../User/FilterBar';
+import BackButton from '../../Model/BackButton';
 
 
 function DashboardDetailsId() {
@@ -43,7 +44,7 @@ function DashboardDetailsId() {
 
   return (
     <Root>
-        <h1>{ids} USERS</h1>
+        <h1 className='head_back'><BackButton/>{ids} USERS</h1>
         
           <FilterBar
             sort={(e) => {
@@ -80,6 +81,10 @@ const Root = styled.section`
   width: 100%;
   overflow: hidden;
   color: whitesmoke;
+
+  .head_back{
+    display: flex;
+  }
 
   .user_section {
     width: 100%;

@@ -62,6 +62,7 @@ function AuctionDetails({ details }) {
 
   const  getMinterDetail = (minterId)=>{
     const obj = [{ id: minterId }];
+    const verifyUserObj = {};
     dispatch(
       usersDataAction(
         {
@@ -71,6 +72,7 @@ function AuctionDetails({ details }) {
           order: 'DESC',
         },
         obj,
+        verifyUserObj,
         callBack,
       ),
     );

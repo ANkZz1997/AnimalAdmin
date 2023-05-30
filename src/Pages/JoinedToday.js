@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import FilterBar from '../Components/User/FilterBar';
 import LoaderCSS from '../Components/Loader';
 import UserListCard from '../Components/Cards/UserListCard';
+import BackButton from '../Components/Model/BackButton';
 
 function JoinTodayId() {
   const [userData, setUserData] = useState([]);
@@ -36,9 +37,7 @@ function JoinTodayId() {
   console.log('createTime', userData.length > 0);
   return (
     <Root>
-        <h1>Joined Today</h1>
-
-       
+        <h1 className='head_back'><BackButton/>Joined Today</h1>
           <FilterBar
             sort={(e) => {
               setSort(e);
@@ -73,6 +72,10 @@ const Root = styled.section`
   width: 100%;
   overflow: hidden;
   color: whitesmoke;
+
+  .head_back{
+    display: flex;
+  }
 
   .user_section {
     width: 100%;

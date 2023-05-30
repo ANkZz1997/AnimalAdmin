@@ -31,7 +31,7 @@ export default function FilterBarB({ sort, order, searchText }) {
 
   return (
     <FilterBarStyle>
-      <div className="filter_bar">
+      <div className="filter_bar" style={{justifyContent: 'flex-end'}}>
         {/* <div className="search_bar">
           <input
             className="search_child"
