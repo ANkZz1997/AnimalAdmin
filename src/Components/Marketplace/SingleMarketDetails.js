@@ -18,7 +18,7 @@ import axios from 'axios';
 function MarketplaceDetails({ details }) {
   const [marketplaceData, SetMarketplaceData] = useState('');
   const [loader, Setloader] = useState(true);
-  const [minterId, setMinterId] = useState("")
+  // const [minterId, setMinterId] = useState("")
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const [minterdetails, setMinterDetails] = useState();
   // const [netData,setNetData] = useState();
@@ -52,35 +52,34 @@ function MarketplaceDetails({ details }) {
   //   { key: 3, text: 'Choice 3', value: 3 },
   // ];
 
-  const getMinterDetail = ()=>{
-    let obj = {};
+  const getMinterDetail = (minterId)=>{
     if(minterId){
-      obj = { id: minterId};
+      const obj = {id: minterId}
+      dispatch(
+        usersDataAction(
+          {
+            page: 1,
+            limit: 9,
+            sorting: 'createdAt',
+            order: 'DESC',
+          },
+          obj,
+          callBack,
+        ),
+      );
     }
-    let verifyUserObj = {}
-    dispatch(
-      usersDataAction(
-        {
-          page: 1,
-          limit: 9,
-          sorting: 'createdAt',
-          order: 'DESC',
-        },
-        obj,
-        verifyUserObj,
-        callBack,
-      ),
-    );
   }
   useEffect(() => {
+    Setloader(true)
     if(details){
       SetMarketplaceData(details);
-      if(details?.nft?.minter){
-        setMinterId(details?.nft?.minter)
-        getMinterDetail();
-      }
     }
   }, [details]);
+
+  useEffect(()=>{
+    Setloader(true)
+    getMinterDetail(marketplaceData?.nft?.minter);
+  },[marketplaceData])
 
   console.log('details----',details)
 

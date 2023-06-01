@@ -52,8 +52,7 @@ export default function Userlist() {
             sorting: sort,
             order: order,
           },
-          {or : objData},
-          verifyUserObj,
+          {or : objData, verifyUserObj},
           callBack,
         ),
       );

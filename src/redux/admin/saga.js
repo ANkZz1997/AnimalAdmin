@@ -115,12 +115,12 @@ function* getDashboardData({ callBack }) {
     }
 }
 
-function* getUserData({ params, obj,verifyUserObj, callback }) {
+function* getUserData({ params, obj, callback }) {
     // console.log("objobj",obj)
     try {
         const response = yield httpPost(
             `${URLS.EXCHANGE.ADMIN.GET_USER_LIST}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,
-             {...obj,...verifyUserObj},
+             obj,
         );
         if (response?.status === 200) {
             callback(response?.data?.data)

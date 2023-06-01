@@ -53,11 +53,10 @@ export const userLoginAction = (data, callback) => ({
     callBack,
   });
 
-  export const usersDataAction = (params, obj,verifyUserObj, callback) => ({
+  export const usersDataAction = (params, obj, callback) => ({
     type: userData.GET_USER_LIST,
     params,
     obj,
-    verifyUserObj,
     callback,
   });
 

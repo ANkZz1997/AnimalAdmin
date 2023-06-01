@@ -45,8 +45,8 @@ function AuctionDetails({ details }) {
 
 
   const callBack = (data) => {
-    setLoader(false);
     setMinterDetails(data?.records[0]);
+    setLoader(false);
   };
 
 //   const GetNetworks = async()=>{
@@ -61,8 +61,8 @@ function AuctionDetails({ details }) {
 // }
 
   const  getMinterDetail = (minterId)=>{
-    const obj = [{ id: minterId }];
-    const verifyUserObj = {};
+    if(minterId){
+    const obj = { id: minterId };
     dispatch(
       usersDataAction(
         {
@@ -72,22 +72,24 @@ function AuctionDetails({ details }) {
           order: 'DESC',
         },
         obj,
-        verifyUserObj,
         callBack,
       ),
     );
+    }
   }
 
   useEffect(() => {
+    setLoader(true)
     if (details) {
       setAuctionData(details);
       setDeadline(details?.endTime);
-      if(details?.nft?.minter){
-        getMinterDetail(details?.nft?.minter)
-        
-      }
     }
   }, [details]);
+
+  useEffect(()=>{
+    setLoader(true)
+    getMinterDetail(auctionData.nft?.minter)
+  },[auctionData])
 
   console.log("minterdetails?.firstName",minterdetails?.firstName)
 
