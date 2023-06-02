@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Dimmer, Icon, Loader, Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 import URLS from '../../utils/urls';
@@ -15,6 +15,7 @@ function UserChatDetails({ id }) {
   const [chatDescription, setChatDescription] = useState();
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const [loader, setLoader] = useState(true);
+  const nevigate = useNavigate()
 
   const handelConversation = async (id) => {
     try {
@@ -33,8 +34,6 @@ function UserChatDetails({ id }) {
             getUserDetails(res.data.data[0].user);
             socketConnection(res.data.data[0].user);
             // setSocketRoomId(res.data.data[0].user)
-
-            setLoader(false);
           }
         });
     } catch (err) {
@@ -105,7 +104,7 @@ function UserChatDetails({ id }) {
         .then((res) => {
           setUserDetails(res.data.data);
           //   getNftDetails();
-          //   setLoader(false);
+            setLoader(false);
         });
     } catch (err) {
       console.log(err);
@@ -146,6 +145,7 @@ function UserChatDetails({ id }) {
   };
 
   useEffect(() => {
+    setLoader(true);
     handelConversation(id);
     socketConnection();
   }, [id]);
@@ -170,70 +170,68 @@ function UserChatDetails({ id }) {
 
   return (
     <Root>
+      {loader? <LoaderCSS/> :
       <div className="main_div">
-        {/* <Link to={`/chatsupport/`}> */}
-          <BackButton/>
-        {/* </Link> */}
+      {/* <Link to={`/chatsupport/`}> */}
+        <BackButton/>
+      {/* </Link> */}
 
-        <div className="user_details">
-          {/* <Link
-            href="/userdetails/[userid]"
-            as={`/userdetails/${userDetails?.id}`}
-          > */}
-            <img
-              src={
-                userDetails?.avatar
-                  ? `${IMAGE_END_POINT}${userDetails?.avatar}`
-                  : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
-              }
-            />
-          {/* </Link> */}
-          <h2>
-            {userDetails?.firstName
-              ? `${userDetails.firstName} ${userDetails.lastName}`
-              : 'Unnamed User'}
-          </h2>
-        </div>
-        <div className="description">
-          <h3>Description: </h3> <h4>{chatDescription}</h4>
-        </div>
-        {loader ? (
-          <LoaderCSS />
-        ) : (
-          <div className="chat_box">
-            {message?.map((message, ix) => (
-              <div
-                key={ix}
-                className={`message ${
-                  message.sender === 'user' ? 'user-message' : 'other-message'
-                }`}
-                ref={messagesEndRef}
-              >
-                {message.text}
-              </div>
-            ))}
-          </div>
-        )}
-
-        <div className="input_div">
-          {/* <button className="attach_button">
-            <Icon name="attach"></Icon>
-          </button> */}
-          <input
-            className="input_message"
-            type="text"
-            value={input}
-            onChange={(e) => {
-              setInput(e.target.value);
-            }}
-            onKeyPress={keyPressed}
+      <div className="user_details" onClick={()=>{nevigate(`/user/userdetails/${userDetails?.id}`)}}>
+        {/* <Link
+          href="/userdetails/[userid]"
+          as={`/userdetails/${userDetails?.id}`}
+        > */}
+          <img
+            src={
+              userDetails?.avatar
+                ? `${IMAGE_END_POINT}${userDetails?.avatar}`
+                : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
+            }
           />
-          <button className="send_btn" onClick={postConversation} type="submit">
-            {' '}
-            <Icon name="send" />
-          </button>
-        </div>
+        {/* </Link> */}
+        <h2>
+          {userDetails?.firstName
+            ? `${userDetails.firstName} ${userDetails.lastName}`
+            : 'Unnamed User'}
+        </h2>
       </div>
+      <div className="description">
+        <h3>Description: </h3> <h4>{chatDescription}</h4>
+      </div>
+      <div className="chat_box">
+          {message?.map((message, ix) => (
+            <div
+              key={ix}
+              className={`message ${
+                message.sender === 'user' ? 'user-message' : 'other-message'
+              }`}
+              ref={messagesEndRef}
+            >
+              {message.text}
+            </div>
+          ))}
+        </div>
+      <div className="input_div">
+        {/* <button className="attach_button">
+          <Icon name="attach"></Icon>
+        </button> */}
+        <input
+          className="input_message"
+          type="text"
+          value={input}
+          onChange={(e) => {
+            setInput(e.target.value);
+          }}
+          onKeyPress={keyPressed}
+        />
+        <button className="send_btn" onClick={postConversation} type="submit">
+          {' '}
+          <Icon name="send" />
+        </button>
+      </div>
+    </div>
+      }
+      
     </Root>
   );
 }
@@ -258,6 +256,7 @@ color: whitesmoke;
       align-items: center;
       height: 8%;
       margin-top: 5px;
+      cursor: pointer;
       img {
         height: 50px;
         width: 50px;
@@ -265,7 +264,7 @@ color: whitesmoke;
         margin: 5px;
         object-fit: cover;
         transition: all 0.5s;
-        cursor: pointer;
+        // cursor: pointer;
         :hover {
           transform: scale(1.1);
         }
