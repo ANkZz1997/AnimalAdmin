@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
 import { kycUserData } from '../../redux/admin/action';
-import URLS from '../../utils/urls';
+import URLS, { EXCHANGE_URL } from '../../utils/urls';
 import LoaderCSS from '../Loader';
 import moment from 'moment';
 import {AiOutlineCloseCircle} from 'react-icons/ai'
@@ -288,8 +288,8 @@ function KycDetails() {
                 >
                   <AiOutlineCloseCircle/>
                 </button>
-
-                <img src={`${IMAGE_END_POINT}${docs}`}></img>
+                <img src={`${IMAGE_END_POINT}${docs}`} onClick={()=>{window.open(`${EXCHANGE_URL}/download/${docs}`, "_blank")}}
+                ></img>
               </div>
             ) : (
               <div className="noimg_div">
@@ -502,13 +502,18 @@ const Root = styled.section`
           margin-right: 0px;
           position: absolute;
           right: 0;
-          margin-top: -4px;
-          margin-right: -5px;
-          top:0;
-          background-color: transparent;
+          margin-top: -11px;
+          margin-right: -7px;
+          top: 0;
+          background-color: #070c27;
           font-size: 30px;
           border: none;
           color: white;
+          backdrop-filter: blur(6px);
+          padding: 0;
+          border-radius: 64%;
+          border: none;
+          display: flex;
         }
       }
       .noimg_div {

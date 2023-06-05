@@ -15,17 +15,19 @@ export default function AuctionCard(data) {
 
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
 
-  const deadline = data?.data?.endTime;
+  // const deadline = data?.data?.endTime;
+
+  const Completionist = () => <span>Auction Time End</span>
 
   useEffect(() => {
     setGetLogo(data?.logo)
-    if (data.data) {
+    if (data?.data) {
       setItems(data?.data);
-      setUser(data?.data?.user)
+      setUser(data?.data?.user);
     }
   }, [data]);
 
-  console.log("data--",data)
+  console.log("data--",items)
 
   return (
     <Root>
@@ -44,7 +46,7 @@ export default function AuctionCard(data) {
         </div>
         </Link>
         <div className="count_down">
-          <Clock deadline={deadline} />
+          <Clock deadline={items?.endTime} />
         </div>
         <div className="content_section1">
           {/* <Link href="/userdetails/[userid]" as={`/userdetails/${user?.id}`}> */}

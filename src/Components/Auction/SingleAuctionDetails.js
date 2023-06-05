@@ -78,6 +78,8 @@ function AuctionDetails({ details }) {
     }
   }
 
+  const Completionist = () => <span>Auction Time End</span>
+
   useEffect(() => {
     setLoader(true)
     if (details) {

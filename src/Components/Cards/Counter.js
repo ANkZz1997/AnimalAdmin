@@ -1,12 +1,13 @@
 import moment from 'moment/moment';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import LoaderCSS from '../Loader';
 
 const Clock = ({ deadline }) => {
-  const [days, setDays] = useState(0);
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
+  const [days, setDays] = useState();
+  const [hours, setHours] = useState();
+  const [minutes, setMinutes] = useState();
+  const [seconds, setSeconds] = useState();
 
   const leading0 = (num) => {
     return num < 10 ? '0' + num : num;
@@ -27,37 +28,31 @@ const Clock = ({ deadline }) => {
     }
   };
 
-  moment.utc(deadline).format("DD-MM-Y")
 
   useEffect(() => {
-    setInterval(() => getTimeUntil(deadline), 1000);
-
-    return () => getTimeUntil(deadline);
+    if(deadline){
+      setInterval(() => getTimeUntil(deadline), 1000);
+    }
   }, [deadline]);
+
+  console.log("deadline",deadline)
 
   return (
     <Root>
-      {deadline?.length < 5 ? (
-        <>
-          <h1>Loader</h1>
-        </>
-      ) : (
-        <>
-          {days == 0 && minutes == 0 && hours == 0 && seconds == 0 ? (
-            <div className="clock-over">Time Over</div>
+      {days> 0 || minutes > 0 || hours > 0 || seconds > 0 ? (
+            <div className="clock">
+            {leading0(days)}D{' : '}
+            {leading0(hours)}H{' : '}
+            {leading0(minutes)}M{' : '}
+            {leading0(seconds)}S
+          </div>
           ) : (
             <>
-              <div className="clock">
-                {leading0(days)}D{' : '}
-                {leading0(hours)}H{' : '}
-                {leading0(minutes)}M{' : '}
-                {leading0(seconds)}S
-              </div>
-              <div className="clock-titles"></div>
+            {days == 0 && minutes == 0 && hours == 0 && seconds == 0?
+            <div className="clock-over">Time Over</div>:
+            <LoaderCSS/>}
             </>
           )}
-        </>
-      )}
     </Root>
   );
 };

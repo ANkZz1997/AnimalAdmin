@@ -2,7 +2,7 @@
 // const NEXT_ORIGIN = process.env.NEXT_PUBLIC_NEXT_URL || '';
 // const EXCHANGE_URL = 'http://nft.sdnatech.com:8080'
 // const EXCHANGE_URL = 'https://nft-admin.sdnatech.com/'
-const EXCHANGE_URL = 'https://nft.sdnatech.com/animal-api-dev'
+export const EXCHANGE_URL = 'https://nft.sdnatech.com/animal-api-dev'
 
 const URLS = {
     //PAGE ROUTES
