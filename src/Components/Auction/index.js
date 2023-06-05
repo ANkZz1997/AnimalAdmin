@@ -8,6 +8,7 @@ import PaginationCode from '../Pagination';
 import FilterBarA from './FilterBar';
 import axios from 'axios';
 import URLS from '../../utils/urls';
+import { CardLoader } from '../Loader/CardLoader';
 
 
 function AuctionsData() {
@@ -122,7 +123,10 @@ function AuctionsData() {
           />
 
           {loader ? (
-            <LoaderCSS />
+            // <LoaderCSS />
+            <div className="card_box">
+              <CardLoader/>
+            </div>
           ) : (
             <div className="card_box">
               {auctionData.records &&

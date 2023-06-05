@@ -13,6 +13,7 @@ import PaginationCode from '../Pagination';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDialogue from '../Model/ConfirmDialogue';
 import cogoToast from 'cogo-toast';
+import TableLoader from '../Loader/TableLoader';
 
 function KycDetails() {
   const [kycData, setKycData] = useState([]);
@@ -183,10 +184,6 @@ function KycDetails() {
               setCheckStatus(e);
             }}
           />
-
-        {loader ? (
-          <LoaderCSS />
-        ) : (
           <table>
             <caption>List Of Candidates Requested For KYC</caption>
             <thead>
@@ -201,80 +198,82 @@ function KycDetails() {
                 <th scope="col">Actions</th>
               </tr>
             </thead>
+            {loader?<TableLoader/>:
             <tbody>
-              {kycData && kycData?.map((i, ix) => {
-                return (
-                  <tr key={ix}>
-                    {activePage == 1 ? <td data-label="S.No">{ix + 1}</td>:<td>{ix + 15 * (activePage -1) + 1}</td>}
-                    <td className='nev_user' onClick={()=>{nevigate(`/user/userdetails/${i?.user?.id}`)}}>{i?.user?.firstName}{" "}{i?.user?.lastName}</td>
-                    <td className="kyc_date" data-label="KYC Date">
-                      {moment(i?.createdAt).format('DD - MMM - YYYY')}
-                    </td>
+            {kycData && kycData?.map((i, ix) => {
+              return (
+                <tr key={ix}>
+                  {activePage == 1 ? <td data-label="S.No">{ix + 1}</td>:<td>{ix + 15 * (activePage -1) + 1}</td>}
+                  <td className='nev_user' data-label="User" onClick={()=>{nevigate(`/user/userdetails/${i?.user?.id}`)}}>{i?.user?.firstName}{" "}{i?.user?.lastName}</td>
+                  <td className="kyc_date" data-label="KYC Date">
+                    {moment(i?.createdAt).format('DD - MMM - YYYY')}
+                  </td>
 
-                    <td data-label="ID Proof" className="docs">
-                      <button
-                        className="btn2"
-                        value={i?.identityProof}
-                        onClick={(e) => {
-                          setDocs(e.target.value);
-                          setIsOpen(!isOpen);
-                          setImgLoader(false);
-                          setDocName(i?.identityProofDocType.name)
-                        }}
-                      >
-                        View Doc
-                      </button>
-                    </td>
-                    <td data-label="Address Proof" className="docs">
-                      <button
-                        className="btn2"
-                        data-label="Address"
-                        value={i?.addressProof}
-                        onClick={(e) => {
-                          setDocs(e.target.value);
-                          setIsOpen(!isOpen);
-                          setImgLoader(false);
-                          setDocName(i?.addressProofDocType?.name)
-                        }}
-                      >
-                        View Doc
-                      </button>
-                    </td>
-                    <td data-label="Remarks">
-                      {i?.remarks ? i.remarks : 'No Remarks'}
-                    </td>
-
-                    <td data-label="Status"
-                      className={
-                        i?.status == 'APPROVED'
-                          ? 'approve_status'
-                          : i?.status == 'REJECTED'
-                            ? 'reject_status'
-                            : 'pending_status'
-                      }
+                  <td data-label="ID Proof" className="docs">
+                    <button
+                      className="btn2"
+                      value={i?.identityProof}
+                      onClick={(e) => {
+                        setDocs(e.target.value);
+                        setIsOpen(!isOpen);
+                        setImgLoader(false);
+                        setDocName(i?.identityProofDocType.name)
+                      }}
                     >
-                      {i?.status}
-                    </td>
-                    <HandleActionBtn  i={i} handelActionBtn={(e,id,name)=>{handelAction(e, id, name)}}/>
-                    {/* <td className="select_cell">
-                      <select
-                        name="kyc_actions"
-                        id="actions"
-                        onChange={(e) => {handelAction(e.target.value, i.id);setAction(e.target.value)}}
-                        value={action}
-                      >
-                        <option value="">Actions</option>
-                        <option value="Approve">Approve</option>
-                        <option value="Rejected">Reject</option>
-                      </select>
-                    </td> */}
+                      View Doc
+                    </button>
+                  </td>
+                  <td data-label="Address Proof" className="docs">
+                    <button
+                      className="btn2"
+                      data-label="Address"
+                      value={i?.addressProof}
+                      onClick={(e) => {
+                        setDocs(e.target.value);
+                        setIsOpen(!isOpen);
+                        setImgLoader(false);
+                        setDocName(i?.addressProofDocType?.name)
+                      }}
+                    >
+                      View Doc
+                    </button>
+                  </td>
+                  <td data-label="Remarks">
+                    {i?.remarks ? i.remarks : 'No Remarks'}
+                  </td>
 
-                  </tr>
-                );
-              })}
-            </tbody>
+                  <td data-label="Status"
+                    className={
+                      i?.status == 'APPROVED'
+                        ? 'approve_status'
+                        : i?.status == 'REJECTED'
+                          ? 'reject_status'
+                          : 'pending_status'
+                    }
+                  >
+                    {i?.status}
+                  </td>
+                  <HandleActionBtn  i={i} handelActionBtn={(e,id,name)=>{handelAction(e, id, name)}}/>
+                  {/* <td className="select_cell">
+                    <select
+                      name="kyc_actions"
+                      id="actions"
+                      onChange={(e) => {handelAction(e.target.value, i.id);setAction(e.target.value)}}
+                      value={action}
+                    >
+                      <option value="">Actions</option>
+                      <option value="Approve">Approve</option>
+                      <option value="Rejected">Reject</option>
+                    </select>
+                  </td> */}
+
+                </tr>
+              );
+            })}
+          </tbody>
+             }
+            
           </table>
-        )}
         <div className={isOpen ? 'img_popup ' : 'img_popup active'}>
           {!imgLoader ? (
             docs.length > 0 ? (

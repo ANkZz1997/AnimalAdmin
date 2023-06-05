@@ -8,6 +8,7 @@ import LoaderCSS from '../Loader';
 import PaginationCode from '../Pagination';
 import FilterBarM from './FilterBar';
 import axios from 'axios';
+import { CardLoader } from '../Loader/CardLoader';
 
 
 export default function MarketPlaceData() {
@@ -118,7 +119,9 @@ let data = {};
             }}
           />
           {loader ? (
-            <LoaderCSS />
+            <div className="grid_tile">
+              <CardLoader/>
+            </div>
           ) : (
             <div className="grid_tile">
               {marketData.records && marketData?.records?.map((i, ix) => {

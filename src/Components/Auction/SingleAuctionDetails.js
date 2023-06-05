@@ -45,8 +45,8 @@ function AuctionDetails({ details }) {
 
 
   const callBack = (data) => {
-    setMinterDetails(data?.records[0]);
     setLoader(false);
+    setMinterDetails(data?.records[0]);
   };
 
 //   const GetNetworks = async()=>{
@@ -78,10 +78,8 @@ function AuctionDetails({ details }) {
     }
   }
 
-  const Completionist = () => <span>Auction Time End</span>
-
   useEffect(() => {
-    setLoader(true)
+    // setLoader(true)
     if (details) {
       setAuctionData(details);
       setDeadline(details?.endTime);
@@ -89,7 +87,7 @@ function AuctionDetails({ details }) {
   }, [details]);
 
   useEffect(()=>{
-    setLoader(true)
+    // setLoader(true)
     getMinterDetail(auctionData.nft?.minter)
   },[auctionData])
 
@@ -98,7 +96,8 @@ function AuctionDetails({ details }) {
   return (
     <div>
       {loader ? (
-        <LoaderCSS />
+        // <LoaderCSS />
+        <></>
       ) : (
         <Root>
           <div className="action_bar">

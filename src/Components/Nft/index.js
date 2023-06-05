@@ -8,6 +8,7 @@ import PaginationCode from '../Pagination';
 import NftCard from '../Cards/NftCard';
 import URLS from '../../utils/urls';
 import axios from 'axios';
+import { CardLoader } from '../Loader/CardLoader';
 
 
 export default function NftsData() {
@@ -101,7 +102,9 @@ export default function NftsData() {
           />
 
           {loader ? (
-            <LoaderCSS />
+            <div className="grid_tiles">
+              <CardLoader/>
+            </div>
           ) : (
             <div className="grid_tiles">
               {nfts.records && 
