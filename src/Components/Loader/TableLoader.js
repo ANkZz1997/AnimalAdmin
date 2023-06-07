@@ -1,24 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export default function TableLoader() {
+export default function TableLoader({num}) {
+
   return (
     <Root>
-    
-              {Array(10).fill(0,0,10).map((i,ix) => {
-                return (
+              {[...Array(10)].map((i,ix) => 
                   <tr key={ix}>
-                    <td><span></span></td>
-                    <td><span></span></td>
-                    <td><span></span></td>
-                    <td><span></span></td>
-                    <td><span></span></td>
-                    <td><span></span></td>
-                    <td><span></span></td>
-                    <td><span></span></td>
+                    {[...Array(num)].map((ii,ix) => 
+                      <td><span></span></td>
+                )}
                   </tr>
-                );
-              })}
+              )}
         
     </Root>
   )

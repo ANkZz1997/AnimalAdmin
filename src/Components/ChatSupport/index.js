@@ -7,6 +7,7 @@ import LoaderCSS from '../Loader';
 import URLS from '../../utils/urls';
 import FilterBarB from './FilterBar';
 import { Link, useNavigate } from 'react-router-dom';
+import TableLoader from '../Loader/TableLoader';
 
 function ChatSupport() {
   const [disputeData, setDisputeData] = useState([]);
@@ -95,9 +96,6 @@ function ChatSupport() {
             </div>
 
             <div className="chatrequest_table">
-              {loader ? (
-                <LoaderCSS />
-              ) : (
                 <table celled>
                   <thead>
                     <tr>
@@ -112,58 +110,59 @@ function ChatSupport() {
                       <th> View Chat</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    {disputeData && disputeData?.map((i, ix) => {
-                      return (
-                        <tr key={ix}>
-                          {activePage == 1 ? <td className="s_no" data-label="S.No">{ix + 1}</td>:<td>{ix + 15 * (activePage -1) + 1}</td>}
-                        
-                          <td className="user_img_table" data-label="User">
-                            {/* <Link to={`/user/userdetails/${i.user?.id}`}> */}
+                  {loader? <TableLoader num={6}/>:
+                    <tbody>
+                      {disputeData && disputeData?.map((i, ix) => {
+                        return (
+                          <tr key={ix}>
+                            {activePage == 1 ? <td className="s_no" data-label="S.No">{ix + 1}</td>:<td>{ix + 15 * (activePage -1) + 1}</td>}
+                          
+                            <td className="user_img_table" data-label="User">
+                              {/* <Link to={`/user/userdetails/${i.user?.id}`}> */}
 
-                                <div className="user_image_name" onClick={()=>{nevigate(`/user/userdetails/${i.user?.id}`)}}>
-                                <img
-                                    src={
-                                    i.user?.avatar
-                                        ? `${IMAGE_END_POINT}${i.user?.avatar}`
-                                        : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
-                                    }
-                                />
-                                {i.user?.firstName
-                                    ? `${i.user.firstName} ${i.user.lastName}`
-                                    : 'Unnamed User'}
-                                </div>
+                                  <div className="user_image_name" onClick={()=>{nevigate(`/user/userdetails/${i.user?.id}`)}}>
+                                  <img
+                                      src={
+                                      i.user?.avatar
+                                          ? `${IMAGE_END_POINT}${i.user?.avatar}`
+                                          : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
+                                      }
+                                  />
+                                  {i.user?.firstName
+                                      ? `${i.user.firstName} ${i.user.lastName}`
+                                      : 'Unnamed User'}
+                                  </div>
+                              {/* </Link> */}
+                            </td>
+                            {/* <td> {`${moment(1675757417520).format(
+                                'DD-MMM-YY (hh:mm A)',
+                              )}`}</td> */}
+                            <td data-label="Updated At">{`${moment(
+                              i?.updatedAt,
+                            ).format('DD-MMM-YY (hh:mm A)')}`}</td>
+                            {/* <td>{i?.description}</td> */}
+                            <td data-label="About">
+                              {checkTopic(i?.relatedItemType)}
+                            </td>
+                            {/* <td>{i?.relatedItem}</td> */}
+                            <td data-label="Status">{i?.status}</td>
+                            {/* <Link
+                              href="/userchatdetails/[userchatdetails]"
+                              as={`/userchatdetails/${i.id}`}
+                            > */}
+                                  <td className="chat_link">
+                              <Link to={`/chatsupport/userchatdetails/${i?.id}`}>
+                                      <div>Click To Chat</div>
+                              </Link>
+
+                                  </td>
                             {/* </Link> */}
-                          </td>
-                          {/* <td> {`${moment(1675757417520).format(
-                              'DD-MMM-YY (hh:mm A)',
-                            )}`}</td> */}
-                          <td data-label="Updated At">{`${moment(
-                            i?.updatedAt,
-                          ).format('DD-MMM-YY (hh:mm A)')}`}</td>
-                          {/* <td>{i?.description}</td> */}
-                          <td data-label="About">
-                            {checkTopic(i?.relatedItemType)}
-                          </td>
-                          {/* <td>{i?.relatedItem}</td> */}
-                          <td data-label="Status">{i?.status}</td>
-                          {/* <Link
-                            href="/userchatdetails/[userchatdetails]"
-                            as={`/userchatdetails/${i.id}`}
-                          > */}
-                                <td className="chat_link">
-                            <Link to={`/chatsupport/userchatdetails/${i?.id}`}>
-                                    <div>Click To Chat</div>
-                            </Link>
-
-                                </td>
-                          {/* </Link> */}
-                        </tr>
-                      );
-                    })}
-                  </tbody>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  }
                 </table>
-              )}
             </div>
           </div>
           <PaginationCode

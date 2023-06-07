@@ -36,11 +36,11 @@ const Root = styled.section`
     overflow: hidden;
     /* min-width: 270px; */
     width: 100%;
-    margin: 40px auto;
+    /* margin: 40px auto; */
 .card {
 
   .shimmerBG {
-    animation-duration: 2.2s;
+    animation-duration: 1.2s;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
     animation-name: shimmer;

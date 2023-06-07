@@ -170,12 +170,8 @@ export default function DashboardData() {
           <div className="dashboard_body">
             <div className="body_front">
               <div className="top_bar">
-                <div className="top_seller">
                   <TopSeller />
-                </div>
-                <div className="top_buyer">
                   <TopBuyer />
-                </div>
               </div>
 
               <div className="mid_bar">
@@ -280,21 +276,10 @@ const Root = styled.section`
       width: 75%;
       gap: 20px;
       .top_bar {
-        overflow: hidden;
         display: flex;
-        gap: 20px;
-
-        .top_seller {
-          /* padding: 5px */
-          width: 49%;
-          /* flex:1; */
-        }
-
-        .top_buyer {
-          /* padding: 5px */
-          width: 49%;
-          /* flex:1; */
-        }
+        gap: 15px;
+        align-items: center;
+      
       }
       .mid_bar {
         display: flex;

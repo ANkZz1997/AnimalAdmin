@@ -198,7 +198,7 @@ function KycDetails() {
                 <th scope="col">Actions</th>
               </tr>
             </thead>
-            {loader?<TableLoader/>:
+            {loader?<TableLoader num = {8}/>:
             <tbody>
             {kycData && kycData?.map((i, ix) => {
               return (

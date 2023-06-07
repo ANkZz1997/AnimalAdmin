@@ -12,6 +12,8 @@ import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import ConfirmDialogue from '../Model/ConfirmDialogue';
 import moment from 'moment';
+import { MdVerified } from 'react-icons/md';
+
 
 function UserDetails({ userDetails, nfts, userActivity, ids }) {
   const [activeTab, setActiveTab] = useState('overview');
@@ -87,7 +89,7 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
           <h2>
             {`${detailsUser?.firstName ? detailsUser.firstName : 'N/A'} ${
               detailsUser?.lastName ? detailsUser.lastName : ''
-            }`}
+            }`}{detailsUser.kycVerified?<MdVerified/>:""}
           </h2>
           <h4>
             Active On {detailsUser?.lastLoggedInTime?`${moment(detailsUser?.lastLoggedInTime).format('DD-MMM-YY (hh:mm A)')}`
@@ -273,6 +275,12 @@ color: whitesmoke;
       h2 {
         text-transform: capitalize;
         color: whitesmoke;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        svg{
+          color: #58a1ef;
+        }
       }
     }
 

@@ -8,6 +8,7 @@ import LoaderCSS from '../Loader';
 import PaginationCode from '../Pagination';
 import URLS from '../../utils/urls';
 import { Link, useNavigate } from 'react-router-dom';
+import TableLoader from '../Loader/TableLoader';
 
 export default function BidsData() {
   const [bidsData, setBidsData] = useState([]);
@@ -77,23 +78,20 @@ export default function BidsData() {
               setActivePage(1)
             }}
           />
-
-          {loader ? (
-            <LoaderCSS />
-          ) : (
-            <>
-              <div className="card_box">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>S.No</th>
-                      <th>NFT Details</th>
-                      <th>Chain</th>
-                      <th>Base Price</th>
-                      <th>Bid Created On</th>
-                      <th>Max Bid</th>
-                    </tr>
-                  </thead>
+          
+            <div className="card_box">
+              <table>
+                <thead>
+                  <tr>
+                    <th>S.No</th>
+                    <th>NFT Details</th>
+                    <th>Chain</th>
+                    <th>Base Price</th>
+                    <th>Bid Created On</th>
+                    <th>Max Bid</th>
+                  </tr>
+                </thead>
+                {loader? <TableLoader num = {6}/>:
                   <tbody>
                     {bidsData && bidsData?.map((i, ix) => {
                       return (
@@ -134,11 +132,10 @@ export default function BidsData() {
                       );
                     })}
                   </tbody>
-                </table>
-              </div>
-            </>
-          )}
-
+                }
+              </table>
+            </div>
+      
           <PaginationCode
             active={activePage}
             activePage={(e) => {
