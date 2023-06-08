@@ -7,6 +7,7 @@ import LoaderCSS from '../Loader';
 import PaginationCode from '../Pagination';
 import FilterBar from './FilterBar';
 import TableLoader from '../Loader/TableLoader';
+import { UserListStyle } from '../Style/UserListStyle';
 
 export default function Userlist() {
 
@@ -73,7 +74,7 @@ export default function Userlist() {
 
   console.log("verifiedUser",verifiedUser)
   return (
-    <Root>
+    <UserListStyle>
           <h1> NFT Users </h1>
           <FilterBar
             sort={(e) => {
@@ -120,7 +121,7 @@ export default function Userlist() {
             totalPage={totalPage}
             limit={dataLimit}
           />
-        </Root>
+        </UserListStyle>
   )
 }
 

@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import URLS from '../../utils/urls';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MdVerified } from 'react-icons/md';
 
 export default function UserListCard({ data }) {
   const ImgEndPoint = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
+  const nevigate = useNavigate()
 
   return (
         <tbody>
           {data && data?.map((i, ix) => {
             return (
               <tr className="table_data" key={ix}>
-                  <td className="user_details">
-                <Link to={`/user/userdetails/${i?.id}`}>
+                  <td className="user_details" onClick={()=>{nevigate(`/user/userdetails/${i?.id}`)}}>
+                {/* <Link to={`/user/userdetails/${i?.id}`}> */}
 
                     <div className="user_img">
                       <img
@@ -34,7 +35,7 @@ export default function UserListCard({ data }) {
                       </h2>
                       <h3>{i?.email ? i.email : 'N/A'}</h3>
                     </div>
-                </Link>
+                {/* </Link> */}
 
                   </td>
 

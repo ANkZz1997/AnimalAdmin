@@ -1,34 +1,32 @@
-import React from 'react'
-import UserListCard from '../Components/Cards/UserListCard'
-import TableLoader from '../Components/Loader/TableLoader'
-import styled from 'styled-components'
+import styled from "styled-components";
 
-export default function DashboardUsers({data}) {
-  return (
-    <Root>  
-        <table>
-        <thead>
-        <tr>
-            <th className="username_style">User Details</th>
-            <th className="created_on">Created On</th>
-            {/* <th className="account_heading">Account Type</th> */}
-            <th className="last_login">Last Login Time</th>
-
-            <th className="account_heading">Verification</th>
-            <th className="status">Status</th>
-        </tr>
-        </thead>
-            <UserListCard data={data} />
-        </table>
-  </Root>
-  )
-}
-
-const Root = styled.section`
+export const UserListStyle = styled.section `
 
 width: 100%;
   h1 {
     color: white;
+  }
+  .user_section {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 20px;
+
+    @media (max-width: 1550px) {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    @media (max-width: 1210px) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media (max-width: 711px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 450px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   color: whitesmoke;
@@ -40,8 +38,7 @@ width: 100%;
     }
 
     .user_details {
-      a{
-        display: flex;
+      display: flex;
       align-items: center;
       gap: 20px;
       width: 100%;
@@ -87,7 +84,7 @@ width: 100%;
           margin: 0px;
         }
       }
-    }
+   
 
       }
     
@@ -140,4 +137,3 @@ width: 100%;
   }
 
 `
-
