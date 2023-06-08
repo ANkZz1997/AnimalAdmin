@@ -8,6 +8,7 @@ import PaginationCode from '../Pagination';
 import FilterBar from './FilterBar';
 import TableLoader from '../Loader/TableLoader';
 import { UserListStyle } from '../Style/UserListStyle';
+import moment from 'moment';
 
 export default function Userlist() {
 
@@ -23,9 +24,11 @@ export default function Userlist() {
     const [verifiedUser, setVerifieduser] = useState("")
 
     const dataLimit = 16;
-
     const dispatch = useDispatch();
-  
+    const startOfDay = moment().startOf('day').valueOf();
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirect = urlParams.get("type");
+
     const callBack = (data) => {
       setuserData(data);
       setTotalPage(data?.totalCount);
@@ -46,6 +49,17 @@ export default function Userlist() {
         { email: { contains: searchTextUser } },
         { username: { contains: searchTextUser } },
       ];
+
+      if(redirect && redirect !== "alluser"){
+        if(redirect === "joinedtoday"){
+          var userType = { createdAt: { '>=': startOfDay } }
+        }else{
+          var userType = {
+            "status":redirect
+          }
+        }
+      }else{
+      }
       
       dispatch(
         usersDataAction(
@@ -55,7 +69,7 @@ export default function Userlist() {
             sorting: sort,
             order: order,
           },
-          {or : objData, ...verifyUserObj},
+          {or : objData, ...verifyUserObj, ...userType},
           callBack,
         ),
       );
@@ -72,10 +86,10 @@ export default function Userlist() {
       // }, [searchTextUser])
 
 
-  console.log("verifiedUser",verifiedUser)
+  console.log("redirect",redirect)
   return (
     <UserListStyle>
-          <h1> NFT Users </h1>
+          <h1>{redirect==="joinedtoday"?"Joined Today": redirect ==="alluser"?"All":redirect} NFT Users </h1>
           <FilterBar
             sort={(e) => {
               setSort(e);
@@ -94,6 +108,7 @@ export default function Userlist() {
             verifiedUser = {(e)=>{
               setVerifieduser(e)
             }}
+            userTypeRedirect = {redirect}
           />
          
           <table>

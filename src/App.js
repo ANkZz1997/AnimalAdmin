@@ -15,8 +15,7 @@ import Protected from "./Protected";
 import UserDetails from "./Pages/UserDetails";
 import NftDetailsId from "./Pages/NftDetails";
 import AuctionDetailsId from "./Pages/AuctionDetails";
-import DashboardDetailsId from "./Components/Dashboard/DashboardDetails/DashboardDetails";
-import JoinTodayId from "./Pages/JoinedToday";
+// import DashboardDetailsId from "./Components/Dashboard/DashboardDetails/DashboardDetails";
 import UserChatDetailsId from "./Pages/ChatDetails";
 import MarketplaceDetailsId from "./Pages/MarketplaceDetails";
 import PlatformSettings from "./Pages/PlatformSettings";
@@ -36,6 +35,7 @@ function App() {
             {/* <Route path="/" element={ <Protected > <Dashboard /> </Protected> } /> */}
             {/* <Route path="/presettings" element={<Protected><PreSettings/></Protected>}/> */}
             <Route path="/dashboard" element={ <Protected > <Dashboard /> </Protected> } />
+            {/* <Route path="/user/newuser" element={ <Protected > <User /> </Protected> } /> */}
             <Route path="/user" element={ <Protected > <User /> </Protected> } />
             <Route path="/nfts" element={ <Protected > <Nfts /> </Protected> } />
             <Route path="/auction" element={ <Protected > <Auction /> </Protected> } />
@@ -54,8 +54,7 @@ function App() {
             <Route path="/user/userdetails/:id" element={ <Protected > <UserDetails /> </Protected> } />
             <Route path="/nfts/nftdetails/:id" element={ <Protected > <NftDetailsId/> </Protected> } />
             <Route path="/auction/auctiondetails/:id" element={ <Protected > <AuctionDetailsId/> </Protected> } />
-            <Route path="/dashboard/dashboarddetails/:id" element={ <Protected > <DashboardDetailsId/> </Protected> } />
-            <Route path="/dashboard/joinedtoday" element={ <Protected > <JoinTodayId/> </Protected> } />
+            {/* <Route path="/dashboard/dashboarddetails/:id" element={ <Protected > <DashboardDetailsId/> </Protected> } /> */}
             <Route path="marketplace/marketplacedetails/:id" element={<Protected > <MarketplaceDetailsId/> </Protected> }/>
             <Route path="/chatsupport/userchatdetails/:id" element={ <Protected > <UserChatDetailsId/> </Protected> } />
             

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { FaUser, FaUserCheck, FaUserClock, FaUserSlash, FaUserTimes } from 'react-icons/fa';
-import { FiUserCheck, FiUserPlus } from 'react-icons/fi';
-import { TbUserOff } from 'react-icons/tb';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
-import { checkUserAction, dashboardAction } from '../../redux/admin/action';
+import { checkUserAction } from '../../redux/admin/action';
 import LoaderCSS from '../Loader';
 import DateRange from './DateRange';
 import NftTransactionChart from './NftTransactionChart';
@@ -22,6 +20,7 @@ export default function DashboardData() {
     const [startDate, setStartDate] = useState('Start Date');
     const [endDate, setEndDate] = useState(' End Date');
     const dispatch = useDispatch();
+    const nevigate = useNavigate();
 
 
     const onChange = (ranges) => {
@@ -72,8 +71,8 @@ export default function DashboardData() {
               </h2> */}
             </div>
             <div className="card_parent">
-              {/* <Link as="/user" href={`/user`} passHref> */}
-              <Link to={"/user"} className="card_1">
+              {/* <div as="/user" href={`/user`} passHref> */}
+              <div className="card_1" onClick={()=>{nevigate("/user?type=alluser")}}>
                   <div>
                     Total NFT Users
                     {loader ? (
@@ -85,14 +84,14 @@ export default function DashboardData() {
                   <div>
                     <FaUser/>
                   </div>
-              </Link>
-              {/* <Link
+              </div>
+              {/* <div
                 as="/dashboarddetails/NEW"
                 href="/dashboarddetails/[dashboarddetails]"
                 passHref
               > */}
-                <Link to={`/dashboard/dashboarddetails/NEW`} className="card_1">
-
+                {/* <div to={`/dashboard/dashboarddetails/NEW`} className="card_1"> */}
+                <div className="card_1" onClick={()=>{nevigate("/user?type=NEW")}}>
                   <div>
                     New NFT Users
                     {loader ? (
@@ -104,9 +103,11 @@ export default function DashboardData() {
                   <div>
                     <FaUserCheck />
                   </div>
-              </Link>
+              </div>
 
-              <Link to={`/dashboard/joinedtoday`} className="card_1">
+              {/* <div to={`/dashboard/joinedtoday`} className="card_1"> */}
+              <div className="card_1" onClick={()=>{nevigate("/user?type=joinedtoday")}}>
+
                   <div>
                     Joined Today
                     {loader ? (
@@ -118,8 +119,10 @@ export default function DashboardData() {
                   <div>
                     <FaUserClock/>
                   </div>
-              </Link>
-              <Link to={`/dashboard/dashboarddetails/BLOCKED`} className="card_1">
+              </div>
+              {/* <div to={`/dashboard/dashboarddetails/BLOCKED`} className="card_1">*/}
+              <div className="card_1" onClick={()=>{nevigate("/user?type=BLOCKED")}}>
+
                   <div>
                     Blocked Users
                     {loader ? (
@@ -131,8 +134,9 @@ export default function DashboardData() {
                   <div>
                     <FaUserSlash/>
                   </div>
-              </Link>
-              <Link to={`/dashboard/dashboarddetails/INACTIVE`} className="card_1" >
+              </div>
+              {/* <div to={`/dashboard/dashboarddetails/INACTIVE`} className="card_1" > */}
+              <div className="card_1" onClick={()=>{nevigate("/user?type=INACTIVE")}}>
                   <div>
                     Inactive Users
                     {loader ? (
@@ -144,7 +148,7 @@ export default function DashboardData() {
                   <div>
                     <FaUserTimes/>
                   </div>
-              </Link>
+              </div>
             </div>
           </div>
 

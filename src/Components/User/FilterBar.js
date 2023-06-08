@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
-export default function FilterBar({ sort, order, searchText, verifiedUser }) {
+export default function FilterBar({ sort, order, searchText, verifiedUser, userTypeRedirect }) {
 
   const nevigate = useNavigate()
   const urlParams = new URLSearchParams(window.location.search);
@@ -10,7 +10,7 @@ export default function FilterBar({ sort, order, searchText, verifiedUser }) {
   const [search, setSearch] = useState(redirect);
 
   const handleNevigate = (search)=>{
-    nevigate(`/user?search=${search}`)
+    nevigate(`/user?type=${userTypeRedirect}&search=${search}`)
   }
   const keyPressed = (e) => {
     if (e.key === 'Enter') {

@@ -51,7 +51,7 @@ export default function Sidebar() {
           </div>
        
         <div className='nav_section nav_link'>
-          <Link to ='/dashboard' className={activeTab=="dashboard"?"link_1 active":"link_1"} onClick={()=>setActiveTab("dashboard")}><FaHome/><h3>Dashboard</h3></Link>
+          <Link to ='/dashboard' className={activeParam=="dashboard"?"link_1 active":"link_1"} onClick={()=>setActiveTab("dashboard")}><FaHome/><h3>Dashboard</h3></Link>
           <div>
             <h4 className="caption">CONTENT</h4>
           </div>
