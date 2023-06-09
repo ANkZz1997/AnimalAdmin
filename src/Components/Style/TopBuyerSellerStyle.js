@@ -36,8 +36,12 @@ button.slick-arrow.slick-prev {
             display: flex;
             justify-content: center;
             position: relative;
+            transition: all 0.5s;
+            :hover{
+                transform: translateY(5px);
+              }
             .rankOf{
-              background-color: #ff555f;
+              background-color: #ff555f8f;
               width: fit-content;
               position: absolute;
               top: 0;
@@ -46,12 +50,14 @@ button.slick-arrow.slick-prev {
               margin-top: 0px;
               border-radius: 5px;
               padding: 2px;
+
             }
             img {
               width: 65%;
               border-radius: 35%;
               object-fit: cover;
               margin-bottom: 10px;
+              cursor: pointer;
             }
           }
           .data_div {

@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import URLS from '../../utils/urls';
 import DashTopLoader from '../Loader/DashTopLoader';
 import { TopBuyerSellerStyle, TopSellerBuyerSettings } from '../Style/TopBuyerSellerStyle';
+import { useNavigate } from 'react-router-dom';
 
 
 function TopSeller() {
@@ -23,6 +24,9 @@ function TopSeller() {
     setuserData(data?.records);
     setLoader(false);
   };
+
+  const nevigate = useNavigate();
+
 
   const searchSortUserFunction = ()=>{
      
@@ -70,7 +74,10 @@ function TopSeller() {
                         ? `${ImgEndPoint}${i.avatar}`
                         : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
                     }
-                    alt="user"/>
+                    alt="user"
+                    onClick={()=>{nevigate(`/user/userdetails/${i?.id}`)}}
+                    
+                    />
                     <p className='rankOf'>#{ix+1}</p>
                 </div>
                 <div className="data_div">

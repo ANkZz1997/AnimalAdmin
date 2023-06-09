@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import URLS from '../../utils/urls';
 import DashTopLoader from '../Loader/DashTopLoader';
 import { TopBuyerSellerStyle, TopSellerBuyerSettings } from '../Style/TopBuyerSellerStyle';
+import { useNavigate } from 'react-router-dom';
 
 
 function TopBuyer() {
@@ -17,7 +18,7 @@ function TopBuyer() {
   const dispatch = useDispatch();
   const searchTextUser = "";
   const ImgEndPoint = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
-
+  const nevigate = useNavigate();
 
   const callBack = (data) => {
     setuserData(data?.records);
@@ -64,14 +65,16 @@ function TopBuyer() {
          userData && userData?.map((i,ix)=>{
           return(
             <div className="child" key={ix}>
-            <div className="img_div">
+            <div className="img_div" >
             <img
                 src={
                   i?.avatar
                     ? `${ImgEndPoint}${i.avatar}`
                     : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
                 }
-                alt="user"/>
+                alt="user"
+                onClick={()=>{nevigate(`/user/userdetails/${i?.id}`)}}
+                />
                 <p className='rankOf'>#{ix+1}</p>
             </div>
             <div className="data_div">
