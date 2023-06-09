@@ -67,7 +67,7 @@ width: 100%;
           font-weight: 400;
           margin: 0px;
           font-size: 16px;
-          width: 180px;
+          /* width: 180px; */
           word-break: break-all;
           display: flex;
           align-items: center;

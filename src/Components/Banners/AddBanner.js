@@ -130,7 +130,9 @@ export default function AddBanner({handleClick}) {
                                         <div className='error'>{errors.description}</div>
                                     ) : null}
 
-                                    <button type="submit">Confirm</button>
+                                    <div className='btn_div'>
+                                        <button type="submit">Confirm</button>
+                                    </div>
 
                                 </Form>
                             )}
@@ -162,11 +164,23 @@ const Root = styled.section`
             h3{
                 margin: 5px 0px 5px 0px;
             }
-
-            button{
-                padding: 5px;
-                border-radius: 5px;
-                cursor: pointer;
+            .btn_div{
+                display: flex;
+                justify-content: end;
+                padding: 0px;
+                
+                button{
+                    padding: 5px;
+                    cursor: pointer;
+                    background-color: #18204d;
+                    color: white;
+                    padding: 10px;
+                    border: 0;
+                    margin-top: 5px;
+                    :hover{
+                        background-color: #40404d;
+                    }
+                }
             }
 
             .input_file_div{

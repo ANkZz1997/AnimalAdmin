@@ -12,6 +12,7 @@ import TopSeller from './TopSeller';
 import cogoToast from 'cogo-toast';
 import axios from 'axios';
 import URLS from '../../utils/urls';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 export default function DashboardData() {
     const [dashboardData,setDashboardData] = useState('')
@@ -32,6 +33,11 @@ export default function DashboardData() {
         setEndDate(formateDateEnd);
       };
 
+    const clearFunction =()=>{
+    setStartDate();
+    setEndDate();
+  }
+
     const getDashboardDetails = async()=>{
       try{
         const res = await axios.post(`${URLS.EXCHANGE.ADMIN.GET_DASHBOARD}`,{})
@@ -48,17 +54,11 @@ export default function DashboardData() {
       }
     }
 
-    // const callBack = (data) => {
-    //     setDashboardData(data);
-    //     setLoader(false);
-    //   };
-
     useEffect(() => {
         setLoader(true);
         getDashboardDetails()
     }, []);
     
-    // console.log("dashboardData",dashboardData)
 
   return (
     <Root>
@@ -66,12 +66,8 @@ export default function DashboardData() {
 
         <div className="box-div">
             <div>
-              {/* <h2>
-                <FaUser/> User Status :
-              </h2> */}
             </div>
             <div className="card_parent">
-              {/* <div as="/user" href={`/user`} passHref> */}
               <div className="card_1" onClick={()=>{nevigate("/user?type=alluser")}}>
                   <div>
                     Total NFT Users
@@ -85,12 +81,6 @@ export default function DashboardData() {
                     <FaUser/>
                   </div>
               </div>
-              {/* <div
-                as="/dashboarddetails/NEW"
-                href="/dashboarddetails/[dashboarddetails]"
-                passHref
-              > */}
-                {/* <div to={`/dashboard/dashboarddetails/NEW`} className="card_1"> */}
                 <div className="card_1" onClick={()=>{nevigate("/user?type=NEW")}}>
                   <div>
                     New NFT Users
@@ -105,7 +95,6 @@ export default function DashboardData() {
                   </div>
               </div>
 
-              {/* <div to={`/dashboard/joinedtoday`} className="card_1"> */}
               <div className="card_1" onClick={()=>{nevigate("/user?type=joinedtoday")}}>
 
                   <div>
@@ -120,7 +109,6 @@ export default function DashboardData() {
                     <FaUserClock/>
                   </div>
               </div>
-              {/* <div to={`/dashboard/dashboarddetails/BLOCKED`} className="card_1">*/}
               <div className="card_1" onClick={()=>{nevigate("/user?type=BLOCKED")}}>
 
                   <div>
@@ -135,7 +123,6 @@ export default function DashboardData() {
                     <FaUserSlash/>
                   </div>
               </div>
-              {/* <div to={`/dashboard/dashboarddetails/INACTIVE`} className="card_1" > */}
               <div className="card_1" onClick={()=>{nevigate("/user?type=INACTIVE")}}>
                   <div>
                     Inactive Users
@@ -155,7 +142,10 @@ export default function DashboardData() {
           <div className="date_range">
             <button onClick={() => setDatePopup(true)}>Select Date </button>
             <div>
-              <h3>{`${startDate} To ${endDate}`}</h3>
+              {
+                startDate? <h3>{`${startDate} To ${endDate}`}</h3>: <h3>Select Date Range</h3>
+              }
+              
             </div>
             <div
               className={
@@ -163,9 +153,12 @@ export default function DashboardData() {
               }
             >
               <div className="date_main_div">
-                <button className="btn" onClick={() => setDatePopup(false)}>
-                  {/* <Icon name="cancel" /> */}
+                <button className="cncl_btn" onClick={() => {setDatePopup(false);clearFunction()}}>
+                <AiOutlineCloseCircle/>
                 </button>
+                <button className='sav_btn' onClick={() => setDatePopup(false)}>
+                    Save
+                  </button>
                 <DateRange onChange={onChange} />
               </div>
             </div>
@@ -283,6 +276,7 @@ const Root = styled.section`
         display: flex;
         gap: 15px;
         align-items: center;
+        flex-direction: column;
       
       }
       .mid_bar {
@@ -330,8 +324,8 @@ const Root = styled.section`
       top: 0px;
       right: 0;
       z-index: 9999;
+      backdrop-filter: blur(6px);
       color: black;
-      background: #0e0e15f2;
       height: 100%;
       width: 100%;
       display: flex;
@@ -342,19 +336,35 @@ const Root = styled.section`
       .date_main_div {
         position: relative;
 
-        .btn {
+         .cncl_btn{
           position: absolute;
           right: 0;
-          margin-top: -8px;
-          margin-right: -9px;
-          z-index: 9;
+          margin-top: -30px;
+          margin-right: -10px;
           border-radius: 50%;
-          border: 1px solid grey;
-          cursor: pointer;
-
-          i.icon {
-            margin: 0px;
+          height: fit-content;
+          padding: 0px;
+          background: transparent;
+          color: white;
+          border: none;
+          :hover{
+            color: #9b5050fc;
           }
+          svg{
+            font-size: 30px;
+          }
+        }
+        .sav_btn{
+          position: absolute;
+          bottom: 0;
+          margin-bottom: -34px;
+          right: 0;
+          border: none;
+          cursor: pointer;
+          padding: 7px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       }
     }

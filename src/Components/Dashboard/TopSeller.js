@@ -8,6 +8,7 @@ import { usersDataAction } from '../../redux/admin/action';
 import { useEffect } from 'react';
 import URLS from '../../utils/urls';
 import DashTopLoader from '../Loader/DashTopLoader';
+import { TopBuyerSellerStyle, TopSellerBuyerSettings } from '../Style/TopBuyerSellerStyle';
 
 
 function TopSeller() {
@@ -49,45 +50,12 @@ function TopSeller() {
     setLoader(true)
     searchSortUserFunction();
   },[])
-  const settings = {
-    // dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1250,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          // dots: true
-        }
-      },
-      {
-        breakpoint: 700,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2
-        }
-      },
-      {
-        breakpoint: 530,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  };
+ 
   return (
-    <Root>
+    <TopBuyerSellerStyle>
       <div className="parent_container">
         <h3>Top Sellers</h3>
-        <Slider {...settings}>
+        <Slider {...TopSellerBuyerSettings}>
         {loader? [...Array(10)].map((i,ix) => 
             <DashTopLoader/>
         )
@@ -103,10 +71,11 @@ function TopSeller() {
                         : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
                     }
                     alt="user"/>
+                    <p className='rankOf'>#{ix+1}</p>
                 </div>
                 <div className="data_div">
-                  <p>@{i.username? i.username:"N/A UserName"}</p>
-                  <h5>34,00,000 Rs</h5>
+                  <p>{i?.firstName? i.firstName:"N/A UserName"}</p>
+                  <p className='amount'>34,000 Rs</p>
                   {/* <p>12 NFTs</p> */}
               </div>
             </div>
@@ -115,52 +84,8 @@ function TopSeller() {
         }
       </Slider>
       </div>
-    </Root>
+    </TopBuyerSellerStyle>
   );
 }
 
 export default TopSeller;
-
-const Root = styled.section`
-width: 49%;
-.parent_container{
-  /* background-color: #343950; */
-  border: 1px solid grey;
-  padding: 20px 25px;
-  border-radius: 20px;
-  h3{
-    padding: 0px 0px 10px 5px;
-  }
-  .child {
-          .img_div {
-            display: flex;
-            justify-content: center;
-            img {
-              width: 70%;
-              border-radius: 50%;
-              object-fit: cover;
-              margin-bottom: 10px;
-            }
-          }
-          .data_div {
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            h3,
-            h3,
-            p,
-            h5 {
-              text-align: center;
-              margin: 0;
-              padding: 0;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            }
-            p{
-              padding: 0px 3px;
-            }
-          }
-        }
-}
-`;

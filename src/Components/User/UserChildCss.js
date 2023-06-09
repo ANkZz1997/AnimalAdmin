@@ -157,6 +157,8 @@ color: whitesmoke;
       padding: 3px;
       border-radius: 5px;
       background-color: whitesmoke;
+      cursor: pointer;
+
     }
     .date_popup_active {
       position: fixed;
@@ -181,6 +183,11 @@ color: whitesmoke;
           margin-bottom: -34px;
           right: 0;
           border: none;
+          cursor: pointer;
+          padding: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
         .cncl_btn{

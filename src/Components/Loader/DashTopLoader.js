@@ -26,14 +26,14 @@ const Root = styled.section`
 
 .img_div2{
         width: 100%;
-        height:100%;
+        height: 100%;
        .span.img{
-        border-radius: 50%;
+        border-radius: 35%;
         display: block;
         position: relative;
-        width: 70%;
+        width: 65%;
         aspect-ratio: 1 / 1;
-        height: 70%;
+        height: 65%;
         background: linear-gradient(to right,#aba0a0 8%,#d5d3d3 18%,#a39e9e 33%);
         animation-duration: 4.2s;
         animation-fill-mode: forwards;
