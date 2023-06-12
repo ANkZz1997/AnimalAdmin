@@ -9,13 +9,13 @@ export function CardLoader(){
         {Array(10).fill(0,0,10).map((i,ix)=>{
            return(
             <Root key={ix}>
-            <div class="card">
-            <div class="shimmerBG media"></div>
-            <div class="p-32">
-            <div class="shimmerBG content-line end"></div> 
-                <div class="shimmerBG title-line"></div>
-                <div class="shimmerBG title-line end"></div>
-                <div class="shimmerBG content-line m-t-24"></div>
+            <div className="card">
+            <div className="shimmerBG media"></div>
+            <div className="p-32">
+            <div className="shimmerBG content-line end"></div> 
+                <div className="shimmerBG title-line"></div>
+                <div className="shimmerBG title-line end"></div>
+                <div className="shimmerBG content-line m-t-24"></div>
             </div>
             </div>
             </Root>
