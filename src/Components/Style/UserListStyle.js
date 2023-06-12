@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const UserListStyle = styled.section `
 
 width: 100%;
+  .no_data{
+    text-align: center;
+  }
   h1 {
     color: white;
   }

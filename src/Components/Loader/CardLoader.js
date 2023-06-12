@@ -6,9 +6,9 @@ export function CardLoader(){
 
     return(
         <>
-        {Array(10).fill(0,0,10).map(()=>{
+        {Array(10).fill(0,0,10).map((i,ix)=>{
            return(
-            <Root>
+            <Root key={ix}>
             <div class="card">
             <div class="shimmerBG media"></div>
             <div class="p-32">

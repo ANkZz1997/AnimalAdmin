@@ -38,7 +38,7 @@ function NftWishlisted(data) {
                     <tbody>
                         {userDetails && userDetails?.map((i, ix) => {
                           return (
-                      <tr>
+                      <tr key={ix}>
                           <td data-label="NFT Details" className="nft_cell">
                         <Link to={`/nfts/nftdetails/${i?.id}`}>
                             {/* <div><img src={`${IMAGE_END_POINT}${i?.media}`} />{' '} */}

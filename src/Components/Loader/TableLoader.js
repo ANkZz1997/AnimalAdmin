@@ -8,7 +8,7 @@ export default function TableLoader({num}) {
               {[...Array(10)].map((i,ix) => 
                   <tr key={ix}>
                     {[...Array(num)].map((ii,ix) => 
-                      <td><span></span></td>
+                      <td key={ix}><span></span></td>
                 )}
                   </tr>
               )}

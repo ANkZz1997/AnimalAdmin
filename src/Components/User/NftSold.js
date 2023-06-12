@@ -27,9 +27,9 @@ function NftSold({ data }) {
                 </tr>
               </thead>
               <tbody>
-                {data && data?.map((i) => {
+                {data && data?.map((i,ix) => {
                   return (
-                    <tr>
+                    <tr key={ix}>
                       {/* <Link
                         href="/nftdetails/[nftdetails]"
                         as={`/nftdetails/${i?.nft.id}`}

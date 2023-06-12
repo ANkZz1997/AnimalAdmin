@@ -147,9 +147,9 @@ function UserActivities({ ids }) {
                 </tr>
               </thead>
               <tbody>
-                {userActivity && userActivity?.map((i) => {
+                {userActivity && userActivity?.map((i,ix) => {
                   return (
-                    <tr>
+                    <tr key={ix}>
                        <td data-label="Date & Time">
                         <h4>{`${moment(i?.createdAt).format(
                           'DD-MMM-YY (hh:mm A)',

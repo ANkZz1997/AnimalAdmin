@@ -141,7 +141,7 @@ console.log('nftdata cc' ,netData  )
                     <Table.Cell collapsing>Chain</Table.Cell>
                     <Table.Cell>
                       {netData && netData?.map((i,ix)=>{
-                        return i?.chainId== nftdata?.chainId?i?.name:""
+                        return i?.chainId == nftdata?.chainId ? i?.name :""
                           })}
                           </Table.Cell>
                       {/* {nftdata?.chainId=="5"?"Goerli":(nftdata?.chainId=="97"?"BNB":(nftdata?.chainId=="80001"?"Polygon":"None"))} */}
@@ -239,7 +239,7 @@ console.log('nftdata cc' ,netData  )
                 <tbody>
                   {activity?.map((i, ix) => {
                     return (
-                      <tr>
+                      <tr key={ix}>
                         <td>{i.type}</td>
                         <td>{`${moment(i?.createdAt).format(
                           'DD-MMM-YY (hh:mm A)',

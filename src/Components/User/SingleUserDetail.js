@@ -96,9 +96,9 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
             :"---"}</h4>
 
           <div className="nft_data">
-            { detailsUser && detailsUser?.networks?.map((i)=>{
+            { detailsUser && detailsUser?.networks?.map((i,ix)=>{
               return(
-                <div className="nft">
+                <div key={ix} className="nft">
                   <div><h1> {i.amount==0? `00.00`:Number(i.amount).toFixed(6)} </h1><h3>Eth</h3> </div>
                   <h5>{i.name}</h5>
                 </div>

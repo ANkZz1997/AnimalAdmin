@@ -116,7 +116,7 @@ function AuctionDetails({ details }) {
                   {/* <Link href="/loginOtp" as={'/asd'}> */}
                     <Link to={`/user/userdetails/${auctionData?.user?.id}`}>
                     <h3>
-                      <img
+                      <img alt='img'
                         src={
                           auctionData?.user?.avatar
                             ? `${IMAGE_END_POINT}${auctionData?.user?.avatar}`

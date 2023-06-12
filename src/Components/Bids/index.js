@@ -105,7 +105,7 @@ export default function BidsData() {
                             <td className="nft_img">
                             {/* <Link to={`/auction/auctiondetails/${i?.auction?.id}`}> */}
                               <div className="nft_div" onClick={()=>{nevigate(`/auction/auctiondetails/${i?.auction?.id}`)}}>
-                                <img
+                                <img alt='img'
                                   src={`${IMAGE_END_POINT}${i?.auction?.nft?.media}`}
                                 ></img>{' '}
                                 {i?.auction?.nft?.name}

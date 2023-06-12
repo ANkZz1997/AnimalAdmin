@@ -59,7 +59,7 @@ function TopBuyer() {
 
       <Slider {...TopSellerBuyerSettings}>
         {loader? [...Array(10)].map((i,ix) => 
-            <DashTopLoader/>
+            <DashTopLoader key={ix}/>
         )
         : 
          userData && userData?.map((i,ix)=>{

@@ -126,9 +126,9 @@ export default function Networks() {
           {loader? <LoaderCSS/>:
             <div className= 'net_main_parent'>
                 
-                {netData && netData?.map((i)=>{
+                {netData && netData?.map((i,ix)=>{
                     return(
-                        <div className={i.enabled?'net_main_child':'net_main_child no'}>
+                        <div key={ix} className={i.enabled?'net_main_child':'net_main_child no'}>
                         <div className='net_child'>
                             <button className='btn1' onClick={()=>{setEditPopup(true);setEditObj(i)}} ><AiFillEdit/></button>
                             <div className={editPopup?"edit_net": "edit_net no"}>

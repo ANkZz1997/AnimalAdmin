@@ -36,6 +36,7 @@ export default function Sidebar() {
     // navigate('/')
     // window.location.replace("/")
   }
+
   return (
     <Root>
       <div className='menu_top'>
@@ -55,7 +56,7 @@ export default function Sidebar() {
           <div>
             <h4 className="caption">CONTENT</h4>
           </div>
-          <Link to ='/user' className={activeParam=="user"?"link_2 active":"link_2"} onClick={()=>setActiveTab("user")}><FaUserAlt/><h3>User</h3></Link>
+          <Link to ='/user?type=alluser' className={activeParam=="user"?"link_2 active":"link_2"} onClick={()=>setActiveTab("user")}><FaUserAlt/><h3>User</h3></Link>
           <Link to ='/nfts' className={activeParam=="nfts"?"link_2 active":"link_2"} onClick={()=>setActiveTab("nfts")}><GiCardKingDiamonds/><h3>NFTs</h3></Link>
           <Link to ='/auction' className={activeParam=="auction"?"link_2 active":"link_2"} onClick={()=>setActiveTab("auction")}><RiAuctionFill/><h3>Auction</h3></Link>
           <Link to ='/marketplace' className={activeParam=="marketplace"?"link_2 active":"link_2"} onClick={()=>setActiveTab("marketplace")}><TbReplace/><h3>Marketplace</h3></Link>

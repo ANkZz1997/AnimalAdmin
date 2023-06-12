@@ -202,9 +202,9 @@ function MarketplaceDetails({ details }) {
                           : 'N/A'}
                       </Table.Cell>
                     </Table.Row>
-                    {marketplaceData?.nft?.attributes?.map((i) => {
+                    {marketplaceData?.nft?.attributes?.map((i,ix) => {
                       return (
-                        <Table.Row>
+                        <Table.Row key={ix}>
                           <Table.Cell collapsing>
                             {i.propertyType ? i.propertyType : 'Attributes'}
                           </Table.Cell>

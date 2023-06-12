@@ -103,7 +103,7 @@ console.log("AAaaaa----",changeStatus,docId)
         <div className='doc_child'>
           {getDoc && getDoc?.map((i, ix)=>{
             return(
-              <div className={i.enabled?"doc_body":"doc_body no"}>
+              <div className={i.enabled?"doc_body":"doc_body no"} key={ix}>
                 <button onClick={()=>{changeStatusDoc(!i.enabled,i.id)}} className='act_btn'>{i.enabled?"Disable":"Enable"}</button>
                 <div><h5>Document Name</h5><p>{i?.name}</p></div>
                 <div><h5>Document Status</h5><p>{i?.enabled?"Enabled":"Disabled"}</p></div>
