@@ -121,7 +121,7 @@ function ChatSupport() {
                               {/* <Link to={`/user/userdetails/${i.user?.id}`}> */}
 
                                   <div className="user_image_name" onClick={()=>{nevigate(`/user/userdetails/${i.user?.id}`)}}>
-                                  <img
+                                  <img alt='Img'
                                       src={
                                       i.user?.avatar
                                           ? `${IMAGE_END_POINT}${i.user?.avatar}`
@@ -163,6 +163,8 @@ function ChatSupport() {
                     </tbody>
                   }
                 </table>
+                {disputeData?.length === 0 && !loader? <h1 className='no_data'>No Data Found</h1>:"" }
+
             </div>
           </div>
           <PaginationCode
@@ -180,6 +182,9 @@ function ChatSupport() {
 export default ChatSupport;
 
 const Root = styled.section`
+.no_data{
+  text-align: center;
+}
 color: whitesmoke;
   .user_image_name {
     display: flex;

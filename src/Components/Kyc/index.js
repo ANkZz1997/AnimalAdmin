@@ -254,26 +254,16 @@ function KycDetails() {
                     {i?.status}
                   </td>
                   <HandleActionBtn  i={i} handelActionBtn={(e,id,name)=>{handelAction(e, id, name)}}/>
-                  {/* <td className="select_cell">
-                    <select
-                      name="kyc_actions"
-                      id="actions"
-                      onChange={(e) => {handelAction(e.target.value, i.id);setAction(e.target.value)}}
-                      value={action}
-                    >
-                      <option value="">Actions</option>
-                      <option value="Approve">Approve</option>
-                      <option value="Rejected">Reject</option>
-                    </select>
-                  </td> */}
-
                 </tr>
               );
             })}
-          </tbody>
+            </tbody>
              }
-            
           </table>
+          {
+            kycData?.length === 0 && !loader? <h1 className='no_data'>No Data Found</h1>:"" 
+          }
+          
         <div className={isOpen ? 'img_popup ' : 'img_popup active'}>
           {!imgLoader ? (
             docs.length > 0 ? (
@@ -322,7 +312,11 @@ function KycDetails() {
 export default KycDetails;
 
 const Root = styled.section`
-    color: whitesmoke;
+
+  .no_data{
+    text-align: center;
+  }
+  color: whitesmoke;
   .input_remark{
     display: flex;
     justify-content: center;

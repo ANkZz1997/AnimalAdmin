@@ -134,6 +134,7 @@ export default function BidsData() {
                   </tbody>
                 }
               </table>
+              {bidsData?.length === 0 && !loader? <h1 className='no_data'>No Data Found</h1>:"" }
             </div>
       
           <PaginationCode
@@ -149,7 +150,10 @@ export default function BidsData() {
   );
 }
 const Root = styled.section`
-    color: whitesmoke;
+  .no_data{
+    text-align: center;
+  }
+  color: whitesmoke;
   .nft_img {
     text-transform: capitalize;
     :hover {
