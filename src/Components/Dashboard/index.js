@@ -13,6 +13,7 @@ import cogoToast from 'cogo-toast';
 import axios from 'axios';
 import URLS from '../../utils/urls';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import RevenueGenerated from './RevenueGenerated';
 
 export default function DashboardData() {
     const [dashboardData,setDashboardData] = useState('')
@@ -123,7 +124,7 @@ export default function DashboardData() {
                     <FaUserSlash/>
                   </div>
               </div>
-              <div className="card_1" onClick={()=>{nevigate("/user?type=INACTIVE")}}>
+              <div className="card_1 last" onClick={()=>{nevigate("/user?type=INACTIVE")}}>
                   <div>
                     Inactive Users
                     {loader ? (
@@ -189,21 +190,7 @@ export default function DashboardData() {
             </div>
 
             <div className="body_side">
-              <div className="sidebar_content">
-                <div className="highest_eth_buyer">
-                  <NftTransactionChart/>
-                </div>
-                <div className="marketplace_stats">
-                  <NftTransactionChart />
-                </div>
-                <div className="marketplace_stats">
-                  <NftTransactionChart />
-                </div>
-                <div className="marketplace_stats">
-                  <NftTransactionChart />
-                </div>
-                <div className="bids_current_status">I am Bids Status</div>
-              </div>
+                <RevenueGenerated/>
             </div>
           </div>
 
@@ -264,11 +251,14 @@ const Root = styled.section`
         transform: scale(1.1);
       }
     }
+    .card_1.last{
+      border-right: 0;
+    }
   }
 
   .dashboard_body {
     display: flex;
-    gap: 20px;
+    gap: 10px;
     .body_front {
       width: 75%;
       gap: 20px;
@@ -292,8 +282,10 @@ const Root = styled.section`
     }
 
     .body_side {
-      width: 25%;
-      background-color: red;
+      min-width: 25%;
+      /* border: 1px solid grey; */
+      border-radius: 20px;
+
       .sidebar_content {
         display: flex;
         flex-direction: column;

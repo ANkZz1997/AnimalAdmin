@@ -86,17 +86,27 @@ export default function Layout({ children }) {
                         </>
                     :
                     <div className='layout_section'>
-                        <div>
-                            <Topbar/>
-                            <div className='sidebar'>
-                                <Sidebar />
-                            </div>
+                        <div className='sidebar'>
+                            <Sidebar />
                         </div>
-
                         <div className='main_section'>
+                            <div className='profile_top_bar'><Topbar/></div>
                             <div className='content_section'>{children}</div>
                         </div>
                     </div>
+
+                    // <div className='layout_section'>
+                    //     <div>
+                    //         <Topbar/>
+                    //         <div className='sidebar'>
+                    //             <Sidebar />
+                    //         </div>
+                    //     </div>
+
+                    //     <div className='main_section'>
+                    //         <div className='content_section'>{children}</div>
+                    //     </div>
+                    // </div>
 
                 :
                 <div>
@@ -109,58 +119,45 @@ export default function Layout({ children }) {
 
 const Root = styled.section`
 height: 100%;
-.layout_section{
-    background-color: #070c27;
+
+.layout_section {
     display: flex;
-    height: 100%;
-    /* width: 100%; */
-    *::-webkit-scrollbar {
-  display: none;
-}
-    .sidebar{
-        width: 240px;
-        padding: 20px 10px 20px 20px;
-        border-right: 1px solid #3b3b3b;
-        gap: 60px;
-        position: sticky;
-        overflow-x: scroll;
+    width:100%;
+    background-color: #070c27;
+    .sidebar {
+        flex: 0 240px;
         height: 100vh;
-        z-index: 999;
+        position: sticky;
         top: 0px;
         background: #070c27;
+        padding: 20px 10px 20px 20px;
+        border-right: 1px solid #3b3b3b;
+        overflow-x: scroll;
         ::-webkit-scrollbar{
             display: none;
         }
         @media(max-width: 1000px){
             display:none;
         }
-
     }
-    .main_section{
-        width: 82%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 0px auto;
+    .main_section {
+        flex: 1;
         position: relative;
-        margin-top: 15px;
-        .top_bar{
-            width: auto;
+        display: block;
+        width: calc(100% - 240px);
+        .profile_top_bar {
+            position: sticky;
+            top: 0px;
+            z-index:9;
+            /* box-shadow: 4px 0px 9px 0px #b3a6a6; */
+           
         }
-        .content_section {
-            flex: 1;
-            height: 100%;
-            overflow-y: scroll;
-            overflow-x: hidden;
-            padding: 10px;
-            /* margin-top: 10px; */
-            padding-top: 75px;
-        }
-        @media(max-width: 1000px){
-            width: 95%;
+        .content_section{
+            width:100%;
+            padding:20px;
+            min-height: 100vh;
         }
     }
 }
-
 
 `

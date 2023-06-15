@@ -7,11 +7,12 @@ import Sidebar from './Sidebar'
 import { useNavigate } from 'react-router-dom'
 import URLS from '../../utils/urls'
 import NotificationBar from './NotificationBar'
+import { FaWallet } from 'react-icons/fa'
 
 export default function Topbar() {
 
   const [toggle,setToggle] = useState(false)
-  const [notifyToggle,setNotifyToggle] = useState(false);
+  const [notifyToggle, setNotifyToggle] = useState(false);
   const userCheck = useSelector((state)=>state?.persistReducer?.adminDetails)
   const nevigate = useNavigate()
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
@@ -22,12 +23,17 @@ export default function Topbar() {
       <div className="admin_profile">
       <div className='click_menu' onClick={()=>setToggle(!toggle)}><BiMenu/></div>
       <div className='admin_details_notification' >
+  
         <div className='notification_point' onClick={()=>{nevigate("/notification")}}>
           <IoIosNotifications/>
           <div className={notifyToggle?"notify": "notify off"}>
             <NotificationBar/>
           </div>
           <div className="notify_child">21</div>
+        </div>
+        <div className='wallet_amount'>
+            <span><FaWallet/></span>
+            <h3>51.28 Eth</h3>
         </div>
         <div className="admin_details" onClick={()=>{nevigate("platformsettings?basicSetting=adminProfile")}}>
           <img
@@ -44,7 +50,6 @@ export default function Topbar() {
             {/* <div className="notify_child"> 21</div> */}
           </div>
         </div>
-        
       </div>
     </div>
     <div className={toggle?"toggle_on":"toggle_off"} onClick={()=>setToggle(!toggle)}>
@@ -60,14 +65,14 @@ export default function Topbar() {
 }
 
 const Root = styled.section`
-position: fixed;
-width: 100%;
+/* position: fixed;
+width: 100%; */
 background-color: #070c27;
-z-index:5;
+/* z-index:5; */
 
     .admin_profile {
       display: flex;
-      justify-content: space-between;
+      justify-content: end;
       cursor: pointer;
       .update_admin{
         position: fixed;
@@ -78,6 +83,11 @@ z-index:5;
         color: white;
         font-size: 30px;
         padding: 20px;
+        margin-right:auto;
+        display:none;
+        @media(max-width: 1000px){
+          display:unset;
+        }
       }
       .admin_details_notification{
         display: flex;
@@ -123,7 +133,7 @@ z-index:5;
         .notification_point{
           color: white;
           padding: 5px;
-          margin: 15px 0px 5px 5px;
+          margin: 15px 5px 5px 5px;
           display: flex;
           align-items: center;
           font-size: 35px;
@@ -167,6 +177,21 @@ z-index:5;
               display: flex;
               align-items: center;
               justify-content: center;
+          }
+        }
+
+        .wallet_amount{
+          margin: 15px 5px 5px 5px;
+          padding: 5px;
+          border: 1px solid grey;
+          color: white;
+          display: flex;
+          gap: 10px;
+          justify-content: center;
+          align-items: center;
+          border-radius: 10px;
+          span{
+            font-size: 20px;
           }
         }
       }

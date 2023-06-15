@@ -27,7 +27,7 @@ button.slick-arrow.slick-prev {
 .parent_container{
   border: 1px solid grey;
   padding: 20px 25px;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   h3{
     padding: 0px 0px 10px 5px;
   }

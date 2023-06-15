@@ -55,7 +55,7 @@ function TopBuyer() {
   return (
     <TopBuyerSellerStyle>
       <div className="parent_container">
-      <h3>Top Buyers</h3>
+      <h3>Top #20 Buyers</h3>
 
       <Slider {...TopSellerBuyerSettings}>
         {loader? [...Array(10)].map((i,ix) => 
