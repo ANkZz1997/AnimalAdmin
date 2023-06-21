@@ -13,7 +13,7 @@ import cogoToast from 'cogo-toast';
 import axios from 'axios';
 import URLS from '../../utils/urls';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import RevenueGenerated from './RevenueGenerated';
+import SideBodyDataGraphs from './SideBodyDataGraphs';
 
 export default function DashboardData() {
     const [dashboardData,setDashboardData] = useState('')
@@ -190,7 +190,7 @@ export default function DashboardData() {
             </div>
 
             <div className="body_side">
-                <RevenueGenerated/>
+                <SideBodyDataGraphs/>
             </div>
           </div>
 

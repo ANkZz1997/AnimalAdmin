@@ -46,14 +46,14 @@ button.slick-arrow.slick-prev {
               position: absolute;
               top: 0;
               left: 0;
-              margin-left: 5px;
+              margin-left: 10px;
               margin-top: 0px;
               border-radius: 5px;
-              padding: 2px;
+              padding: 1px;
 
             }
             img {
-              width: 65%;
+              width: 50%;
               border-radius: 35%;
               object-fit: cover;
               margin-bottom: 10px;
