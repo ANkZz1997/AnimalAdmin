@@ -35,7 +35,7 @@ const Clock = ({ deadline }) => {
     }
   }, [deadline]);
 
-  console.log("deadline",deadline)
+  console.log("deadline",days)
 
   return (
     <Root>

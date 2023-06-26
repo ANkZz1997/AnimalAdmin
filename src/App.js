@@ -47,8 +47,6 @@ function App() {
             <Route path="/platformsettings" element={ <Protected > <PlatformSettings/> </Protected> } />
             <Route path="/mobilesettings" element={ <Protected > <MobileSettings/> </Protected> } />
             <Route path="/notification" element={ <Protected > <NotificationPage/> </Protected> } />
-
-
             {/* <Route path="/platformsettings/platformcharge" element={ <Protected > <PlatformFees/> </Protected> } /> */}
 
             <Route path="/user/userdetails/:id" element={ <Protected > <UserDetails /> </Protected> } />

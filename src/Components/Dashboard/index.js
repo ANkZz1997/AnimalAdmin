@@ -14,6 +14,7 @@ import axios from 'axios';
 import URLS from '../../utils/urls';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import SideBodyDataGraphs from './SideBodyDataGraphs';
+import NftCreatedVsSold from './NftCreatedVsSold';
 
 export default function DashboardData() {
     const [dashboardData,setDashboardData] = useState('')
@@ -97,7 +98,6 @@ export default function DashboardData() {
               </div>
 
               <div className="card_1" onClick={()=>{nevigate("/user?type=joinedtoday")}}>
-
                   <div>
                     Joined Today
                     {loader ? (
@@ -174,18 +174,19 @@ export default function DashboardData() {
 
               <div className="mid_bar">
                 <div className="nft_transaction">
-                  <NftTransactionChart />
+                  <NftCreatedVsSold/>
                 </div>
-                <div className="nft_transaction">
-                  <NftTransactionChart />
+                <div className='mid_child2'>
+                  <div className='mid_graph'>
+                    <NftTransactionChart />
+                  </div>
+                  <div className='mid_graph'>
+                    <NftTransactionChart />
+                  </div>
+                  <div className='mid_graph'>
+                    <NftTransactionChart />
+                  </div>
                 </div>
-                <div className="nft_transaction">
-                  <NftTransactionChart />
-                </div>
-                <div className="nft_transaction">
-                  <NftTransactionChart />
-                </div>
-                <div></div>
               </div>
             </div>
 
@@ -202,6 +203,7 @@ export default function DashboardData() {
 const Root = styled.section`
     color: whitesmoke;
 .card_parent {
+
     display: flex;
     justify-content:space-around;
     width: 100%;
@@ -217,6 +219,12 @@ const Root = styled.section`
     }
 
     .card_1 {
+      @media(max-width: 850px){
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+      }
       transition: all 1s;
       width: 20%;
       display: flex;
@@ -228,6 +236,9 @@ const Root = styled.section`
       padding-right: 5px;
       cursor: pointer;
       > div:first-child {
+        @media(max-width: 850px){
+          text-align: center;
+}
         h2 {
           margin: 0;
           padding: 0;
@@ -235,6 +246,7 @@ const Root = styled.section`
       }
 
       > div:last-child {
+      
         border-radius: 50%;
         border: 3px solid white;
         /* padding: 15px; */
@@ -264,9 +276,12 @@ const Root = styled.section`
       gap: 20px;
       .top_bar {
         display: flex;
-        gap: 15px;
+        gap: 10px;
         align-items: center;
-        flex-direction: column;
+        /* flex-direction: column; */
+        @media(max-width:650px){
+          flex-direction: column;
+        }
       
       }
       .mid_bar {
@@ -274,9 +289,20 @@ const Root = styled.section`
         flex-wrap: wrap;
         gap: 10px;
         justify-content: center;
+        flex-direction: column;
         margin-top: 10px;
         .nft_transaction {
-          width: 49.2%;
+          /* padding: 10px; */
+        }
+        .mid_child2{
+          display: flex;
+          flex-wrap: wrap;
+          width: 100%;
+          gap: 10px;
+          .mid_graph{
+            width: 49.5%;
+          }
+
         }
       }
     }
@@ -292,6 +318,16 @@ const Root = styled.section`
         position: sticky;
         gap: 10px;
         top: 0px;
+      }
+    }
+
+    @media(max-width:1320px){
+      flex-direction: column;
+      .body_front{
+        width: 100%;
+      }
+      .body_side{
+        width: 100%;
       }
     }
   }

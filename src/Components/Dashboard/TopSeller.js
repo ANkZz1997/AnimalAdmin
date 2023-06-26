@@ -60,7 +60,7 @@ function TopSeller() {
       <div className="parent_container">
         <h3>Top #20 Sellers</h3>
         <Slider {...TopSellerBuyerSettings}>
-        {loader? [...Array(10)].map((i,ix) => 
+        {loader? [...Array(6)].map((i,ix) => 
             <DashTopLoader key={ix}/>
         )
         : 

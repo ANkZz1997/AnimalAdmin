@@ -2,7 +2,12 @@ import styled from "styled-components";
 
 export const TopBuyerSellerStyle = styled.section`
 
-width: 100%;
+@media(max-width:650px){
+  width: 95%;
+}
+
+width: 49%;
+flex:1;
 
 button.slick-arrow.slick-next {
     position: absolute;
@@ -26,7 +31,7 @@ button.slick-arrow.slick-prev {
 
 .parent_container{
   border: 1px solid grey;
-  padding: 20px 25px;
+  padding: 15px 20px;
   /* border-radius: 20px; */
   h3{
     padding: 0px 0px 10px 5px;
@@ -53,7 +58,7 @@ button.slick-arrow.slick-prev {
 
             }
             img {
-              width: 50%;
+              width: 50px;
               border-radius: 35%;
               object-fit: cover;
               margin-bottom: 10px;
@@ -95,40 +100,56 @@ export const TopSellerBuyerSettings = {
     // dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 10,
-    slidesToScroll: 4,
+    slidesToShow: 6,
+    slidesToScroll: 5,
     initialSlide: 0,
     responsive: [
+      {
+        breakpoint: 1650,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 4,
+          infinite: false,
+          // dots: true
+        }
+      },
         {
             breakpoint: 1500,
             settings: {
-              slidesToShow: 8,
+              slidesToShow: 4,
               slidesToScroll: 4,
               infinite: false,
               // dots: true
             }
           },
+      // {
+      //   breakpoint: 1250,
+      //   settings: {
+      //     slidesToShow: 3,
+      //     slidesToScroll: 2,
+      //     infinite: false,
+      //     // dots: true
+      //   }
+      // },
+      // {
+      //   breakpoint: 730,
+      //   settings: {
+      //     slidesToShow: 2,
+      //     slidesToScroll: 1,
+      //     initialSlide: 2
+      //   }
+      // },
       {
-        breakpoint: 1250,
-        settings: {
-          slidesToShow: 6,
-          slidesToScroll: 2,
-          infinite: false,
-          // dots: true
-        }
-      },
-      {
-        breakpoint: 730,
+        breakpoint: 650,
         settings: {
           slidesToShow: 5,
-          slidesToScroll: 2,
-          initialSlide: 2
+          slidesToScroll: 1
         }
       },
       {
-        breakpoint: 530,
+        breakpoint: 500,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 4,
           slidesToScroll: 1
         }
       }

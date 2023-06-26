@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {FaEthereum, FaRupeeSign} from 'react-icons/fa'
+import {FaEthereum, FaRupeeSign, FaWallet} from 'react-icons/fa'
 import {SlOptionsVertical} from 'react-icons/sl'
 import { AiOutlineArrowDown, AiOutlineArrowUp } from 'react-icons/ai'
 import CountUp from 'react-countup'
@@ -29,11 +29,7 @@ function SideBodyDataGraphs() {
                 </div>
             </div>
 
-        </div>
-
-        <div className='first_child'>
-
-        <div className='revenue_div'>
+            <div className='revenue_div'>
             <div className='child_2'>
                 <p>Total Etherium Transfered</p>
                 <button className='opt_btn'><SlOptionsVertical/></button>
@@ -47,13 +43,30 @@ function SideBodyDataGraphs() {
             </div>
         
             <div className='child_3'>
-                <p className='arrow_up off'><AiOutlineArrowDown/>5.34%</p>vs. Previous Month
+                <p className='arrow_up off'><AiOutlineArrowDown/>1.24%</p>vs. Previous Month
+            </div>
+            </div>
+
+            <div className='revenue_div'>
+            <div className='child_2'>
+                <p>Total User Wallet Balance</p>
+                <button className='opt_btn'><SlOptionsVertical/></button>
+            </div>
+
+            <div className='child_1'>
+                <div>
+                    <p className='child_1_logo'><FaRupeeSign/></p>
+                    <h1><CountUp start={0} end={298584} duration={2.5}/></h1>
+                </div>
+            </div>
+        
+            <div className='child_3'>
+                <p className='arrow_up off'><AiOutlineArrowDown/>2.34%</p>vs. Previous Month
+            </div>
             </div>
         </div>
 
-        </div>
-
-        <div className='first_child'>
+        <div className='second_child'>
             <UserTypeGraph/>
         </div>
 
@@ -69,13 +82,34 @@ const Root = styled.section`
 
 display: flex;
 flex-direction: column;
-gap: 20px;
-padding: 0px 10px;
+gap: 15px;
+
+@media(max-width:1320px){
+      flex-direction: row-reverse;
+      .second_child{
+        width: 50%;
+      }
+      .first_child{
+        width: 50%;
+        justify-content: space-around;
+      }
+    }
+@media(max-width: 600px){
+    /* flex-direction: row-reverse; */
+    flex-direction: column-reverse;
+    .second_child{
+    width: 100%;
+    }
+    .first_child{
+    width: 100%;
+    justify-content: space-around;
+    }
+}
 
 .first_child{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
     >div{
         padding: 10px;
         border: 1px solid grey;
