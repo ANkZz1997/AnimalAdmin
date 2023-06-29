@@ -21,7 +21,14 @@ export default function NftCreatedVsSold() {
           type: 'line',
           stacked: false,
           toolbar: {
-            show : false,
+            show : true,
+            tools: {
+                download : false,
+                zoom: false,
+                zoomin: true,
+                zoomout: true,
+                pan: false,
+            }
           }
         },
         dataLabels: {
@@ -123,6 +130,6 @@ export default function NftCreatedVsSold() {
 
 
   return (
-    <div style={{"color":"black"}}><ReactApexChart options={options} series={series} type="line" height={350} /></div>
+    <div style={{"color":"black"}}><ReactApexChart options={options} series={series} type="line" height={300} /></div>
   )
 }

@@ -101,3 +101,10 @@ new Promise((resolve, reject) => {
     });
 });
 
+export const scrollTopFunction = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'auto',
+  })
+}
+

@@ -12,21 +12,21 @@ import cogoToast from "cogo-toast";
 import { useDispatch, useSelector } from 'react-redux';
 import { checkUserAction, preLoginAction } from '../../redux/admin/action';
 import URLS from '../../utils/urls';
+import { scrollTopFunction } from '../../utils/https';
 // import { userLoginAction, userLogoutAction } from '../../redux/admin/action';
 
 
 
 export default function Sidebar() {
+  
   const expe = window.location.href.replace('?',"/");
   const activeParam = expe.split('/')[3];
   const [activeTab,setActiveTab] = useState(activeParam)
   // const [logo,setLogo] = useState();
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
-
-  const userCheck = useSelector((state)=>state?.persistReducer?.username)
-
+  // const userCheck = useSelector((state)=>state?.persistReducer?.username)
   const logo = useSelector((state)=>state?.persistReducer?.preLogData?.platformLogo)
 
   const userLogoutAction = ()=>{
@@ -36,6 +36,10 @@ export default function Sidebar() {
     // navigate('/')
     // window.location.replace("/")
   }
+
+  useEffect(()=>{
+    scrollTopFunction()
+  },[activeParam])
 
   return (
     <Root>

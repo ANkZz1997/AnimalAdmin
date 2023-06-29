@@ -15,6 +15,8 @@ import URLS from '../../utils/urls';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import SideBodyDataGraphs from './SideBodyDataGraphs';
 import NftCreatedVsSold from './NftCreatedVsSold';
+import MarketNFTGraph from './MarketNFTGraph';
+import AuctionNFTGraph from './AuctionNFTGraph';
 
 export default function DashboardData() {
     const [dashboardData,setDashboardData] = useState('')
@@ -164,36 +166,33 @@ export default function DashboardData() {
               </div>
             </div>
           </div>
-          
           <div className="dashboard_body">
             <div className="body_front">
               <div className="top_bar">
                   <TopSeller />
                   <TopBuyer />
               </div>
-
               <div className="mid_bar">
                 <div className="nft_transaction">
                   <NftCreatedVsSold/>
                 </div>
                 <div className='mid_child2'>
                   <div className='mid_graph'>
-                    <NftTransactionChart />
+                    <AuctionNFTGraph/>
                   </div>
                   <div className='mid_graph'>
-                    <NftTransactionChart />
-                  </div>
-                  <div className='mid_graph'>
-                    <NftTransactionChart />
+                    <MarketNFTGraph />
                   </div>
                 </div>
               </div>
             </div>
-
             <div className="body_side">
                 <SideBodyDataGraphs/>
             </div>
           </div>
+          {/* <div>
+            I am Dashboard Body 2...
+          </div> */}
 
     </Root>
 
@@ -300,9 +299,15 @@ const Root = styled.section`
           width: 100%;
           gap: 10px;
           .mid_graph{
-            width: 49.5%;
+            width: 49%;
           }
-
+          @media(max-width:540px){
+          flex-direction: column;
+          .mid_graph{
+            width: 100%;
+          }
+        }
+          
         }
       }
     }
