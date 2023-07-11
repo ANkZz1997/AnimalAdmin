@@ -51,7 +51,6 @@ export default function AuctionCard(data) {
         <div className="content_section1">
           {/* <Link href="/userdetails/[userid]" as={`/userdetails/${user?.id}`}> */}
           <Link to={`/user/userdetails/${user?.id}`}>
-
             <div className="content_user">
               <img
                 src={

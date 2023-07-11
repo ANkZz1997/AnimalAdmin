@@ -5,6 +5,7 @@ import {SlOptionsVertical} from 'react-icons/sl'
 import { AiOutlineArrowDown, AiOutlineArrowUp } from 'react-icons/ai'
 import CountUp from 'react-countup'
 import UserTypeGraph from './UserTypeGraph'
+import KycChart from './KycChart'
 
 function SideBodyDataGraphs() {
   return (
@@ -68,6 +69,7 @@ function SideBodyDataGraphs() {
 
         <div className='second_child'>
             <UserTypeGraph/>
+            <KycChart/>
         </div>
 
 
@@ -82,7 +84,8 @@ const Root = styled.section`
 
 display: flex;
 flex-direction: column;
-gap: 15px;
+gap : 15px;
+
 
 @media(max-width:1320px){
       flex-direction: row-reverse;
@@ -91,7 +94,7 @@ gap: 15px;
       }
       .first_child{
         width: 50%;
-        justify-content: space-around;
+        /* justify-content: space-around; */
       }
     }
 @media(max-width: 600px){
@@ -176,6 +179,12 @@ gap: 15px;
     }
     .eth_balance_div{
     }
+}
+
+.second_child{
+    display : flex;
+    flex-direction: column;
+    gap : 15px
 }
 
 

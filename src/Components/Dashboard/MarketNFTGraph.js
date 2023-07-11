@@ -4,6 +4,7 @@ import ReactApexChart from 'react-apexcharts'
 export default function MarketNFTGraph() {
     const series = [{
         name: 'NFT Added In Marketplace',
+        color : "#d755ff",
         data: [{
             x: "Jan",
             y: 222
@@ -55,6 +56,7 @@ export default function MarketNFTGraph() {
         ]
       }, {
         name: 'NFT Sold From Marketplace',
+        color: "#eb434d",
         data: [
           {
             x: "Jan",
@@ -135,7 +137,7 @@ export default function MarketNFTGraph() {
           align: 'left',
           style: { 
             fontSize: '14px',
-            color: "grey"
+            color: "#fff"
           }
         },
         xaxis: {
@@ -145,6 +147,11 @@ export default function MarketNFTGraph() {
           },
           axisTicks: {
             show: false
+          },
+          labels: {
+            style :{
+              colors : '#fff'
+            }
           }
         },
         yaxis: {
@@ -153,7 +160,7 @@ export default function MarketNFTGraph() {
         
           labels: {
             style: {
-              colors: '#8e8da4',
+              colors: '#fff',
             },
             offsetY: 0,
             offsetX: 0,
@@ -169,15 +176,32 @@ export default function MarketNFTGraph() {
           opacity: 0.5
         },
         tooltip: {
+          fillSeriesColor: true,
           x: {
-            format: "yyyy",
+            show: false,
+            // format: "yyyy",
+            // labels :{
+            //   color : "black"
+            // }
           },
         },
+        legend :{
+          labels :{
+            colors :["#fff", "#fff"]
+          }
+        },
+        grid: {
+          borderColor: 'grey',
+            row: {
+              colors: ['transparent', 'transparent'],
+              opacity: 0.5
+            },
+          },
       }
     
   return (
     <div>
-         <ReactApexChart style={{"color":"black"}} options={options} series={series} type="area" height={300} />    
+         <ReactApexChart style={{"color":"#fff"}} options={options} series={series} type="area" height={300} />    
     </div>
   )
 }

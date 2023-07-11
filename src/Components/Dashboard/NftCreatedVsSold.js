@@ -40,10 +40,19 @@ export default function NftCreatedVsSold() {
         title: {
           text: 'Animal NFT Analysis (2022)',
           align: 'left',
-          offsetX: 110,
+          offsetX: 0,
+          style: {
+            fontSize: '14px',
+            color: "#fff"
+          }
         },
         xaxis: {
           categories: ["Jan","Feb","Mar","Apr","May","Jun","July","Aug","Sept","Oct","Nov","Dec"],
+          labels: {
+            style :{
+              colors : '#fff'
+            }
+          }
         },
         yaxis: [
           {
@@ -115,21 +124,39 @@ export default function NftCreatedVsSold() {
           },
         ],
         tooltip: {
-          fixed: {
-            enabled: true,
-            position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
-            offsetY: 30,
-            offsetX: 60,
+          // fixed: {
+          //   enabled: true,
+          //   position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
+          //   offsetY: 30,
+          //   offsetX: 60,
+          // },
+          fillSeriesColor: true,
+          x: {
+            show: false,
+            // format: "yyyy",
+            // labels :{
+            //   color : "black"
+            // }
           },
         },
         legend: {
           horizontalAlign: 'left',
           offsetX: 40,
-        }
+            labels :{
+              colors :["white", "white", "white"]
+            }
+        },
+        grid: {
+          borderColor: 'grey',
+            row: {
+              colors: ['transparent', 'transparent'],
+              opacity: 0.5
+            },
+          },
       }
 
 
   return (
-    <div style={{"color":"black"}}><ReactApexChart options={options} series={series} type="line" height={300} /></div>
+    <div style={{"color":"#fff"}}><ReactApexChart options={options} series={series} type="line" height={300} /></div>
   )
 }

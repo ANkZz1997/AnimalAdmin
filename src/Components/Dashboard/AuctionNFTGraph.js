@@ -4,6 +4,7 @@ import ReactApexChart from 'react-apexcharts'
 export default function AuctionNFTGraph() {
     const series = [{
         name: 'NFT Added In Auction',
+        color : "#fba150",
         data: [{
             x: "Jan",
             y: 222
@@ -52,9 +53,10 @@ export default function AuctionNFTGraph() {
             x: "Dec",
             y: 266
           },
-        ]
+        ],
       }, {
         name: 'NFT Sold From Auction',
+        color : "#19e1f7",
         data: [
           {
             x: "Jan",
@@ -104,7 +106,8 @@ export default function AuctionNFTGraph() {
             x: "Dec",
             y: 44
           },
-        ]
+        ],
+        
       }]
 
     const options =  {
@@ -135,7 +138,7 @@ export default function AuctionNFTGraph() {
           align: 'left',
           style: {
             fontSize: '14px',
-            color: "grey"
+            color: "#fff"
           }
         },
         xaxis: {
@@ -145,6 +148,11 @@ export default function AuctionNFTGraph() {
           },
           axisTicks: {
             show: false
+          },
+          labels: {
+            style :{
+              colors : '#fff'
+            }
           }
         },
         yaxis: {
@@ -153,7 +161,7 @@ export default function AuctionNFTGraph() {
         
           labels: {
             style: {
-              colors: '#8e8da4',
+              colors: '#fff',
             },
             offsetY: 0,
             offsetX: 0,
@@ -169,15 +177,32 @@ export default function AuctionNFTGraph() {
           opacity: 0.5
         },
         tooltip: {
+          fillSeriesColor: true,
           x: {
-            format: "yyyy",
+            show: false,
+            // format: "yyyy",
+            // labels :{
+            //   color : "black"
+            // }
           },
         },
+        legend :{
+          labels :{
+            colors :["#fff", "#fff"]
+          }
+        },
+        grid: {
+          borderColor: 'grey',
+            row: {
+              colors: ['transparent', 'transparent'],
+              opacity: 0.5
+            },
+          },
       }
     
   return (
     <div>
-         <ReactApexChart style={{"color":"black"}} options={options} series={series} type="area" height={300} />    
+         <ReactApexChart options={options} series={series} type="area" height={300} />    
     </div>
   )
 }

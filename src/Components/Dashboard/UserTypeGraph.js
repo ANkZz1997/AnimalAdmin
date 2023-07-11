@@ -48,14 +48,14 @@ export default function UserTypeGraph() {
           align: "middle",
           labels: {
             boxWidth: 30,
-            padding: 20
+            padding: 20,
           }
         },
         plugins: {
           datalabels: {
-            color: "#1f4e56",
+            color: "#000",
             font: {
-              weight: "bold",
+              // weight: "bold",
               size: 14
             },
             padding: 4,
@@ -69,7 +69,7 @@ export default function UserTypeGraph() {
   return (
     <Root>
     <div className="content">
-      <Doughnut data={data} options={options} />
+      <Doughnut data={data} options={options}/>
       <div className="doughnut-title">
         <div className="donuttitle">Total</div>
         <div className="donutsubtitle">{`${totalUsers} Users`}</div>

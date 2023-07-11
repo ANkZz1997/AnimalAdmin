@@ -237,7 +237,7 @@ console.log('nftdata cc' ,netData  )
                   </tr>
                 </thead>
                 <tbody>
-                  {activity?.map((i, ix) => {
+                  {activity && activity?.map((i, ix) => {
                     return (
                       <tr key={ix}>
                         <td>{i.type}</td>
@@ -249,11 +249,11 @@ console.log('nftdata cc' ,netData  )
                           {i.type == 'SOLD' ||
                           i.type == 'BUY' ||
                           i.type == 'ADDTOMARKET'
-                            ? i.marketplace.price
+                            ? i.marketplace?.price
                             : i.type == 'BID'
                             ? i.bid.price
                             : i.type == "UPDATEPRICE"
-                            ? i.payload.updatedprice
+                            ? i.payload?.updatedprice
                             : "No "
                             }
                           Eth
@@ -264,7 +264,7 @@ console.log('nftdata cc' ,netData  )
                           as={`/userdetails/${i.user?.id}`}
                         > */}
                           <td className="user_cell" onClick={()=>{nevigate(`/user/userdetails/${i.user?.id}`)}}>
-                            {i?.user?.firstName}
+                            {i.user?.firstName}
                           </td>
                       </tr>
                     );

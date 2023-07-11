@@ -52,6 +52,8 @@ function TopBuyer() {
     searchSortUserFunction();
   },[])
 
+  console.log("Buyer",userData)
+
   return (
     <TopBuyerSellerStyle>
       <div className="parent_container">

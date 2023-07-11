@@ -17,6 +17,8 @@ import SideBodyDataGraphs from './SideBodyDataGraphs';
 import NftCreatedVsSold from './NftCreatedVsSold';
 import MarketNFTGraph from './MarketNFTGraph';
 import AuctionNFTGraph from './AuctionNFTGraph';
+import UserCount from './UserCount';
+import TopUserRoyalty from './TopUserRoyalty';
 
 export default function DashboardData() {
     const [dashboardData,setDashboardData] = useState('')
@@ -183,6 +185,12 @@ export default function DashboardData() {
                   <div className='mid_graph'>
                     <MarketNFTGraph />
                   </div>
+                  <div className='mid_graph'> 
+                    <UserCount/>
+                  </div>
+                  <div className='mid_graph second'>
+                    <TopUserRoyalty/>
+                  </div>
                 </div>
               </div>
             </div>
@@ -270,6 +278,8 @@ const Root = styled.section`
   .dashboard_body {
     display: flex;
     gap: 10px;
+    z-index: 0;
+    position: relative;
     .body_front {
       width: 75%;
       gap: 20px;
@@ -300,6 +310,10 @@ const Root = styled.section`
           gap: 10px;
           .mid_graph{
             width: 49%;
+          }
+          .mid_graph.second{
+            display :flex;
+            align-items : center;
           }
           @media(max-width:540px){
           flex-direction: column;
