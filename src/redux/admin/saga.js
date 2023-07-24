@@ -14,7 +14,8 @@ import URLS from '../../utils/urls'
 import { userData, userLogin } from "./types";
 import cogoToast from "cogo-toast";
 import { startLoading, stopLoading } from "../common/action";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 // User Login
 

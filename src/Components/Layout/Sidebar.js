@@ -21,7 +21,7 @@ export default function Sidebar() {
   const navigate = useNavigate()
   const currentUrl = window.location.href
   const activeParam = currentUrl.replace('?',"/").split('/')[3];
-  const [activeTab, setActiveTab] = useState()
+  const [activeTab, setActiveTab] = useState("/dashboard")
   const dispatch = useDispatch()
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const logo = useSelector((state)=>state?.persistReducer?.preLogData?.platformLogo)
@@ -92,7 +92,7 @@ export default function Sidebar() {
         <div onClick={()=>{ navigate('/platformsettings')}} className={activeParam == "platformsettings"?"div_2 active":"div_2"} 
           ><FiSettings/><h3>Platform Settings</h3>
         </div>
-        <button onClick={()=>{dispatch(userLogoutAction())}} className='div_2'><FiLogOut/><h3>Logout</h3></button>
+        <button onClick={()=>{ navigate('/login'); dispatch(userLogoutAction())}} className='div_2'><FiLogOut/><h3>Logout</h3></button>
       </div>
     </Root>
   )
