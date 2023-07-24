@@ -149,6 +149,7 @@ button.slick-arrow.slick-prev {
             }
             img {
               width: 75px;
+              height: 75px;
               border-radius: 35%;
               object-fit: cover;
               margin-bottom: 10px;

@@ -26,7 +26,6 @@ function TopBuyer() {
   };
 
   const searchSortUserFunction = ()=>{
-     
     const objData = [
       { firstName: { contains: searchTextUser} },
       { lastName: { contains: searchTextUser } },
