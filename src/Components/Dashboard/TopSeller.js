@@ -1,10 +1,6 @@
-import React, { useRef } from 'react';
-import styled from 'styled-components';
-import { Icon } from 'semantic-ui-react';
+import React from 'react';
 import Slider from 'react-slick';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { usersDataAction } from '../../redux/admin/action';
 import { useEffect } from 'react';
 import URLS from '../../utils/urls';
 import DashTopLoader from '../Loader/DashTopLoader';
@@ -12,48 +8,18 @@ import { TopBuyerSellerStyle, TopSellerBuyerSettings } from '../Style/TopBuyerSe
 import { useNavigate } from 'react-router-dom';
 
 
-function TopSeller() {
+function TopSeller({data}) {
   const [userData, setuserData] = useState('');
   const [loader, setLoader] = useState(true);
-  const dispatch = useDispatch();
-  const searchTextUser = "";
   const ImgEndPoint = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
-
-
-  const callBack = (data) => {
-    setuserData(data?.records);
-    setLoader(false);
-  };
-
   const nevigate = useNavigate();
 
-
-  const searchSortUserFunction = ()=>{
-     
-    const objData = [
-      { firstName: { contains: searchTextUser} },
-      { lastName: { contains: searchTextUser } },
-      { email: { contains: searchTextUser } },
-      { username: { contains: searchTextUser } },
-    ];
-    dispatch(
-      usersDataAction(
-        {
-          page: 1,
-          limit: 20,
-          sorting: "createdAt",
-          order: "DESC",
-        },
-        {or : objData},
-        callBack,
-      ),
-    );
-  }
-
   useEffect(()=>{
-    setLoader(true)
-    searchSortUserFunction();
-  },[])
+    if(data){
+      setLoader(false)
+      setuserData(data)
+    }
+  },[data])
  
   return (
     <TopBuyerSellerStyle>

@@ -48,7 +48,7 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
     }
   }
 
-  console.log('userStatus', detailsUser.wishlist);
+  console.log('userStatus', detailsUser);
 
   return (
     <Root>
@@ -78,7 +78,7 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
             detailsUser.avatar
               ? `${IMAGE_END_POINT}${detailsUser.avatar}`
               : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
-          }
+          } alt='img'
           size="medium"
           // centered
           className="image_style"

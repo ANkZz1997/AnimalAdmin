@@ -240,7 +240,7 @@ align-items: end;
 }
 
 .btnbtn4{
-    background-color: #11183f;
+    /* background-color: #11183f; */
     color: white;
     text-align: left;
     padding: 10px;
@@ -255,7 +255,7 @@ align-items: end;
 
 }
 .btn_lazy{
-  background-color: #11183f;
+  /* background-color: #11183f; */
   color: white;
   text-align: left;
   padding: 5px;

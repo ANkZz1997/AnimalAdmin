@@ -1,49 +1,52 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import CreateRoles from '../Create Roles'
-import AccessCodes from '../AdminAccess'
-import Networks from '../Networks'
-import BasicSettings from '../BasicSettings'
 import { useNavigate } from 'react-router-dom'
-import BasicSettingAccess from '../BasicSettingsAccess'
+import BasicSettings from '../AdminSettings';
+import AccessCodes from '../AdminSettings/AdminAccess';
+import CreateRoles from '../AdminSettings/Create Roles';
+import KycOption from '../AdminSettings/KycOption';
+import styled from 'styled-components';
+import Networks from '../AdminSettings/Networks';
+import AssignRoles from '../AdminSettings/Create Admin/AssignRoles';
+
 
 
 export default function Settings() {
 
-    const [activeTab,setActiveTab] = useState("basicSettings")
+    const [activeTab,setActiveTab] = useState("platformSettings")
     const nevigate = useNavigate()
     const urlParams = new URLSearchParams(window.location.search);
     const redirect = urlParams.get("basicSetting");
 
     useEffect(()=>{
         if(redirect=="adminProfile"){
-            setActiveTab("basicSettings")
+            setActiveTab("platformSettings")
         }
     },[redirect])
 
     console.log("activeTab",activeTab)
     return (
         <Root>
-        <div><h1>Platform Settings</h1></div>
+        <div><h1>Admin Settings</h1></div>
         <div className='settings_main'>
             <div className='btn_div'>
-                <button onClick={()=>{setActiveTab("basicSettings");nevigate('?basicSettings')}} className={activeTab=="basicSettings"?"btn on":"btn"}>Basic Settings</button>
-                <button onClick={()=>{setActiveTab("accesscodes");nevigate('?accessCodeSettings')}} className={activeTab=="accesscodes"?"btn on":"btn"}>Access Codes</button>
-                {/* <button onClick={()=>{setActiveTab("adminuser");nevigate('?adminRoles')}} className={activeTab=="adminuser"?"btn on":"btn"}>Admin Roles</button> */}
-                {/* <button onClick={()=>{setActiveTab("setting5");nevigate('?manageAccess')}} className={activeTab=="setting5"?"btn on":"btn"}>Manage Access</button> */}
-                <button onClick={()=>{setActiveTab("setting6");nevigate('?networkSettings')}} className={activeTab=="setting6"?"btn on":"btn"}>Networks</button>
-                {/* <button onClick={()=>{setActiveTab("setting7");nevigate('?accessCodeSettings')}} className={activeTab=="setting6"?"btn on":"btn"}>Access Codes</button> */}
+                <button onClick={()=>{setActiveTab("platformSettings")}} className={activeTab=="platformSettings"?"btn on":"btn"}>Platform Settings</button>
+                <button onClick={()=>{setActiveTab("permissions")}} className={activeTab=="permissions"?"btn on":"btn"}>Create Permissions</button>
+                <button onClick={()=>{setActiveTab("createroles")}} className={activeTab=="createroles"?"btn on":"btn"}>Create Roles</button>
+                <button onClick={()=>{setActiveTab("assignroles")}} className={activeTab=="assignroles"?"btn on":"btn"}>Assign Roles</button>
+                {/* <button onClick={()=>{setActiveTab("accesscodes")}} className={activeTab=="accesscodes"?"btn on":"btn"}>Access Codes</button> */}
+                <button onClick={()=>{setActiveTab("kycsettings")}} className={activeTab=="kycsettings"?"btn on":"btn"}>KYC Settings</button>
+                <button onClick={()=>{setActiveTab("setting6")}} className={activeTab=="setting6"?"btn on":"btn"}>Networks</button>
 
             </div>
             <hr/>
             <div className='content_div'>
                 {
-                activeTab=="basicSettings"?<BasicSettings/>:
-                activeTab =="accesscodes"?<BasicSettingAccess/>:
-                // activeTab =="adminuser"?<CreateRoles/>: 
-                // activeTab =="setting5"?<h2 className='h2element'>Settings 5</h2>:
+                activeTab=="platformSettings"?<BasicSettings/>:
+                activeTab =="permissions"?<AccessCodes/>: 
+                activeTab =="createroles"?<CreateRoles/>:
+                activeTab =="assignroles"?<AssignRoles/>:
+                activeTab =="kycsettings"?<KycOption/>:
                 activeTab =="setting6"?<Networks/>:
-                // activeTab =="setting7"?<BasicSettingAccess/>:
                 " "
                 }
             </div>

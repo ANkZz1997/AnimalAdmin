@@ -1,18 +1,18 @@
 import axios from 'axios'
 import React from 'react'
-import URLS from '../../utils/urls'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
 import AddNetworks from './AddNetworks'
 import { AiFillDelete, AiFillEdit, AiFillStar } from 'react-icons/ai';
 import cogoToast from 'cogo-toast'
-import ConfirmDialogue from '../Model/ConfirmDialogue'
 import EditNetwork from './EditNetwork'
-import LoaderCSS from '../Loader'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
-import { getChainsListAction } from '../../redux/admin/action'
+import URLS from '../../../utils/urls'
+import ConfirmDialogue from '../../Model/ConfirmDialogue'
+import LoaderCSS from '../../Loader'
+import { getChainsListAction } from '../../../redux/admin/action'
 
 
 export default function Networks() {
@@ -138,6 +138,7 @@ export default function Networks() {
                         </div>
                             <div>
                                 <img
+                                    alt='img'
                                     className='img_logo'
                                     src={i?.logo
                                         ? `${IMAGE_END_POINT}${i?.logo}`

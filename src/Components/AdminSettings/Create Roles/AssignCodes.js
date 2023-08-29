@@ -1,10 +1,11 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import URLS from '../../utils/urls'
 import cogoToast from 'cogo-toast'
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import LoaderCSS from '../Loader'
+import URLS from '../../../utils/urls';
+import LoaderCSS from '../../Loader';
+
 
 export default function AssignCodes({role, toClose}) {
     const [list,setList] = useState([])
@@ -156,7 +157,7 @@ export default function AssignCodes({role, toClose}) {
         codeList()
     },[role])
 
-    console.log('list',list)
+    console.log('role',role)
     
 
   return (
@@ -183,7 +184,7 @@ export default function AssignCodes({role, toClose}) {
                 </tr>
                 </thead>
                 <tbody>
-                {list.map((i,ix)=>{
+                {list?.map((i,ix)=>{
                     return(
                     <tr key={ix}>
                         <td data-label="S.No">{ix+1}</td>
@@ -206,12 +207,12 @@ export default function AssignCodes({role, toClose}) {
 
 const Root = styled.section`
     background: #060d31;
-    height: 90%;
+    min-height: 90%;
     margin: auto;
-    width: 80%;
+    min-width: 80%;
     position: relative;
     border: 1px solid;
-    border-radius: 20px;
+    /* border-radius: 20px; */
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -233,8 +234,9 @@ const Root = styled.section`
         position: absolute;
         right: 0;
         top:0;
-        margin-right: 4px;
-        margin-top: 2px;
+        margin-right: 0px;
+        margin: 0px;
+        padding: 0px;
         background-color: transparent;
         border: none;
         color: white;
@@ -271,6 +273,7 @@ const Root = styled.section`
     }
     td,th{
         border: none !important;
+
     }
 
     tr,thead{
@@ -279,7 +282,7 @@ const Root = styled.section`
 
     td,th{
         padding: 5px;
-        text-align: center;
+        text-align: left;
     }
 
     @media (max-width: 600px) {
@@ -335,7 +338,7 @@ const Root = styled.section`
 .btn_th{
     button{
         width: 75px;
-        padding: 2px;
+        padding: 5px;
         text-align: center;
         cursor: pointer;
 
@@ -351,12 +354,13 @@ const Root = styled.section`
         width: 20px;
         background: green;
         cursor: pointer;
-
+        border: 1px solid white;
     }
     .rvm_btn{
         height: 20px;
         width: 20px;
         cursor: pointer;
+        border: 1px solid white;
 
     }
 

@@ -24,7 +24,7 @@ code {
 a{
   color: whitesmoke;
 }
-::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 0px;
 }
 h3 {
@@ -38,4 +38,13 @@ h3 {
   height:100%;
   position:fixed;
   background:red;
+}
+
+button{
+  background-color: #212d6d;
+  color: white;
+  border: none;
+}
+button:hover {
+  background-color: #40404d;
 }

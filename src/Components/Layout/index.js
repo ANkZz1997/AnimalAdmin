@@ -120,10 +120,14 @@ export default function Layout({ children }) {
 
 const Root = styled.section`
 height: 100%;
+*::-webkit-scrollbar {
+  width: 0px;
+}
 
 .layout_section {
     display: flex;
     width:100%;
+    min-height: 100%;
     background-color: #070c27;
     .sidebar {
         flex: 0 240px;
@@ -143,8 +147,10 @@ height: 100%;
     }
     .main_section {
         flex: 1;
+        display: flex;
+        flex-direction: column;
         position: relative;
-        display: block;
+        /* display: block; */
         width: calc(100% - 240px);
         .profile_top_bar {
             position: sticky;
@@ -156,7 +162,7 @@ height: 100%;
         .content_section{
             width:100%;
             padding:20px;
-            min-height: 100vh;
+            flex: 1;
         }
     }
 }

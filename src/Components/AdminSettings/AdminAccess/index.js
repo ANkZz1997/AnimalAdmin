@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import URLS from '../../utils/urls'
+import URLS from '../../../utils/urls'
 import styled from 'styled-components'
 import axios from 'axios'
-import LoaderCSS from '../Loader'
+import LoaderCSS from '../../Loader'
 
 
 export default function AccessCodes() {
@@ -120,6 +120,19 @@ const Root = styled.section`
 
 *:focus{
   outline: none;
+}
+
+button{
+  /* background-color: #11183f; */
+  color: white;
+  text-align: left;
+  padding: 10px;
+  border: 0;
+  cursor: pointer;
+
+  :hover{
+    background-color: #40404d;
+  }
 }
 padding: 20px;
 border: 1px solid;

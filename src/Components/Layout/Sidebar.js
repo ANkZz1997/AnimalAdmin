@@ -90,7 +90,7 @@ export default function Sidebar() {
           ><FiSettings/><h3>Mobile Settings</h3>
         </div>
         <div onClick={()=>{ navigate('/platformsettings')}} className={activeParam == "platformsettings"?"div_2 active":"div_2"} 
-          ><FiSettings/><h3>Platform Settings</h3>
+          ><FiSettings/><h3>Admin Settings</h3>
         </div>
         <button onClick={()=>{ navigate('/login'); dispatch(userLogoutAction())}} className='div_2'><FiLogOut/><h3>Logout</h3></button>
       </div>

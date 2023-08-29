@@ -1,9 +1,9 @@
-// const EXCHANGE_URL = process.env.NEXT_PUBLIC_BASE_EXCHANGE_URL;
+export const EXCHANGE_URL = process.env.REACT_APP_BASE_EXCHANGE_URL;
+console.log("EXCHANGE_URL",EXCHANGE_URL)
 // const NEXT_ORIGIN = process.env.NEXT_PUBLIC_NEXT_URL || '';
 // const EXCHANGE_URL = 'http://nft.sdnatech.com:8080'
 // const EXCHANGE_URL = 'https://nft-admin.sdnatech.com/'
-export const EXCHANGE_URL = 'https://nft.sdnatech.com/animal-api-dev'
-
+// export const EXCHANGE_URL = 'https://nft.sdnatech.com/animal-api-dev'
 const URLS = {
     //PAGE ROUTES
     NEXT :{
@@ -75,6 +75,10 @@ const URLS = {
             GET_ROLES: `${EXCHANGE_URL}/access/getRoles`,
             GET_ACCESS_CODES: `${EXCHANGE_URL}/access/getAccessCodes`,
             GET_NETWORKS:`${EXCHANGE_URL}/admin/getNetworks`,
+
+            GET_ADMIN_USERS : `${EXCHANGE_URL}/admin/fetchAdminUsers`,
+            CREATE_USER_ASSIGN_CODE : `${EXCHANGE_URL}/admin/createAdminUser`,
+
             ADD_NETWORK: `${EXCHANGE_URL}/admin/addNetwork`,
             ENABLE_NETWORK: `${EXCHANGE_URL}/admin/setNetworkEnableStatus`,
             DEFAULT_NETWORK: `${EXCHANGE_URL}/admin/setNetworkAsDefault?id=`,

@@ -22,6 +22,7 @@ import PlatformSettings from "./Pages/PlatformSettings";
 import MobileSettings from "./Pages/MobileSettings";
 import NotificationPage from "./Pages/NotificationPage";
 import Login from "./Components/Login";
+import AdminProfile from "./Components/AdminSettings/AdminProfile";
 // import PreSettings from "./Pages/PreSettings";
 
 function App() {
@@ -45,6 +46,8 @@ function App() {
             <Route path="/kyc" element={ <Protected > <Kyc /> </Protected> } />
             <Route path="/chatsupport" element={ <Protected > <Chatsupport/> </Protected> } />
             <Route path="/help" element={ <Protected > <Help /> </Protected> } />
+            <Route path='/profileadmin' element={<Protected><AdminProfile/></Protected>}/>
+
             <Route path="/platformsettings" element={ <Protected > <PlatformSettings/> </Protected> } />
             <Route path="/mobilesettings" element={ <Protected > <MobileSettings/> </Protected> } />
             <Route path="/notification" element={ <Protected > <NotificationPage/> </Protected> } />

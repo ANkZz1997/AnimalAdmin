@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_EXCHANGE_URL;
+// axios.defaults.baseURL = process.env.REACT_APP_PUBLIC_EXCHANGE_URL;
 
 axios.interceptors.request.use(
   config => {

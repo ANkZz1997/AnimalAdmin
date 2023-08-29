@@ -156,7 +156,7 @@ color: whitesmoke;
     button {
       padding: 3px;
       border-radius: 5px;
-      background-color: whitesmoke;
+      /* background-color: whitesmoke; */
       cursor: pointer;
 
     }

@@ -1,218 +1,258 @@
-import React, { useEffect, useState } from 'react'
-import { FaUser, FaUserCheck, FaUserClock, FaUserSlash, FaUserTimes } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
-import {useNavigate } from 'react-router-dom';
-import styled from 'styled-components'
-import { checkUserAction } from '../../redux/admin/action';
-import LoaderCSS from '../Loader';
-import DateRange from './DateRange';
-import NftTransactionChart from './NftTransactionChart';
-import TopBuyer from './TopBuyer';
-import TopSeller from './TopSeller';
-import cogoToast from 'cogo-toast';
-import axios from 'axios';
-import URLS from '../../utils/urls';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
-import SideBodyDataGraphs from './SideBodyDataGraphs';
-import NftCreatedVsSold from './NftCreatedVsSold';
-import MarketNFTGraph from './MarketNFTGraph';
-import AuctionNFTGraph from './AuctionNFTGraph';
-import UserCount from './UserCount';
-import TopUserRoyalty from './TopUserRoyalty';
+import React, { useEffect, useState } from "react";
+import {
+  FaUser,
+  FaUserCheck,
+  FaUserClock,
+  FaUserSlash,
+  FaUserTimes,
+} from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { checkUserAction, usersDataAction } from "../../redux/admin/action";
+import LoaderCSS from "../Loader";
+import DateRange from "./DateRange";
+import TopBuyer from "./TopBuyer";
+import TopSeller from "./TopSeller";
+import cogoToast from "cogo-toast";
+import axios from "axios";
+import URLS from "../../utils/urls";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import SideBodyDataGraphs from "./SideBodyDataGraphs";
+import NftCreatedVsSold from "./NftCreatedVsSold";
+import MarketNFTGraph from "./MarketNFTGraph";
+import AuctionNFTGraph from "./AuctionNFTGraph";
+import UserCount from "./UserCount";
+import TopUserRoyalty from "./TopUserRoyalty";
 
 export default function DashboardData() {
-    const [dashboardData,setDashboardData] = useState('')
-    const [loader, setLoader] = useState(true);
-    const [datePopup, setDatePopup] = useState(false);
-    const [startDate, setStartDate] = useState('Start Date');
-    const [endDate, setEndDate] = useState(' End Date');
-    const dispatch = useDispatch();
-    const nevigate = useNavigate();
+  const [dashboardData, setDashboardData] = useState("");
+  const [loader, setLoader] = useState(true);
+  const [datePopup, setDatePopup] = useState(false);
+  const [startDate, setStartDate] = useState("Start Date");
+  const [endDate, setEndDate] = useState(" End Date");
+  const [userData, setuserData] = useState('');
+  const dispatch = useDispatch();
+  const nevigate = useNavigate();
+  const searchTextUser = "";
 
+  const onChange = (ranges) => {
+    const newDateStart = String(ranges.startDate).split(" ");
+    const newDateEnd = String(ranges.endDate).split(" ");
+    const formateDateStart = `${newDateStart[1]}-${newDateStart[2]}-${newDateStart[3]}`;
+    const formateDateEnd = `${newDateEnd[1]}-${newDateEnd[2]}-${newDateEnd[3]}`;
+    setStartDate(formateDateStart);
+    setEndDate(formateDateEnd);
+  };
 
-    const onChange = (ranges) => {
-        const newDateStart = String(ranges.startDate).split(' ');
-        const newDateEnd = String(ranges.endDate).split(' ');
-        const formateDateStart = `${newDateStart[1]}-${newDateStart[2]}-${newDateStart[3]}`;
-        const formateDateEnd = `${newDateEnd[1]}-${newDateEnd[2]}-${newDateEnd[3]}`;
-        setStartDate(formateDateStart);
-        setEndDate(formateDateEnd);
-      };
+  const callBack = (data) => {
+    setuserData(data?.records);
+  };
 
-    const clearFunction =()=>{
+  const clearFunction = () => {
     setStartDate();
     setEndDate();
-  }
+  };
 
-    const getDashboardDetails = async()=>{
-      try{
-        const res = await axios.post(`${URLS.EXCHANGE.ADMIN.GET_DASHBOARD}`,{})
-        if(res.status === 200){
-          setDashboardData(res.data?.data)
-          setLoader(false);
-        }else if(res.status === 500){
-          dispatch(checkUserAction(false));
-          localStorage.setItem('token', "");
-          cogoToast.warn('Session Expired');
-        }
-      }catch(err){
-          cogoToast.error("Something Went Wrong",err.message)
+  const getDashboardDetails = async () => {
+    try {
+      const res = await axios.post(`${URLS.EXCHANGE.ADMIN.GET_DASHBOARD}`, {});
+      if (res.status === 200) {
+        setDashboardData(res.data?.data);
+        setLoader(false);
+      } else if (res.status === 500) {
+        dispatch(checkUserAction(false));
+        localStorage.setItem("token", "");
+        cogoToast.warn("Session Expired");
       }
+    } catch (err) {
+      cogoToast.error("Something Went Wrong", err.message);
     }
+  };
 
-    useEffect(() => {
-        setLoader(true);
-        getDashboardDetails()
-    }, []);
-    
+  const searchSortUserFunction = () => {
+    const objData = [
+      { firstName: { contains: searchTextUser } },
+      { lastName: { contains: searchTextUser } },
+      { email: { contains: searchTextUser } },
+      { username: { contains: searchTextUser } },
+    ];
+    dispatch(
+      usersDataAction(
+        {
+          page: 1,
+          limit: 20,
+          sorting: "createdAt",
+          order: "DESC",
+        },
+        { or: objData },
+        callBack
+      )
+    );
+  };
+
+  useEffect(() => {
+    setLoader(true);
+    getDashboardDetails();
+    searchSortUserFunction();
+  }, []);
 
   return (
     <Root>
-        <h1>Dashboard</h1>
+      <h1>Dashboard</h1>
 
-        <div className="box-div">
+      <div className="box-div">
+        <div></div>
+        <div className="card_parent">
+          <div
+            className="card_1"
+            onClick={() => {
+              nevigate("/user?type=alluser");
+            }}
+          >
             <div>
+              Total NFT Users
+              {loader ? <LoaderCSS /> : <h2>{dashboardData?.totalUsers}</h2>}
             </div>
-            <div className="card_parent">
-              <div className="card_1" onClick={()=>{nevigate("/user?type=alluser")}}>
-                  <div>
-                    Total NFT Users
-                    {loader ? (
-                      <LoaderCSS />
-                    ) : (
-                      <h2>{dashboardData?.totalUsers}</h2>
-                    )}
-                  </div>
-                  <div>
-                    <FaUser/>
-                  </div>
-              </div>
-                <div className="card_1" onClick={()=>{nevigate("/user?type=NEW")}}>
-                  <div>
-                    New NFT Users
-                    {loader ? (
-                      <LoaderCSS />
-                    ) : (
-                      <h2>{dashboardData?.newUserCount}</h2>
-                    )}
-                  </div>
-                  <div>
-                    <FaUserCheck />
-                  </div>
-              </div>
-
-              <div className="card_1" onClick={()=>{nevigate("/user?type=joinedtoday")}}>
-                  <div>
-                    Joined Today
-                    {loader ? (
-                      <LoaderCSS />
-                    ) : (
-                      <h2>{dashboardData?.todayUser}</h2>
-                    )}
-                  </div>
-                  <div>
-                    <FaUserClock/>
-                  </div>
-              </div>
-              <div className="card_1" onClick={()=>{nevigate("/user?type=BLOCKED")}}>
-
-                  <div>
-                    Blocked Users
-                    {loader ? (
-                      <LoaderCSS />
-                    ) : (
-                      <h2>{dashboardData?.blockedUserCount}</h2>
-                    )}
-                  </div>
-                  <div>
-                    <FaUserSlash/>
-                  </div>
-              </div>
-              <div className="card_1 last" onClick={()=>{nevigate("/user?type=INACTIVE")}}>
-                  <div>
-                    Inactive Users
-                    {loader ? (
-                      <LoaderCSS />
-                    ) : (
-                      <h2>{dashboardData?.inactiveUser}</h2>
-                    )}
-                  </div>
-                  <div>
-                    <FaUserTimes/>
-                  </div>
-              </div>
+            <div>
+              <FaUser />
+            </div>
+          </div>
+          <div
+            className="card_1"
+            onClick={() => {
+              nevigate("/user?type=NEW");
+            }}
+          >
+            <div>
+              New NFT Users
+              {loader ? <LoaderCSS /> : <h2>{dashboardData?.newUserCount}</h2>}
+            </div>
+            <div>
+              <FaUserCheck />
             </div>
           </div>
 
-          <div className="date_range">
-            <button onClick={() => setDatePopup(true)}>Select Date </button>
+          <div
+            className="card_1"
+            onClick={() => {
+              nevigate("/user?type=joinedtoday");
+            }}
+          >
             <div>
-              {
-                startDate? <h3>{`${startDate} To ${endDate}`}</h3>: <h3>Select Date Range</h3>
-              }
-              
+              Joined Today
+              {loader ? <LoaderCSS /> : <h2>{dashboardData?.todayUser}</h2>}
             </div>
-            <div
-              className={
-                datePopup ? 'date_popup_active' : 'date_popup_notactive'
-              }
+            <div>
+              <FaUserClock />
+            </div>
+          </div>
+          <div
+            className="card_1"
+            onClick={() => {
+              nevigate("/user?type=BLOCKED");
+            }}
+          >
+            <div>
+              Blocked Users
+              {loader ? (
+                <LoaderCSS />
+              ) : (
+                <h2>{dashboardData?.blockedUserCount}</h2>
+              )}
+            </div>
+            <div>
+              <FaUserSlash />
+            </div>
+          </div>
+          <div
+            className="card_1 last"
+            onClick={() => {
+              nevigate("/user?type=INACTIVE");
+            }}
+          >
+            <div>
+              Inactive Users
+              {loader ? <LoaderCSS /> : <h2>{dashboardData?.inactiveUser}</h2>}
+            </div>
+            <div>
+              <FaUserTimes />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="date_range">
+        <button onClick={() => setDatePopup(true)}>Select Date </button>
+        <div>
+          {startDate ? (
+            <h3>{`${startDate} To ${endDate}`}</h3>
+          ) : (
+            <h3>Select Date Range</h3>
+          )}
+        </div>
+        <div
+          className={datePopup ? "date_popup_active" : "date_popup_notactive"}
+        >
+          <div className="date_main_div">
+            <button
+              className="cncl_btn"
+              onClick={() => {
+                setDatePopup(false);
+                clearFunction();
+              }}
             >
-              <div className="date_main_div">
-                <button className="cncl_btn" onClick={() => {setDatePopup(false);clearFunction()}}>
-                <AiOutlineCloseCircle/>
-                </button>
-                <button className='sav_btn' onClick={() => setDatePopup(false)}>
-                    Save
-                  </button>
-                <DateRange onChange={onChange} />
+              <AiOutlineCloseCircle />
+            </button>
+            <button className="sav_btn" onClick={() => setDatePopup(false)}>
+              Save
+            </button>
+            <DateRange onChange={onChange} />
+          </div>
+        </div>
+      </div>
+      <div className="dashboard_body">
+        <div className="body_front">
+          <div className="top_bar">
+            <TopSeller data = {userData}/>
+            <TopBuyer data = {userData}/>
+          </div>
+          <div className="mid_bar">
+            <div className="nft_transaction">
+              <NftCreatedVsSold />
+            </div>
+            <div className="mid_child2">
+              <div className="mid_graph">
+                <AuctionNFTGraph />
+              </div>
+              <div className="mid_graph">
+                <MarketNFTGraph />
+              </div>
+              <div className="mid_graph">
+                <UserCount />
+              </div>
+              <div className="mid_graph second">
+                <TopUserRoyalty data = {userData}/>
               </div>
             </div>
           </div>
-          <div className="dashboard_body">
-            <div className="body_front">
-              <div className="top_bar">
-                  <TopSeller />
-                  <TopBuyer />
-              </div>
-              <div className="mid_bar">
-                <div className="nft_transaction">
-                  <NftCreatedVsSold/>
-                </div>
-                <div className='mid_child2'>
-                  <div className='mid_graph'>
-                    <AuctionNFTGraph/>
-                  </div>
-                  <div className='mid_graph'>
-                    <MarketNFTGraph />
-                  </div>
-                  <div className='mid_graph'> 
-                    <UserCount/>
-                  </div>
-                  <div className='mid_graph second'>
-                    <TopUserRoyalty/>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="body_side">
-                <SideBodyDataGraphs/>
-            </div>
-          </div>
-          {/* <div>
+        </div>
+        <div className="body_side">
+          <SideBodyDataGraphs />
+        </div>
+      </div>
+      {/* <div>
             I am Dashboard Body 2...
           </div> */}
-
     </Root>
-
-  )
+  );
 }
 
 const Root = styled.section`
-    color: whitesmoke;
-.card_parent {
-
+  color: whitesmoke;
+  .card_parent {
     display: flex;
-    justify-content:space-around;
+    justify-content: space-around;
     width: 100%;
     align-items: center;
     box-shadow: 0 1px 0px 0 #4c4c4c, 0 0 0 1px #3c3c3e;
@@ -226,7 +266,7 @@ const Root = styled.section`
     }
 
     .card_1 {
-      @media(max-width: 850px){
+      @media (max-width: 850px) {
         flex-direction: column-reverse;
         justify-content: center;
         align-items: center;
@@ -243,9 +283,9 @@ const Root = styled.section`
       padding-right: 5px;
       cursor: pointer;
       > div:first-child {
-        @media(max-width: 850px){
+        @media (max-width: 850px) {
           text-align: center;
-}
+        }
         h2 {
           margin: 0;
           padding: 0;
@@ -253,7 +293,6 @@ const Root = styled.section`
       }
 
       > div:last-child {
-      
         border-radius: 50%;
         border: 3px solid white;
         /* padding: 15px; */
@@ -262,15 +301,15 @@ const Root = styled.section`
         height: 50px;
         width: 50px;
         justify-content: center;
-        svg{
-            font-size: 25px;
+        svg {
+          font-size: 25px;
         }
       }
       :hover {
         transform: scale(1.1);
       }
     }
-    .card_1.last{
+    .card_1.last {
       border-right: 0;
     }
   }
@@ -288,10 +327,9 @@ const Root = styled.section`
         gap: 10px;
         align-items: center;
         /* flex-direction: column; */
-        @media(max-width:650px){
+        @media (max-width: 650px) {
           flex-direction: column;
         }
-      
       }
       .mid_bar {
         display: flex;
@@ -303,25 +341,24 @@ const Root = styled.section`
         .nft_transaction {
           /* padding: 10px; */
         }
-        .mid_child2{
+        .mid_child2 {
           display: flex;
           flex-wrap: wrap;
           width: 100%;
           gap: 10px;
-          .mid_graph{
+          .mid_graph {
             width: 49%;
           }
-          .mid_graph.second{
-            display :flex;
-            align-items : center;
+          .mid_graph.second {
+            display: flex;
+            align-items: center;
           }
-          @media(max-width:540px){
-          flex-direction: column;
-          .mid_graph{
-            width: 100%;
+          @media (max-width: 540px) {
+            flex-direction: column;
+            .mid_graph {
+              width: 100%;
+            }
           }
-        }
-          
         }
       }
     }
@@ -340,17 +377,16 @@ const Root = styled.section`
       }
     }
 
-    @media(max-width:1320px){
+    @media (max-width: 1320px) {
       flex-direction: column;
-      .body_front{
+      .body_front {
         width: 100%;
       }
-      .body_side{
+      .body_side {
         width: 100%;
       }
     }
   }
-
 
   .date_range {
     display: flex;
@@ -362,9 +398,8 @@ const Root = styled.section`
     button {
       padding: 5px;
       border-radius: 5px;
-      background-color: whitesmoke;
+      /* background-color: whitesmoke; */
       cursor: pointer;
-
     }
     .date_popup_active {
       position: fixed;
@@ -383,7 +418,7 @@ const Root = styled.section`
       .date_main_div {
         position: relative;
 
-         .cncl_btn{
+        .cncl_btn {
           position: absolute;
           right: 0;
           margin-top: -30px;
@@ -394,14 +429,14 @@ const Root = styled.section`
           background: transparent;
           color: white;
           border: none;
-          :hover{
+          :hover {
             color: #9b5050fc;
           }
-          svg{
+          svg {
             font-size: 30px;
           }
         }
-        .sav_btn{
+        .sav_btn {
           position: absolute;
           bottom: 0;
           margin-bottom: -34px;
@@ -419,5 +454,4 @@ const Root = styled.section`
       content-visibility: hidden;
     }
   }
-
-`
+`;

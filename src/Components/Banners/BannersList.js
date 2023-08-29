@@ -192,6 +192,7 @@ const Root = styled.section`
                 width: 50px;
                 border: none;
                 cursor: pointer;
+                color: black;
                 :hover{
                     background-color: #ffff14;
                 }

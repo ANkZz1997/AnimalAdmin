@@ -142,6 +142,12 @@ h1,b{
                 padding-right :2px ;
                 border-top-right-radius: 5px;
                 border-bottom-right-radius: 5px;
+                background-color: #e8f0fe;
+                font-size: 20px;
+                color: black;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
     
         }

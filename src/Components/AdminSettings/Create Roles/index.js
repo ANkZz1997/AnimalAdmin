@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import URLS from '../../utils/urls';
 import axios from 'axios';
 import cogoToast from "cogo-toast";
 import moment from 'moment';
+import URLS from '../../../utils/urls';
+import LoaderCSS from '../../Loader';
 import AssignCodes from './AssignCodes';
-import LoaderCSS from '../Loader';
+
+
 
 
 
@@ -48,8 +50,6 @@ export default function CreateRoles() {
             console.log("resresres",res.data?.data)
             setGetRoles(res.data?.data?.reverse())
             setLoader(false)
-
-
         }catch(err){
             console.log(err)
         }
@@ -121,7 +121,7 @@ console.log('roleId',roleId,roleName,dialogBox)
                               <td className='btn_td'>
                               <button className='btn_tbl' onClick={()=>handleClick(i?.id, i?.name)} >Click</button>
                               {roleId == i?.id && <div className={dialogBox?"dialog_box": "dialog_box no"}>
-                                  <AssignCodes role ={i} toClose = {(e)=>{setDialogBox(e);AllRoles()}}/>
+                                  <AssignCodes role ={i} toClose = {(e)=>{setDialogBox(e)}}/>
                               </div>}
                               
                               </td>
@@ -150,6 +150,19 @@ const Root = styled.section`
 
 *:focus {
   outline: none;
+}
+
+button{
+  /* background-color: #11183f; */
+  color: white;
+  text-align: left;
+  padding: 10px;
+  border: 0;
+  cursor: pointer;
+
+  :hover{
+    background-color: #40404d;
+  }
 }
 
 padding: 20px;
@@ -236,7 +249,6 @@ gap: 20px;
         width: 100%;
         text-align: center;
         cursor: pointer;
-
     }
 
 }
@@ -248,7 +260,6 @@ gap: 20px;
             margin-top: 10px;
             text-align: center;
             cursor: pointer;
-
         }
     .btn.no{
         display: none;

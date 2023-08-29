@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import styled from 'styled-components'
-import URLS from '../../utils/urls';
 import axios from 'axios';
 import cogoToast from "cogo-toast";
 import {AiOutlineCloseCircle} from 'react-icons/ai'
+import URLS from '../../../utils/urls';
 
 export default function AddNetworks({toClose}) {
 

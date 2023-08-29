@@ -277,7 +277,7 @@ function KycDetails() {
                 >
                   <AiOutlineCloseCircle/>
                 </button>
-                <img src={`${IMAGE_END_POINT}${docs}`} onClick={()=>{window.open(`${EXCHANGE_URL}/download/${docs}`, "_blank")}}
+                <img alt='img' src={`${IMAGE_END_POINT}${docs}`} onClick={()=>{window.open(`${EXCHANGE_URL}/${docs}`, "_blank")}}
                 ></img>
               </div>
             ) : (

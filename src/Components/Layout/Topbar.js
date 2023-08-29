@@ -22,7 +22,7 @@ export default function Topbar() {
     <Root>
       <div className="admin_profile">
       <div className='click_menu' onClick={()=>setToggle(!toggle)}><BiMenu/></div>
-      <div className='admin_details_notification' >
+      <div className='admin_details_notification'>
   
         <div className='notification_point' onClick={()=>{nevigate("/notification")}}>
           <IoIosNotifications/>
@@ -35,7 +35,7 @@ export default function Topbar() {
             <span><FaWallet/></span>
             <h3>51.28 Eth</h3>
         </div>
-        <div className="admin_details" onClick={()=>{nevigate("platformsettings?basicSetting=adminProfile")}}>
+        <div className="admin_details" onClick={()=>{nevigate("profileadmin")}}>
           <img
             src={`${IMAGE_END_POINT}${userCheck?.avatar}`}
             style={{ borderRadius: '60px' }}
@@ -74,6 +74,7 @@ background-color: #070c27;
       display: flex;
       justify-content: end;
       cursor: pointer;
+      padding: 10px;
       .update_admin{
         position: fixed;
         background-color: red;

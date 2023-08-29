@@ -74,7 +74,6 @@ export default function AdminProfile() {
           <button onClick={() => { editProfile() }}>Save</button>
         </div>
       </div>
-
       <div className='child_1'>
         <div className='child_1_title'>
           <h4>You Can Also Change Your Password...</h4>
@@ -102,22 +101,34 @@ export default function AdminProfile() {
             "" : "btn_hide"} onClick={() => { handlePass() }}>Change Password</button>
         </div>
       </div>
-
     </Root>
   )
 }
 
 const Root = styled.section`
-border: 1px solid;
-padding: 20px;
 display: flex;
+color: white;
+margin-top: 50px;
+
+button{
+  /* background-color: #11183f; */
+  color: white;
+  text-align: left;
+  padding: 10px;
+  border: 0;
+  cursor: pointer;
+
+  :hover{
+    background-color: #40404d;
+  }
+}
 
 .child_1{
   flex:1;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   flex-wrap: wrap;
 
