@@ -6,6 +6,7 @@ import moment from "moment";
 import CreateAdmin from "./CreateAdmin";
 import LoaderCSS from "../../Loader";
 import ViewPermission from "./ViewPermission";
+import AccessActions from "./AccessActions";
 
 export default function AssignRoles() {
   const [userData, setUserData] = useState("");
@@ -13,14 +14,17 @@ export default function AssignRoles() {
   const [pop, setPop] = useState(false);
   const [loader, setLoader] = useState(true);
   const [permission, setPermission] = useState(false);
-  const [updateApi, setUpdateApi] = useState(false)
+  const [actionAccess, setActionAccess] = useState(false);
+  const [updateApi, setUpdateApi] = useState(false);
+  const [currentRole, setCurrentRole] = useState("");
+  const [userId, setUserId] = useState("");
 
   const getAdminUsers = async () => {
     try {
       const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_ADMIN_USERS}`);
       console.log("res", res);
       setUserData(res?.data?.data?.records);
-      setLoader(false)
+      setLoader(false);
     } catch (err) {
       console.log(err);
     }
@@ -29,8 +33,8 @@ export default function AssignRoles() {
   useEffect(() => {
     getAdminUsers();
   }, [updateApi]);
-  
-  console.log("userData", userData);
+
+  console.log("userId", userId, userData);
   return (
     <Root>
       <div className="create_admin">
@@ -45,54 +49,92 @@ export default function AssignRoles() {
           </button>
         </h3>
         <div className={pop ? "popup" : "popup off"}>
-          <CreateAdmin clsBtn = {(e)=>{setPop(e)}} updateApi = {(e)=>{setUpdateApi(e)}}/>
+          <CreateAdmin
+            clsBtn={(e) => {
+              setPop(e);
+            }}
+            updateApi={(e) => {
+              setUpdateApi(e);
+            }}
+          />
         </div>
       </div>
       <div className="get_admin">
         <h3>List of all admin users</h3>
-        {loader?
-            <LoaderCSS/> :
-        <table>
-          <thead className="table_head">
-            <tr>
-              <th>Admin Username</th>
-              <th>Name</th>
-              <th>Created On</th>
-              <th>Current Role</th>
-              <th>View Permissions</th>
-              <th>Change Role</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userData &&
-              userData?.map((i, ix) => {
-                return (
-                  <tr key={ix}>
-                    <td data-label="Username">
-                      {/* {i?.avatar} */}
-                      {i?.username}
-                    </td>
-                    <td data-label="Name">{i?.name}</td>
-                    <td data-label="Created On">
-                      {moment(i?.createdAt).format("DD-MMM-YYYY")}
-                    </td>
-                    <td data-label="Role">{i?.role?.name}</td>
-                    <td className="td_click" data-label="View Permissions" 
-                      onClick={()=>{setPermission(true);setPermissionData(i)}}>
-                      Click Here
-                    </td>
-                    <td className="td_click" data-label="Action">
-                      Click Here{" "}
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
-        }
+        {loader ? (
+          <LoaderCSS />
+        ) : (
+          <table>
+            <thead className="table_head">
+              <tr>
+                <th>Admin Username</th>
+                <th>Name</th>
+                <th>Created On</th>
+                <th>Current Role</th>
+                <th>View Permissions</th>
+                <th>Take Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {userData &&
+                userData?.map((i, ix) => {
+                  return (
+                    <tr key={ix}>
+                      <td data-label="Username">
+                        {/* {i?.avatar} */}
+                        {i?.username}
+                      </td>
+                      <td data-label="Name">{i?.name}</td>
+                      <td data-label="Created On">
+                        {moment(i?.createdAt).format("DD-MMM-YYYY")}
+                      </td>
+                      <td data-label="Role">{i?.role?.name}</td>
+                      <td
+                        className="td_click"
+                        data-label="View Permissions"
+                        onClick={() => {
+                          setPermission(true);
+                          setPermissionData(i);
+                        }}
+                      >
+                        Click Here
+                      </td>
+                      <td
+                        className="td_click"
+                        data-label="Action"
+                        onClick={() => {
+                          setActionAccess(true);
+                          setCurrentRole(i.role.code);
+                          setUserId(i?.id);
+                          setUpdateApi(false);
+                        }}
+                      >
+                        Click Here{" "}
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        )}
       </div>
-      <div className={permission?"dialog_box": "dialog_box no"}>
-        <ViewPermission permissionData = {permissionData} toClose = {(e)=>{setPermission(e)}}/>
+      <div className={permission ? "dialog_box" : "dialog_box no"}>
+        <ViewPermission
+          permissionData={permissionData}
+          toClose={(e) => {
+            setPermission(e);
+          }}
+        />
+      </div>
+      <div className={actionAccess ? "dialog_box" : "dialog_box no"}>
+        <AccessActions
+          currentRole={currentRole}
+          userId={userId}
+          updateApi={(e)=>{setUpdateApi(e)}}
+          toClose={(e) => {
+            setActionAccess(e);
+          }}
+        />
       </div>
     </Root>
   );
@@ -201,19 +243,19 @@ const Root = styled.section`
     }
   }
 
-  .dialog_box{
-        height: 100%;
-        position: fixed;
-        width: 100%;
-        top: 0px;
-        left: 0;
-        z-index: 999;
-        backdrop-filter: blur(3px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .dialog_box.no{
-        display: none;
-    }
+  .dialog_box {
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 0;
+    z-index: 999;
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .dialog_box.no {
+    display: none;
+  }
 `;

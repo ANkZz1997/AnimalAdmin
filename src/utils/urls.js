@@ -78,6 +78,7 @@ const URLS = {
 
             GET_ADMIN_USERS : `${EXCHANGE_URL}/admin/fetchAdminUsers`,
             CREATE_USER_ASSIGN_CODE : `${EXCHANGE_URL}/admin/createAdminUser`,
+            CHANGE_USER_ROLES :`${EXCHANGE_URL}/admin/updateAdminUserRole`,
 
             ADD_NETWORK: `${EXCHANGE_URL}/admin/addNetwork`,
             ENABLE_NETWORK: `${EXCHANGE_URL}/admin/setNetworkEnableStatus`,
