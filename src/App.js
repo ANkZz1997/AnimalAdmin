@@ -36,6 +36,7 @@ function App() {
           <Routes>
             {/* <Route path="/" element={ <Protected > <Dashboard /> </Protected> } /> */}
             {/* <Route path="/presettings" element={<Protected><PreSettings/></Protected>}/> */}
+           
             <Route path="/dashboard" exact element={ <Protected > <Dashboard /> </Protected> } />
             {/* <Route path="/user/newuser" element={ <Protected > <User /> </Protected> } /> */}
             <Route path="/user" element={ <Protected > <User /> </Protected> } />

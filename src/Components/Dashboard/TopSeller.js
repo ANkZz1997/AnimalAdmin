@@ -6,6 +6,7 @@ import URLS from '../../utils/urls';
 import DashTopLoader from '../Loader/DashTopLoader';
 import { TopBuyerSellerStyle, TopSellerBuyerSettings } from '../Style/TopBuyerSellerStyle';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 function TopSeller({data}) {
@@ -14,13 +15,27 @@ function TopSeller({data}) {
   const ImgEndPoint = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const nevigate = useNavigate();
 
-  useEffect(()=>{
-    if(data){
-      setLoader(false)
-      setuserData(data)
+  const getTopSeller = async ()=>{
+    try{
+      const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_TOP_SELLER}`)
+      if(res?.status === 200){
+        setuserData(res?.data?.data?.records)
+        setLoader(false);
+      }
+
+    }catch(err){
+      console.log(err)
     }
-  },[data])
- 
+
+  }
+
+  useEffect(()=>{
+    setLoader(true);
+    getTopSeller();
+  },[])
+
+  
+ console.log("userDataseller",userData)
   return (
     <TopBuyerSellerStyle>
       <div className="parent_container">
@@ -41,14 +56,14 @@ function TopSeller({data}) {
                         : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
                     }
                     alt="user"
-                    onClick={()=>{nevigate(`/user/userdetails/${i?.id}`)}}
+                    onClick={()=>{nevigate(`/user/userdetails/${i?.sellerId}`)}}
                     
                     />
                     <p className='rankOf'>#{ix+1}</p>
                 </div>
                 <div className="data_div">
                   <p>{i?.firstName? i.firstName:"N/A UserName"}</p>
-                  <p className='amount'>34,000 Rs</p>
+                  <p className='amount'>{i.totalPrice} Rs</p>
                   {/* <p>12 NFTs</p> */}
               </div>
             </div>

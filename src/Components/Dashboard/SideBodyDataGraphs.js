@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import {FaEthereum, FaRupeeSign, FaWallet} from 'react-icons/fa'
 import {SlOptionsVertical} from 'react-icons/sl'
@@ -6,8 +6,56 @@ import { AiOutlineArrowDown, AiOutlineArrowUp } from 'react-icons/ai'
 import CountUp from 'react-countup'
 import UserTypeGraph from './UserTypeGraph'
 import KycChart from './KycChart'
+import axios from 'axios'
+import URLS from '../../utils/urls'
 
 function SideBodyDataGraphs() {
+    const [balance, setBalance] = useState("");
+    const [ethBalance, setEthBalance] = useState("");
+    const [revenueBalance, setRevenueBalance] = useState("");
+
+    const getUsersBalance = async()=>{
+        try{
+            const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_USERS_WALLET_BALANCE}`)
+            if(res.status === 200){
+                setBalance(res?.data?.data?.amount)
+            }
+
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+    const ethTransfered = async()=>{
+        try{
+            const res = await axios.get(`${URLS.EXCHANGE.ADMIN.ETH_TRANSFEREDBY_ADMIN}`)
+            if(res.status === 200){
+                setEthBalance(res?.data?.data?.eth)
+            }
+
+        }catch(e){
+            console.log(e)
+        }
+    }
+    const revenueApi = async()=>{
+        try{
+            const res = await axios.get(`${URLS.EXCHANGE.ADMIN.PLATFORM_FEE_DATA}`)
+            if(res.status === 200){
+                setRevenueBalance(res?.data?.data?.totalRevenue)
+            }
+
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+    useEffect(()=>{
+        getUsersBalance();
+        ethTransfered();
+        revenueApi();
+    },[])
+
+    console.log("revenueBalance",revenueBalance)
   return (
     <Root>
         <div className='first_child'>
@@ -21,7 +69,7 @@ function SideBodyDataGraphs() {
                 <div className='child_1'>
                     <div>
                         <p className='child_1_logo'><FaRupeeSign/></p>
-                        <h1><CountUp start={0} end={1610040} duration={2.5}/></h1>
+                        <h1><CountUp start={0} end={revenueBalance} duration={2.5} decimals={6}/></h1>
                     </div>
                 </div>
                
@@ -39,7 +87,7 @@ function SideBodyDataGraphs() {
             <div className='child_1'>
                 <div>
                     <p className='child_1_logo'><FaEthereum/></p>
-                    <h1><CountUp start={0} end={49} duration={2.5}/></h1>
+                    <h1><CountUp start={0} end={ethBalance} duration={2.5} decimals={6}/></h1>
                 </div>
             </div>
         
@@ -57,13 +105,13 @@ function SideBodyDataGraphs() {
             <div className='child_1'>
                 <div>
                     <p className='child_1_logo'><FaRupeeSign/></p>
-                    <h1><CountUp start={0} end={298584} duration={2.5}/></h1>
+                    <h1><CountUp start={0} end={balance} duration={2.5} decimals={2}/></h1>
                 </div>
             </div>
         
-            <div className='child_3'>
+            {/* <div className='child_3'>
                 <p className='arrow_up off'><AiOutlineArrowDown/>2.34%</p>vs. Previous Month
-            </div>
+            </div> */}
             </div>
         </div>
 

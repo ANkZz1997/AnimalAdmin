@@ -10,8 +10,10 @@ export default function AccessActions({ currentRole, userId ,updateApi, toClose 
   const [activeTab, setActiveTab] = useState("change_role");
   const [rolesData, setRolesData] = useState("");
   const [actualRole, setActualRole] = useState("");
-  const [confirmBox, setConfirmBox] = useState(false)
-  const [changeTo, setChangeTo] = useState("")
+  const [confirmBox, setConfirmBox] = useState(false);
+  const [changeTo, setChangeTo] = useState("");
+  const [pass, setPass] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
   const [newData,setNewData] = useState({
     userid: "",
     role: ""
@@ -44,6 +46,33 @@ export default function AccessActions({ currentRole, userId ,updateApi, toClose 
     }
   }
 
+  const changePassApi = async()=>{
+    const data = {
+      userid: userId,
+      password: pass
+    }
+    try{
+      const res = await axios.post(`${URLS.EXCHANGE.ADMIN.CHANGE_ADMIN_USER_PASSWORD}`,data)
+      console.log("reschangepass",res)
+      if(res.status===200){
+        cogoToast.success("Password Changed")
+        toClose(false);
+        setPass("");
+        setConfirmPass("")
+      }
+
+    }catch(err){
+      console.log("err",err)
+    }
+  }
+
+  const handleClick = ()=>{
+    if(pass === confirmPass && pass.length>8 && pass.length<16){
+      changePassApi();
+    }else{
+      cogoToast.error("Confirm Password Is Not Matching")
+    }
+  }
   useEffect(() => {
     setActualRole(currentRole)
     getRoleApi();
@@ -103,7 +132,19 @@ export default function AccessActions({ currentRole, userId ,updateApi, toClose 
                 </div>
               );
             })
-          : "Change Password"}
+          : <div className="change_pass_div">
+              <h2>Proceed To Change Password</h2>
+              <input value={pass} onChange={(e)=>{setPass(e.target.value)}} placeholder="New Password"/>
+              {pass.length!==0 && pass.length <8 || pass.length>16?
+              <p>Length must be between 8 to 16 character </p>:""
+              
+            }
+              <input value={confirmPass} onChange={(e)=>{setConfirmPass(e.target.value)}}  placeholder="Confirm Password" type="password"/>
+              {pass !== confirmPass || pass.length<8?
+              <p>Confirm Password Should Match</p>:""}
+              <button onClick={()=>{handleClick()}}>Change Password</button>
+            
+            </div>}
       </div>
       <ConfirmDialogue  show={confirmBox} handleClick={(e)=>{setConfirmBox(e)}}>
              <h1>Confirm Change Role To {changeTo} </h1>
@@ -162,10 +203,16 @@ const Root = styled.section`
   .act_body {
     padding: 10px;
     overflow: scroll;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
     .roles_list {
       display: flex;
       padding: 2px;
+      width: 100%;
       > div {
         flex: 1;
         padding: 5px;
@@ -178,6 +225,27 @@ const Root = styled.section`
       }
       .match {
         background-color: #3a813a;
+      }
+    }
+
+    .change_pass_div{
+      min-width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      input{
+        background-color: transparent;
+        color: white;
+        /* border: none; */
+        padding: 4px;
+      }
+      p{
+        margin: 0;
+        color: red;
+      }
+      button{
+        padding: 4px;
+        cursor: pointer;
       }
     }
   }

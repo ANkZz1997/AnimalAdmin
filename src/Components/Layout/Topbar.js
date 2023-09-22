@@ -8,18 +8,23 @@ import { useNavigate } from 'react-router-dom'
 import URLS from '../../utils/urls'
 import NotificationBar from './NotificationBar'
 import { FaWallet } from 'react-icons/fa'
+import BalancePop from '../Model/BalancePop'
 
 export default function Topbar() {
 
   const [toggle,setToggle] = useState(false)
+  const [notifyBalance, setNotifyBalance] = useState(false)
   const [notifyToggle, setNotifyToggle] = useState(false);
   const userCheck = useSelector((state)=>state?.persistReducer?.adminDetails)
   const nevigate = useNavigate()
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
+  const accessCodes = useSelector((state)=>state?.persistReducer?.accessCodes)
+  console.log("notifyBalance", notifyBalance)
 
 
   return (
     <Root>
+      <BalancePop show={notifyBalance} handleClick={(e)=>{setNotifyBalance(e)}}/>
       <div className="admin_profile">
       <div className='click_menu' onClick={()=>setToggle(!toggle)}><BiMenu/></div>
       <div className='admin_details_notification'>
@@ -31,9 +36,11 @@ export default function Topbar() {
           </div>
           <div className="notify_child">21</div>
         </div>
-        <div className='wallet_amount'>
+        <div className='wallet_amount' onClick={()=>setNotifyBalance(true)}>
             <span><FaWallet/></span>
-            <h3>51.28 Eth</h3>
+            <h3>
+              Check Balance
+            </h3>
         </div>
         <div className="admin_details" onClick={()=>{nevigate("profileadmin")}}>
           <img

@@ -38,7 +38,7 @@ export default function NftCreatedVsSold() {
           width: [1, 1, 4]
         },
         title: {
-          text: 'Animal NFT Analysis (2022)',
+          text: 'NFT Analysis (2022)',
           align: 'left',
           offsetX: 0,
           style: {

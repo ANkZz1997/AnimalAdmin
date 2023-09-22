@@ -1,20 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import 'chart.js/auto';
 import { Chart } from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {Doughnut} from 'react-chartjs-2'
 import styled from 'styled-components';
+import axios from 'axios';
+import URLS from '../../utils/urls';
 Chart.register(ChartDataLabels);
 
 export default function UserTypeGraph() {
+  const [typeObject, setTypeObject] = useState('');
+  const [totalUsers, setTotalUsers] = useState('');
 
-    const totalUsers = 200;
+  const getUserWithSocialType = async() =>{
+    try{
+      const res = await axios.get(`${URLS.EXCHANGE.ADMIN.ALL_USERS_SOCIAL_TYPE}`);
+      if(res.status===200){
+        setTypeObject(res?.data?.data?.object);
+        setTotalUsers(res?.data?.data?.totalCount)
+      }
+
+    }catch(e){
+      console.log(e)
+    }
+  }
+
+  useEffect(()=>{
+    getUserWithSocialType()
+  },[])
+
+  console.log("=====>>data", Object.keys(typeObject) )
+
 
     const data = {
-        labels: ["Gmail Users", "FB Users", "MetaMast User", "CoinBase Users", "Animal Users"],
+        labels: Object.keys(typeObject),
         datasets: [
           {
-            data: [30,25,45,10,90],
+            data: Object.values(typeObject),
             backgroundColor: [
               "#eb4d56",
               "#5574ff",
@@ -49,22 +71,25 @@ export default function UserTypeGraph() {
           labels: {
             boxWidth: 30,
             padding: 20,
+            color:"white"
           }
         },
         plugins: {
           datalabels: {
-            color: "#000",
+            color: "white",
             font: {
-              // weight: "bold",
-              size: 14
+              weight: "bold",
+              size: 15,
             },
             padding: 4,
             formatter: (value)=>{
-              return value/totalUsers*100 + "%";
+              return (value/totalUsers*100).toFixed(2) + "%";
             }
           },
         }
       };
+      
+      Chart.defaults.plugins.legend.labels.color = "white";
 
   return (
     <Root>

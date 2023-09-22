@@ -8,7 +8,7 @@ export default function ConfirmDialogue({show , handleClick , children, setDefau
     <div className={show?"popup active": "popup"}>
         <div className='background_layer' onClick={()=>{handleClick(!show)}}></div>
         <div className='child_section'>
-            <button className='cls_btn' onClick={()=>{handleClick(!show);setDefault("")}}><AiOutlineCloseCircle/></button>
+            <button className='cls_btn' onClick={()=>{handleClick(!show); setDefault("")}}><AiOutlineCloseCircle/></button>
             {children}
         </div>
     </div>

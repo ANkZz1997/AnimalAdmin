@@ -1,5 +1,5 @@
 
-import { adminAction, adminUserNameAction, checkUserAction, getChainsListAction, getChainsListAdminAction, preLoginAdminDataAction } from "./action";
+import { accessCodeAction, adminAction, adminUserNameAction, checkUserAction, getChainsListAction, getChainsListAdminAction, preLoginAdminDataAction } from "./action";
 import {
     all,
     call,
@@ -29,6 +29,9 @@ function* loginUser({ data, callback }) {
             localStorage.setItem('token', response?.data?.data?.token);
             callback(response?.data);
             yield put(adminUserNameAction(response?.data?.data));
+            yield put(accessCodeAction(response?.data?.data.permissions))
+
+
             // yield put(adminAction(response));
             cogoToast.success('Login Successfull');
             // window.location.replace("/dashboard")

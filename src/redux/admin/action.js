@@ -6,11 +6,10 @@ export const userLoginAction = (data, callback) => ({
     callback,
   });
 
-  // export const userLogoutAction = (data, callback) => ({
-  //   type: userLogin.USER_LOGOUT,
-  //   data,
-  //   callback,
-  // });
+  export const accessCodeAction = (data) => ({
+    type: userLogin.ACCESS_CODES,
+    data,
+  });
 
   export const adminAction = (data) => ({
     type: admin.ADMIN,

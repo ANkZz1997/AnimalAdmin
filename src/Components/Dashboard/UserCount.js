@@ -1,18 +1,42 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import ReactApexChart from 'react-apexcharts'
+import URLS from '../../utils/urls'
 
 export default function UserCount() {
+  
+  const [userData, setUserData] = useState('');
+  const [totalCount, setTotalCount] = useState("");
+   
+  const userCountApi = async(req,res)=>{
+    try{
+      const res = await axios.get(`${URLS.EXCHANGE.ADMIN.USER_COUNT_PER_MONTH}`);
+      console.log("setUserData",res)
+      setUserData(res?.data?.data?.records)
+      setTotalCount(res?.data?.data?.totalCount)
+
+    }catch(e){
+      console.log(e)
+    }
+
+  }
+
+  useEffect(()=>{
+    userCountApi()
+  },[])
+
+  console.log("setUserData", userData,totalCount )
 
   const series = [{
     name: 'User Joined',
     type: 'column',
-    data: [500,600,400,400,700,600,700,600,600,300,200,400],
+    data: Object.values(userData),
     color : "#506fe1"
   },
   {
     name: 'Total Users',
     type: 'line',
-    data: [500,1100,1500,1900,2600,3200,3900,4500,5100,5400,5600,6000],
+    data: totalCount,
     color : "#ff555f"
   }]
   const options = {

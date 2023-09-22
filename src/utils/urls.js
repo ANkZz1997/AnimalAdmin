@@ -29,6 +29,20 @@ const URLS = {
 
             LOGIN: `${EXCHANGE_URL}/auth/adminLogin`,
             GET_DASHBOARD: `${EXCHANGE_URL}/admin/dashboard`,
+            GET_CHAIN_BALANCE: `${EXCHANGE_URL}/admin/adminBalance`,
+            GET_TOP_BUYER: `${EXCHANGE_URL}/admin/topBuyer`,
+            GET_TOP_SELLER: `${EXCHANGE_URL}/admin/topSeller`,
+            GET_USERS_WALLET_BALANCE: `${EXCHANGE_URL}/admin/usersWalletBalance`,
+            ALL_USERS_SOCIAL_TYPE: `${EXCHANGE_URL}/admin/userSocialType`,
+            ALL_USERS_KYC_STATUS: `${EXCHANGE_URL}/admin/usersKycStatus`,
+            ETH_TRANSFEREDBY_ADMIN: `${EXCHANGE_URL}/admin/totalEthTransfered`,
+            USER_COUNT_PER_MONTH: `${EXCHANGE_URL}/admin/userCountPerMonth`,
+            MARKETPLACE_STATUS_GRAPH: `${EXCHANGE_URL}/admin/marketplaceStatusData`,
+            PLATFORM_FEE_DATA: `${EXCHANGE_URL}/admin/platformFeeData`,
+
+
+
+
             GET_USER_LIST: `${EXCHANGE_URL}/admin/users`,
             GET_NFTS_LIST: `${EXCHANGE_URL}/admin/nft`,
             GET_AUCTIONS_LIST: `${EXCHANGE_URL}/admin/auctions`,
@@ -79,6 +93,7 @@ const URLS = {
             GET_ADMIN_USERS : `${EXCHANGE_URL}/admin/fetchAdminUsers`,
             CREATE_USER_ASSIGN_CODE : `${EXCHANGE_URL}/admin/createAdminUser`,
             CHANGE_USER_ROLES :`${EXCHANGE_URL}/admin/updateAdminUserRole`,
+            CHANGE_ADMIN_USER_PASSWORD:`${EXCHANGE_URL}/admin/updateAdminUserPassword`,
 
             ADD_NETWORK: `${EXCHANGE_URL}/admin/addNetwork`,
             ENABLE_NETWORK: `${EXCHANGE_URL}/admin/setNetworkEnableStatus`,
@@ -86,11 +101,11 @@ const URLS = {
             DELETE_NETWORK: `${EXCHANGE_URL}/admin/deleteNetwork`,
             EDIT_NETWORK: `${EXCHANGE_URL}/admin/editNetwork`,
             START_LISTENING: `${EXCHANGE_URL}/contractEvent/startListening`,
-           
         },
 
         ENDPOINTS: {
-            IMAGE_END_POINT: `${EXCHANGE_URL}/download/`,
+            // IMAGE_END_POINT: `${EXCHANGE_URL}/download/`,
+            IMAGE_END_POINT: `https://nft.sdnatech.com/animal-api-dev/download/`,
           },
     }
 

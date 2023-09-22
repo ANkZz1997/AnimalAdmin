@@ -1,17 +1,41 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import ReactApexChart from 'react-apexcharts'
 import styled from 'styled-components'
+import URLS from '../../utils/urls';
+
 
 export default function KycChart() {
-    const appUsers = 3900;
-    const penUsers = 1200;
-    const rejUsers = 600;
-    const totalUsers = appUsers + penUsers + rejUsers;
-    const appPer = appUsers/totalUsers*100;
-    const perPer = penUsers/totalUsers*100;
-    const rejPer = rejUsers/totalUsers*100;
 
-    const series = [appPer.toFixed(1), perPer.toFixed(1), rejPer.toFixed(1)]
+  const [kycObject, setKycObject] = useState();
+  const [totalUsers, setTotalUsers] = useState("")
+
+  const userKycStatus = async()=>{
+    try{
+
+      const res = await axios.get(`${URLS.EXCHANGE.ADMIN.ALL_USERS_KYC_STATUS}`);
+      console.log("resKyc", res?.data?.data?.object)
+      if(res.status === 200){
+        setKycObject(res?.data?.data?.object)
+        setTotalUsers(res?.data?.data?.totalCount)
+      }
+
+    }catch(e){
+      console.log(e)
+    }
+  }
+
+    const appPer = kycObject?.APPROVED/totalUsers*100;
+    const perPer = kycObject?.PENDING/totalUsers*100;
+    const rejPer = kycObject?.REJECTED/totalUsers*100;
+
+    const series = [appPer.toFixed(2), perPer.toFixed(2), rejPer.toFixed(2)]
+
+    useEffect(()=>{
+      userKycStatus();
+    }, [])
+
+
     const options = {
               chart: {
                 height: 350,
