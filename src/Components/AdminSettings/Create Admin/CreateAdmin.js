@@ -234,6 +234,9 @@ const Root = styled.section`
       font-size: 30px;
     }
   }
+  .cls_btn:hover {
+    color: #c16262;
+}
 
   .create_admin_body {
     display: flex;

@@ -50,7 +50,7 @@ function* loginUser({ data, callback }) {
         else {
             yield put(stopLoading());
 
-            cogoToast.error('Something Went Wrong');
+            cogoToast.error('Session Expired');
         }
     } catch (error) {
         yield put(stopLoading());
@@ -69,7 +69,7 @@ function* getPreLoginSettings({ params,callback}){
         }else{
             localStorage.setItem("token","")
             yield put(checkUserAction(false));
-            cogoToast.error('Something Went Wrong');
+            cogoToast.error('Session Expired');
         }
     } catch (error) {
         console.log('error',error);
@@ -91,7 +91,7 @@ function* getChainsList({callback}){
             localStorage.setItem("token","")
             yield put(checkUserAction(false));
 
-            cogoToast.error('Something Went Wrong');
+            cogoToast.error('Session Expired');
         }
     } catch (error) {
         console.log('error',error);
@@ -106,7 +106,7 @@ function* getDashboardData({ callBack }) {
         const response = yield httpPost(URLS.EXCHANGE.ADMIN.GET_DASHBOARD, {});
         if (response?.status === 200) {
             callBack(response?.data?.data)
-        }else if(response?.status===500){
+        }else if(response?.status=== 400){
             yield put(checkUserAction(false));
             localStorage.setItem('token',"");
             cogoToast.warn('Session Expired');
@@ -185,7 +185,7 @@ function* getNftData({ params,data, obj, callback }) {
         );
         if (response?.status === 200) {
             callback(response?.data?.data)
-        } else if(response?.status===500){
+        } else if(response?.status=== 400){
             yield put(checkUserAction(false));
             localStorage.setItem('token',"");
             cogoToast.warn('Session Expired');} else {
@@ -205,7 +205,7 @@ function* getMarketplaceData({ params,data, obj, callback }) {
         );
         if (response?.status === 200) {
             callback(response?.data?.data)
-        } else if(response?.status===500){
+        } else if(response?.status=== 400){
             yield put(checkUserAction(false));
             localStorage.setItem('token',"");
             cogoToast.warn('Session Expired');} else {
@@ -225,7 +225,7 @@ function* getAuctionData({ params,data, obj, callback }) {
         );
         if (response?.status === 200) {
             callback(response?.data?.data)
-        }  else if(response?.status===500){
+        }  else if(response?.status=== 400){
             yield put(checkUserAction(false));
             localStorage.setItem('token',"");
             cogoToast.warn('Session Expired');}else {
@@ -244,7 +244,7 @@ function* getBidsData({ params, obj, callback }) {
         );
         if (response?.status === 200) {
             callback(response?.data?.data)
-        } else if(response?.status===500){
+        } else if(response?.status=== 400){
             yield put(checkUserAction(false));
             localStorage.setItem('token',"");
             cogoToast.warn('Session Expired');} else {
@@ -262,7 +262,7 @@ function* getKycData({ params,data, callback }) {
             `${URLS.EXCHANGE.ADMIN.GET_KYC_DETAILS}?page=${params.page}&limit=${params.limit}&sort=${params.sorting}&order=${params.order}`,data);
         if (response?.status === 200) {
             callback(response?.data?.data)
-        }  else if(response?.status===500){
+        }  else if(response?.status=== 400){
             yield put(checkUserAction(false));
             localStorage.setItem('token',"");
             cogoToast.warn('Session Expired');}else {

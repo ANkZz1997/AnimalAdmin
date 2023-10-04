@@ -11,13 +11,16 @@ Chart.register(ChartDataLabels);
 export default function UserTypeGraph() {
   const [typeObject, setTypeObject] = useState('');
   const [totalUsers, setTotalUsers] = useState('');
+  const [dataLable, setDataLable] = useState([]);
+  const [dataValue, setDataValue] = useState([]);
 
   const getUserWithSocialType = async() =>{
     try{
       const res = await axios.get(`${URLS.EXCHANGE.ADMIN.ALL_USERS_SOCIAL_TYPE}`);
       if(res.status===200){
-        setTypeObject(res?.data?.data?.object);
-        setTotalUsers(res?.data?.data?.totalCount)
+        setTypeObject(res?.data?.data);
+        
+        // setTotalUsers(res?.data?.data?.totalCount)
       }
 
     }catch(e){
@@ -29,14 +32,21 @@ export default function UserTypeGraph() {
     getUserWithSocialType()
   },[])
 
-  console.log("=====>>data", Object.keys(typeObject) )
-
+  useEffect(()=>{
+    if(typeObject.length>0){
+      const platform = typeObject.map((i)=>i.platform[0]?i.platform[0]:"PLATFORM")
+      const count = typeObject.map((i)=>i.count[0]);
+      setDataLable(platform);
+      setDataValue(count)
+      setTotalUsers(count?.reduce((a,b)=>a+b))
+    }
+  },[typeObject])
 
     const data = {
-        labels: Object.keys(typeObject),
+        labels: dataLable,
         datasets: [
           {
-            data: Object.values(typeObject),
+            data: dataValue ,
             backgroundColor: [
               "#eb4d56",
               "#5574ff",

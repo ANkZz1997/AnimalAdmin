@@ -32,13 +32,16 @@ const URLS = {
             GET_CHAIN_BALANCE: `${EXCHANGE_URL}/admin/adminBalance`,
             GET_TOP_BUYER: `${EXCHANGE_URL}/admin/topBuyer`,
             GET_TOP_SELLER: `${EXCHANGE_URL}/admin/topSeller`,
+            GET_TOP_ROYLTY: `${EXCHANGE_URL}/admin/topRoyalty`,
             GET_USERS_WALLET_BALANCE: `${EXCHANGE_URL}/admin/usersWalletBalance`,
             ALL_USERS_SOCIAL_TYPE: `${EXCHANGE_URL}/admin/userSocialType`,
             ALL_USERS_KYC_STATUS: `${EXCHANGE_URL}/admin/usersKycStatus`,
             ETH_TRANSFEREDBY_ADMIN: `${EXCHANGE_URL}/admin/totalEthTransfered`,
             USER_COUNT_PER_MONTH: `${EXCHANGE_URL}/admin/userCountPerMonth`,
             MARKETPLACE_STATUS_GRAPH: `${EXCHANGE_URL}/admin/marketplaceStatusData`,
+            AUCTION_STATUS_GRAPH: `${EXCHANGE_URL}/admin/auctionStatusData`,
             PLATFORM_FEE_DATA: `${EXCHANGE_URL}/admin/platformFeeData`,
+            NFT_DATA_ANALYSIS: `${EXCHANGE_URL}/admin/nftAnalysis`,
 
 
 

@@ -1,19 +1,72 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import ReactApexChart from 'react-apexcharts'
+import URLS from '../../utils/urls'
 
 export default function NftCreatedVsSold() {
+  const [analysisData, setAnalysisData] = useState([]);
+  const [sold, setSold] = useState([]);
+  const [revenue, setRevenue] = useState([]);
+  const [created, setCreated] = useState([]);
+  const [maxVal, setMaxVal] = useState('');
+
+
+  const analysisApi = async()=>{
+    try{
+
+      const res = await axios.get(`${URLS.EXCHANGE.ADMIN.NFT_DATA_ANALYSIS}`)
+      console.log("res_analysis",res);
+      setAnalysisData(res?.data?.data)
+
+    }catch(e){
+      console.log(e)
+    }
+  }
+
+  useEffect(()=>{
+    analysisApi()
+  },[])
+
+  useEffect(()=>{
+    if(analysisData?.length>0){
+
+      const nftCreated = analysisData.map((i)=>{
+        return Object.values(i)[0].created
+      })
+      setCreated(nftCreated);
+
+      const soldData = analysisData.map((i)=>{
+        return Object.values(i)[0].sold
+      })
+      setSold(soldData);
+
+      const revenueData = analysisData.map((i)=>{
+        return Object.values(i)[0].platformFee
+      })
+      setRevenue(revenueData);
+
+      const maxSold = Math.max(...soldData)
+      const maxCreate = Math.max(...nftCreated)
+      setMaxVal(Math.max(maxSold, maxCreate))
+
+    }
+
+  },[analysisData])
+
+
+  console.log("sold_revenue_created", sold, revenue, created)
     const series = [{
         name: 'NFT Sold',
         type: 'column',
-        data: [15,33,62,23,56,23,34,43,42,54,33,19],
+        data: sold,
       }, {
         name: 'NFT Created',
         type: 'column',
-        data: [115,133,167,123,156,123,134,143,142,154,133,119]
+        data: created
       }, {
-        name: 'Revenue (Lacs)',
+        name: 'Revenue (Eths)',
         type: 'line',
-        data: [30, 66, 124, 46, 112, 46, 68, 86, 84, 108, 66, 38]
+        data: revenue
       }]
       const options = {
         chart: {
@@ -38,7 +91,7 @@ export default function NftCreatedVsSold() {
           width: [1, 1, 4]
         },
         title: {
-          text: 'NFT Analysis (2022)',
+          text: 'NFT Analysis (2023)',
           align: 'left',
           offsetX: 0,
           style: {
@@ -66,14 +119,20 @@ export default function NftCreatedVsSold() {
             labels: {
               style: {
                 colors: '#008FFB',
-              }
+              },
+              formatter: function (value) {
+                return value.toFixed(0);
+              },
+              
             },
+            max: maxVal,
             title: {
               text: "NFT Sold",
               style: {
                 color: '#008FFB',
               }
             },
+
             tooltip: {
               enabled: true
             }
@@ -91,8 +150,12 @@ export default function NftCreatedVsSold() {
             labels: {
               style: {
                 colors: '#00E396',
-              }
+              },
+              formatter: function (value) {
+                return value.toFixed(0);
+              },
             },
+            max: maxVal,
             title: {
               text: "NFT Created By Users",
               style: {
@@ -114,9 +177,12 @@ export default function NftCreatedVsSold() {
               style: {
                 colors: '#FEB019',
               },
+              formatter: function (value) {
+                return value.toFixed(6);
+              },
             },
             title: {
-              text: "Revenue (In Lacs)",
+              text: "Revenue (In Eths)",
               style: {
                 color: '#FEB019',
               }

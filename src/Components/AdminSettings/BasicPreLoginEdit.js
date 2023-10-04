@@ -5,6 +5,7 @@ import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import { useDispatch } from 'react-redux';
 import { preLoginAction } from '../../redux/admin/action';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 export default function BasicPreLoginEdit({ currentData, closeIt }) {
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
@@ -130,7 +131,7 @@ const lazyMint = async(lazy)=>{
   console.log("lazyMinting", lazyMinting)
   return (
     <Root>
-      <button className='btnbtn2' onClick={() => { closeIt(false) }}>Close</button>
+      <button className='btnbtn2' onClick={() => { closeIt(false) }}><AiOutlineCloseCircle/></button>
       <div className='prelogin_body2'>
         <div className='body_child2'>
           <button onClick={() => { setActiveSetting("setting1") }} className={activeSetting=="setting1"?"btnbtn4 active":"btnbtn4"}>
@@ -219,13 +220,23 @@ display: flex;
 flex-direction: column;
 align-items: right;
 align-items: end;
+position: relative;
 
 .btnbtn2{
-    padding:3px;
-    font-size: 14px;
-    right:0;
-    cursor: pointer;
+    position: absolute;
+    top: 0;
+    background-color: transparent;
+    right: 0;
+    margin: 0px !important;
+    padding: 0px !important;
 
+    svg {
+      font-size: 30px;
+    }
+}
+.btnbtn2:hover {
+    color: #c16262;
+    background-color: transparent;
 }
 
 .btnbtn3{
@@ -272,7 +283,7 @@ align-items: end;
   display: flex;
   gap: 10px;
   width: 100%;
-  padding: 10px;
+  padding: 25px;
   justify-content: space-between;
   @media(max-width:600px){
     flex-direction: column;

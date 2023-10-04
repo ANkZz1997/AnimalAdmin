@@ -22,11 +22,12 @@ export default function BidsData() {
   const nevigate = useNavigate();
   const netData = useSelector((state)=>state?.persistReducer?.platformChains)
 
-  const dataLimit = 60;
+  const dataLimit = 40;
 
   const dispatch = useDispatch();
   const callBack = (data) => {
     setBidsData(data?.records);
+    setTotalPage(data?.totalCount)
     setLoader(false);
   };
 
@@ -62,6 +63,7 @@ export default function BidsData() {
   //   setLoader(true);
   //   searchSortBidsData(1)
   // }, [searchText]);
+
 
   return (
     <Root>
@@ -101,7 +103,7 @@ export default function BidsData() {
                             as={`/auctiondetails/${i?.auction?.id}`}
                             key={ix}
                           > */}
-                            {activePage == 1 ? <td data-label="S.No">{ix + 1}</td>:<td>{ix + 15 * (activePage -1) + 1}</td>}
+                            {activePage == 1 ? <td data-label="S.No">{ix + 1}</td>:<td>{ix + 40 * (activePage -1) + 1}</td>}
                             <td className="nft_img">
                             {/* <Link to={`/auction/auctiondetails/${i?.auction?.id}`}> */}
                               <div className="nft_div" onClick={()=>{nevigate(`/auction/auctiondetails/${i?.auction?.id}`)}}>

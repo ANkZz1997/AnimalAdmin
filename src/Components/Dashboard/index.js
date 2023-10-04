@@ -31,10 +31,8 @@ export default function DashboardData() {
   const [datePopup, setDatePopup] = useState(false);
   const [startDate, setStartDate] = useState("Start Date");
   const [endDate, setEndDate] = useState(" End Date");
-  const [userData, setuserData] = useState('');
   const dispatch = useDispatch();
   const nevigate = useNavigate();
-  const searchTextUser = "";
 
   const onChange = (ranges) => {
     const newDateStart = String(ranges.startDate).split(" ");
@@ -43,10 +41,6 @@ export default function DashboardData() {
     const formateDateEnd = `${newDateEnd[1]}-${newDateEnd[2]}-${newDateEnd[3]}`;
     setStartDate(formateDateStart);
     setEndDate(formateDateEnd);
-  };
-
-  const callBack = (data) => {
-    setuserData(data?.records);
   };
 
   const clearFunction = () => {
@@ -70,31 +64,9 @@ export default function DashboardData() {
     }
   };
 
-  const searchSortUserFunction = () => {
-    const objData = [
-      { firstName: { contains: searchTextUser } },
-      { lastName: { contains: searchTextUser } },
-      { email: { contains: searchTextUser } },
-      { username: { contains: searchTextUser } },
-    ];
-    dispatch(
-      usersDataAction(
-        {
-          page: 1,
-          limit: 20,
-          sorting: "createdAt",
-          order: "DESC",
-        },
-        { or: objData },
-        callBack
-      )
-    );
-  };
-
   useEffect(() => {
     setLoader(true);
     getDashboardDetails();
-    searchSortUserFunction();
   }, []);
 
   return (
@@ -182,7 +154,7 @@ export default function DashboardData() {
         </div>
       </div>
 
-      <div className="date_range">
+      {/* <div className="date_range">
         <button onClick={() => setDatePopup(true)}>Select Date </button>
         <div>
           {startDate ? (
@@ -210,12 +182,12 @@ export default function DashboardData() {
             <DateRange onChange={onChange} />
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="dashboard_body">
         <div className="body_front">
           <div className="top_bar">
-            <TopSeller data = {userData}/>
-            <TopBuyer data = {userData}/>
+            <TopSeller/>
+            <TopBuyer/>
           </div>
           <div className="mid_bar">
             <div className="nft_transaction">
@@ -232,7 +204,7 @@ export default function DashboardData() {
                 <UserCount />
               </div>
               <div className="mid_graph second">
-                <TopUserRoyalty data = {userData}/>
+                <TopUserRoyalty/>
               </div>
             </div>
           </div>
@@ -260,6 +232,7 @@ const Root = styled.section`
     padding-bottom: 15px;
     margin-top: 20px;
     color: whitesmoke;
+    margin-bottom: 50px;
 
     > a:last-child {
       border-right: none;

@@ -56,14 +56,14 @@ function TopSeller({data}) {
                         : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
                     }
                     alt="user"
-                    onClick={()=>{nevigate(`/user/userdetails/${i?.sellerId}`)}}
+                    onClick={()=>{nevigate(`/user/userdetails/${i?._id}`)}}
                     
                     />
                     <p className='rankOf'>#{ix+1}</p>
                 </div>
                 <div className="data_div">
                   <p>{i?.firstName? i.firstName:"N/A UserName"}</p>
-                  <p className='amount'>{i.totalPrice} Rs</p>
+                  <p className='amount'>{i.totalPrice.toFixed(6)} Eth</p>
                   {/* <p>12 NFTs</p> */}
               </div>
             </div>

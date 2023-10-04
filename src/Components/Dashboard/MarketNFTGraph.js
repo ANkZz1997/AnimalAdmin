@@ -26,11 +26,11 @@ export default function MarketNFTGraph() {
   }, []);
 
   useEffect(()=>{
-    if(Object.keys(marketData).length >0){
+    if(marketData?.length >0){
       const dataFormat = [
         {
           x: "Jan",
-          y: 0,
+          y: 0, 
         },
         {
           x: "Feb",
@@ -79,13 +79,15 @@ export default function MarketNFTGraph() {
       ];
   
       const nftAdded = dataFormat?.map((i, ix) => {
-        return { ...i, y: marketData[ix + 1].count };
+        const count = Object.values(marketData[ix])[0].count
+        return { ...i, y: count };
       });
   
       setNftAddedData(nftAdded);
     
       const nftSold = dataFormat?.map((i, ix) => {
-        return { ...i, y: marketData[ix + 1]?.completed };
+        const complete = Object.values(marketData[ix])[0].complete
+        return { ...i, y: complete};
       });
       console.log("marketData", nftAddedData)
       setNftSoldData(nftSold);
@@ -96,7 +98,7 @@ export default function MarketNFTGraph() {
 
   
 
-  console.log("marketData", nftAddedData);
+  console.log("nftAddedData", nftAddedData);
 
   const series = [
     {

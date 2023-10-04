@@ -1,112 +1,112 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import ReactApexChart from 'react-apexcharts'
+import URLS from '../../utils/urls';
 
 export default function AuctionNFTGraph() {
+  const [auctionData, setAuctionData] = useState([]);
+  const [nftAddedData, setNftAddedData] = useState();
+  const [nftSoldData, setNftSoldData] = useState()
+
+
+  const auctionApi = async() => {
+    try {
+      const res = await axios.get(
+        `${URLS.EXCHANGE.ADMIN.AUCTION_STATUS_GRAPH}`
+      );
+      if (res?.status === 200) {
+        setAuctionData(res?.data?.data);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  console.log("auctionData",auctionData)
+
+  useEffect(() => {
+    auctionApi();
+  }, []);
+
+  
+  useEffect(()=>{
+    if(auctionData?.length >0){
+      const dataFormat = [
+        {
+          x: "Jan",
+          y: 0, 
+        },
+        {
+          x: "Feb",
+          y: 0,
+        },
+        {
+          x: "Mar",
+          y: 0,
+        },
+        {
+          x: "Apr",
+          y: 0,
+        },
+        {
+          x: "May",
+          y: 0,
+        },
+        {
+          x: "June",
+          y: 0,
+        },
+        {
+          x: "July",
+          y: 0,
+        },
+        {
+          x: "Aug",
+          y: 0,
+        },
+        {
+          x: "Sept",
+          y: 0,
+        },
+        {
+          x: "Oct",
+          y: 0,
+        },
+        {
+          x: "Nov",
+          y: 0,
+        },
+        {
+          x: "Dec",
+          y: 0,
+        },
+      ];
+  
+      const nftAdded = dataFormat?.map((i, ix) => {
+        const count = Object.values(auctionData[ix])[0].count
+        return { ...i, y: count };
+      });
+  
+      setNftAddedData(nftAdded);
+    
+      const nftSold = dataFormat?.map((i, ix) => {
+        const complete = Object.values(auctionData[ix])[0].complete
+        return { ...i, y: complete};
+      });
+      console.log("marketData", nftAddedData)
+      setNftSoldData(nftSold);
+    }
+
+  },[auctionData])
+
     const series = [{
         name: 'NFT Added In Auction',
         color : "#fba150",
-        data: [{
-            x: "Jan",
-            y: 222
-          },
-          {
-            x: "Feb",
-            y: 224
-          },
-          {
-            x: "Mar",
-            y: 229
-          },
-          {
-            x: "Apr",
-            y: 242
-          },
-          {
-            x: "May",
-            y: 248
-          },
-          {
-            x: "June",
-            y: 234
-          },
-          {
-            x: "July",
-            y: 225
-          },
-          {
-            x: "Aug",
-            y: 216
-          },
-          {
-            x: "Sept",
-            y: 218
-          },
-          {
-            x: "Oct",
-            y: 230
-          },
-          {
-            x: "Nov",
-            y: 255
-          },
-          {
-            x: "Dec",
-            y: 266
-          },
-        ],
+        data: nftAddedData,
       }, {
         name: 'NFT Sold From Auction',
         color : "#19e1f7",
-        data: [
-          {
-            x: "Jan",
-            y: 16
-          },
-          {
-            x: "Feb",
-            y: 21
-          },
-          {
-            x: "Mar",
-            y: 25
-          },
-          {
-            x: "Apr",
-            y: 36
-          },
-          {
-            x: "May",
-            y: 35
-          },
-          {
-            x: "June",
-            y: 48
-          },
-          {
-            x: "July",
-            y: 31
-          },
-          {
-            x: "Aug",
-            y: 24
-          },
-          {
-            x: "Sept",
-            y: 30
-          },
-          {
-            x: "Oct",
-            y: 61
-          },
-          {
-            x: "Nov",
-            y: 50
-          },
-          {
-            x: "Dec",
-            y: 44
-          },
-        ],
+        data: nftSoldData,
         
       }]
 

@@ -4,6 +4,7 @@ import { TopBuyerSellerStyle, TopSellerBuyerSettings } from '../Style/TopBuyerSe
 import Slider from 'react-slick';
 import DashTopLoader from '../Loader/DashTopLoader';
 import URLS from '../../utils/urls';
+import axios from 'axios';
 
 export default function TopUserRoyalty({data}) {
 
@@ -12,13 +13,26 @@ export default function TopUserRoyalty({data}) {
   const ImgEndPoint = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const nevigate = useNavigate();
 
-  useEffect(()=>{
-    if(data){
-      setuserData(data);
-      setLoader(false);
+  const getTopRoyalty = async ()=>{
+    try{
+      const res = await axios.get(`${URLS.EXCHANGE.ADMIN.GET_TOP_ROYLTY}`)
+      if(res?.status === 200){
+        setuserData(res?.data?.data)
+        setLoader(false);
+      }
+
+    }catch(err){
+      console.log(err)
     }
 
-  },[data])
+  }
+
+  useEffect(()=>{
+      setLoader(true);
+      getTopRoyalty();
+  },[])
+
+  console.log("userData11111", userData)
 
   return (
     <TopBuyerSellerStyle>
@@ -41,13 +55,13 @@ export default function TopUserRoyalty({data}) {
                   : 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
               }
               alt="user"
-              onClick={()=>{nevigate(`/user/userdetails/${i?.id}`)}}
+              onClick={()=>{nevigate(`/user/userdetails/${i?._id}`)}}
               />
               <p className='rankOf'>#{ix+1}</p>
           </div>
           <div className="data_div">
             <p>{i?.firstName? i.firstName:"N/A UserName"}</p>
-            <p className='amount'>34,000 Rs</p>
+            <p className='amount'>{i?.totalPrice} Eth</p>
             {/* <p>12 NFTs</p> */}
         </div>
           </div>
