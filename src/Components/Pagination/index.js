@@ -2,20 +2,47 @@ import React, { useEffect, useState } from "react";
 import { Pagination } from "semantic-ui-react";
 import styled from "styled-components";
 import { scrollTopFunction } from "../../utils/https";
+
 export default function PaginationCode({
   active,
   activePage,
   totalPage,
   limit,
 }) {
-  // console.log("paginationActive",activePage)
   const page = Math.ceil(totalPage / limit);
+
+  // Calculate the page range to display
+  const maxPagesToShow = 10;
+  const halfMaxPagesToShow = Math.floor(maxPagesToShow / 2);
+  const currentPage = active || 1;
+  let startPage, endPage;
+
+  if (page <= maxPagesToShow) {
+    // Less than or equal to 10 pages, show all pages
+    startPage = 1;
+    endPage = page;
+  } else if (currentPage <= halfMaxPagesToShow) {
+    // First few pages
+    startPage = 1;
+    endPage = maxPagesToShow;
+  } else if (currentPage + halfMaxPagesToShow >= page) {
+    // Last few pages
+    startPage = page - maxPagesToShow + 1;
+    endPage = page;
+  } else {
+    // Middle pages
+    startPage = currentPage - halfMaxPagesToShow;
+    endPage = currentPage + halfMaxPagesToShow;
+  }
+
+  const pageNumbers = [...Array(endPage - startPage + 1)].map((_, i) => startPage + i);
+
   return (
     <Root>
       <Pagination
-        boundaryRange={10}
+        boundaryRange={0}
         defaultActivePage={active}
-        ellipsisItem={null}
+        ellipsisItem="..."
         firstItem={null}
         lastItem={null}
         siblingRange={1}

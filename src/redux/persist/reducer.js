@@ -6,6 +6,7 @@ const initialState = {
   preLogData: {},
   platformChains: [],
   accessCodes: [],
+  adminRole: {},
 };
 
 const persistReducer = (state = initialState, action) => {
@@ -20,6 +21,8 @@ const persistReducer = (state = initialState, action) => {
       return { ...state, platformChains: action.data };
     case userLogin.ACCESS_CODES:
       return { ...state, accessCodes: action.data };
+    case userLogin.ADMIN_ROLE:
+      return { ...state, adminRole: action.data };
     default:
       return state;
   }

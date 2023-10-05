@@ -1,5 +1,5 @@
 
-import { accessCodeAction, adminAction, adminUserNameAction, checkUserAction, getChainsListAction, getChainsListAdminAction, preLoginAdminDataAction } from "./action";
+import { accessCodeAction, adminAction, adminRoleAction, adminUserNameAction, checkUserAction, getChainsListAction, getChainsListAdminAction, preLoginAdminDataAction } from "./action";
 import {
     all,
     call,
@@ -24,17 +24,19 @@ function* loginUser({ data, callback }) {
     try {
         const response = yield httpPost(`${URLS.EXCHANGE.ADMIN.LOGIN}`, data, {});
         if (response?.status === 200) {
+            
             // window.location.replace("/dashboard")
             // yield call(forwardTo, '/dashboard');
+
             localStorage.setItem('token', response?.data?.data?.token);
             callback(response?.data);
             yield put(adminUserNameAction(response?.data?.data));
             yield put(accessCodeAction(response?.data?.data.permissions))
 
-
+            // yield put(adminRoleAction(response?.data?.data.role))
             // yield put(adminAction(response));
+
             cogoToast.success('Login Successfull');
-            // window.location.replace("/dashboard")
             yield put(checkUserAction(true));
             yield put(stopLoading());
         }

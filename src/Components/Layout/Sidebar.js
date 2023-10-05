@@ -25,12 +25,14 @@ export default function Sidebar() {
   const dispatch = useDispatch()
   const IMAGE_END_POINT = URLS.EXCHANGE.ENDPOINTS.IMAGE_END_POINT;
   const logo = useSelector((state)=>state?.persistReducer?.preLogData?.platformLogo)
+  const accessCodes = useSelector(
+    (state) => state?.persistReducer?.accessCodes
+  );
 
   const userLogoutAction = ()=>{
     dispatch(checkUserAction(false))
     localStorage.setItem("token","")
     cogoToast.success("Logout Successfully")
-
   }
 
   useEffect(()=>{
@@ -38,8 +40,7 @@ export default function Sidebar() {
     setActiveTab(activeParam)
   },[activeParam])
 
-  console.log("activeTab",activeParam)
-  // onClick={()=>setActiveTab("user")}
+  console.log("accessCodes",accessCodes)
 
   return (
     <Root>
@@ -51,47 +52,90 @@ export default function Sidebar() {
           />
         </div>
 
+        {accessCodes.includes("dashboard_code")? 
         <div>
           <h4 className="caption">ANALYTICS</h4>
         </div>
+        :""
+      }
        
         <div className='nav_section nav_div'>
+          {accessCodes.includes("dashboard_code")? 
           <div onClick={()=>{ navigate('/dashboard')}} className={activeTab == "dashboard"?"div_1 active":"div_1"} 
             ><FaHome/><h3>Dashboard</h3>
           </div>
+          :""
+        }
           <div><h4 className="caption">CONTENT</h4></div>
+
+          {accessCodes.includes("user_code")?
           <div  onClick={()=>{ navigate('/user?type=alluser')}} className={activeTab == "user"?"div_2 active":"div_2"} 
             ><FaUserAlt/><h3>User</h3>
           </div>
+          :""
+        }
+
+          {accessCodes.includes("nft_code")?
           <div onClick={()=>{ navigate('/nfts')}} className={activeTab == "nfts"?"div_2 active":"div_2"} 
             ><GiCardKingDiamonds/><h3>NFTs</h3>
           </div>
+          :""
+        }
+
+          {accessCodes.includes("auction_code")?
           <div onClick={()=>{ navigate('/auction')}} className={activeParam == "auction"?"div_2 active":"div_2"} 
             ><RiAuctionFill/><h3>Auction</h3>
           </div>
+          :""
+        }
+
+          {accessCodes.includes("marketplace_code")?
           <div onClick={()=>{ navigate('/marketplace')}} className={activeParam == "marketplace"?"div_2 active":"div_2"} 
             ><TbReplace/><h3>Marketplace</h3>
           </div>
+          :""
+        }
+
+          {accessCodes.includes("bids_code")?
           <div onClick={()=>{ navigate('/bids')}} className={activeParam == "bids"?"div_2 active":"div_2"} 
             ><BiDna/><h3>Bids</h3>
           </div>
+          :""
+          }
+
+          {accessCodes.includes("kyc_code")?
           <div onClick={()=>{ navigate('/kyc')}} className={activeParam == "kyc"?"div_2 active":"div_2"} 
             ><FaRegAddressCard/><h3>KYC</h3>
           </div>
+          :""
+          }
+
+          {accessCodes.includes("chat_support_code")?
           <div onClick={()=>{ navigate('/chatsupport')}} className={activeParam == "chatsupport"?"div_2 active":"div_2"} 
             ><BsFillChatDotsFill/><h3>Chat Support</h3>
           </div>
+          :""
+          }
         </div>
       </div>
 
       <div  className='menu_button nav_div'>
         <hr/>
+
+        {accessCodes.includes("mobile_setting_code")?
         <div onClick={()=>{ navigate('/mobilesettings')}} className={activeParam == "mobilesettings"?"div_2 active":"div_2"} 
           ><FiSettings/><h3>Mobile Settings</h3>
         </div>
+        :""
+        }
+
+        {accessCodes.includes("platform_settings")?
         <div onClick={()=>{ navigate('/platformsettings')}} className={activeParam == "platformsettings"?"div_2 active":"div_2"} 
-          ><FiSettings/><h3>Admin Settings</h3>
+          ><FiSettings/><h3>Platform Settings</h3>
         </div>
+        :""
+        }
+
         <button onClick={()=>{ navigate('/login'); dispatch(userLogoutAction())}} className='div_2'><FiLogOut/><h3>Logout</h3></button>
       </div>
     </Root>

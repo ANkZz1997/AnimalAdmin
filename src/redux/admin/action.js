@@ -11,6 +11,11 @@ export const userLoginAction = (data, callback) => ({
     data,
   });
 
+  // export const adminRoleAction = (data) => ({
+  //   type: userLogin.ADMIN_ROLE,
+  //   data,
+  // });
+
   export const adminAction = (data) => ({
     type: admin.ADMIN,
     data: data.data,

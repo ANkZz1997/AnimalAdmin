@@ -13,6 +13,7 @@ import cogoToast from 'cogo-toast';
 import ConfirmDialogue from '../Model/ConfirmDialogue';
 import moment from 'moment';
 import { MdVerified } from 'react-icons/md';
+import { useSelector } from 'react-redux';
 
 
 function UserDetails({ userDetails, nfts, userActivity, ids }) {
@@ -22,6 +23,10 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
   const buyData = userActivity?.filter((s) => s.type == 'BUY');
   const [detailsUser, setDetailsUser] = useState(userDetails)
   const [confirmPopup,setConfirmPopup] = useState(false);
+
+  const accessCodes = useSelector(
+    (state) => state?.persistReducer?.accessCodes
+  );
 
 
   const postStatus = async (userStatus)=>{
@@ -67,12 +72,17 @@ function UserDetails({ userDetails, nfts, userActivity, ids }) {
         <h1>View User Profile</h1>
       </div>
       <div className="image_section">
+
+        {accessCodes.includes("block_user")?
         <div className='action_div'>
           <button className={detailsUser?.status=="BLOCKED"?'action_btn no':'action_btn'} onClick={()=>{setConfirmPopup(true)}}>
           {detailsUser?.status=="BLOCKED"?"Unblock":"Block"}</button>
           {/* <button className='action_btn' onClick={()=>{handleInactive()}}>
             {detailsUser?.status=="INACTIVE"?"Active":"InActive"}</button> */}
         </div>
+        :""
+        }
+
         <img
           src={
             detailsUser.avatar

@@ -23,48 +23,76 @@ import MobileSettings from "./Pages/MobileSettings";
 import NotificationPage from "./Pages/NotificationPage";
 import Login from "./Components/Login";
 import AdminProfile from "./Components/AdminSettings/AdminProfile";
+import PageNF from "./Pages/PageNF";
+import WelcomePage from "./Pages/WelcomePage";
 // import PreSettings from "./Pages/PreSettings";
 
 function App() {
-  
-  const userCheck = useSelector((state)=>state?.commonReducer);
-  const token = localStorage.getItem("token");
-  console.log('userCheck',userCheck)
+  const accessCodes = useSelector(
+    (state) => state?.persistReducer?.accessCodes
+  );
+
+  console.log("accessCodes",accessCodes.includes("dashboard_code"))
+
   return (
    <>
    <Layout>
           <Routes>
-            {/* <Route path="/" element={ <Protected > <Dashboard /> </Protected> } /> */}
-            {/* <Route path="/presettings" element={<Protected><PreSettings/></Protected>}/> */}
-           
-            <Route path="/dashboard" exact element={ <Protected > <Dashboard /> </Protected> } />
-            {/* <Route path="/user/newuser" element={ <Protected > <User /> </Protected> } /> */}
-            <Route path="/user" element={ <Protected > <User /> </Protected> } />
-            <Route path="/nfts" element={ <Protected > <Nfts /> </Protected> } />
-            <Route path="/auction" element={ <Protected > <Auction /> </Protected> } />
-            <Route path="/marketplace" element={ <Protected > <Marketplace /> </Protected> } />
-            <Route path="/bids" element={ <Protected > <Bids /> </Protected> } />
-            <Route path="/kyc" element={ <Protected > <Kyc /> </Protected> } />
-            <Route path="/chatsupport" element={ <Protected > <Chatsupport/> </Protected> } />
-            <Route path="/help" element={ <Protected > <Help /> </Protected> } />
-            <Route path='/profileadmin' element={<Protected><AdminProfile/></Protected>}/>
-
-            <Route path="/platformsettings" element={ <Protected > <PlatformSettings/> </Protected> } />
-            <Route path="/mobilesettings" element={ <Protected > <MobileSettings/> </Protected> } />
-            <Route path="/notification" element={ <Protected > <NotificationPage/> </Protected> } />
-            {/* <Route path="/platformsettings/platformcharge" element={ <Protected > <PlatformFees/> </Protected> } /> */}
-
-            <Route path="/user/userdetails/:id" element={ <Protected > <UserDetails /> </Protected> } />
-            <Route path="/nfts/nftdetails/:id" element={ <Protected > <NftDetailsId/> </Protected> } />
-            <Route path="/auction/auctiondetails/:id" element={ <Protected > <AuctionDetailsId/> </Protected> } />
-            {/* <Route path="/dashboard/dashboarddetails/:id" element={ <Protected > <DashboardDetailsId/> </Protected> } /> */}
-            <Route path="marketplace/marketplacedetails/:id" element={<Protected > <MarketplaceDetailsId/> </Protected> }/>
-            <Route path="/chatsupport/userchatdetails/:id" element={ <Protected > <UserChatDetailsId/> </Protected> } />
+            {accessCodes.includes("dashboard_code") ?
+            <Route path="/dashboard" exact element={ <Protected > <Dashboard /> </Protected> } />:""
+          }
+            {accessCodes.includes("user_code") ?
+            <Route path="/user" element={ <Protected > <User /> </Protected> }/>:""
+          }
+            {accessCodes.includes("single_user_code") ?
+            <Route path="/user/userdetails/:id" element={ <Protected > <UserDetails /> </Protected> } />:""
+          }
+            {accessCodes.includes("nft_code") ?
+            <Route path="/nfts" element={ <Protected > <Nfts /> </Protected> } />:""
+          }
+            {accessCodes.includes("single_nft_code") ?
+            <Route path="/nfts/nftdetails/:id" element={ <Protected > <NftDetailsId/> </Protected> } />:""
+          }
+            {accessCodes.includes("auction_code") ?
+            <Route path="/auction" element={ <Protected > <Auction /> </Protected> } />:""
+          }
+            {accessCodes.includes("auction_code") ?
+            <Route path="/auction/auctiondetails/:id" element={ <Protected > <AuctionDetailsId/> </Protected> } />:""
+          }
+            {accessCodes.includes("marketplace_code") ?
+            <Route path="/marketplace" element={ <Protected > <Marketplace /> </Protected> } />:""
+          }
+            {accessCodes.includes("marketplace_code") ?
+            <Route path="marketplace/marketplacedetails/:id" element={<Protected > <MarketplaceDetailsId/> </Protected> }/>:""
+          }
+            {accessCodes.includes("bids_code") ?
+            <Route path="/bids" element={ <Protected > <Bids /> </Protected> } />:""
+          }
+            {accessCodes.includes("kyc_code") ?
+            <Route path="/kyc" element={ <Protected > <Kyc /> </Protected> } />:""
+          }
+            {accessCodes.includes("chat_support_code") ?
+            <Route path="/chatsupport" element={ <Protected > <Chatsupport/> </Protected> } />:""
+          }
+            {accessCodes.includes("chat_support_code") ?
+            <Route path="/chatsupport/userchatdetails/:id" element={ <Protected > <UserChatDetailsId/> </Protected> } />:""
+          }
+            {accessCodes.includes("platform_settings") ?
+            <Route path="/platformsettings" element={ <Protected > <PlatformSettings/> </Protected> } />:""
+          }
+            {accessCodes.includes("mobile_setting_code") ?
+            <Route path="/mobilesettings" element={ <Protected > <MobileSettings/> </Protected> } />:""
+          }
             
-            <Route path='*' element={ <Protected > <Dashboard /> </Protected> }/> 
+            {/* <Route path="/help" element={ <Protected > <Help /> </Protected> } /> */}
+
+            <Route path='/welcome' element={<Protected><WelcomePage/></Protected>}/>
+            <Route path='/profileadmin' element={<Protected><AdminProfile/></Protected>}/>
+            <Route path="/notification" element={ <Protected > <NotificationPage/> </Protected> } />
+            <Route path='*' element={ <Protected > <PageNF /> </Protected> }/> 
+
           </Routes>
     </Layout>
-      
     </>
   )}
 

@@ -27,7 +27,7 @@ export default function Login() {
             password : inputPass,
         }
         const userCallback=(e)=>{
-            nagivate("/dashboard")
+            nagivate("/welcome")
         }
         dispatch(userLoginAction(data , userCallback));
     }
