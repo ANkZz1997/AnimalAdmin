@@ -85,12 +85,11 @@ function App() {
           }
             
             {/* <Route path="/help" element={ <Protected > <Help /> </Protected> } /> */}
-
             <Route path='/welcome' element={<Protected><WelcomePage/></Protected>}/>
+            <Route path='*' element={<Protected><WelcomePage/></Protected>}/>
             <Route path='/profileadmin' element={<Protected><AdminProfile/></Protected>}/>
             <Route path="/notification" element={ <Protected > <NotificationPage/> </Protected> } />
-            <Route path='*' element={ <Protected > <PageNF /> </Protected> }/> 
-
+            {/* <Route path='*' element={ <Protected > <PageNF /> </Protected> }/>  */}
           </Routes>
     </Layout>
     </>
