@@ -90,6 +90,7 @@ function App() {
             <Route path='/profileadmin' element={<Protected><AdminProfile/></Protected>}/>
             <Route path="/notification" element={ <Protected > <NotificationPage/> </Protected> } />
             {/* <Route path='*' element={ <Protected > <PageNF /> </Protected> }/>  */}
+            
           </Routes>
     </Layout>
     </>
